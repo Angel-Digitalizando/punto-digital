@@ -1,0 +1,781 @@
+/* =========================================================
+   PUNTO DIGITAL COMUNITARIO MORENENSE — v2
+   Institucional Argentina · Accesibilidad extrema · 2026
+========================================================= */
+
+:root {
+    --azul-arg:    #0B5AA2;
+    --azul-oscuro: #073763;
+    --celeste-arg: #37B5E5;
+    --fondo:       #F5F8FC;
+    --blanco:      #FFFFFF;
+    --texto:       #1F2937;
+    --texto-suave: #4B5563;
+    --gris-borde:  #D7E1EA;
+    --verde:       #198754;
+    --amarillo:    #FFF3CD;
+    --amarillo-txt:#664D03;
+    --rojo:        #C62828;
+    --shadow:      0 3px 10px rgba(0,0,0,.07);
+    --radius:      18px;
+    --espacio:     clamp(16px, 3vw, 32px);
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.8;
+    font-size: 22px;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* ── Skip Link ─────────────────────────────────────────── */
+.skip-link {
+    position:absolute; top:-100px; left:10px;
+    background:var(--azul-arg); color:white;
+    padding:10px 18px; border-radius:8px;
+    font-weight:bold; z-index:9999; transition:top .2s;
+}
+.skip-link:focus { top:10px; }
+
+/* ── Contenedor ────────────────────────────────────────── */
+.container { width:95%; max-width:1200px; margin:auto; }
+
+/* ── Header ────────────────────────────────────────────── */
+.header {
+    background: linear-gradient(180deg, var(--azul-arg), var(--azul-oscuro));
+    color:white; padding:40px 20px;
+    border-bottom:8px solid var(--celeste-arg);
+    box-shadow: var(--shadow);
+}
+.header h1 { font-size:3rem; text-align:center; line-height:1.3; margin-bottom:15px; font-weight:700; }
+.header p  { text-align:center; font-size:1.3rem; opacity:.98; }
+
+/* ── Barra Accesibilidad ───────────────────────────────── */
+#barra-accesibilidad {
+    background:#e8f0f8; border-bottom:3px solid var(--celeste-arg);
+    padding:10px 0; position:sticky; top:0; z-index:100;
+    box-shadow:0 2px 6px rgba(0,0,0,.07);
+}
+.barra-acc-inner { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.barra-acc-label { font-weight:bold; color:var(--azul-oscuro); font-size:.95rem; }
+.btn-acc {
+    background:var(--azul-arg); color:white; border:none;
+    padding:9px 15px; border-radius:10px;
+    font-size:.95rem !important; font-weight:bold;
+    cursor:pointer; min-height:auto !important;
+    transition:background .15s;
+}
+.btn-acc:hover  { background:var(--azul-oscuro); }
+.btn-acc:focus  { outline:4px solid #FFD54F; outline-offset:2px; }
+.btn-acc[aria-pressed="true"] { background:#28a745; }
+.btn-ultra { background:#6f42c1 !important; }
+.btn-ultra:hover { background:#4e2d8a !important; }
+.btn-ultra[aria-pressed="true"] { background:#3d2270 !important; }
+
+/* ── Indicador Offline ─────────────────────────────────── */
+#indicador-conexion {
+    display:none; background:var(--rojo); color:white;
+    text-align:center; padding:12px 20px;
+    font-weight:bold; font-size:1.1rem;
+    position:sticky; top:52px; z-index:99;
+    border-bottom:3px solid #8B0000;
+}
+
+/* ── Toast sistema ─────────────────────────────────────── */
+#toast-contenedor {
+    position:fixed; bottom:24px; right:16px;
+    display:flex; flex-direction:column; gap:8px;
+    z-index:1002; max-width:min(340px, 92vw);
+}
+.toast {
+    padding:13px 18px; border-radius:10px;
+    font-size:1.1rem; font-weight:bold;
+    box-shadow:0 4px 12px rgba(0,0,0,.18);
+    opacity:0; transform:translateY(10px);
+    transition:opacity .3s, transform .3s;
+}
+.toast-visible   { opacity:1; transform:translateY(0); }
+.toast-exito     { background:#28a745; color:white; }
+.toast-info      { background:var(--azul-arg); color:white; }
+.toast-aviso     { background:#e67e22; color:white; }
+
+/* ── Panel de Voz ──────────────────────────────────────── */
+#panel-voz {
+    position:fixed; bottom:0; left:0; right:0;
+    background:var(--azul-oscuro); color:white;
+    padding:14px 16px; z-index:200;
+    border-top:4px solid var(--celeste-arg);
+    box-shadow:0 -4px 14px rgba(0,0,0,.2);
+}
+.panel-voz-inner   { max-width:900px; margin:auto; }
+.panel-voz-titulo  { display:block; font-size:1.1rem; font-weight:bold; margin-bottom:10px; }
+.panel-voz-controles { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+.btn-voz-ctrl {
+    background:rgba(255,255,255,.15); color:white; border:2px solid rgba(255,255,255,.3);
+    padding:9px 14px; border-radius:8px;
+    font-size:1rem !important; font-weight:bold;
+    cursor:pointer; min-height:auto !important;
+    transition:background .15s;
+}
+.btn-voz-ctrl:hover    { background:rgba(255,255,255,.3); }
+.btn-voz-ctrl:focus    { outline:3px solid #FFD54F; }
+.btn-voz-detener       { background:rgba(198,40,40,.5) !important; }
+.panel-voz-velocidad   { display:flex; align-items:center; gap:10px; font-size:1rem; }
+.panel-voz-velocidad input[type=range] { flex:1; cursor:pointer; }
+#valor-velocidad { min-width:2.5em; text-align:right; font-weight:bold; }
+
+/* Resaltado paso leído */
+.paso-leyendo {
+    border-left-color: var(--celeste-arg) !important;
+    background: #EAF6FD !important;
+    box-shadow: 0 0 0 3px var(--celeste-arg);
+    transition: background .3s, box-shadow .3s;
+}
+
+/* ── Buscador ──────────────────────────────────────────── */
+.seccion-buscador {
+    margin:25px 0 0; background:white;
+    border-radius:var(--radius); padding:24px 28px;
+    box-shadow:var(--shadow); border:2px solid var(--gris-borde);
+}
+.label-buscador { display:block; font-size:1.2rem; font-weight:bold; color:var(--azul-oscuro); margin-bottom:10px; }
+.input-buscador {
+    width:100%; padding:15px 18px; font-size:1.25rem;
+    border:3px solid var(--celeste-arg); border-radius:14px;
+    outline:none; color:var(--texto); background:#F9FBFD;
+    transition:border-color .2s, box-shadow .2s;
+    -webkit-appearance:none;
+}
+.input-buscador:focus {
+    border-color:var(--azul-arg);
+    box-shadow:0 0 0 4px rgba(11,90,162,.12);
+}
+.input-buscador::placeholder { color:#9CA3AF; }
+.contador-resultados { margin-top:8px; font-size:1rem; color:var(--texto-suave); min-height:1.4em; }
+
+/* ── Intro ─────────────────────────────────────────────── */
+.intro {
+    background:white; margin-top:22px; padding:32px;
+    border-radius:var(--radius); box-shadow:var(--shadow);
+    border:2px solid var(--gris-borde);
+}
+.intro h2 { color:var(--azul-oscuro); font-size:2.1rem; margin-bottom:16px; }
+.intro p   { font-size:1.2rem; color:var(--texto-suave); }
+
+/* Tutorial reciente */
+.reciente-wrap { margin-top:18px; padding-top:16px; border-top:2px dashed var(--gris-borde); }
+.reciente-label { font-size:1rem; color:var(--texto-suave); margin-bottom:8px; }
+.btn-reciente-item {
+    background:white; border:2px solid var(--azul-arg);
+    color:var(--azul-arg); padding:12px 18px;
+    border-radius:12px; font-size:1.1rem !important;
+    font-weight:bold; cursor:pointer; min-height:auto !important;
+    transition:background .15s;
+}
+.btn-reciente-item:hover { background:#EBF4FF; }
+
+/* ── Favoritos ─────────────────────────────────────────── */
+.seccion-favoritos {
+    background:#FFFBF0; border:2px solid #FFD54F;
+    border-radius:var(--radius); padding:24px 28px;
+    margin-top:25px; box-shadow:var(--shadow);
+}
+.favoritos-titulo { color:#7B5800; font-size:1.6rem; margin-bottom:14px; }
+.favoritos-grid { display:flex; flex-wrap:wrap; gap:12px; }
+.btn-favorito-item {
+    background:white; border:2px solid #FFD54F;
+    padding:12px 18px; border-radius:12px;
+    font-size:1.1rem !important; font-weight:bold;
+    color:var(--texto); cursor:pointer; min-height:auto !important;
+    transition:background .15s;
+}
+.btn-favorito-item:hover { background:#FFFBEA; }
+
+/* ── Progreso Global ───────────────────────────────────── */
+.seccion-progreso {
+    background:white; border:2px solid var(--gris-borde);
+    border-radius:var(--radius); padding:24px 28px;
+    margin-top:25px; box-shadow:var(--shadow);
+}
+.progreso-titulo   { color:var(--azul-oscuro); font-size:1.6rem; margin-bottom:14px; }
+.progreso-global-wrap { display:flex; flex-direction:column; gap:8px; }
+.progreso-global-barra-bg {
+    background:#DDE8F2; border-radius:20px; height:20px; overflow:hidden;
+}
+.progreso-global-fill {
+    height:100%;
+    background:linear-gradient(90deg, var(--azul-arg), var(--celeste-arg));
+    border-radius:20px; transition:width .6s ease; min-width:6px;
+}
+.progreso-texto { font-size:1.1rem; color:var(--texto-suave); }
+.badges-contenedor { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.badge {
+    background:#EEF7E0; color:#2D6A4F;
+    border:2px solid #74C69D; border-radius:20px;
+    padding:6px 14px; font-size:1rem; font-weight:bold;
+}
+
+/* ── Menú Principal ────────────────────────────────────── */
+.grid-menu {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(290px, 1fr));
+    gap:22px; margin-top:28px; margin-bottom:35px;
+}
+.btn-menu {
+    background:white; border:3px solid var(--celeste-arg);
+    border-radius:22px; padding:26px;
+    cursor:pointer; text-align:left;
+    box-shadow:var(--shadow);
+    font-size:1.25rem; font-weight:bold;
+    color:var(--azul-oscuro); line-height:1.4;
+    transition:transform .15s, border-color .15s, background .15s;
+    position:relative;
+}
+.btn-menu:hover { transform:translateY(-3px); border-color:var(--azul-arg); background:#F0F8FF; }
+.btn-menu:focus { outline:5px solid #FFD54F; outline-offset:2px; }
+.btn-badge { font-size:.9rem; margin-left:6px; }
+
+/* ── Acciones del Tutorial ─────────────────────────────── */
+.acciones-tutorial {
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin:14px 0; padding:16px 0;
+    border-bottom:2px solid var(--gris-borde);
+}
+.btn-accion {
+    background:white; border:2px solid var(--gris-borde);
+    color:var(--texto); padding:10px 16px;
+    border-radius:10px; font-size:1rem !important;
+    font-weight:bold; cursor:pointer; min-height:auto !important;
+    transition:background .15s, border-color .15s;
+}
+.btn-accion:hover { background:#F3F4F6; border-color:var(--azul-arg); }
+.btn-accion:focus { outline:4px solid #FFD54F; }
+.btn-accion.activo {
+    background:#EBF8EF; border-color:var(--verde); color:var(--verde);
+}
+
+/* ── Tutorial Container ────────────────────────────────── */
+.tutorial-container {
+    background:white; border-radius:22px; padding:32px;
+    box-shadow:var(--shadow); margin-bottom:35px;
+    border:2px solid var(--gris-borde);
+}
+.oculto { display:none !important; }
+
+/* ── Botón Volver ──────────────────────────────────────── */
+.btn-volver {
+    background:var(--azul-arg); color:white; border:none;
+    padding:16px 26px; border-radius:14px;
+    font-size:1.2rem; font-weight:bold; cursor:pointer;
+    margin-bottom:26px; width:100%; max-width:340px;
+    transition:background .15s;
+}
+.btn-volver:hover { background:var(--azul-oscuro); }
+.btn-volver:focus { outline:5px solid #FFD54F; }
+
+/* ── Barra de Progreso de Pasos ────────────────────────── */
+#indicador-progreso { margin:10px 0 18px; }
+.texto-progreso { display:block; font-size:1.1rem; font-weight:bold; color:var(--azul-oscuro); margin-bottom:7px; }
+.barra-progreso-wrap  { background:#DDE8F2; border-radius:20px; height:14px; overflow:hidden; }
+.barra-progreso-fill  { height:100%; background:linear-gradient(90deg, var(--azul-arg), var(--celeste-arg)); border-radius:20px; transition:width .4s ease; min-width:6px; }
+
+/* ── Pasos ─────────────────────────────────────────────── */
+.paso-tutorial {
+    background:#FAFCFE; border:2px solid #DDE8F2;
+    border-left:10px solid var(--celeste-arg);
+    border-radius:18px; padding:26px; margin-bottom:22px;
+}
+.paso-tutorial h3 { color:var(--azul-oscuro); font-size:1.7rem; margin-bottom:13px; }
+.paso-tutorial p  { font-size:1.2rem; line-height:1.9; }
+
+/* ── Botones paso ──────────────────────────────────────── */
+.btn-paso {
+    background:var(--azul-arg); color:white; border:none;
+    padding:11px 16px; border-radius:9px; cursor:pointer;
+    font-size:1rem !important; font-weight:bold;
+    min-height:auto !important; margin-top:7px;
+    transition:background .15s;
+}
+.btn-paso:hover { background:var(--azul-oscuro); }
+.btn-paso:focus { outline:4px solid #FFD54F; }
+
+/* ── Regla global botones ─────────────────────────────── */
+button { font-size:1.2rem !important; min-height:62px; font-weight:bold; }
+
+/* ── Alertas ───────────────────────────────────────────── */
+.alerta-tranquilidad {
+    background:var(--amarillo); color:var(--amarillo-txt);
+    border-left:8px solid #FFCA2C; padding:22px;
+    border-radius:16px; margin-top:22px; font-size:1.15rem;
+}
+.consejos {
+    background:#FFF1F1; border-left:8px solid var(--rojo);
+    padding:28px; border-radius:18px; margin-top:36px;
+}
+.consejos h2 { color:var(--rojo); font-size:1.9rem; margin-bottom:13px; }
+.consejos ul  { padding-left:20px; }
+.consejos li  { margin-bottom:10px; font-size:1.1rem; }
+
+/* ── Links ─────────────────────────────────────────────── */
+a { color:var(--azul-arg); font-weight:bold; text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+/* ── Footer ────────────────────────────────────────────── */
+.footer {
+    background:var(--azul-oscuro); color:white;
+    text-align:center; padding:38px 20px;
+    margin-top:48px; border-top:8px solid var(--celeste-arg);
+}
+.footer p { font-size:1.05rem; }
+
+/* ── Animaciones ───────────────────────────────────────── */
+.tutorial-container, .btn-menu, .intro, .seccion-buscador,
+.seccion-favoritos, .seccion-progreso {
+    animation: fadeIn .3s ease;
+}
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(8px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── Modos accesibles ──────────────────────────────────── */
+
+/* Lectura Grande */
+html.modo-lectura-grande body { font-size:27px !important; }
+html.modo-lectura-grande .paso-tutorial p,
+html.modo-lectura-grande .intro p { font-size:1.35rem !important; line-height:2 !important; }
+html.modo-lectura-grande .btn-menu { font-size:1.5rem !important; padding:32px !important; }
+html.modo-lectura-grande button    { font-size:1.35rem !important; min-height:70px !important; }
+html.modo-lectura-grande .input-buscador { font-size:1.4rem; padding:18px; }
+
+/* Alto Contraste */
+html.modo-alto-contraste body { background:#111 !important; color:#fff !important; }
+html.modo-alto-contraste .header { background:#000 !important; border-bottom-color:#FFD700 !important; }
+html.modo-alto-contraste .btn-menu,
+html.modo-alto-contraste .intro,
+html.modo-alto-contraste .tutorial-container,
+html.modo-alto-contraste .paso-tutorial,
+html.modo-alto-contraste .seccion-buscador,
+html.modo-alto-contraste .seccion-favoritos,
+html.modo-alto-contraste .seccion-progreso { background:#111 !important; color:#fff !important; border-color:#FFD700 !important; }
+html.modo-alto-contraste .paso-tutorial h3,
+html.modo-alto-contraste .intro h2  { color:#FFD700 !important; }
+html.modo-alto-contraste .input-buscador { background:#000 !important; color:#fff !important; border-color:#FFD700 !important; }
+html.modo-alto-contraste a { color:#FFD700 !important; }
+html.modo-alto-contraste #barra-accesibilidad { background:#000 !important; border-color:#FFD700 !important; }
+
+/* Modo Ultra */
+html.modo-ultra body { font-size:28px !important; letter-spacing:.01em; }
+html.modo-ultra .paso-tutorial { padding:32px !important; margin-bottom:28px !important; }
+html.modo-ultra .paso-tutorial p { font-size:1.45rem !important; line-height:2.1 !important; }
+html.modo-ultra .btn-menu { padding:36px !important; font-size:1.6rem !important; min-height:110px !important; }
+html.modo-ultra button { min-height:76px !important; font-size:1.4rem !important; }
+html.modo-ultra .barra-progreso-wrap { height:24px !important; }
+html.modo-ultra * { transition:none !important; animation:none !important; }
+
+/* Reduced motion */
+html.reduced-motion *, html.reduced-motion *::before, html.reduced-motion *::after {
+    animation-duration:1ms !important;
+    transition-duration:1ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:1ms !important; transition-duration:1ms !important; }
+}
+
+/* ── Focus visible ──────────────────────────────────────── */
+:focus-visible { outline:4px solid #FFD54F; outline-offset:3px; }
+
+/* ── Tablet ─────────────────────────────────────────────── */
+@media (max-width:900px) {
+    body { font-size:21px; }
+    .header h1 { font-size:2.4rem; }
+}
+
+/* ── Celulares ──────────────────────────────────────────── */
+@media (max-width:600px) {
+    body { font-size:23px; }
+    .container { width:96%; }
+    .header { padding:28px 14px; }
+    .header h1 { font-size:2.1rem; line-height:1.4; }
+    .header p  { font-size:1.2rem; }
+    .intro, .tutorial-container, .seccion-buscador,
+    .seccion-favoritos, .seccion-progreso { padding:20px; }
+    .intro h2 { font-size:1.9rem; }
+    .barra-acc-inner { gap:6px; }
+    .btn-acc  { font-size:.88rem !important; padding:8px 11px; }
+    .btn-menu { padding:22px 16px; font-size:1.2rem !important; }
+    .paso-tutorial { padding:20px; }
+    .paso-tutorial h3 { font-size:1.6rem; }
+    .paso-tutorial p  { font-size:1.25rem; }
+    button  { width:100%; font-size:1.25rem !important; padding:17px !important; }
+    .btn-volver { max-width:100%; }
+    .btn-acc, .btn-accion, .btn-paso, .btn-voz-ctrl { width:auto; }
+    .panel-voz-controles { gap:6px; }
+    .btn-voz-ctrl { font-size:.9rem !important; padding:8px 10px; }
+}
+
+/* =========================================================
+   ESTILOS FASE 2 — Categorías, Onboarding, Deeplink, Notas
+   Punto Digital Comunitario Morenense
+   Agregados sobre el sistema existente — sin romper nada.
+========================================================= */
+
+/* ── Tabs de categoría ─────────────────────────────────── */
+#tabs-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 22px 0 0;
+    padding: 0;
+}
+
+.tab-categoria {
+    background: white;
+    border: 2px solid var(--gris-borde);
+    color: var(--texto-suave);
+    padding: 10px 16px;
+    border-radius: 30px;
+    font-size: 1rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    transition: border-color .15s, background .15s, color .15s;
+    white-space: nowrap;
+}
+
+.tab-categoria:hover {
+    border-color: var(--azul-arg);
+    color: var(--azul-arg);
+    background: #EBF4FF;
+}
+
+.tab-categoria.tab-activo {
+    background: var(--azul-arg);
+    border-color: var(--azul-arg);
+    color: white;
+}
+
+.tab-categoria:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+/* ── Encabezados y grids de categoría ──────────────────── */
+.categoria-encabezado {
+    margin: 30px 0 10px;
+    padding-bottom: 10px;
+}
+
+.categoria-titulo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    border-left: 6px solid var(--azul-arg); /* color se sobreescribe por JS */
+    padding-left: 14px;
+    margin-bottom: 4px;
+}
+
+.categoria-desc {
+    font-size: 1rem;
+    color: var(--texto-suave);
+    padding-left: 20px;
+    margin: 0;
+}
+
+.categoria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 10px;
+}
+
+/* ── Nota de cierre del tutorial ───────────────────────── */
+.nota-tutorial {
+    background: var(--amarillo);
+    color: var(--amarillo-txt);
+    border-left: 6px solid #FFCA2C;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* ── Onboarding overlay ────────────────────────────────── */
+#overlay-onboarding {
+    position: fixed;
+    inset: 0; /* top:0 right:0 bottom:0 left:0 */
+    background: rgba(7, 55, 99, 0.88);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+#overlay-onboarding.onb-visible {
+    opacity: 1;
+}
+
+#overlay-onboarding.onb-saliendo {
+    opacity: 0;
+}
+
+.onb-panel {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 32px 28px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, .3);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.onb-paso { /* cada "pantalla" del onboarding */ }
+
+.onb-icono {
+    font-size: 3.5rem;
+    text-align: center;
+    display: block;
+    margin-bottom: 16px;
+    line-height: 1;
+}
+
+.onb-titulo {
+    color: var(--azul-oscuro);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 18px;
+    line-height: 1.3;
+}
+
+.onb-texto {
+    font-size: 1.15rem;
+    color: var(--texto);
+    line-height: 1.8;
+    margin-bottom: 14px;
+}
+
+.onb-btn-siguiente,
+.onb-btn-empezar {
+    display: block;
+    width: 100%;
+    background: var(--azul-arg);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 18px;
+    font-size: 1.2rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 24px;
+    min-height: auto !important;
+    transition: background .15s;
+}
+
+.onb-btn-siguiente:hover,
+.onb-btn-empezar:hover {
+    background: var(--azul-oscuro);
+}
+
+.onb-btn-empezar {
+    background: var(--verde);
+}
+
+.onb-btn-empezar:hover {
+    background: #146c43;
+}
+
+/* Opciones de categoría en paso 2 */
+.onb-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.onb-opcion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #F9FBFD;
+    border: 2px solid var(--gris-borde);
+    border-radius: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem !important;
+    min-height: auto !important;
+    transition: border-color .15s, background .15s;
+    color: var(--texto);
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+.onb-opcion:hover {
+    border-color: var(--azul-arg);
+    background: #EBF4FF;
+}
+
+.onb-opcion.onb-opcion-activa {
+    border-color: var(--verde);
+    background: #EBF8EF;
+}
+
+.onb-opcion-icono {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+/* Indicador de pasos (puntitos) */
+.onb-indicador {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.onb-punto {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gris-borde);
+    transition: background .2s;
+}
+
+.onb-punto-activo {
+    background: var(--azul-arg);
+}
+
+/* ── Alto contraste: onboarding ────────────────────────── */
+html.modo-alto-contraste .onb-panel {
+    background: #111 !important;
+    color: #fff !important;
+    border: 2px solid #FFD700;
+}
+
+html.modo-alto-contraste .onb-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .onb-texto  { color: #fff !important; }
+html.modo-alto-contraste .onb-opcion {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+
+/* ── Modo ultra: onboarding ────────────────────────────── */
+html.modo-ultra .onb-titulo { font-size: 2.1rem !important; }
+html.modo-ultra .onb-texto  { font-size: 1.35rem !important; line-height: 2 !important; }
+html.modo-ultra .onb-opcion { font-size: 1.2rem !important; padding: 20px !important; }
+
+/* ── Celulares: ajustes onboarding ─────────────────────── */
+@media (max-width: 600px) {
+    .onb-panel {
+        padding: 28px 20px 22px;
+    }
+    .onb-titulo { font-size: 1.6rem; }
+    .onb-texto  { font-size: 1.1rem; }
+    .categoria-titulo { font-size: 1.25rem; }
+    #tabs-categorias { gap: 6px; }
+    .tab-categoria { font-size: .88rem !important; padding: 8px 12px; }
+    .categoria-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   BANNER DE SEGURIDAD DIGITAL
+   Reemplaza .consejos — más visible, más humano
+========================================================= */
+
+.banner-seguridad {
+    background: #FFF1F1;
+    border: 2px solid #F5C6C6;
+    border-left: 8px solid var(--rojo);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-top: 36px;
+}
+
+.banner-seg-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.banner-seg-icono {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.banner-seg-titulo {
+    color: var(--rojo);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.banner-seg-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.banner-seg-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--texto);
+}
+
+.banner-seg-emoji {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.banner-seg-btn {
+    background: var(--rojo);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 1.05rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    width: 100%;
+    transition: background .15s;
+}
+
+.banner-seg-btn:hover  { background: #a31e1e; }
+.banner-seg-btn:focus  { outline: 4px solid #FFD54F; }
+
+/* Alto contraste */
+html.modo-alto-contraste .banner-seguridad {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .banner-seg-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .banner-seg-item   { color: #fff !important; }
+
+/* Celulares */
+@media (max-width: 600px) {
+    .banner-seguridad { padding: 20px; }
+    .banner-seg-titulo { font-size: 1.3rem; }
+    .banner-seg-item { font-size: 1.05rem; }
+}
