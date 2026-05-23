@@ -1,0 +1,33 @@
+{
+  "name": "Punto Digital Comunitario Morenense",
+  "short_name": "Punto Digital",
+  "description": "Tutoriales paso a paso para hacer trámites digitales. Accesible, offline, para vecinos de Moreno.",
+  "start_url": "/punto-digital/index.html",
+  "scope": "/punto-digital/",
+  "display": "standalone",
+  "background_color": "#F5F8FC",
+  "theme_color": "#0B5AA2",
+  "orientation": "portrait-primary",
+  "lang": "es-AR",
+  "categories": ["education", "government"],
+  "icons": [
+    {
+      "src": "/punto-digital/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/punto-digital/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/punto-digital/assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

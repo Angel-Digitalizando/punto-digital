@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <!--
+        viewport: user-scalable=yes es intencional.
+        Permitir zoom es un requisito WCAG 1.4.4.
+        NO usar user-scalable=no en proyectos accesibles.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B5AA2">
+    <meta name="description"
+          content="Guía paso a paso para hacer trámites online. Tutoriales digitales accesibles para vecinos de Moreno, Buenos Aires.">
+
+    <!-- Open Graph para compartir en WhatsApp / redes -->
+    <meta property="og:title"       content="Punto Digital Comunitario Morenense">
+    <meta property="og:description" content="Tutoriales digitales accesibles para vecinos de Moreno. Gratis, en español, paso a paso.">
+    <!--
+        og:image DEBE ser URL absoluta para WhatsApp/Facebook.
+        Cambiar por la URL real después de publicar:
+        URL ya configurada para:
+        https://angel-digitalizando.github.io/punto-digital/assets/icons/icon-512.png
+    -->
+    <meta property="og:image"       content="https://angel-digitalizando.github.io/punto-digital/assets/icons/icon-512.png">
+    <meta property="og:url"         content="https://angel-digitalizando.github.io/punto-digital/">
+    <meta property="og:locale"      content="es_AR">
+    <meta property="og:type"        content="website">
+
+    <title>Punto Digital Comunitario - Morenense</title>
+
+    <!-- CSS único — no hay CSS inline en scripts -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!--
+        apple-touch-icon: necesario para "Agregar a inicio"
+        en iOS Safari (no usa el manifest para esto).
+    -->
+    <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
+</head>
+<body>
+
+    <!--
+        SKIP LINK — accesibilidad teclado y lectores de pantalla.
+        Debe ser el primer elemento del body.
+        El href apunta a id="contenido-principal" más abajo.
+    -->
+    <a href="#contenido-principal" class="skip-link">
+        Ir al contenido principal
+    </a>
+
+    <header class="header" role="banner">
+        <div class="container">
+            <h1>🌐 Punto Digital Comunitario Morenense</h1>
+            <p>Guión fácil y paso a paso para hacer tus trámites por internet.</p>
+        </div>
+    </header>
+
+    <!--
+        La barra de accesibilidad (#barra-accesibilidad) se inyecta
+        aquí por accesibilidad.js, inmediatamente después del header.
+        No está en el HTML estático para evitar que aparezca sin estilos
+        durante el FOUC en conexiones lentas.
+    -->
+
+    <main class="container" id="contenido-principal" role="main">
+
+        <!--
+            El indicador de conexión (#indicador-conexion) se inyecta
+            como primer hijo de este <main> por pwa.js.
+            Posición intencional: queda arriba de todo el contenido
+            sin depender de posicionamiento sticky frágil.
+        -->
+
+        <!-- ── Introducción ─────────────────────────────── -->
+        <section id="introduccion" class="intro" aria-label="Introducción">
+            <!--
+                El saludo dinámico (Buenos días / tardes / noches)
+                lo escribe script.js en el DOMContentLoaded.
+                El h2 tiene contenido estático como fallback por si
+                JS no carga (degradación progresiva).
+            -->
+            <h2>¡Hola Vecino, Hola Vecina! 👋</h2>
+            <p>Sabemos que a veces las computadoras y los celulares
+               parecieran que están hechos para los más jóvenes.
+               ¡Igual no te preocupes! Usar la tecnología es tu derecho
+               y acá te vamos a acompañar y asistir.</p>
+            <p style="margin-top:10px;">
+                <strong>Elegí qué querés resolver hoy y lo hacemos juntos por pasos:</strong>
+            </p>
+            <!--
+                #btn-reciente se inyecta aquí por ui.js si existe
+                un tutorial reciente en localStorage.
+            -->
+        </section>
+
+        <!-- ── Buscador ──────────────────────────────────── -->
+        <section class="seccion-buscador" aria-label="Buscar tutoriales">
+            <label for="input-buscador" class="label-buscador">
+                🔍 ¿Qué querés aprender hoy?
+            </label>
+            <input
+                type="search"
+                id="input-buscador"
+                class="input-buscador"
+                placeholder="Escribí aquí... (ej: ANSES, correo, contraseña)"
+                autocomplete="off"
+                aria-label="Buscar entre los tutoriales disponibles"
+                spellcheck="false">
+            <!--
+                aria-live="polite" en el contador: anuncia los resultados
+                a lectores de pantalla sin interrumpir lo que están leyendo.
+            -->
+            <div id="contador-resultados"
+                 class="contador-resultados"
+                 aria-live="polite"
+                 role="status"></div>
+        </section>
+
+        <!--
+            #seccion-favoritos se inyecta ANTES de este nav
+            por tutorialCard.js si hay favoritos guardados.
+        -->
+
+        <!-- ── Menú de tutoriales ─────────────────────────── -->
+        <!--
+            Los botones se generan dinámicamente por ui.js
+            usando window.baseDeTutoriales (tutoriales.js).
+            El nav queda vacío en no-JS — aceptable para este target.
+        -->
+        <nav id="menu-tutoriales"
+             class="grid-menu"
+             aria-label="Menú de tutoriales disponibles">
+        </nav>
+
+        <!--
+            #seccion-progreso se inyecta por progressBar.js
+            justo antes de .consejos (lo hace con insertBefore).
+        -->
+
+        <!-- ── Zona de tutorial (oculta hasta que se abre uno) ── -->
+        <section id="zona-tutorial"
+                 class="tutorial-container oculto"
+                 aria-label="Tutorial paso a paso">
+
+            <button class="btn-volver"
+                    id="btn-volver"
+                    aria-label="Volver al menú principal de tutoriales">
+                🔙 Volver al Menú Principal
+            </button>
+
+            <!--
+                tabindex="-1" permite enfocar este div programáticamente
+                (ui.js hace focus() aquí al abrir un tutorial),
+                sin agregarlo al orden de tab natural.
+            -->
+            <div id="contenido-dinamico" tabindex="-1"></div>
+
+            <div class="alerta-tranquilidad" role="note">
+                💡 <strong>Una cosita más:</strong> Si algo no te sale
+                de una, respirá hondo y volvé a intentar. No vas a
+                romper nada del celular por tocar la pantalla.
+                ¡La práctica hace al maestro!
+            </div>
+        </section>
+
+        <!-- ── Banner de seguridad digital ──────────────── -->
+        <!--
+            Posición intencional: después del menú de tutoriales,
+            antes de cerrar el main. Visible sin scrollear en mobile.
+            Contenido siempre visible, no colapsable: es información
+            crítica para el público objetivo.
+        -->
+        <section class="banner-seguridad" aria-label="Cuidado digital — información importante">
+            <div class="banner-seg-header">
+                <span class="banner-seg-icono" aria-hidden="true">🛡️</span>
+                <h2 class="banner-seg-titulo">Cuidá tus datos — cosas importantes</h2>
+            </div>
+
+            <div class="banner-seg-items">
+
+                <div class="banner-seg-item">
+                    <span class="banner-seg-emoji" aria-hidden="true">📵</span>
+                    <div>
+                        <strong>ANSES, PAMI y el banco nunca te llaman para pedirte claves.</strong>
+                        Si te llaman y te piden tu contraseña o datos bancarios, cortá la llamada.
+                        Es una estafa.
+                    </div>
+                </div>
+
+                <div class="banner-seg-item">
+                    <span class="banner-seg-emoji" aria-hidden="true">🔗</span>
+                    <div>
+                        <strong>Las páginas oficiales del gobierno terminan en .gob.ar</strong>
+                        — por ejemplo: anses.gob.ar o argentina.gob.ar.
+                        Si la dirección termina en .com o tiene letras raras, no es oficial.
+                    </div>
+                </div>
+
+                <div class="banner-seg-item">
+                    <span class="banner-seg-emoji" aria-hidden="true">💬</span>
+                    <div>
+                        <strong>Si te llega un mensaje que dice que ganaste algo o que hay un problema urgente</strong>
+                        con tu cuenta, no toques el link. Primero consultá con alguien de confianza.
+                    </div>
+                </div>
+
+                <div class="banner-seg-item">
+                    <span class="banner-seg-emoji" aria-hidden="true">🧡</span>
+                    <div>
+                        <strong>Pedir ayuda no es una debilidad.</strong>
+                        Si algo no se entiende, está bien preguntar.
+                        Aprender con otra persona siempre es válido.
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="banner-seg-btn"
+                    onclick="if(window.mostrarTutorial){window.mostrarTutorial('mensajes_raros');}"
+                    aria-label="Ver tutorial completo sobre mensajes sospechosos">
+                📖 Ver tutorial: ¿Cómo reconocer estafas?
+            </button>
+        </section>
+
+    </main><!-- /#contenido-principal -->
+
+    <footer class="footer" id="pie-pagina" role="contentinfo">
+        <div class="container">
+            <p>Conectando a nuestra comunidad, enchufado al barrio. 🌐
+               Espacios de Alfabetización y Educación Digital Comunitaria.</p>
+
+            <div style="margin-top:15px;border-top:1px solid #444;padding-top:10px;font-size:0.9rem;">
+                <p style="margin:5px 0;">
+                    📍 <strong>Dirección:</strong>
+                    <span id="texto-direccion"
+                          style="cursor:pointer;color:#4da6ff;"
+                          title="Tocá para copiar la dirección"
+                          aria-label="Moreno, Escuela 1, Uruguay 53. Tocá para copiar">
+                        Moreno, Escuela 1, Uruguay 53.
+                    </span>
+                    <span style="font-size:0.8rem;color:#888;">(📋 Tocá para copiar)</span>
+                </p>
+                <p style="margin:5px 0;">
+                    © <span id="anio-actual"></span> Todos los derechos reservados.
+                </p>
+                <p style="margin:5px 0;color:#bbb;">
+                    📚 Contenido educativo desarrollado por
+                    <strong>Angel N. V.</strong> (CENS 453, Moreno).
+                    <span id="texto-autor"
+                          style="cursor:pointer;color:#4da6ff;"
+                          title="Tocá para copiar el nombre del autor"
+                          aria-label="Tocá para copiar el nombre del autor">
+                        (📋 Copiar autor)
+                    </span>
+                </p>
+            </div>
+
+            <div style="margin-top:12px;font-size:0.85rem;">
+                <button
+                    onclick="if(window.PD_Onboarding){window.PD_Onboarding.resetear();window.PD_Onboarding.mostrar();}"
+                    style="background:none;border:none;color:#4da6ff;cursor:pointer;
+                           font-size:0.85rem;min-height:auto;padding:4px;font-weight:normal;
+                           text-decoration:underline;width:auto;"
+                    aria-label="Ver nuevamente la bienvenida de la aplicación">
+                    🔁 Ver la bienvenida de nuevo
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!--
+    ═══════════════════════════════════════════════════════
+    ORDEN DE CARGA DE SCRIPTS — OBLIGATORIO
+    ═══════════════════════════════════════════════════════
+
+    El orden no es arbitrario. Cada módulo puede depender
+    de APIs expuestas por los anteriores en window.*.
+    Cambiar el orden rompe la inicialización en runtime.
+
+    GRAFO DE DEPENDENCIAS (A → B significa "A necesita B"):
+
+      storage.js          → (nada)
+      tutoriales.js       → (nada)
+      components/toast.js → (nada)
+      components/progressBar.js → PD_Storage, baseDeTutoriales
+      components/tutorialCard.js → PD_Storage, PD_Toast, PD_Progress,
+                                   mostrarTutorial (de ui.js, resuelto
+                                   lazy en runtime)
+      voice/speech.js     → PD_Storage (lazy), PD_Toast (lazy),
+                            speechSynthesis (lazy)
+      ui.js               → baseDeTutoriales, PD_Storage, PD_TutorialCard,
+                            PD_Progress, PD_Speech (lazy)
+      accesibilidad.js    → PD_Storage, PD_Speech (lazy), PD_Toast (lazy)
+      script.js           → PD_Toast (lazy)
+      pwa.js              → PD_Toast (lazy), serviceWorker API
+
+    MÓDULOS SIN DEPENDENCIAS EN CARGA:
+      storage, tutoriales, toast → se pueden reordenar entre sí.
+
+    MÓDULOS CON DEPENDENCIAS LAZY (resueltas en runtime):
+      Los marcados "(lazy)" no causan error si el módulo
+      dependido no existe — usan if (window.X) antes de llamar.
+      Esto permite degradación progresiva si un archivo falla.
+
+    ═══════════════════════════════════════════════════════
+    -->
+
+    <!-- NIVEL 0: sin dependencias — base del sistema -->
+    <script src="js/storage.js"></script>
+    <script src="js/tutoriales.js"></script>
+    <script src="js/components/toast.js"></script>
+
+    <!-- NIVEL 1: dependen de storage + tutoriales + toast -->
+    <script src="js/components/progressBar.js"></script>
+    <script src="js/components/tutorialCard.js"></script>
+    <script src="js/voice/speech.js"></script>
+
+    <!-- NIVEL 2: dependen de todo lo anterior -->
+    <script src="js/ui.js"></script>
+
+    <!-- NIVEL 3: dependen de ui.js + storage + toast -->
+    <script src="js/accesibilidad.js"></script>
+    <script src="js/script.js"></script>
+    <!--
+        onboarding.js: depende de storage (lazy) y ui.js.
+        Carga aquí para que ui.js ya haya renderizado el menú
+        antes de que onboarding intente filtrar por categoría.
+    -->
+    <script src="js/onboarding.js"></script>
+    <!--
+        deeplink.js: lee ?tutorial= y ?categoria= de la URL.
+        Carga después de ui.js para que mostrarTutorial exista.
+        Ejecuta en DOMContentLoaded con setTimeout(0) extra
+        para garantizar que init() de ui.js ya corrió.
+    -->
+    <script src="js/deeplink.js"></script>
+
+    <!-- NIVEL 4: depende solo de toast (lazy) + SW API -->
+    <script src="js/pwa.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+# =========================================================
+# netlify.toml — Configuración de despliegue para Netlify
+# No requiere ningún paso de build — es HTML/CSS/JS puro.
+# =========================================================
+
+[build]
+  # Sin comando de build — se despliega tal cual.
+  publish = "."
+
+[[headers]]
+  # Aplicar headers de seguridad a todos los archivos
+  for = "/*"
+  [headers.values]
+    # Evitar que el navegador interprete archivos con tipo MIME incorrecto
+    X-Content-Type-Options = "nosniff"
+    # Evitar que la app se cargue dentro de un iframe (clickjacking)
+    X-Frame-Options = "SAMEORIGIN"
+    # Forzar HTTPS en futuros accesos (1 año)
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    # Referrer mínimo para no exponer URLs a sitios externos
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  # Cache largo para assets con hash (cuando se agregue cache busting)
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  # HTML y SW nunca con cache largo — deben ser siempre frescos
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    # El SW debe validarse con el servidor en cada carga
+    # para detectar actualizaciones. Cache-Control: no-cache
+    # pero puede usar ETag/Last-Modified.
+    Cache-Control = "no-cache"

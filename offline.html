@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B5AA2">
+    <title>Sin Internet — Punto Digital</title>
+    <style>
+        :root {
+            --azul: #0B5AA2;
+            --azul-oscuro: #073763;
+            --celeste: #37B5E5;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #F5F8FC;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .icono {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pulso 2s infinite;
+        }
+        @keyframes pulso {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        h1 {
+            color: var(--azul-oscuro);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #4B5563;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        .btn-reintentar {
+            background: var(--azul);
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: 14px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-reintentar:hover { background: var(--azul-oscuro); }
+        .nota {
+            margin-top: 30px;
+            background: #FFF3CD;
+            color: #664D03;
+            border-left: 6px solid #FFCA2C;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.15rem;
+            max-width: 500px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="icono">📵</div>
+    <h1>¡Ups! Sin Internet</h1>
+    <p>
+        Parece que tu celular no tiene conexión a internet en este momento.
+        No te preocupes, ¡ya guardamos los tutoriales en tu dispositivo!
+    </p>
+    <button class="btn-reintentar" onclick="window.location.reload()">
+        🔄 Reintentar conexión
+    </button>
+    <button class="btn-reintentar" style="background:#198754; margin-top:10px;"
+        onclick="window.location.href='./index.html'">
+        🏠 Volver al inicio
+    </button>
+    <div class="nota">
+        💡 <strong>Consejo:</strong> Si tenés WiFi en casa, acercate al router y volvé a intentarlo.
+        Si usás datos del celular, fijate que no se te haya terminado el plan.
+    </div>
+</body>
+</html>
