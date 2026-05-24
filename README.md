@@ -211,18 +211,18 @@ Todo el feedback visual pasa por `PD_Toast` (`components/toast.js`). No hay sist
 
 ## 📋 Checklist antes de publicar
 
-- [ ] Generar `icon-192.png` e `icon-512.png` (ver `assets/icons/ICONOS_PENDIENTES.md`)
-- [ ] Actualizar `og:image` en `index.html` con la URL absoluta del ícono publicado
-- [ ] Verificar que el sitio abre correctamente en Chrome Android
-- [ ] Instalar como PWA desde Chrome Android y probar offline
-- [ ] Revisar la dirección en el footer (actualmente: Moreno, Escuela 1, Uruguay 53)
-- [ ] Revisar el nombre del autor en el footer
+- [x] Generar `icon-192.png` e `icon-512.png` (ver `assets/icons/ICONOS_PENDIENTES.md`)
+- [x] Actualizar `og:image` en `index.html` con la URL absoluta del ícono publicado
+- [x] Verificar que el sitio abre correctamente en Chrome Android
+- [x] Instalar como PWA desde Chrome Android y probar offline
+- [x] Revisar la dirección en el footer (actualmente: Moreno, Escuela 1, Uruguay 53)
+- [x] Revisar el nombre del autor en el footer
 
 ---
 
 ## 🤝 Cómo colaborar
 
-1. Hacer fork del repositorio
+1. Hacer fork del repositorio, significa crear una copia completa y personal de un repositorio de código (por ejemplo, en GitHub) en tu propia cuenta.
 2. Crear una rama: `git checkout -b mejora/nombre-del-cambio`
 3. Hacer los cambios
 4. Commit: `git commit -m "descripcion clara del cambio"`
@@ -243,11 +243,11 @@ Todo el feedback visual pasa por `PD_Toast` (`components/toast.js`). No hay sist
 
 MIT — libre para usar, modificar y distribuir con atribución.
 
-Contenido educativo desarrollado por **Ángel Nicolás Villegas** (CENS 453, Moreno).
+Contenido educativo desarrollado por **Ángel Nicolás Villegas**.
 
 ---
 
 ## 📞 Contacto
 
-📍 Moreno, Escuela 1, Uruguay 53  
+📍 Moreno, Escuela 1, Uruguay 53
 Espacios de Alfabetización y Educación Digital Comunitaria
