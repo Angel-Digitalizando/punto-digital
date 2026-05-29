@@ -197,6 +197,22 @@ const baseDeTutoriales = {
         nota: "💡 Si tu celular está muy lento y ya liberaste espacio, intentá reiniciarlo (apagarlo y prenderlo). Esto limpia la memoria temporal y suele solucionar 'trabadas' del sistema de forma mágica."
     },
 
+    copia_seguridad: {
+        categoria: 'cuidado',
+        nivel:     'intermedio',
+        titulo:    "No perder tus fotos y contactos (La Nube)",
+        icono:     "☁️",
+        detalle:   "Aprendé a guardar tus fotos, contactos y mensajes de forma segura en internet. Así, si alguna vez perdés el celular o se te rompe, cuando compres uno nuevo recuperás todo al instante.",
+        pasos: [
+            "<strong>¿Qué es 'La Nube'?</strong> No te asustes con el nombre. Es simplemente un cajón virtual y seguro en internet que te regalan cuando te creás una cuenta de Gmail. Todo lo que guardes ahí, viaja con vos a cualquier celular.",
+            "<strong>Resguardar tus Fotos (Google Fotos):</strong> Buscá en tu celu la aplicación <em>Fotos</em> (tiene el dibujo de un molinete de colores). Entrá, tocá tu foto o letra arriba a la derecha, y buscá la opción <strong>'Copia de seguridad'</strong>. Fijate que el botón esté encendido. <em>Consejo:</em> Hacé esto cuando estés conectado a Wi-Fi para no gastar los datos de tu línea.",
+            "<strong>No perder nunca los Contactos:</strong> Para que los números de teléfono no queden atrapados en el aparato viejo, hay un truco simple. Cuando agendes a un vecino nuevo, fijate arriba de todo en la pantalla: asegurate de que diga <strong>'Guardar en: [tu correo]'</strong> en lugar de decir 'Dispositivo' o 'Tarjeta SIM'.",
+            "<strong>Guardar los chats de WhatsApp:</strong> ¿Querés conservar tus conversaciones? Abrí WhatsApp, tocá los tres puntitos arriba a la derecha y andá a <strong>Ajustes > Chats > Copia de seguridad</strong>. Apretá el botón verde que dice <strong>'Guardar'</strong>. Abajo podés elegir que esto se haga solo, por ejemplo, todas las semanas.",
+            "<strong>Liberar espacio con confianza:</strong> Una vez que Google Fotos termine de hacer la copia de seguridad de tus imágenes, podés usar un botón dentro de esa misma aplicación que dice <strong>'Liberar espacio'</strong>. Eso borra las fotos del aparato para que no esté lento, pero te las deja guardadas y visibles en la nube."
+        ],
+        nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
+    },
+
     paginas_oficiales: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -282,6 +298,40 @@ const baseDeTutoriales = {
         nota: "💡 La IA es una excelente compañera de ideas, pero la decisión final y el criterio humano siempre los tenés vos."
     },
 
+    // ══════════════════════════════════════════════════════
+    // CATEGORÍA: usos_tecnologia
+    // Herramientas del día a día para sacarle el jugo al celu
+    // ══════════════════════════════════════════════════════
+
+    escanear_qr: {
+        categoria: 'usos_tecnologia',
+        nivel:     'basico',
+        titulo:    "Escanear códigos QR sin peligro",
+        icono:     "🔳",
+        detalle: "Esos cuadraditos con puntos negros y blancos (QR) están en todos lados: en los folletos de la Muni, en las cajas para pagar y en los carteles de los negocios. ¡Tu celular ya sabe leerlos sin necesidad de descargar ninguna aplicación rara!",
+        pasos: [
+            "<strong>El truco de la Cámara (Para celus nuevos):</strong> Agarrá el celular y abrí la aplicación de la <strong>Cámara de fotos</strong> (la misma que usás para retratar a la familia). Apuntá al código QR como si fueras a sacarle una foto, pero ¡no aprietes el botón! Mantené el pulso firme dos segundos.",
+            "<strong>Tocar el enlace amarillo o azul:</strong> Vas a ver que arriba del código QR aparece una letritas chiquitas de color con un planeta o un link (un enlace). Tocá con el dedo arriba de esas letras y el celular te va a llevar directo a la página web automáticamente.",
+            "<strong>El método de la barra de Google (Para celus intermedios):</strong> Si tu cámara común no hace nada, mirá la pantalla principal de tu celu donde está la barra de búsqueda de Google. Al lado del micrófono donde hablás, hay un dibujo de una <strong>camarita de colores (Google Lens)</strong>. Tocá ahí.",
+            "<strong>Apuntar con Lens:</strong> Se va a abrir la cámara a través de Google. Apuntá al código QR y apretá el botón redondo del centro. Al instante te va a mostrar en grande el botón azul para entrar a la página de forma totalmente segura.",
+            "<strong>El botón escondido de arriba:</strong> En muchos celulares (como Motorola o Samsung), si deslizás el dedo desde el borde de arriba de la pantalla hacia abajo (donde prendés el Wi-Fi o la linterna), hay un botón que dice <strong>'Escanear QR'</strong> o <strong>'Lector QR'</strong>. Si lo tocás, se abre un lector automático limpito y rápido."
+        ],
+        nota: "⚠️ <strong>Consejo de seguridad:</strong> Nunca descargues aplicaciones que se llamen 'Lector de QR' desde la Play Store. Suelen venir repletas de publicidades engañosas que te vuelven lento el celular, cuando tu teléfono ya lo hace solo de fábrica."
+    },
+
+    lupa_digital: {
+        categoria: 'usos_tecnologia',
+        nivel:     'basico',
+        titulo:    "Usar el celular como Lupa",
+        icono:     "🔍",
+        detalle:   "¿Te cuesta leer la letra chica de los medicamentos, las facturas de los servicios o los precios del supermercado? Tu celular puede convertirse en una lupa gigante con luz propia al instante.",
+        pasos: [
+            "<strong>La cámara es tu aliada:</strong> Abrí la aplicación de la <strong>Cámara de fotos</strong> de tu celular y apuntá al papel o envase que querés leer.",
+            "<strong>Hacer el 'pellizco' para agrandar:</strong> Apoyá dos dedos juntos en la pantalla (el pulgar y el índice) y separalos despacito, como si estuvieras estirando una masa. Vas a ver cómo la letra se agranda gigante en la pantalla (Zoom).",
+            "<strong>Prender el reflector si está oscuro:</strong> Si estás leyendo el prospecto de un remedio de noche, buscá el dibujito de un **rayo (Flash)** en la pantalla de la cámara y tocalo para que quede fijo como linterna mientras agrandás la letra.",
+            "<strong>Congelar la imagen para leer cómodo:</strong> Si te tiembla el pulso y la letra se mueve, sacale una foto al texto. Después, andá a la galería de fotos, abrí esa imagen y agrandala tranquilo con los dos dedos sin necesidad de estar apuntando al papel."
+        ]
+    }
 };
 
 // Exportar la variable para que los otros scripts (como ui.js) la puedan usar
