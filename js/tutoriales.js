@@ -5,6 +5,10 @@
 
 const baseDeTutoriales = {
 
+    // ══════════════════════════════════════════════════════
+    // CATEGORÍA: tramites
+    // ══════════════════════════════════════════════════════
+
     correo: {
         categoria: 'tramites',
         nivel:     'basico',
@@ -109,7 +113,7 @@ const baseDeTutoriales = {
     playstore: {
         categoria: 'tramites',
         nivel:     'basico',
-        titulo:    "Descargar Aplicaciones desde Play Store",
+        titulo:    "Descargar Apps de Play Store",
         icono:     "📥",
         detalle:   "Las aplicaciones (o 'apps') son las herramientas del celular. Tu teléfono viene con algunas, pero vos podés bajarle las que necesites, como la del banco, la de ANSES o juegos.",
         pasos: [
@@ -137,6 +141,10 @@ const baseDeTutoriales = {
         ],
         nota: "💡 Si el proceso falla varias veces, no te preocupes. Podés intentarlo de nuevo más tarde o pedirle a alguien de confianza que te ayude. También podés ir directamente a la oficina del organismo con tu DNI físico."
     },
+
+    // ══════════════════════════════════════════════════════
+    // CATEGORÍA: cuidado
+    // ══════════════════════════════════════════════════════
 
     evitar_estafas: {
         categoria: 'cuidado',
@@ -232,6 +240,11 @@ const baseDeTutoriales = {
         nota: "📒 Un cuadernito con tus contraseñas en casa es perfectamente válido y muy seguro — siempre que no lo dejes a la vista ni lo lleves en la cartera."
     },
 
+
+    // ══════════════════════════════════════════════════════
+    // CATEGORÍA: inteligencia_artificial
+    // ══════════════════════════════════════════════════════
+
     que_es_ia: {
         categoria: 'inteligencia_artificial',
         nivel:     'basico',
@@ -247,6 +260,11 @@ const baseDeTutoriales = {
         ],
         nota: "💡 La IA es una excelente compañera de ideas, pero la decisión final y el criterio humano siempre los tenés vos."
     },
+
+
+    // ══════════════════════════════════════════════════════
+    // CATEGORÍA: usos_tecnologia
+    // ══════════════════════════════════════════════════════
 
     escanear_qr: {
         categoria: 'usos_tecnologia',
@@ -294,22 +312,6 @@ const baseDeTutoriales = {
         nota: "💡 <strong>Consejo:</strong> Si conectás el celu a la compu por cable USB, la computadora lo verá como una memoria externa. Ahí sí, navegá como si fuera una carpeta más de Windows."
     },
 
-    copia_seguridad: {
-        categoria: 'usos_tecnologia',
-        nivel:     'intermedio',
-        titulo:    "No perder tus fotos y contactos (La Nube)",
-        icono:     "☁️",
-        detalle:   "Aprendé a guardar tus fotos, contactos y mensajes de forma segura en internet. Así, si alguna vez perdés el celular o se te rompe, cuando compres uno nuevo recuperás todo al instante.",
-        pasos: [
-            "<strong>¿Qué es 'La Nube'?</strong> No te asustes con el nombre. Es simplemente un cajón virtual y seguro en internet que te regalan cuando te creás una cuenta de Gmail. Todo lo que guardes ahí, viaja con vos a cualquier celular.",
-            "<strong>Resguardar tus Fotos (Google Fotos):</strong> Buscá en tu celu la aplicación <em>Fotos</em> (tiene el dibujo de un molinete de colores). Entrá, tocá tu foto o letra arriba a la derecha, y buscá la opción <strong>'Copia de seguridad'</strong>. Fijate que el botón esté encendido. <em>Consejo:</em> Hacé esto cuando estés conectado a Wi-Fi para no gastar los datos de tu línea.",
-            "<strong>No perder nunca los Contactos:</strong> Para que los números de teléfono no queden atrapados en el aparato viejo, hay un truco simple. Cuando agendes a un vecino nuevo, fijate arriba de todo en la pantalla: asegurate de que diga <strong>'Guardar en: [tu correo]'</strong> en lugar de decir 'Dispositivo' o 'Tarjeta SIM'.",
-            "<strong>Guardar los chats de WhatsApp:</strong> ¿Querés conservar tus conversaciones? Abrí WhatsApp, tocá los tres puntitos arriba a la derecha y andá a <strong>Ajustes > Chats > Copia de seguridad</strong>. Apretá el botón verde que dice <strong>'Guardar'</strong>. Abajo podés elegir que esto se haga solo, por ejemplo, todas las semanas.",
-            "<strong>Liberar espacio con confianza:</strong> Una vez que Google Fotos termine de hacer la copia de seguridad de tus imágenes, podés usar un botón dentro de esa misma aplicación que dice <strong>'Liberar espacio'</strong>. Eso borra las fotos del aparato para que no esté lento, pero te las deja guardadas y visibles en la nube."
-        ],
-        nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
-    },
-
     uso_navegador_seguro: {
         categoria: 'usos_tecnologia',
         nivel:     'intermedio',
@@ -327,6 +329,22 @@ const baseDeTutoriales = {
             "<strong>Tu elección siempre es válida:</strong> Si preferís seguir usando el navegador que ya trajo tu celular de fábrica, está perfecto. Lo más importante, uses el que uses, es no dejarse invadir por las 'ventanitas sorpresa' (pop-ups). Son esos carteles molestos que saltan de golpe tapando la pantalla, muchas veces ofreciendo premios falsos. Nunca toques sus botones llamativos; simplemente buscá una pequeña cruz ('X') en alguna esquina para cerrarlos y seguir tu camino tranquilo."
         ],
         nota: "⚠️ <strong>Dato clave:</strong> Por dentro, Brave está construido con las mismas piezas que otros navegadores conocidos. Esto significa que si ya sabías entrar a internet antes, vas a saber usar este de inmediato, sintiéndote mucho más cuidado."
+    },
+
+    copia_seguridad: {
+        categoria: 'usos_tecnologia',
+        nivel:     'intermedio',
+        titulo:    "No perder tus fotos y contactos (La Nube)",
+        icono:     "☁️",
+        detalle:   "Aprendé a guardar tus fotos, contactos y mensajes de forma segura en internet. Así, si alguna vez perdés el celular o se te rompe, cuando compres uno nuevo recuperás todo al instante.",
+        pasos: [
+            "<strong>¿Qué es 'La Nube'?</strong> No te asustes con el nombre. Es simplemente un cajón virtual y seguro en internet que te regalan cuando te creás una cuenta de Gmail. Todo lo que guardes ahí, viaja con vos a cualquier celular.",
+            "<strong>Resguardar tus Fotos (Google Fotos):</strong> Buscá en tu celu la aplicación <em>Fotos</em> (tiene el dibujo de un molinete de colores). Entrá, tocá tu foto o letra arriba a la derecha, y buscá la opción <strong>'Copia de seguridad'</strong>. Fijate que el botón esté encendido. <em>Consejo:</em> Hacé esto cuando estés conectado a Wi-Fi para no gastar los datos de tu línea.",
+            "<strong>No perder nunca los Contactos:</strong> Para que los números de teléfono no queden atrapados en el aparato viejo, hay un truco simple. Cuando agendes a un vecino nuevo, fijate arriba de todo en la pantalla: asegurate de que diga <strong>'Guardar en: [tu correo]'</strong> en lugar de decir 'Dispositivo' o 'Tarjeta SIM'.",
+            "<strong>Guardar los chats de WhatsApp:</strong> ¿Querés conservar tus conversaciones? Abrí WhatsApp, tocá los tres puntitos arriba a la derecha y andá a <strong>Ajustes > Chats > Copia de seguridad</strong>. Apretá el botón verde que dice <strong>'Guardar'</strong>. Abajo podés elegir que esto se haga solo, por ejemplo, todas las semanas.",
+            "<strong>Liberar espacio con confianza:</strong> Una vez que Google Fotos termine de hacer la copia de seguridad de tus imágenes, podés usar un botón dentro de esa misma aplicación que dice <strong>'Liberar espacio'</strong>. Eso borra las fotos del aparato para que no esté lento, pero te las deja guardadas y visibles en la nube."
+        ],
+        nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
     }
 
-}; // <-- ACÁ Y SOLO ACÁ VA EL CIERRE FINAL DEL ARCHIVO
+}; // <-- CIERRE FINAL DEL ARCHIVO
