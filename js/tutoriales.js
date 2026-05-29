@@ -1,24 +1,6 @@
 // =========================================================
 // tutoriales.js — Base de datos de tutoriales
 // Punto Digital Comunitario Morenense
-//
-// ESTRUCTURA DE CADA TUTORIAL:
-//   clave:      string único, sin espacios (para URL y storage)
-//   categoria:  agrupa tutoriales en el menú
-//   nivel:      'basico' | 'intermedio' (para filtros futuros)
-//   titulo:     texto visible en el botón del menú
-//   icono:      emoji que acompaña el título
-//   detalle:    párrafo de presentación, en tono cercano
-//   pasos:      array de strings; acepta HTML limitado:
-//               <strong>, <em>, <button class="btn-paso">
-//   nota:       (opcional) texto de cierre o advertencia especial
-//
-// CÓMO AGREGAR UN TUTORIAL NUEVO:
-//   1. Copiar un bloque existente
-//   2. Cambiar la clave y todos los campos
-//   3. Elegir categoria de las existentes o crear una nueva
-//   4. El tutorial aparece automáticamente en el menú
-//   No hace falta tocar index.html ni ui.js.
 // =========================================================
 
 const baseDeTutoriales = {
@@ -37,9 +19,9 @@ const baseDeTutoriales = {
         pasos: [
             "Tenés dos opciones: buscá en tu celular una aplicación que se llame <strong>Gmail</strong> (tiene el dibujo de un sobrecito blanco con bordes rojos) y tocá. O, si preferís, entrá directo desde el navegador tocando este botón: <button class='btn-paso' onclick=\"window.open('https://accounts.google.com/SignUp','_blank','noopener,noreferrer')\">Ir directo a crear cuenta en Gmail</button>",
             "Si te aparece para iniciar sesión, buscá abajo un texto que dice <strong>'Crear cuenta'</strong> o <strong>'Registrarse'</strong> y seleccionalo. Elegí la opción que dice <strong>'Para mi uso personal'</strong>.",
-            "Escribí tu <strong>Nombre</strong> y, si querés, el <strong>Apellido</strong> en los casilleros blancos. Después tocá el botón azul que dice <strong>'Siguiente'</strong>.",
+            "Escribí tu <strong>Nombre</strong> and, si querés, el <strong>Apellido</strong> en los casilleros blancos. Después tocá el botón azul que dice <strong>'Siguiente'</strong>.",
             "Poné el día, mes y año de tu nacimiento, y tu género. Volvé a tocar <strong>'Siguiente'</strong>.",
-            "Ahora tenés que inventar el <strong>'nombre de usuario'</strong> de tu correo. Por ejemplo: <em>Maria_Moreno2026@gmail.com</em>. Si te dice que ya existe, probá agregando un número.",
+            "Ahora tienes que inventar el <strong>'nombre de usuario'</strong> de tu correo. Por ejemplo: <em>Maria_Moreno2026@gmail.com</em>. Si te dice que ya existe, probá agregando un número.",
             "¡Momento contraseña! Inventá una clave segura. Poné algo que te acuerdes (por ejemplo, el nombre de tu nieto y el año). Un buen ejemplo: <em>NicoAngel003$</em>. <strong>¡Anotala en un cuadernito y guardalo bien!</strong>",
             "Dale todo para adelante tocando <strong>'Aceptar'</strong> o <strong>'Siguiente'</strong> a los carteles que aparezcan. ¡Listo! Ya tenés tu dirección de correo electrónico propia. ¡Felicidades!"
         ],
@@ -255,7 +237,7 @@ const baseDeTutoriales = {
             "<strong>Señales de que un mensaje puede ser falso:</strong> te dicen que ganaste algo sin haber participado en nada, te piden que hagas algo urgente o que pierdas un beneficio si no actuás ya, el link tiene una dirección rara que no termina en .gob.ar, o te piden datos o fotos del DNI.",
             "Si el mensaje tiene un link (una dirección web en azul), <strong>no lo toques</strong>. Los links falsos pueden robar tus datos o instalar cosas en tu celu sin que vos te des cuenta.",
             "Antes de hacer cualquier cosa, <strong>preguntale a alguien de confianza</strong> — un familiar, un vecino, alguien del barrio que entienda de tecnología. Tomarte unos minutos no te hace perder ningún beneficio real.",
-            "Si el mensaje dice ser de ANSES, del banco, o de algún organismo, buscá el teléfono oficial de ese organismo por tu cuenta y llamá para verificar. No usá el teléfono que aparece en el mensaje sospechoso.",
+            "Si el mensaje dice ser de ANSES, del banco, o de algún organismo, buscá el teléfono oficial de ese organismo por tu cuenta y llamá para verificar. No usés el teléfono que aparece en el mensaje sospechoso.",
             "Podés <strong>eliminar el mensaje</strong> sin miedo. Si era real y lo borraste, el organismo siempre puede volverte a contactar por un canal oficial."
         ],
         nota: "🧘 La urgencia es una trampa. Los estafadores quieren que actúes rápido, sin pensar. Respirá, consultá, y recién después decidí."
@@ -308,7 +290,7 @@ const baseDeTutoriales = {
         nivel:     'basico',
         titulo:    "Escanear códigos QR sin peligro",
         icono:     "🔳",
-        detalle: "Esos cuadraditos con puntos negros y blancos (QR) están en todos lados: en los folletos de la Muni, en las cajas para pagar y en los carteles de los negocios. ¡Tu celular ya sabe leerlos sin necesidad de descargar ninguna aplicación rara!",
+        detalle:   "Esos cuadraditos con puntos negros y blancos (QR) están en todos lados: en los folletos de la Muni, en las cajas para pagar y en los carteles de los negocios. ¡Tu celular ya sabe leerlos sin necesidad de descargar ninguna aplicación rara!",
         pasos: [
             "<strong>El truco de la Cámara (Para celus nuevos):</strong> Agarrá el celular y abrí la aplicación de la <strong>Cámara de fotos</strong> (la misma que usás para retratar a la familia). Apuntá al código QR como si fueras a sacarle una foto, pero ¡no aprietes el botón! Mantené el pulso firme dos segundos.",
             "<strong>Tocar el enlace amarillo o azul:</strong> Vas a ver que arriba del código QR aparece una letritas chiquitas de color con un planeta o un link (un enlace). Tocá con el dedo arriba de esas letras y el celular te va a llevar directo a la página web automáticamente.",
@@ -332,9 +314,10 @@ const baseDeTutoriales = {
             "<strong>Congelar la imagen para leer cómodo:</strong> Si te tiembla el pulso y la letra se mueve, sacale una foto al texto. Después, andá a la galería de fotos, abrí esa imagen y agrandala tranquilo con los dos dedos sin necesidad de estar apuntando al papel."
         ]
     }
+
 };
 
-// Exportar la variable para que los otros scripts (como ui.js) la puedan usar
+// Exportación global robusta
 if (typeof window !== 'undefined') {
     window.baseDeTutoriales = baseDeTutoriales;
 }

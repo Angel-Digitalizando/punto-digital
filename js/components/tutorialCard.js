@@ -1,4 +1,4 @@
-//// =========================================================
+// =========================================================
 // components/tutorialCard.js — Favoritos + completado
 // Punto Digital Comunitario Morenense
 // =========================================================
@@ -76,8 +76,8 @@
             );
         }
 
-        // Actualizar la sección dinámicamente si el usuario está mirando los favoritos
-        renderizarSeccionFavoritos();
+        // Actualizar la sección dinámicamente
+        renderSeccionFavoritosDinamica();
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
@@ -106,17 +106,23 @@
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
-    // ─── Función que requería tu sistema para dibujar los favoritos ───
-    function renderizarSeccionFavoritos() {
+    // Adaptador adaptativo seguro para renderizar favoritos sin importar la estructura
+    function renderSeccionFavoritosDinamica() {
         const contenedor = document.getElementById('contenedor-favoritos');
-        if (!contenedor) return; // Si no estamos en la pantalla de favoritos, salir pacíficamente
+        if (!contenedor) return;
 
         const store = window.PD_Storage;
-        const data = window.PD_TutorialesData;
-        if (!store || !data) return;
+        const fuenteDatos = window.baseDeTutoriales || window.PD_TutorialesData;
+        if (!store || !fuenteDatos) return;
 
         contenedor.innerHTML = '';
-        const favs = data.filter(t => store.esFavorito(t.id));
+
+        // Normalizar los datos: convertimos el objeto plano de tutoriales a una lista iterable
+        const listaTutoriales = Array.isArray(fuenteDatos)
+            ? fuenteDatos
+            : Object.keys(fuenteDatos).map(clave => ({ id: clave, ...fuenteDatos[clave] }));
+
+        const favs = listaTutoriales.filter(t => store.esFavorito(t.id || t.clave));
 
         if (favs.length === 0) {
             contenedor.innerHTML = '<p class="texto-vacio">No tenés tutoriales guardados todavía. ¡Explorá las secciones para agregar uno!</p>';
@@ -124,25 +130,28 @@
         }
 
         favs.forEach(t => {
+            const idReal = t.id || t.clave;
+            const textoDetalle = t.detalle || t.descripcion || '';
+            
             const card = document.createElement('div');
             card.className = 'tarjeta-tutorial';
             card.innerHTML = `
-                <div class="tarjeta-icono">${t.icono}</div>
+                <div class="tarjeta-icono">${t.icono || '📖'}</div>
                 <div class="tarjeta-info">
                     <h3>${t.titulo}</h3>
-                    <p>${t.descripcion}</p>
-                    <button onclick="window.PD_Deeplink.irATutorial('${t.id}')" class="btn-primario">Ver tutorial 🛡️</button>
+                    <p>${textoDetalle}</p>
+                    <button onclick="if(window.PD_Deeplink){window.PD_Deeplink.irATutorial('${idReal}')}else{window.location.hash='#tutorial-'+'${idReal}'}" class="btn-primario">Ver tutorial 🛡️</button>
                 </div>
             `;
             contenedor.appendChild(card);
         });
     }
 
-    // Exponer las funciones globalmente de forma segura
+    // Exponer las funciones globalmente
     if (typeof window !== 'undefined') {
         window.PD_TutorialCard = { 
             inyectarAccionesTutorial,
-            renderizarSeccionFavoritos
+            renderizarSeccionFavoritos: renderSeccionFavoritosDinamica
         };
     }
 
