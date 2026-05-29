@@ -29,27 +29,27 @@ Desde tu celular, abre el navegador (ej. Google Chrome) y entra al sitio web. Cu
 ## 🗂️ Estructura del Proyecto
 
 punto-digital/
-├── index.html           # Interfaz principal
-├── offline.html         # Página para acceso sin conexión
-├── service-worker.js    # Lógica de caché PWA
-├── manifest.json        # Configuración de la app
-├── netlify.toml         # Configuración de deploy
-├── _headers             # Headers HTTP
-├── README.md            # Documentación
-├── css/
-│   └── style.css        # Estilos accesibles
-└── js/
-    ├── tutoriales.js    # Base de datos de tutoriales
-    ├── ui.js            # Lógica de interfaz y navegación
-    ├── storage.js       # Guardado local
-    ├── pwa.js           # Registro SW y conexión
-    ├── script.js        # Utilitarios generales
-    ├── components/
-    │   ├── toast.js     # Notificaciones visuales
-    │   ├── progressBar.js # Progreso global
-    │   └── tutorialCard.js # Gestión de favoritos
-    └── voice/
-        └── speech.js    # Lectura en voz alta
+    index.html
+    offline.html
+    service-worker.js
+    manifest.json
+    netlify.toml
+    _headers
+    README.md
+    css/
+        style.css
+    js/
+        tutoriales.js
+        ui.js
+        storage.js
+        pwa.js
+        script.js
+        components/
+            toast.js
+            progressBar.js
+            tutorialCard.js
+        voice/
+            speech.js
 
 ---
 
