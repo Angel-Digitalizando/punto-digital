@@ -22,11 +22,17 @@
     'use strict';
 
     // ── Mapa de categorías: clave → etiqueta y color ──────
+    // 🛠️ ¡AGREGADA LA CATEGORÍA USOS_TECNOLOGIA AQUÍ!
     const CATEGORIAS = {
         tramites: {
             etiqueta: '🏛️ Trámites del Estado',
             descripcion: 'ANSES, CUIL, Mi Argentina y más',
             color: '#0B5AA2',
+        },
+        usos_tecnologia: {
+            etiqueta: '📱 Usos del Teléfono',
+            descripcion: 'Herramientas del día a día para sacarle el jugo al celu',
+            color: '#E65100', // Naranja oscuro para buena visibilidad
         },
         cuidado: {
             etiqueta: '🛡️ Cuidado Digital',
@@ -361,7 +367,6 @@
         if (!store || !db) return;
 
         const reciente = store.obtenerTutorialReciente();
-        // 🛠️ ¡CORREGIDO!: Antes decía "recurrent" en vez de "reciente", rompiendo todo el script.
         if (!reciente || !db[reciente.id]) return;
 
         const intro = document.getElementById('introduccion');
@@ -441,8 +446,8 @@
         renderizarMenu();
         renderizarTabs();
         inicializarBuscador();
-        mostrarBotonReciente(); // Ahora pasa de largo sin explotar si no hay tutoriales recientes
-        inicializarLupa();     // ¡Ya se ejecuta perfectamente!
+        mostrarBotonReciente();
+        inicializarLupa();
 
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
 
