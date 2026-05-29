@@ -15,7 +15,7 @@ const baseDeTutoriales = {
         nivel:     'basico',
         titulo:    "Crear un Correo Electrónico",
         icono:     "✉️",
-        detalle:   "El correo es como tu buzón de cartas pero en el celu. Te lo van a pedir para todo: para sacar turnos, para el banco y para registrarte en las aplicaciones. ¡Es la llave maestra de internet!",
+        detalle:   "El correo es como tu buzón de cartas pero en el celu. Te lo van a pedir para casi todo: para sacar turnos, para el banco y para registrarte en las aplicaciones. ¡Es una llave personal de internet!",
         pasos: [
             "Tenés dos opciones: buscá en tu celular una aplicación que se llame <strong>Gmail</strong> (tiene el dibujo de un sobrecito blanco con bordes rojos) y tocá. O, si preferís, entrá directo desde el navegador tocando este botón: <button class='btn-paso' onclick=\"window.open('https://accounts.google.com/SignUp','_blank','noopener,noreferrer')\">Ir directo a crear cuenta en Gmail</button>",
             "Si te aparece para iniciar sesión, buscá abajo un texto que dice <strong>'Crear cuenta'</strong> o <strong>'Registrarse'</strong> y seleccionalo. Elegí la opción que dice <strong>'Para mi uso personal'</strong>.",
@@ -313,6 +313,41 @@ const baseDeTutoriales = {
             "<strong>Prender el reflector si está oscuro:</strong> Si estás leyendo el prospecto de un remedio de noche, buscá el dibujito de un **rayo (Flash)** en la pantalla de la cámara y tocalo para que quede fijo como linterna mientras agrandás la letra.",
             "<strong>Congelar la imagen para leer cómodo:</strong> Si te tiembla el pulso y la letra se mueve, sacale una foto al texto. Después, andá a la galería de fotos, abrí esa imagen y agrandala tranquilo con los dos dedos sin necesidad de estar apuntando al papel."
         ]
+    },
+
+    gestion_archivos: {
+        categoria: 'usos_tecnologia',
+        nivel:     'intermedio',
+        titulo:    "¿Dónde van mis fotos y archivos?",
+        icono:     "📂",
+        detalle:   "Entender la diferencia entre cómo guarda archivos un celular (Android/iPhone) y una computadora (Windows). Aprendé a encontrar lo que descargás y a moverlo.",
+        pasos: [
+            "<strong>Android vs. Windows:</strong> En Windows usás carpetas (como un archivador). En Android, las aplicaciones suelen esconder los archivos en sus propias carpetas. Por eso, a veces 'no encontrás' la descarga: está dentro de la app que la bajó.",
+            "<strong>La app 'Files' o 'Mis Archivos':</strong> Casi todos los Android traen una app llamada 'Files de Google' o 'Mis Archivos'. Es tu lupa para ver todo lo que hay dentro del teléfono.",
+            "<strong>El concepto de 'Compartir':</strong> En lugar de intentar 'copiar y pegar' carpetas como en Windows, en el celular lo más fácil es usar el botón de <strong>Compartir</strong>. Si querés pasar una foto a la compu, compartila a tu propio WhatsApp o enviala por correo.",
+            "<strong>iOS (iPhone):</strong> Los iPhone son más cerrados. Todo se maneja a través de la app 'Archivos'. Si descargaste algo, buscá ahí adentro o en la carpeta 'Descargas' de iCloud.",
+            "<strong>Cómo gestionar:</strong> Nunca borres carpetas que no conozcas. Si necesitás limpiar espacio, usá siempre la opción 'Limpiar' o 'Liberar espacio' que trae la misma app de 'Files' de Google, es más seguro que borrar archivos a mano."
+        ],
+        nota: "💡 <strong>Consejo:</strong> Si conectás el celu a la compu por cable USB, la computadora lo verá como una memoria externa. Ahí sí, navegá como si fuera una carpeta más de Windows."
+    },
+
+    uso_navegador_seguro: {
+        categoria: 'usos_tecnologia',
+        nivel:     'intermedio',
+        titulo:    "Navegar tranquilo con Brave",
+        icono:     "🦁",
+        detalle:   "¿Cansado de que las publicidades te persigan o que aparezcan carteles raros? Brave es un navegador seguro, rápido y sencillo que funciona como tu ventana a internet, pero limpiando el camino de molestias.",
+        pasos: [
+            "<strong>El reemplazo ideal:</strong> Un navegador es la aplicación que usás para entrar a internet y leer páginas. Brave es una alternativa excelente porque frena los carteles publicitarios y evita que te sigan por la red. Podés conocer más sobre cómo frena estas molestias en su <a href='https://brave.com/es/shields/' target='_blank' rel='noopener noreferrer'>página oficial de protección</a>.",
+            "<strong>Cómo conseguirlo:</strong> Entrá a la tienda de aplicaciones de tu celu, buscá 'Brave Browser' y tocalo para instalar. Es totalmente gratuito. Podés verificar que es el creador original en <a href='https://brave.com/es/' target='_blank' rel='noopener noreferrer'>brave.com</a>.",
+            "<strong>La barra principal (arriba de todo):</strong> Es el renglón largo en la parte superior. Si tocás ahí, se abre el teclado. Podés escribir la dirección exacta de un sitio (como anses.gob.ar) o simplemente hacerle una pregunta (como 'farmacias de turno').",
+            "<strong>Los Marcadores (Tu agenda de páginas):</strong> Cuando estés en una página importante y quieras guardarla para otro día, buscá el dibujito de una <strong>estrellita</strong> o abrí el menú de los tres puntitos y elegí 'Agregar a marcadores'. Es como doblar la punta de la hoja de un libro para encontrarla rápido la próxima vez sin tener que memorizar nada.",
+            "<strong>Las Pestañas (Varios libros a la vez):</strong> Arriba a la derecha o abajo, vas a ver un cuadradito con un número. Si lo tocás, podés abrir otra página nueva sin perder la que ya estabas leyendo. El número te avisa cuántas páginas tenés abiertas al mismo tiempo en tu mesa de trabajo.",
+            "<strong>Botones para moverse:</strong> En la pantalla vas a encontrar una <strong>flecha que apunta hacia la izquierda</strong> (sirve para retroceder a lo que estabas viendo hace un segundo) y una <strong>flechita que da la vuelta en círculo</strong> (sirve para 'recargar' o darle un empujón a la página si se quedó trabada o en blanco).",
+            "<strong>Una experiencia más rápida:</strong> Todo funciona igual que siempre: podés tocar botones, ver videos y llenar formularios. Pero notarás que el celular responde más veloz. Como el navegador limpia todo el peso invisible de los anuncios antes de mostrártelo, ahorrás datos de tu abono y batería. Podés ver estos resultados en la <a href='https://brave.com/es/compare/chrome/' target='_blank' rel='noopener noreferrer'>comparativa oficial de rendimiento</a>.",
+            "<strong>Tu elección siempre es válida:</strong> Si preferís seguir usando el navegador que ya trajo tu celular de fábrica, está perfecto. Lo más importante, uses el que uses, es no dejarse invadir por las 'ventanitas sorpresa' (pop-ups). Son esos carteles molestos que saltan de golpe tapando la pantalla, muchas veces ofreciendo premios falsos. Nunca toques sus botones llamativos; simplemente buscá una pequeña cruz ('X') en alguna esquina para cerrarlos y seguir tu camino tranquilo."
+        ],
+        nota: "⚠️ <strong>Dato clave:</strong> Por dentro, Brave está construido con las mismas piezas que otros navegadores conocidos. Esto significa que si ya sabías entrar a internet antes, vas a saber usar este de inmediato, sintiéndote mucho más cuidado."
     }
 
 };
