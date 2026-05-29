@@ -5,11 +5,6 @@
 
 const baseDeTutoriales = {
 
-    // ══════════════════════════════════════════════════════
-    // CATEGORÍA: tramites
-    // Trámites digitales con el Estado argentino
-    // ══════════════════════════════════════════════════════
-
     correo: {
         categoria: 'tramites',
         nivel:     'basico',
@@ -19,7 +14,7 @@ const baseDeTutoriales = {
         pasos: [
             "Tenés dos opciones: buscá en tu celular una aplicación que se llame <strong>Gmail</strong> (tiene el dibujo de un sobrecito blanco con bordes rojos) y tocá. O, si preferís, entrá directo desde el navegador tocando este botón: <button class='btn-paso' onclick=\"window.open('https://accounts.google.com/SignUp','_blank','noopener,noreferrer')\">Ir directo a crear cuenta en Gmail</button>",
             "Si te aparece para iniciar sesión, buscá abajo un texto que dice <strong>'Crear cuenta'</strong> o <strong>'Registrarse'</strong> y seleccionalo. Elegí la opción que dice <strong>'Para mi uso personal'</strong>.",
-            "Escribí tu <strong>Nombre</strong> and, si querés, el <strong>Apellido</strong> en los casilleros blancos. Después tocá el botón azul que dice <strong>'Siguiente'</strong>.",
+            "Escribí tu <strong>Nombre</strong> y, si querés, el <strong>Apellido</strong> en los casilleros blancos. Después tocá el botón azul que dice <strong>'Siguiente'</strong>.",
             "Poné el día, mes y año de tu nacimiento, y tu género. Volvé a tocar <strong>'Siguiente'</strong>.",
             "Ahora tienes que inventar el <strong>'nombre de usuario'</strong> de tu correo. Por ejemplo: <em>Maria_Moreno2026@gmail.com</em>. Si te dice que ya existe, probá agregando un número.",
             "¡Momento contraseña! Inventá una clave segura. Poné algo que te acuerdes (por ejemplo, el nombre de tu nieto y el año). Un buen ejemplo: <em>NicoAngel003$</em>. <strong>¡Anotala en un cuadernito y guardalo bien!</strong>",
@@ -119,7 +114,7 @@ const baseDeTutoriales = {
         detalle:   "Las aplicaciones (o 'apps') son las herramientas del celular. Tu teléfono viene con algunas, pero vos podés bajarle las que necesites, como la del banco, la de ANSES o juegos.",
         pasos: [
             "En la pantalla de tu celular buscá el ícono de <strong>'Play Store'</strong>. Es un dibujo que parece un triángulo acostado pintado de cuatro colores (azul, verde, amarillo y rojo).",
-            "Arriba de todo vas a ver una barra alargada que dice <strong>'Buscar apps y juegos'</strong>. Tocala and escribí el nombre de lo que querés bajar (por ejemplo: <em>'PAMI'</em> o <em>'WhatsApp'</em>).",
+            "Arriba de todo vas a ver una barra alargada que dice <strong>'Buscar apps y juegos'</strong>. Tocala y escribí el nombre de lo que querés bajar (por ejemplo: <em>'PAMI'</em> o <em>'WhatsApp'</em>).",
             "Te van a aparecer los resultados de búsqueda. Fijate cuál es la correcta y tocá el botón verde grande que dice <strong>'Instalar'</strong>.",
             "Vas a ver que empieza a dar vueltas un círculo verde. Eso significa que se está descargando. Tené paciencia, puede tardar un par de minutos.",
             "Cuando termine, el botón verde va a cambiar y va a decir <strong>'Abrir'</strong>. ¡Listo! Si volvés a la pantalla principal de tu celular, vas a ver que el dibujito nuevo ya apareció."
@@ -142,11 +137,6 @@ const baseDeTutoriales = {
         ],
         nota: "💡 Si el proceso falla varias veces, no te preocupes. Podés intentarlo de nuevo más tarde o pedirle a alguien de confianza que te ayude. También podés ir directamente a la oficina del organismo con tu DNI físico."
     },
-
-    // ══════════════════════════════════════════════════════
-    // CATEGORÍA: cuidado
-    // Seguridad, privacidad y ciudadanía digital
-    // ══════════════════════════════════════════════════════
 
     evitar_estafas: {
         categoria: 'cuidado',
@@ -259,11 +249,6 @@ const baseDeTutoriales = {
         nota: "📒 Un cuadernito con tus contraseñas en casa es perfectamente válido y muy seguro — siempre que no lo dejes a la vista ni lo lleves en la cartera."
     },
 
-    // ══════════════════════════════════════════════════════
-    // CATEGORÍA: inteligencia_artificial
-    // IA con enfoque humano, crítico y útil
-    // ══════════════════════════════════════════════════════
-
     que_es_ia: {
         categoria: 'inteligencia_artificial',
         nivel:     'basico',
@@ -280,11 +265,6 @@ const baseDeTutoriales = {
         nota: "💡 La IA es una excelente compañera de ideas, pero la decisión final y el criterio humano siempre los tenés vos."
     },
 
-    // ══════════════════════════════════════════════════════
-    // CATEGORÍA: usos_tecnologia
-    // Herramientas del día a día para sacarle el jugo al celu
-    // ══════════════════════════════════════════════════════
-
     escanear_qr: {
         categoria: 'usos_tecnologia',
         nivel:     'basico',
@@ -298,7 +278,7 @@ const baseDeTutoriales = {
             "<strong>Apuntar con Lens:</strong> Se va a abrir la cámara a través de Google. Apuntá al código QR y apretá el botón redondo del centro. Al instante te va a mostrar en grande el botón azul para entrar a la página de forma totalmente segura.",
             "<strong>El botón escondido de arriba:</strong> En muchos celulares (como Motorola o Samsung), si deslizás el dedo desde el borde de arriba de la pantalla hacia abajo (donde prendés el Wi-Fi o la linterna), hay un botón que dice <strong>'Escanear QR'</strong> o <strong>'Lector QR'</strong>. Si lo tocás, se abre un lector automático limpito y rápido."
         ],
-        nota: "⚠️ <strong>Consejo de seguridad:</strong> Nunca descargues aplicaciones que se llamen 'Lector de QR' desde la Play Store. Suelen venir repletas de publicidades engañosas que te vuelven lento el celular, cuando tu teléfono ya lo hace solo de fábrica."
+        nota: "⚠️ <strong>Consejo de seguridad:</strong> Nunca descargues aplicaciones que se llamen 'Lector de QR' desde la Play Store. Suelen venir repletas de publicidades engañosas que te vuelven lento el celular, cuidado con eso."
     },
 
     lupa_digital: {
@@ -350,9 +330,4 @@ const baseDeTutoriales = {
         nota: "⚠️ <strong>Dato clave:</strong> Por dentro, Brave está construido con las mismas piezas que otros navegadores conocidos. Esto significa que si ya sabías entrar a internet antes, vas a saber usar este de inmediato, sintiéndote mucho más cuidado."
     }
 
-};
-
-// Exportación global robusta
-if (typeof window !== 'undefined') {
-    window.baseDeTutoriales = baseDeTutoriales;
-}
+}; // <-- ACÁ Y SOLO ACÁ VA EL CIERRE FINAL DEL ARCHIVO
