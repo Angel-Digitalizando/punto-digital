@@ -179,7 +179,6 @@
 
     // ── Lógica nativa de Compartir ────────────────────────
     const compartirTutorial = (idClave, info) => {
-        // Construimos el enlace directo para el tutorial
         const urlCompartir = `${window.location.origin}${window.location.pathname}?tutorial=${idClave}`;
         
         if (navigator.share) {
@@ -189,7 +188,6 @@
                 url: urlCompartir
             }).catch((err) => console.log('Error al compartir:', err));
         } else {
-            // Alternativa si el navegador o PC de escritorio no tiene soporte nativo de Web Share
             navigator.clipboard.writeText(urlCompartir).then(() => {
                 alert('📌 ¡Enlace copiado! Ya podés pegarlo en WhatsApp o redes sociales para compartirlo con un vecino.');
             }).catch(() => {
@@ -294,7 +292,7 @@
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
         window.PD_Progress?.actualizarBotonesMenu();
 
-        // REQUERIMIENTO: Forzar que al ir a la pantalla principal se rompa el filtro y muestre TODOS los tutoriales
+        // Volver a la pantalla principal reseteando los filtros (Muestra TODO)
         filtrarPorCategoria(null);
 
         tutorialActualId = null;
@@ -363,7 +361,8 @@
         if (!store || !db) return;
 
         const reciente = store.obtenerTutorialReciente();
-        if (!recurrent || !db[reciente.id]) return;
+        // 🛠️ ¡CORREGIDO!: Antes decía "recurrent" en vez de "reciente", rompiendo todo el script.
+        if (!reciente || !db[reciente.id]) return;
 
         const intro = document.getElementById('introduccion');
         if (!intro || document.getElementById('btn-reciente')) return;
@@ -442,8 +441,8 @@
         renderizarMenu();
         renderizarTabs();
         inicializarBuscador();
-        mostrarBotonReciente();
-        inicializarLupa();
+        mostrarBotonReciente(); // Ahora pasa de largo sin explotar si no hay tutoriales recientes
+        inicializarLupa();     // ¡Ya se ejecuta perfectamente!
 
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
 
