@@ -2,25 +2,13 @@
 <html lang="es-AR">
 <head>
     <meta charset="UTF-8">
-    <!--
-        viewport: user-scalable=yes es intencional.
-        Permitir zoom es un requisito WCAG 1.4.4.
-        NO usar user-scalable=no en proyectos accesibles.
-    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0B5AA2">
     <meta name="description"
           content="Tutoría paso a paso para hacer trámites online. Tutoriales digitales accesibles para vecinos de Moreno, Buenos Aires.">
 
-    <!-- Open Graph para compartir en WhatsApp / redes -->
     <meta property="og:title"       content="Punto Digital Comunitario Morenense">
     <meta property="og:description" content="Tutoriales digitales accesibles para vecinos de Moreno. Gratis, paso a paso.">
-    <!--
-        og:image DEBE ser URL absoluta para WhatsApp/Facebook.
-        Cambiar por la URL real después de publicar:
-        URL ya configurada para:
-        https://angel-digitalizando.github.io/punto-digital/assets/icons/icon-512.png
-    -->
     <meta property="og:image"       content="https://angel-digitalizando.github.io/punto-digital/assets/icons/icon-512.png">
     <meta property="og:url"         content="https://angel-digitalizando.github.io/punto-digital/">
     <meta property="og:locale"      content="es_AR">
@@ -28,25 +16,14 @@
 
     <title>Punto Digital Comunitario - Morenense</title>
 
-    <!-- CSS único — no hay CSS inline en scripts -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- PWA manifest -->
     <link rel="manifest" href="manifest.json">
 
-    <!--
-        apple-touch-icon: necesario para "Agregar a inicio"
-        en iOS Safari (no usa el manifest para esto).
-    -->
     <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
 </head>
 <body>
 
-    <!--
-        SKIP LINK — accesibilidad teclado y lectores de pantalla.
-        Debe ser el primer elemento del body.
-        El href apunta a id="contenido-principal" más abajo.
-    -->
     <a href="#contenido-principal" class="skip-link">
         Ir al contenido principal
     </a>
@@ -58,30 +35,9 @@
         </div>
     </header>
 
-    <!--
-        La barra de accesibilidad (#barra-accesibilidad) se inyecta
-        acá por accesibilidad.js, inmediatamente después del header.
-        No está en el HTML estático para evitar que aparezca sin estilos
-        durante el FOUC en conexiones lentas.
-    -->
-
     <main class="container" id="contenido-principal" role="main">
 
-        <!--
-            El indicador de conexión (#indicador-conexion) se inyecta
-            como primer hijo de este <main> por pwa.js.
-            Posición intencional: queda arriba de todo el contenido
-            sin depender de posicionamiento sticky frágil.
-        -->
-
-        <!-- ── Introducción ─────────────────────────────── -->
         <section id="introduccion" class="intro" aria-label="Introducción">
-            <!--
-                El saludo dinámico (Buenos días / tardes / noches)
-                lo escribe script.js en el DOMContentLoaded.
-                El h2 tiene contenido estático como fallback por si
-                JS no carga (degradación progresiva).
-            -->
             <h2>¡Hola Vecino, Hola Vecina! 👋</h2>
             <p>Sabemos que a veces las computadoras y los celulares
                parecieran que están hechos para los más jóvenes.
@@ -90,13 +46,8 @@
             <p style="margin-top:10px;">
                 <strong>Elegí qué querés resolver hoy y lo hacemos juntos por pasos:</strong>
             </p>
-            <!--
-                #btn-reciente se inyecta acá por ui.js si existe
-                un tutorial reciente en localStorage.
-            -->
-        </section>
+            </section>
 
-        <!-- ── Buscador ──────────────────────────────────── -->
         <section class="seccion-buscador" aria-label="Buscar tutoriales">
             <label for="input-buscador" class="label-buscador">
                 🔍 ¿Qué aprendemos ahora?
@@ -109,38 +60,17 @@
                 autocomplete="off"
                 aria-label="Buscar entre los tutoriales disponibles"
                 spellcheck="false">
-            <!--
-                aria-live="polite" en el contador: anuncia los resultados
-                a lectores de pantalla sin interrumpir lo que están leyendo.
-            -->
             <div id="contador-resultados"
                  class="contador-resultados"
                  aria-live="polite"
                  role="status"></div>
         </section>
 
-        <!--
-            #seccion-favoritos se inyecta ANTES de este nav
-            por tutorialCard.js si hay favoritos guardados.
-        -->
-
-        <!-- ── Menú de tutoriales ─────────────────────────── -->
-        <!--
-            Los botones se generan dinámicamente por ui.js
-            usando window.baseDeTutoriales (tutoriales.js).
-            El nav queda vacío en no-JS — aceptable para este target.
-        -->
         <nav id="menu-tutoriales"
              class="grid-menu"
              aria-label="Menú de tutoriales disponibles">
         </nav>
 
-        <!--
-            #seccion-progreso se inyecta por progressBar.js
-            justo antes de .consejos (lo hace con insertBefore).
-        -->
-
-        <!-- ── Zona de tutorial (oculta hasta que se abre uno) ── -->
         <section id="zona-tutorial"
                  class="tutorial-container oculto"
                  aria-label="Tutorial paso a paso">
@@ -151,11 +81,6 @@
                 🔙 Volver al Menú Principal
             </button>
 
-            <!--
-                tabindex="-1" permite enfocar este div programáticamente
-                (ui.js hace focus() aquí al abrir un tutorial),
-                sin agregarlo al orden de tab natural.
-            -->
             <div id="contenido-dinamico" tabindex="-1"></div>
 
             <div class="alerta-tranquilidad" role="note">
@@ -166,13 +91,6 @@
             </div>
         </section>
 
-        <!-- ── Banner de seguridad digital ──────────────── -->
-        <!--
-            Posición intencional: después del menú de tutoriales,
-            antes de cerrar el main. Visible sin scrollear en mobile.
-            Contenido siempre visible, no colapsable: es información
-            crítica para el público objetivo.
-        -->
         <section class="banner-seguridad" aria-label="Cuidado digital — información importante">
             <div class="banner-seg-header">
                 <span class="banner-seg-icono" aria-hidden="true">🛡️</span>
@@ -224,10 +142,8 @@
                 Ver tutorial completo 🛡️
             </button>
         </section>
-    </section> 
-    </main><!-- /#contenido-principal -->
-
-    <footer class="footer" id="pie-pagina" role="contentinfo">
+        
+    </main><footer class="footer" id="pie-pagina" role="contentinfo">
         <div class="container">
             <p>Conectando a nuestra comunidad, enchufado al barrio. 🌐
                Espacios de Alfabetización y Educación Digital Comunitaria.</p>
@@ -271,75 +187,23 @@
         </div>
     </footer>
 
-    <!--
-    ═══════════════════════════════════════════════════════
-    ORDEN DE CARGA DE SCRIPTS — OBLIGATORIO
-    ═══════════════════════════════════════════════════════
-
-    El orden no es arbitrario. Cada módulo puede depender
-    de APIs expuestas por los anteriores en window.*.
-    Cambiar el orden rompe la inicialización en runtime.
-
-    GRAFO DE DEPENDENCIAS (A → B significa "A necesita B"):
-
-      storage.js          → (nada)
-      tutoriales.js       → (nada)
-      components/toast.js → (nada)
-      components/progressBar.js → PD_Storage, baseDeTutoriales
-      components/tutorialCard.js → PD_Storage, PD_Toast, PD_Progress,
-                                   mostrarTutorial (de ui.js, resuelto
-                                   lazy en runtime)
-      voice/speech.js     → PD_Storage (lazy), PD_Toast (lazy),
-                            speechSynthesis (lazy)
-      ui.js               → baseDeTutoriales, PD_Storage, PD_TutorialCard,
-                            PD_Progress, PD_Speech (lazy)
-      accesibilidad.js    → PD_Storage, PD_Speech (lazy), PD_Toast (lazy)
-      script.js           → PD_Toast (lazy)
-      pwa.js              → PD_Toast (lazy), serviceWorker API
-
-    MÓDULOS SIN DEPENDENCIAS EN CARGA:
-      storage, tutoriales, toast → se pueden reordenar entre sí.
-
-    MÓDULOS CON DEPENDENCIAS LAZY (resueltas en runtime):
-      Los marcados "(lazy)" no causan error si el módulo
-      dependido no existe — usan if (window.X) antes de llamar.
-      Esto permite degradación progresiva si un archivo falla.
-
-    ═══════════════════════════════════════════════════════
-    -->
-
-    <!-- NIVEL 0: sin dependencias — base del sistema -->
     <script src="js/storage.js"></script>
     <script src="js/tutoriales.js"></script>
     <script src="js/components/toast.js"></script>
 
-    <!-- NIVEL 1: dependen de storage + tutoriales + toast -->
     <script src="js/components/progressBar.js"></script>
     <script src="js/components/tutorialCard.js"></script>
     <script src="js/voice/speech.js"></script>
 
-    <!-- NIVEL 2: dependen de todo lo anterior -->
     <script src="js/ui.js"></script>
 
-    <!-- NIVEL 3: dependen de ui.js + storage + toast -->
     <script src="js/accesibilidad.js"></script>
     <script src="js/script.js"></script>
-    <!--
-        onboarding.js: depende de storage (lazy) y ui.js.
-        Carga aquí para que ui.js ya haya renderizado el menú
-        antes de que onboarding intente filtrar por categoría.
-    -->
     <script src="js/onboarding.js"></script>
-    <!--
-        deeplink.js: lee ?tutorial= y ?categoria= de la URL.
-        Carga después de ui.js para que mostrarTutorial exista.
-        Ejecuta en DOMContentLoaded con setTimeout(0) extra
-        para garantizar que init() de ui.js ya corrió.
-    -->
     <script src="js/deeplink.js"></script>
 
-    <!-- NIVEL 4: depende solo de toast (lazy) + SW API -->
     <script src="js/pwa.js"></script>
 
 </body>
 </html>
+
