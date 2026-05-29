@@ -840,3 +840,27 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
 @media (max-width: 600px) {
     .btn-compartir-flotante { width: 52px; height: 52px; bottom: 20px; right: 14px; }
 }
+/* ========================================================= */
+/* MODO HORIZONTAL (Landscape) PARA CELULARES */
+/* ========================================================= */
+
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    /* Ajusta el contenedor de tus tutoriales para que no ocupe el 100% del ancho */
+    .contenedor-principal, .modal {
+        max-width: 80%;
+        margin: 0 auto; /* Lo centra en la pantalla */
+        
+        /* Agregamos scroll interno por si la pantalla es muy bajita de alto */
+        max-height: 85vh; 
+        overflow-y: auto;
+        
+        /* Opcional: Agrandar un poquito la fuente porque están más lejos de la pantalla */
+        font-size: 1.1rem; 
+    }
+
+    /* Si tenés botones muy anchos, acá los achicamos un poco */
+    .btn-paso {
+        max-width: 300px;
+        margin: 5px auto;
+    }
+}

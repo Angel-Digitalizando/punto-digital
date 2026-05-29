@@ -109,7 +109,7 @@ const baseDeTutoriales = {
     playstore: {
         categoria: 'tramites',
         nivel:     'basico',
-        titulo:    "Descargar Apps de Play Store",
+        titulo:    "Descargar Aplicaciones desde Play Store",
         icono:     "📥",
         detalle:   "Las aplicaciones (o 'apps') son las herramientas del celular. Tu teléfono viene con algunas, pero vos podés bajarle las que necesites, como la del banco, la de ANSES o juegos.",
         pasos: [
@@ -154,35 +154,18 @@ const baseDeTutoriales = {
     cuidado_dispositivo: {
         categoria: 'cuidado',
         nivel:     'basico',
-        titulo:    "Cuidar la salud de tu celular",
+        titulo:    "Cuidar tu celular y cambiar a uno nuevo",
         icono:     "📱",
-        detalle:   "El celular es tu herramienta de estudio y comunicación. Cuidar tanto el aparato por fuera como el sistema por dentro hace que te dure años sin tener que gastar plata en el servicio técnico.",
+        detalle:   "El celular es tu herramienta diaria. Acá vamos a ver trucos rápidos sobre la marcha, cómo bloquear publicidades invasivas y qué hacer exactamente si te comprás un celu nuevo para no perder nada ni dejar tus datos expuestos en el viejo.",
         pasos: [
-            "<strong>Liberar espacio (Limpieza general):</strong> La forma más rápida es instalar la app <em>Files de Google</em> (el ícono de una carpetita azul). Al abrirla, tiene un botón que dice 'Limpiar' que busca archivos basura, fotos duplicadas y memes pesados de WhatsApp automáticamente. Es la opción más segura si no querés navegar por menús complicados.",
-            "<strong>Gestionar almacenamiento por menú (Samsung/Android Puro):</strong> Si preferís hacerlo a mano, andá a 'Ajustes' o 'Configuración'. Buscá la opción que dice <strong>'Almacenamiento'</strong> o <strong>'Cuidado del dispositivo'</strong>. Ahí verás una barra que te muestra qué ocupa más lugar. Tocá sobre 'Aplicaciones' para ver cuáles están consumiendo espacio de más.",
-            "<strong>Limpiar datos y caché de una app específica (WhatsApp):</strong> Entrá a 'Ajustes' > <strong>'Aplicaciones'</strong> o <strong>'Administrador de aplicaciones'</strong>. Buscá <em>WhatsApp</em> en la lista y tocalo. Entrá donde dice <strong>'Almacenamiento'</strong>. Ahí vas a ver dos botones: <em>'Borrar caché'</em> (esto es seguro, borra archivos temporales) y <em>'Borrar datos'</em> (¡CUIDADO! esto puede borrar tus chats si no hiciste copia de seguridad antes). Recomendamos usar solo 'Borrar caché' para WhatsApp y usar la herramienta de limpieza interna de la app (Ajustes > Almacenamiento y datos > Administrar almacenamiento).",
-            "<strong>Diferencias entre dispositivos:</strong> No todos los celulares son iguales. Si no encontrás 'Almacenamiento', probá escribiendo la palabra en la lupa de búsqueda que aparece arriba de todo en 'Ajustes'. Algunos celulares tienen un 'Optimizador' o 'Seguridad' como aplicación propia de la marca (común en Xiaomi o Motorola) que hace todo el trabajo por vos.",
-            "<strong>Proteger la vida útil de la batería:</strong> Evitá que el teléfono se apague por completo (0%) o dejarlo cargando toda la noche si ya llegó al 100%. Lo ideal para cuidar la batería a largo plazo es mantenerla siempre entre el 20% y el 80% de carga. Si tu celu tiene 'Carga optimizada' en Ajustes > Batería, activala.",
-            "<strong>Cuidado físico y limpieza:</strong> No uses alcohol puro ni limpiavidrios para limpiar la pantalla porque dañan el protector de fábrica. Usá un paño apenas húmedo (con un poquito de agua destilada o solo una microfibra seca). Evitá dejar el celular expuesto al sol directo o arriba de la mesa mientras comés para prevenir accidentes con líquidos.",
-            "<strong>Actualizaciones de seguridad:</strong> Una vez al mes, entrá a 'Ajustes' > <strong>'Sistema'</strong> o <strong>'Actualización de software'</strong>. Mantener el sistema al día parchea fallos que los atacantes usan para meter virus o robar información."
+            "<strong>El truco rápido para liberar memoria (El método del pellizco):</strong> En casi cualquier celular moderno (como Samsung o Motorola), no hace falta meterse en menús largos. Mantené apretado con el dedo el ícono de una aplicación que uses mucho (por ejemplo, TikTok o Chrome). Va a saltar un menú chiquito. Tocá el símbolo de la <strong>'i' (Información)</strong>. Ahí adentro buscá <strong>'Almacenamiento'</strong> y tocá el botón <strong>'Borrar caché'</strong>. ¡Listo! Acabás de barrer la basura acumulada sin borrar ni tu cuenta ni tus mensajes. Hacelo sobre la marcha cuando notes el celu lento.",
+            "<strong>Limpieza automática (Si preferís no tocar):</strong> Si no querés buscar app por app, instalá la aplicación gratuita <em>Files de Google</em>. Al abrirla, vas a la pestaña 'Limpiar' y el sistema busca memes viejos y archivos basura automáticamente. Es la opción más segura.",
+            "<strong>Bloquear publicidades molestas (El escudo AdGuard):</strong> ¿Cansado de los anuncios que saltan de la nada en internet o en algunas apps? Hay un truco ninja que no requiere instalar nada. Andá a <strong>Ajustes > Conexiones > Más ajustes de conexión > DNS Privado</strong>. Elegí 'Nombre del host', escribí exactamente <code>dns.adguard.com</code> y dale a Guardar. Esto actúa como un patovica de boliche: filtra tu conexión y no deja entrar anuncios molestos.",
+            "<strong>La salud de la batería:</strong> Tu batería sufre muchísimo si llega a 0% o si la dejás enchufada toda la noche al 100%. El 'punto dulce' es mantenerla siempre entre 20% y 80%. Tratalo como si fuera el tanque de nafta del auto: no esperes a quedarte a pie para cargarle un poquito.",
+            "<strong>Cambiar de celular - Concepto 'Transferir':</strong> ¿Te compraste un celu nuevo? ¡Felicitaciones! No pases tus contactos ni fotos a mano. Al prender el nuevo por primera vez, la pantalla te va a preguntar si querés <strong>Copiar aplicaciones y datos</strong>. Podés conectarlos entre sí con el cable del cargador o por Wi-Fi. Si ambos son Samsung, podés usar la app <em>Smart Switch</em>. Esto directamente 'clona' tu celu viejo en el nuevo: tus fotos, tu fondo de pantalla y tu WhatsApp pasan igualitos.",
+            "<strong>Vender o regalar el viejo - Concepto 'Restablecer':</strong> ¡OJO ACÁ! Nunca le des tu celu viejo a nadie sin hacer esto. Una vez que te aseguraste de que el celular nuevo tiene absolutamente todo, agarrá el viejo, andá a Ajustes y buscá <strong>'Restablecer'</strong> o <strong>'Volver a estado de fábrica'</strong>. Esto destruye todos tus datos, desvincula tu correo y lo deja como si recién saliera de la caja. Es la única forma 100% segura de proteger tu privacidad antes de entregarlo."
         ],
-        nota: "💡 Si tu celular está muy lento y ya liberaste espacio, intentá reiniciarlo (apagarlo y prenderlo). Esto limpia la memoria temporal y suele solucionar 'trabadas' del sistema de forma mágica."
-    },
-
-    copia_seguridad: {
-        categoria: 'cuidado',
-        nivel:     'intermedio',
-        titulo:    "No perder tus fotos y contactos (La Nube)",
-        icono:     "☁️",
-        detalle:   "Aprendé a guardar tus fotos, contactos y mensajes de forma segura en internet. Así, si alguna vez perdés el celular o se te rompe, cuando compres uno nuevo recuperás todo al instante.",
-        pasos: [
-            "<strong>¿Qué es 'La Nube'?</strong> No te asustes con el nombre. Es simplemente un cajón virtual y seguro en internet que te regalan cuando te creás una cuenta de Gmail. Todo lo que guardes ahí, viaja con vos a cualquier celular.",
-            "<strong>Resguardar tus Fotos (Google Fotos):</strong> Buscá en tu celu la aplicación <em>Fotos</em> (tiene el dibujo de un molinete de colores). Entrá, tocá tu foto o letra arriba a la derecha, y buscá la opción <strong>'Copia de seguridad'</strong>. Fijate que el botón esté encendido. <em>Consejo:</em> Hacé esto cuando estés conectado a Wi-Fi para no gastar los datos de tu línea.",
-            "<strong>No perder nunca los Contactos:</strong> Para que los números de teléfono no queden atrapados en el aparato viejo, hay un truco simple. Cuando agendes a un vecino nuevo, fijate arriba de todo en la pantalla: asegurate de que diga <strong>'Guardar en: [tu correo]'</strong> en lugar de decir 'Dispositivo' o 'Tarjeta SIM'.",
-            "<strong>Guardar los chats de WhatsApp:</strong> ¿Querés conservar tus conversaciones? Abrí WhatsApp, tocá los tres puntitos arriba a la derecha y andá a <strong>Ajustes > Chats > Copia de seguridad</strong>. Apretá el botón verde que dice <strong>'Guardar'</strong>. Abajo podés elegir que esto se haga solo, por ejemplo, todas las semanas.",
-            "<strong>Liberar espacio con confianza:</strong> Una vez que Google Fotos termine de hacer la copia de seguridad de tus imágenes, podés usar un botón dentro de esa misma aplicación que dice <strong>'Liberar espacio'</strong>. Eso borra las fotos del aparato para que no esté lento, pero te las deja guardadas y visibles en la nube."
-        ],
-        nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
+        nota: "💡 Reiniciar el celular (apagarlo y volverlo a prender) una vez por semana es el mejor mantenimiento gratuito que existe. Acomoda el sistema y soluciona el 90% de las trabadas misteriosas."
     },
 
     paginas_oficiales: {
@@ -309,6 +292,22 @@ const baseDeTutoriales = {
             "<strong>Cómo gestionar:</strong> Nunca borres carpetas que no conozcas. Si necesitás limpiar espacio, usá siempre la opción 'Limpiar' o 'Liberar espacio' que trae la misma app de 'Files' de Google, es más seguro que borrar archivos a mano."
         ],
         nota: "💡 <strong>Consejo:</strong> Si conectás el celu a la compu por cable USB, la computadora lo verá como una memoria externa. Ahí sí, navegá como si fuera una carpeta más de Windows."
+    },
+
+    copia_seguridad: {
+        categoria: 'usos_tecnologia',
+        nivel:     'intermedio',
+        titulo:    "No perder tus fotos y contactos (La Nube)",
+        icono:     "☁️",
+        detalle:   "Aprendé a guardar tus fotos, contactos y mensajes de forma segura en internet. Así, si alguna vez perdés el celular o se te rompe, cuando compres uno nuevo recuperás todo al instante.",
+        pasos: [
+            "<strong>¿Qué es 'La Nube'?</strong> No te asustes con el nombre. Es simplemente un cajón virtual y seguro en internet que te regalan cuando te creás una cuenta de Gmail. Todo lo que guardes ahí, viaja con vos a cualquier celular.",
+            "<strong>Resguardar tus Fotos (Google Fotos):</strong> Buscá en tu celu la aplicación <em>Fotos</em> (tiene el dibujo de un molinete de colores). Entrá, tocá tu foto o letra arriba a la derecha, y buscá la opción <strong>'Copia de seguridad'</strong>. Fijate que el botón esté encendido. <em>Consejo:</em> Hacé esto cuando estés conectado a Wi-Fi para no gastar los datos de tu línea.",
+            "<strong>No perder nunca los Contactos:</strong> Para que los números de teléfono no queden atrapados en el aparato viejo, hay un truco simple. Cuando agendes a un vecino nuevo, fijate arriba de todo en la pantalla: asegurate de que diga <strong>'Guardar en: [tu correo]'</strong> en lugar de decir 'Dispositivo' o 'Tarjeta SIM'.",
+            "<strong>Guardar los chats de WhatsApp:</strong> ¿Querés conservar tus conversaciones? Abrí WhatsApp, tocá los tres puntitos arriba a la derecha y andá a <strong>Ajustes > Chats > Copia de seguridad</strong>. Apretá el botón verde que dice <strong>'Guardar'</strong>. Abajo podés elegir que esto se haga solo, por ejemplo, todas las semanas.",
+            "<strong>Liberar espacio con confianza:</strong> Una vez que Google Fotos termine de hacer la copia de seguridad de tus imágenes, podés usar un botón dentro de esa misma aplicación que dice <strong>'Liberar espacio'</strong>. Eso borra las fotos del aparato para que no esté lento, pero te las deja guardadas y visibles en la nube."
+        ],
+        nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
     },
 
     uso_navegador_seguro: {
