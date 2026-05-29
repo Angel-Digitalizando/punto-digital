@@ -33,12 +33,23 @@ punto-digital/
 ├── offline.html         # Página para acceso sin conexión
 ├── service-worker.js    # Lógica de caché PWA
 ├── manifest.json        # Configuración de la app
-├── css/style.css        # Estilos accesibles
+├── netlify.toml         # Configuración de deploy
+├── _headers             # Headers HTTP
+├── README.md            # Documentación
+├── css/
+│   └── style.css        # Estilos accesibles
 └── js/
     ├── tutoriales.js    # Base de datos de tutoriales
     ├── ui.js            # Lógica de interfaz y navegación
     ├── storage.js       # Guardado local
-    └── voice/speech.js  # Lectura en voz alta
+    ├── pwa.js           # Registro SW y conexión
+    ├── script.js        # Utilitarios generales
+    ├── components/
+    │   ├── toast.js     # Notificaciones visuales
+    │   ├── progressBar.js # Progreso global
+    │   └── tutorialCard.js # Gestión de favoritos
+    └── voice/
+        └── speech.js    # Lectura en voz alta
 
 ---
 
