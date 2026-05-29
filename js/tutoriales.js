@@ -347,6 +347,9 @@ const baseDeTutoriales = {
         nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
     }
 
-}; // <-- CIERRE FINAL DEL ARCHIVO
-// Añadir al final de js/tutoriales.js
+// ... (toda tu lista de tutoriales)
+}; 
+
+// FUERZA LA EXPOSICIÓN GLOBAL
 window.baseDeTutoriales = baseDeTutoriales;
+console.log("Tutoriales cargados en window:", window.baseDeTutoriales);
