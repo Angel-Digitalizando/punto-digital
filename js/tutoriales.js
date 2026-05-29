@@ -176,7 +176,6 @@ const baseDeTutoriales = {
                                                                                         "<strong>Paso 8: Reiniciar el dispositivo.</strong> Para terminar y salir, buscá la opción de arriba de todo que dice 'Reboot system now' (reiniciar el sistema ahora) y apretá el botón de encender. El celu va a prender de manera normal, pero vas a notar que arranca mucho más liviano y vuela."
                                                                                             ]
                                                                                             }
-
     }
     // ══════════════════════════════════════════════════════
     // CATEGORÍA: cuidado
