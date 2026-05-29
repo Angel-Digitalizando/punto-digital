@@ -276,7 +276,7 @@ const baseDeTutoriales = {
             "<strong>Animate a probar:</strong> La mejor forma de sacarle el miedo es usarla. Podés preguntarle recetas con lo que te quedó en la heladera o pedirle que te arme una rutina de ejercicios suaves."
         ],
         nota: "💡 La IA es una excelente compañera de ideas, pero la decisión final y el criterio humano siempre los tenés vos."
-    }
+    },
 
 };
 
