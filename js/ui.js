@@ -14,6 +14,7 @@
 //   - Renderiza botones en #menu-tutoriales
 //   - Inicializa buscador en #input-buscador
 //   - Puede inyectar #btn-reciente en #introduccion
+//   - Inicializa la Lupa Digital de accesibilidad
 //   - Expone filtrarPorCategoria en window.PD_UI
 // =========================================================
 
@@ -176,6 +177,27 @@
         menu.parentNode.insertBefore(wrapper, menu);
     };
 
+    // ── Lógica nativa de Compartir ────────────────────────
+    const compartirTutorial = (idClave, info) => {
+        // Construimos el enlace directo para el tutorial
+        const urlCompartir = `${window.location.origin}${window.location.pathname}?tutorial=${idClave}`;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: info.titulo,
+                text: `Te comparto este tutorial útil del Punto Digital: "${info.titulo}" (${info.detalle})`,
+                url: urlCompartir
+            }).catch((err) => console.log('Error al compartir:', err));
+        } else {
+            // Alternativa si el navegador o PC de escritorio no tiene soporte nativo de Web Share
+            navigator.clipboard.writeText(urlCompartir).then(() => {
+                alert('📌 ¡Enlace copiado! Ya podés pegarlo en WhatsApp o redes sociales para compartirlo con un vecino.');
+            }).catch(() => {
+                alert(`Compartir enlace: ${urlCompartir}`);
+            });
+        }
+    };
+
     // ── Mostrar tutorial ──────────────────────────────────
     const mostrarTutorial = (idClave) => {
         const db = window.baseDeTutoriales;
@@ -211,9 +233,23 @@
             <h2 id="titulo-tutorial" tabindex="-1" style="color:var(--azul-oscuro);font-size:2rem;margin-bottom:10px;">
                 ${info.icono} ${info.titulo}
             </h2>
-            <p id="detalle-tutorial" style="margin-bottom:20px;font-style:italic;color:#555;">
+            <p id="detalle-tutorial" style="margin-bottom:15px;font-style:italic;color:#555;">
                 ${info.detalle}
             </p>
+            
+            <div class="barra-compartir-horizontal" style="display:flex; flex-direction:row; gap:12px; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
+                <button id="btn-compartir-tutorial" class="btn-compartir-accion" style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; background:#e9ecef; border:1px solid #ced4da; border-radius:8px; font-weight:bold; cursor:pointer;" aria-label="Compartir este tutorial con un vecino">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#212529" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    Compartir tutorial
+                </button>
+            </div>
+
             <div id="indicador-progreso" role="status" aria-live="polite"></div>
             <hr style="border:0;height:2px;background:var(--celeste-arg);margin:18px 0;">
             <div role="list" id="lista-pasos">${pasosHtml}</div>
@@ -227,6 +263,8 @@
 
         window.PD_TutorialCard?.inyectarAccionesTutorial(idClave);
 
+        // Listeners del tutorial
+        document.getElementById('btn-compartir-tutorial').addEventListener('click', () => compartirTutorial(idClave, info));
         document.getElementById('btn-finalizar-tutorial').addEventListener('click', ocultarTutorial);
 
         document.getElementById('zona-tutorial')?.classList.remove('oculto');
@@ -256,8 +294,8 @@
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
         window.PD_Progress?.actualizarBotonesMenu();
 
-        // Restaurar filtro de categoría activo
-        if (categoriaActiva) filtrarPorCategoria(categoriaActiva);
+        // REQUERIMIENTO: Forzar que al ir a la pantalla principal se rompa el filtro y muestre TODOS los tutoriales
+        filtrarPorCategoria(null);
 
         tutorialActualId = null;
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -325,7 +363,7 @@
         if (!store || !db) return;
 
         const reciente = store.obtenerTutorialReciente();
-        if (!reciente || !db[reciente.id]) return;
+        if (!recurrent || !db[reciente.id]) return;
 
         const intro = document.getElementById('introduccion');
         if (!intro || document.getElementById('btn-reciente')) return;
@@ -348,6 +386,29 @@
         div.appendChild(p);
         div.appendChild(btn);
         intro.appendChild(div);
+    };
+
+    // ── Lupa Digital (Accesibilidad Visual) ────────────────
+    const inicializarLupa = () => {
+        const btnLupa = document.getElementById('btn-lupa');
+        if (!btnLupa) return;
+
+        // Comprobar si ya estaba activa en una sesión anterior
+        const lupaPrevia = localStorage.getItem('pd_lupa_activa') === 'true';
+        if (lupaPrevia) {
+            document.body.classList.add('lupa-activa');
+            btnLupa.classList.add('lupa-on');
+            btnLupa.setAttribute('aria-pressed', 'true');
+        }
+
+        btnLupa.addEventListener('click', () => {
+            const estaActiva = document.body.classList.toggle('lupa-activa');
+            btnLupa.classList.toggle('lupa-on', estaActiva);
+            btnLupa.setAttribute('aria-pressed', estaActiva ? 'true' : 'false');
+            
+            // Guardar preferencia del vecino
+            localStorage.setItem('pd_lupa_activa', estaActiva);
+        });
     };
 
     // ── Confeti ───────────────────────────────────────────
@@ -382,6 +443,7 @@
         renderizarTabs();
         inicializarBuscador();
         mostrarBotonReciente();
+        inicializarLupa();
 
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
 
