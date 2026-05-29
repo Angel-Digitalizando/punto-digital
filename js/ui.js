@@ -413,8 +413,15 @@
         });
     };
 
-    // ── Inicialización ────────────────────────────────────
+// ── Inicialización Segura ────────────────────────────────────
     const init = () => {
+        // Validación: Esperamos a que los datos existan
+        if (!window.baseDeTutoriales) {
+            console.warn("Esperando baseDeTutoriales...");
+            setTimeout(init, 100); // Reintenta en 100ms
+            return;
+        }
+
         renderizarMenu();
         renderizarTabs();
         inicializarBuscador();
@@ -430,6 +437,13 @@
 
         document.getElementById('btn-volver')?.addEventListener('click', ocultarTutorial);
     };
+
+    // Lanzar al cargar el DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 
     // ── API pública ───────────────────────────────────────
     window.mostrarTutorial   = mostrarTutorial;
