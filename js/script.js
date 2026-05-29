@@ -138,9 +138,79 @@
         aplicarAnio();
         aplicarSaludo();
         inicializarFooter();
+        inicializarHeaderInicio();
+        inicializarCompartirFlotante();
+    }
+    // ─── Header → volver al inicio ────────────────────────
+    function inicializarHeaderInicio() {
+        var btn = document.getElementById('btn-inicio-header');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+            if (typeof window.ocultarTutorial === 'function') {
+                window.ocultarTutorial();
+            }
+            if (window.PD_UI && typeof window.PD_UI.filtrarPorCategoria === 'function') {
+                window.PD_UI.filtrarPorCategoria(null);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
 
-    if (document.readyState === 'loading') {
+    // ─── Botón flotante compartir ─────────────────────────
+    function inicializarCompartirFlotante() {
+        var btn = document.getElementById('btn-compartir-flotante');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+            var url   = window.location.href.split('?')[0];
+            var titulo = '🌐 Punto Digital Comunitario Morenense';
+            var texto  = 'Tutoriales digitales para hacer trámites online, gratis y en español.';
+
+            if (navigator.share) {
+                navigator.share({ title: titulo, text: texto, url: url })
+                    .catch(function (err) {
+                        if (err.name !== 'AbortError') copiarURLFallback(url);
+                    });
+                return;
+            }
+            copiarURLFallback(url);
+        });
+    }
+
+    function copiarURLFallback(url) {
+        var toast = window.PD_Toast && window.PD_Toast.mostrarToast
+            ? window.PD_Toast
+            : null;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url)
+                .then(function () {
+                    if (toast) toast.mostrarToast('📋 Enlace copiado — pegalo en WhatsApp', 'exito', 3000);
+                })
+                .catch(function () { copiarConExecCommand(url); });
+            return;
+        }
+        copiarConExecCommand(url);
+    }
+
+    function copiarConExecCommand(url) {
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(ta);
+        if (window.PD_Toast && window.PD_Toast.mostrarToast) {
+            window.PD_Toast.mostrarToast(
+                ok ? '📋 Enlace copiado — pegalo en WhatsApp' : '⚠️ No se pudo copiar el enlace',
+                ok ? 'exito' : 'aviso',
+                3000
+            );
+        }
+    }
+
+   if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
