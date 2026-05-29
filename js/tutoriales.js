@@ -161,44 +161,38 @@ const baseDeTutoriales = {
         nota: "💡 Si el proceso falla varias veces, no te preocupes. Podés intentarlo de nuevo más tarde o pedirle a alguien de confianza que te ayude. También podés ir directamente a la oficina del organismo con tu DNI físico."
     },
 
-
-
     // ══════════════════════════════════════════════════════
     // CATEGORÍA: cuidado
     // Seguridad, privacidad y ciudadanía digital
     // ══════════════════════════════════════════════════════
-// Agregar este bloque dentro de la categoría correspondiente en js/tutoriales.js
-{
-    id: "cuidado-dispositivo",
-        titulo: "Cuidar la salud de tu celular",
-            descripcion: "Consejos prácticos para que el teléfono no se ponga lento, te dure más la batería y evitar que se rompa.",
-                icono: "📱",
-                    categoria: "cuidado",
-                        tiempo: "5 min",
-                            introduccion: "El celular es tu herramienta de estudio y comunicación. Cuidar tanto el aparato por fuera como el sistema por dentro hace que te dure años sin tener que gastar plata en el servicio técnico.",
-                                pasos: [
-                                        {
-                                                    nro: 1,
-                                                                subtitulo: "Liberar espacio de almacenamiento",
-                                                                            detalle: "Cuando el celu se llena, se pone muy lento. Entrá a Ajustes > Almacenamiento (o usá la app Files de Google) y borrá las fotos duplicadas, los videos pesados de WhatsApp y las aplicaciones que ya no uses."
-                                                                                    },
-                                                                                            {
-                                                                                                        nro: 2,
-                                                                                                                    subtitulo: "Proteger la vida útil de la batería",
-                                                                                                                                detalle: "Evitá que el teléfono se apague por completo (0%) o dejarlo cargando toda la noche si ya llegó al 100%. Lo ideal para cuidar la batería a largo plazo es mantenerla siempre entre el 20% y el 80% de carga."
-                                                                                                                                        },
-                                                                                                                                                {
-                                                                                                                                                            nro: 3,
-                                                                                                                                                                        subtitulo: "Cuidado físico y limpieza",
-                                                                                                                                                                                    detalle: "No uses alcohol puro ni limpiavidrios para limpiar la pantalla porque dañan el protector de fábrica. Usá un paño apenas húmedo. Evitá dejar el celular expuesto al sol directo o arriba de la mesa mientras comés para evitar accidentes con líquidos."
-                                                                                                                                                                                            },
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                                nro: 4,
-                                                                                                                                                                                                                            subtitulo: "Actualizaciones de seguridad",
-                                                                                                                                                                                                                                        detalle: "Una vez al mes, entrá a Ajustes > Sistema > Actualización de software. Mantener el sistema al día parchea fallos que los atacantes usan para meter virus o robar información."
-                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                    ]
-                                                                                                                                                                                                                                                    }  
+
+    evitar_estafas: {
+        categoria: 'cuidado',
+        nivel:     'basico',
+        titulo:    "Evitar estafas y cuentos del tío",
+        icono:     "🛡️",
+        detalle:   "Aprendé a reconocer mensajes falsos, enlaces peligrosos y cómo proteger tus cuentas para que no te roben plata ni datos.",
+        pasos: [
+            "<strong>Desconfiá de ofertas desesperadas o premios falsos:</strong> Si te llega un mensaje diciendo que ganaste un sorteo en el que no participaste, o que te van a dar un bono urgente, desconfiá. Nunca te van a apurar por canales oficiales.",
+            "<strong>Mirar bien los enlaces (Links):</strong> Antes de hacer clic, revisá bien las letras de la dirección web. Los estafadores usan nombres parecidos pero con errores (por ejemplo, 'banc0nacion' en vez de 'bancoficial'). Si no es el sitio oficial, salí de ahí.",
+            "<strong>Nunca des códigos de verificación por WhatsApp:</strong> Si te llaman por teléfono o te escriben pidiéndote el código de 6 números que te llegó por SMS (diciendo que es para un turno de vacunación o una entrega), NO SE LO DES A NADIE. Es el código para robarte el WhatsApp."
+        ]
+    },
+
+    cuidado_dispositivo: {
+        categoria: 'cuidado',
+        nivel:     'basico',
+        titulo:    "Cuidar la salud de tu celular",
+        icono:     "📱",
+        detalle:   "El celular es tu herramienta de estudio y comunicación. Cuidar tanto el aparato por fuera como el sistema por dentro hace que te dure años sin tener que gastar plata en el servicio técnico.",
+        pasos: [
+            "<strong>Liberar espacio de almacenamiento:</strong> Cuando el celu se llena, se pone muy lento. Entrá a Ajustes > Almacenamiento (o usá la app Files de Google) y borrá las fotos duplicadas, los videos pesados de WhatsApp y las aplicaciones que ya no uses.",
+            "<strong>Proteger la vida útil de la batería:</strong> Evitá que el teléfono se apague por completo (0%) o dejarlo cargando toda la noche si ya llegó al 100%. Lo ideal para cuidar la batería a largo plazo es mantenerla siempre entre el 20% y el 80% de carga.",
+            "<strong>Cuidado físico y limpieza:</strong> No uses alcohol puro ni limpiavidrios para limpiar la pantalla porque dañan el protector de fábrica. Usá un paño apenas húmedo. Evitá dejar el celular expuesto al sol directo o arriba de la mesa mientras comés.",
+            "<strong>Actualizaciones de seguridad:</strong> Una vez al mes, entrá a Ajustes > Sistema > Actualización de software. Mantener el sistema al día parchea fallos que los atacantes usan para meter virus o robar información."
+        ]
+    },
+
     paginas_oficiales: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -278,98 +272,15 @@ const baseDeTutoriales = {
             "<strong>¿Qué es en palabras simples?</strong> La inteligencia artificial (IA) es un programa de computadora que aprendió a responder preguntas, escribir textos, traducir idiomas y hacer muchas cosas más, leyendo una cantidad enorme de información. Es como un asistente muy rápido, pero que no piensa como una persona.",
             "<strong>¿Qué puede hacer por vos?</strong> Puede ayudarte a redactar una nota o un reclamo, explicarte algo que no entendés, buscar información, traducir un texto, o resumir algo largo. Todo esto sin costo, desde el celular.",
             "<strong>¿Qué NO puede hacer?</strong> No conoce tu situación personal. No tiene sentimientos. No siempre tiene razón — a veces inventa información que suena verdadera pero es falsa. No reemplaza a un médico, un abogado, o a alguien que te conoce.",
-            "<strong>¿Cómo sabés si lo que te dice es verdad?</strong> Verificá la información importante en fuentes fuentes oficiales (páginas .gob.ar) o consultá con una persona de confianza. La IA es útil como punto de partida, no como última palabra.",
-            "<strong>¿Es peligrosa?</strong> No si se usa con criterio. Como cualquier herramienta, depende del uso. Un martillo puede clavar un clavo o romper algo — depende de quién lo usa y cómo. La IA es similar."
+            "<strong>¿Cómo saber si hablo con una IA o una persona?</strong> Si responde al instante, a cualquier hora de la madrugada, con textos larguísimos y redacción perfecta en segundos, lo más seguro es que estés hablando con una IA.",
+            "<strong>Animate a probar:</strong> La mejor forma de sacarle el miedo es usarla. Podés preguntarle recetas con lo que te quedó en la heladera o pedirle que te arme una rutina de ejercicios suaves."
         ],
-        nota: "💡 La IA es una herramienta, no un oráculo. Usarla con criterio propio es parte de la ciudadanía digital."
-    },
-
-    ia_para_escribir: {
-        categoria: 'inteligencia_artificial',
-        nivel:     'basico',
-        titulo:    "Pedirle Ayuda a una IA para Escribir",
-        icono:     "✍️",
-        detalle:   "A veces necesitamos escribir una nota, un reclamo, o un mensaje formal y no sabemos cómo empezar. Una IA puede ayudarte a ordenar las ideas — pero la nota sigue siendo tuya.",
-        pasos: [
-            "Abrí el navegador del celular y entrá a <button class='btn-paso' onclick=\"window.open('https://claude.ai','_blank','noopener,noreferrer')\">Abrir Claude (IA gratuita)</button> o también podés buscar <strong>'ChatGPT'</strong> en Google. Son herramientas de IA que podés usar gratis.",
-            "En el casillero que aparece abajo de la pantalla, escribí lo que necesitás con tus propias palabras. No hace falta ser formal. Por ejemplo: <em>'Necesito escribir una nota para reclamar que arreglen la vereda de mi casa al municipio'</em>.",
-            "La IA te va a generar un texto. Leélo despacio. Fijate si dice lo que vos querés decir y si los datos son correctos (tu nombre, tu dirección, el problema).",
-            "Si algo no está bien, podés decirle: <em>'Cambiá el nombre por Juan González'</em> o <em>'Hacelo más corto'</em> o <em>'Agregá que ya presenté un reclamo antes'</em>. La IA ajusta según lo que le pedís.",
-            "Cuando el texto te guste, copialo (tocá y mantenés apretado el texto, elegí 'Copiar') y pegalo donde necesitás — en un correo, en WhatsApp, o imprimilo."
-        ],
-        nota: "✍️ La nota la firmás vos y la decisión de mandarla es tuya. La IA solo ayuda a ordenar las palabras."
-    },
-
-    verificar_informacion: {
-        categoria: 'inteligencia_artificial',
-        nivel:     'intermedio',
-        titulo:    "Cómo Verificar si una Noticia es Verdadera",
-        icono:     "🔎",
-        detalle:   "En el mundo digital circula mucha información — y no toda es verdadera. Aprender a verificar es tan importante como aprender a leer.",
-        pasos: [
-            "<strong>Antes de compartir, preguntate:</strong> ¿Esta noticia viene de un medio que reconozco? ¿Tiene fecha? ¿Tiene nombre de quien la escribió? Si la respuesta a las tres es no, es una señal de alerta.",
-            "Buscá la noticia en Google con palabras clave. Si es real, va a aparecer en varios medios conocidos. Si solo aparece en uno o en páginas que nunca viste, desconfiá.",
-            "Entrá a <button class='btn-paso' onclick=\"window.open('https://chequeado.com','_blank','noopener,noreferrer')\">Chequeado.com</button> — es un sitio argentino especializado en verificar si las noticias son verdaderas. Podés buscar el tema ahí.",
-            "Si la noticia tiene una foto impactante, podés verificar si la foto es real o fue sacada de contexto: en Google Imágenes, tocá el ícono de la cámara y subí la foto para buscarla.",
-            "<strong>La regla más simple:</strong> si algo te genera mucha emoción (miedo, bronca, sorpresa, alegría extrema), respirá antes de compartirlo. Las noticias falsas están diseñadas para provocar emociones fuertes."
-        ],
-        nota: "📰 Compartir una noticia falsa sin querer le pasa a cualquiera. Lo importante es el hábito de verificar antes de reenviar."
-    },
-
-    // ══════════════════════════════════════════════════════
-    // CATEGORÍA: acompanar
-    // Para quienes enseñan, ayudan o acompañan a otros
-    // ══════════════════════════════════════════════════════
-
-    como_acompanar: {
-        categoria: 'acompanar',
-        nivel:     'basico',
-        titulo:    "Cómo Ayudar a Alguien sin Hacer Todo Vos",
-        icono:     "🤝",
-        detalle:   "Cuando ayudamos a alguien a aprender tecnología, el mayor error es hacer todo por ellos. Acá te explicamos cómo acompañar de verdad.",
-        pasos: [
-            "<strong>La trampa del 'dejame que lo hago yo':</strong> Cuando hacemos todo nosotros, la persona aprende que no puede sola. La próxima vez va a necesitar ayuda de nuevo para lo mismo. El objetivo es que la próxima vez pueda hacerlo sin vos.",
-            "<strong>Guiá con palabras, no con el celu:</strong> En vez de agarrar el celular de la otra persona, decile qué buscar y dónde tocar. 'Buscá el botón azul que dice Siguiente' es mucho más útil que hacerlo vos.",
-            "<strong>Celebrá cada paso pequeño.</strong> 'Muy bien, lo encontraste' o 'eso estuvo perfecto' no son palabras vacías — reducen el miedo y dan confianza para seguir.",
-            "<strong>Si algo sale mal, no corrijas rápido.</strong> Primero preguntá: '¿Qué creés que pasó?' o '¿Qué decía antes de tocar ahí?'. Eso activa el razonamiento propio.",
-            "<strong>Repetir está bien.</strong> No te frustres si la persona necesita aprender lo mismo varias veces. Para quien recién empieza, repetir es parte del proceso — no es un fracaso."
-        ],
-        nota: "🧡 La paciencia es la herramienta más importante. Una persona que aprende sin presión retiene mucho más que una que aprende con ansiedad ajena."
-    },
-
-    lenguaje_simple: {
-        categoria: 'acompanar',
-        nivel:     'basico',
-        titulo:    "Explicar sin Usar Palabras Técnicas",
-        icono:     "💬",
-        detalle:   "Una de las barreras más grandes para aprender tecnología es el lenguaje. Esta guía te ayuda a encontrar palabras simples para explicar cosas complejas.",
-        pasos: [
-            "<strong>Reemplazá los tecnicismos por comparaciones cotidianas:</strong> El correo electrónico = buzón de cartas. La contraseña = llave de tu casa. El navegador = el auto que te lleva a donde querés ir en internet. La nube = una biblioteca enorme donde guardás cosas.",
-            "<strong>Describí lo que se ve, no lo que es.</strong> En vez de 'hacé click en el ícono', decí 'tocá el dibujito del sobre'. En vez de 'ingresá al sistema', decí 'escribí tu número y tu clave'.",
-            "<strong>Evitá estas palabras cuando puedas:</strong> browser, login, URL, app (decí 'aplicación' o 'programa'), WiFi (decí 'internet inalámbrico' o simplemente 'internet'), actualizar (decí 'poner al día').",
-            "<strong>Verificá que se entendió</strong> preguntando '¿Querés que lo repita de otra manera?' en vez de '¿Entendiste?'. La segunda pregunta presiona a decir que sí aunque no sea verdad.",
-            "<strong>Usá el 'nosotros'</strong> en vez de darle órdenes. 'Ahora vamos a buscar el botón azul' suena acompañado. 'Buscá el botón azul' suena a examen."
-        ]
-    },
-
-    taller_barrio: {
-        categoria: 'acompanar',
-        nivel:     'intermedio',
-        titulo:    "Organizar un Taller Digital en el Barrio",
-        icono:     "🏘️",
-        detalle:   "Un taller comunitario no requiere equipamiento caro ni conocimiento técnico avanzado. Requiere organización, paciencia y ganas de compartir.",
-        pasos: [
-            "<strong>Antes del taller — lo que necesitás:</strong> Un espacio con enchufes y mesa o silla para cada persona. Los propios celulares de los participantes (no hace falta computadoras). Esta app descargada en los celuares (o un QR para que la descarguen ahí). Un tema concreto para el día — no intentes enseñar todo junto.",
-            "<strong>Elegí un solo tutorial por encuentro.</strong> 'Hoy aprendemos a sacar el turno de ANSES' es un objetivo alcanzable. 'Hoy aprendemos internet' no lo es. El éxito concreto genera confianza para el próximo.",
-            "<strong>Armá grupos de dos.</strong> Poner a alguien que ya sabe un poco con alguien que recién empieza funciona mejor que dar una clase magistral. Enseñar también refuerza lo aprendido.",
-            "<strong>Cerrá con un logro tangible.</strong> Si el tutorial era sacar el turno, que cada persona termine el taller con su turno pedido. Si era el correo, que cada persona termine con su dirección de correo anotada.",
-            "<strong>Dejá un espacio para preguntas 'vergonzosas'.</strong> Decí explícitamente al inicio: 'No hay preguntas tontas acá. Si algo no se entiende, es porque no se explicó bien, no porque alguien no sepa'. Eso cambia el clima del taller."
-        ],
-        nota: "📋 Los materiales impresos con QR que llevan directamente a cada tutorial de esta app pueden ser muy útiles para el taller. Pedile a alguien que te ayude a imprimirlos."
+        nota: "💡 La IA es una excelente compañera de ideas, pero la decisión final y el criterio humano siempre los tenés vos."
     }
+
 };
 
-// Exponer globalmente para uso desde otros módulos
+// Exportar la variable para que los otros scripts (como ui.js) la puedan usar
 if (typeof window !== 'undefined') {
     window.baseDeTutoriales = baseDeTutoriales;
 }

@@ -1,4 +1,4 @@
-// =========================================================
+//// =========================================================
 // components/tutorialCard.js — Favoritos + completado
 // Punto Digital Comunitario Morenense
 // =========================================================
@@ -76,15 +76,15 @@
             );
         }
 
+        // Actualizar la sección dinámicamente si el usuario está mirando los favoritos
+        renderizarSeccionFavoritos();
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
-    // ─── Nueva lógica completada y reparada ───
     function toggleCompletado(idClave) {
         const store = window.PD_Storage;
         if (!store) return;
 
-        // Cambiar el estado de completado en el almacenamiento local
         store.marcarCompletado(idClave);
 
         const btn = document.getElementById('btn-completado');
@@ -106,9 +106,44 @@
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
-    // Exponer el componente al alcance global para que ui.js o deeplink.js lo puedan invocar
+    // ─── Función que requería tu sistema para dibujar los favoritos ───
+    function renderizarSeccionFavoritos() {
+        const contenedor = document.getElementById('contenedor-favoritos');
+        if (!contenedor) return; // Si no estamos en la pantalla de favoritos, salir pacíficamente
+
+        const store = window.PD_Storage;
+        const data = window.PD_TutorialesData;
+        if (!store || !data) return;
+
+        contenedor.innerHTML = '';
+        const favs = data.filter(t => store.esFavorito(t.id));
+
+        if (favs.length === 0) {
+            contenedor.innerHTML = '<p class="texto-vacio">No tenés tutoriales guardados todavía. ¡Explorá las secciones para agregar uno!</p>';
+            return;
+        }
+
+        favs.forEach(t => {
+            const card = document.createElement('div');
+            card.className = 'tarjeta-tutorial';
+            card.innerHTML = `
+                <div class="tarjeta-icono">${t.icono}</div>
+                <div class="tarjeta-info">
+                    <h3>${t.titulo}</h3>
+                    <p>${t.descripcion}</p>
+                    <button onclick="window.PD_Deeplink.irATutorial('${t.id}')" class="btn-primario">Ver tutorial 🛡️</button>
+                </div>
+            `;
+            contenedor.appendChild(card);
+        });
+    }
+
+    // Exponer las funciones globalmente de forma segura
     if (typeof window !== 'undefined') {
-        window.PD_TutorialCard = { inyectarAccionesTutorial };
+        window.PD_TutorialCard = { 
+            inyectarAccionesTutorial,
+            renderizarSeccionFavoritos
+        };
     }
 
 })();
