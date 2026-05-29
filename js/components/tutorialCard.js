@@ -79,72 +79,36 @@
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
+    // ─── Nueva lógica completada y reparada ───
     function toggleCompletado(idClave) {
         const store = window.PD_Storage;
         if (!store) return;
 
+        // Cambiar el estado de completado en el almacenamiento local
         store.marcarCompletado(idClave);
 
         const btn = document.getElementById('btn-completado');
         if (btn) {
-            btn.textContent = '✅ Completado';
-            btn.setAttribute('aria-pressed', 'true');
-            btn.classList.add('activo');
-            btn.disabled = true;
+            const ahora = store.estaCompletado(idClave);
+            btn.textContent = ahora ? '✅ Completado' : '○ Marcar listo';
+            btn.setAttribute('aria-pressed', ahora.toString());
+            btn.classList.toggle('activo', ahora);
+            btn.setAttribute('aria-label', ahora ? 'Tutorial ya completado' : 'Marcar como completado');
         }
 
         if (window.PD_Toast) {
-            window.PD_Toast.mostrarToast('✅ ¡Muy bien! Tutorial completado.', 'exito');
+            window.PD_Toast.mostrarToast(
+                store.estaCompletado(idClave) ? '✅ ¡Buenísimo! Completaste este tutorial' : '○ Tutorial marcado como pendiente',
+                'success'
+            );
         }
 
-        if (window.PD_Progress) {
-            window.PD_Progress.actualizarProgreso();
-            window.PD_Progress.actualizarBotonesMenu();
-        }
+        if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
-    // ─── Sección de favoritos en el menú ─────────────────
-    function renderizarSeccionFavoritos() {
-        const store = window.PD_Storage;
-        const db    = window.baseDeTutoriales;
-        if (!store || !db) return;
-
-        let seccion = document.getElementById('seccion-favoritos');
-
-        const favs = store.obtenerFavoritos().filter(id => db[id]);
-        if (favs.length === 0) {
-            if (seccion) seccion.remove();
-            return;
-        }
-
-        if (!seccion) {
-            seccion = document.createElement('section');
-            seccion.id = 'seccion-favoritos';
-            seccion.className = 'seccion-favoritos';
-            seccion.setAttribute('aria-label', 'Tus tutoriales guardados');
-
-            const menu = document.getElementById('menu-tutoriales');
-            if (menu) menu.parentNode.insertBefore(seccion, menu);
-        }
-
-        seccion.innerHTML = `<h2 class="favoritos-titulo">⭐ Tus tutoriales guardados</h2>
-            <div class="favoritos-grid" role="list"></div>`;
-
-        const grid = seccion.querySelector('.favoritos-grid');
-        favs.forEach(id => {
-            const info = db[id];
-            const btn = document.createElement('button');
-            btn.className = 'btn-favorito-item';
-            btn.setAttribute('role', 'listitem');
-            btn.setAttribute('aria-label', `Abrir tutorial: ${info.titulo}`);
-            btn.innerHTML = `${info.icono} ${info.titulo}`;
-            btn.addEventListener('click', () => {
-                if (window.mostrarTutorial) window.mostrarTutorial(id);
-            });
-            grid.appendChild(btn);
-        });
+    // Exponer el componente al alcance global para que ui.js o deeplink.js lo puedan invocar
+    if (typeof window !== 'undefined') {
+        window.PD_TutorialCard = { inyectarAccionesTutorial };
     }
-
-    window.PD_TutorialCard = { inyectarAccionesTutorial, renderizarSeccionFavoritos };
 
 })();
