@@ -17,8 +17,8 @@
         barra.setAttribute('role', 'toolbar');
         barra.setAttribute('aria-label', 'Acciones del tutorial');
 
-        const esFav   = window.PD_Storage.esFavorito(idClave);
-        const esComp  = window.PD_Storage.estaCompletado(idClave);
+        const esFav  = window.PD_Storage.esFavorito(idClave);
+        const esComp = window.PD_Storage.estaCompletado(idClave);
 
         barra.innerHTML = `
             <button id="btn-favorito" class="btn-accion ${esFav ? 'activo' : ''}"
@@ -106,43 +106,61 @@
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
-    // Adaptador adaptativo seguro para renderizar favoritos sin importar la estructura
+    // ── Adaptador para renderizar la lista de favoritos ──
     function renderSeccionFavoritosDinamica() {
         const contenedor = document.getElementById('contenedor-favoritos');
         if (!contenedor) return;
 
         const store = window.PD_Storage;
-        const fuenteDatos = window.baseDeTutoriales || window.PD_TutorialesData;
+        const fuenteDatos = window.baseDeTutoriales; // Conectado directo a tutoriales.js
         if (!store || !fuenteDatos) return;
 
         contenedor.innerHTML = '';
 
-        // Normalizar los datos: convertimos el objeto plano de tutoriales a una lista iterable
-        const listaTutoriales = Array.isArray(fuenteDatos)
-            ? fuenteDatos
-            : Object.keys(fuenteDatos).map(clave => ({ id: clave, ...fuenteDatos[clave] }));
+        // Normalizar los datos: convertimos el objeto de tutoriales a una lista iterable
+        const listaTutoriales = Object.keys(fuenteDatos).map(clave => ({ 
+            id: clave, 
+            ...fuenteDatos[clave] 
+        }));
 
-        const favs = listaTutoriales.filter(t => store.esFavorito(t.id || t.clave));
+        const favs = listaTutoriales.filter(t => store.esFavorito(t.id));
 
         if (favs.length === 0) {
-            contenedor.innerHTML = '<p class="texto-vacio">No tenés tutoriales guardados todavía. ¡Explorá las secciones para agregar uno!</p>';
+            contenedor.innerHTML = '<p class="texto-vacio">No tenés tutoriales guardados todavía. ¡Explorá las categorías para agregar uno!</p>';
             return;
         }
 
         favs.forEach(t => {
-            const idReal = t.id || t.clave;
-            const textoDetalle = t.detalle || t.descripcion || '';
+            const textoDetalle = t.detalle || '';
             
             const card = document.createElement('div');
             card.className = 'tarjeta-tutorial';
+            
+            // Estructura HTML de la tarjeta
             card.innerHTML = `
                 <div class="tarjeta-icono">${t.icono || '📖'}</div>
                 <div class="tarjeta-info">
                     <h3>${t.titulo}</h3>
                     <p>${textoDetalle}</p>
-                    <button onclick="if(window.PD_Deeplink){window.PD_Deeplink.irATutorial('${idReal}')}else{window.location.hash='#tutorial-'+'${idReal}'}" class="btn-primario">Ver tutorial 🛡️</button>
                 </div>
             `;
+
+            // Botón seguro para abrir el tutorial conectado a ui.js
+            const btnAbrir = document.createElement('button');
+            btnAbrir.className = 'btn-primario';
+            btnAbrir.textContent = 'Ver tutorial 📖';
+            btnAbrir.setAttribute('aria-label', `Ver tutorial sobre ${t.titulo}`);
+            
+            btnAbrir.addEventListener('click', () => {
+                if (typeof window.mostrarTutorial === 'function') {
+                    window.mostrarTutorial(t.id);
+                } else {
+                    console.error('La función mostrarTutorial no está disponible.');
+                }
+            });
+
+            // Agregamos el botón dentro de la info de la tarjeta
+            card.querySelector('.tarjeta-info').appendChild(btnAbrir);
             contenedor.appendChild(card);
         });
     }

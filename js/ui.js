@@ -22,7 +22,6 @@
     'use strict';
 
     // ── Mapa de categorías: clave → etiqueta y color ──────
-    // 🛠️ ¡AGREGADA LA CATEGORÍA USOS_TECNOLOGIA AQUÍ!
     const CATEGORIAS = {
         tramites: {
             etiqueta: '🏛️ Trámites del Estado',
@@ -303,7 +302,6 @@
 
         tutorialActualId = null;
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        lanzarConfeti();
     };
 
     // ── Barra de progreso de pasos ────────────────────────
@@ -415,32 +413,6 @@
         });
     };
 
-    // ── Confeti ───────────────────────────────────────────
-    const lanzarConfeti = () => {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        
-        for (let i = 0; i < 70; i++) {
-            const p = document.createElement('div');
-            p.style.cssText = `
-                position:fixed;width:9px;height:9px;border-radius:50%;
-                background:hsl(${Math.round(Math.random() * 360)},100%,55%);
-                left:${Math.random() * 100}vw;top:-10px;z-index:9999;pointer-events:none
-            `;
-            document.body.appendChild(p);
-            
-            const a = p.animate([
-                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                { transform: `translateY(${window.innerHeight + 20}px) rotate(${Math.round(Math.random() * 360)}deg)`, opacity: 0 }
-            ], { 
-                duration: Math.round(Math.random() * 1000) + 900, 
-                easing: 'ease-in', 
-                fill: 'forwards' 
-            });
-            
-            a.onfinish = () => p.remove();
-        }
-    };
-
     // ── Inicialización ────────────────────────────────────
     const init = () => {
         renderizarMenu();
@@ -462,7 +434,6 @@
     // ── API pública ───────────────────────────────────────
     window.mostrarTutorial   = mostrarTutorial;
     window.ocultarTutorial   = ocultarTutorial;
-    window.lanzarConfeti     = lanzarConfeti;
 
     if (!window.PD_UI) window.PD_UI = {};
     window.PD_UI.filtrarPorCategoria = filtrarPorCategoria;

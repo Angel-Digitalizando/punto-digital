@@ -10,25 +10,25 @@
         return window.baseDeTutoriales ? Object.keys(window.baseDeTutoriales).length : 8;
     }
 
-    // ─── Inyectar sección de progreso global ─────────────
+    // ─── Inyectar sección de avance global ─────────────
     function inyectarProgresoGlobal() {
         if (document.getElementById('seccion-progreso')) return;
 
         const seccion = document.createElement('section');
         seccion.id = 'seccion-progreso';
         seccion.className = 'seccion-progreso';
-        seccion.setAttribute('aria-label', 'Tu progreso general');
+        seccion.setAttribute('aria-label', 'Tu avance general');
         seccion.innerHTML = `
-            <h2 class="progreso-titulo">📊 Tu Progreso</h2>
+            <h2 class="progreso-titulo">📊 Tu avance</h2>
             <div class="progreso-global-wrap">
                 <div class="progreso-global-barra-bg">
                     <div id="progreso-global-fill" class="progreso-global-fill" 
                          role="progressbar" aria-valuemin="0" aria-valuemax="${totalTutoriales()}"
                          aria-valuenow="0"></div>
                 </div>
-                <p id="progreso-texto" class="progreso-texto">Completaste 0 de ${totalTutoriales()} tutoriales</p>
+                <p id="progreso-texto" class="progreso-texto">Ya terminaste 0 de ${totalTutoriales()} tutoriales</p>
             </div>
-            <div id="badges-contenedor" class="badges-contenedor" aria-label="Logros obtenidos"></div>
+            <div id="badges-contenedor" class="badges-contenedor" aria-label="Tus medallas conseguidas"></div>
         `;
 
         // Insertar antes de los consejos
@@ -54,18 +54,18 @@
             fill.setAttribute('aria-valuenow', completados);
         }
         if (texto) {
-            texto.textContent = `Completaste ${completados} de ${total} tutorial${completados !== 1 ? 'es' : ''}`;
+            texto.textContent = `Ya terminaste ${completados} de ${total} tutorial${completados !== 1 ? 'es' : ''}`;
         }
 
         actualizarBadges(completados, total);
     }
 
-    // ─── Badges simples ───────────────────────────────────
+    // ─── Medallas (Badges) con lenguaje sencillo ─────────
     const BADGES = [
-        { min: 1,  icono: '⭐', texto: '¡Primer tutorial!' },
-        { min: 3,  icono: '🌟', texto: '¡Va muy bien!' },
-        { min: 5,  icono: '🏅', texto: '¡A mitad de camino!' },
-        { min: 8,  icono: '🏆', texto: '¡Completaste todo!' },
+        { min: 1,  icono: '⭐', texto: '¡Primer paso!' },
+        { min: 3,  icono: '🌟', texto: '¡Venís bárbaro!' },
+        { min: 5,  icono: '🏅', texto: '¡Ya estás por la mitad!' },
+        { min: 8,  icono: '🏆', texto: '¡Hiciste todos, felicitaciones!' },
     ];
 
     function actualizarBadges(completados) {
@@ -100,8 +100,10 @@
                 badge.className = 'btn-badge';
                 btn.appendChild(badge);
             }
+            
+            // Mantenemos los íconos visuales pero actualizamos qué leen los lectores de pantalla
             badge.textContent = completado ? ' ✅' : (fav ? ' ⭐' : '');
-            badge.setAttribute('aria-label', completado ? 'Completado' : (fav ? 'Favorito' : ''));
+            badge.setAttribute('aria-label', completado ? 'Terminado' : (fav ? 'Guardado' : ''));
         });
     }
 
