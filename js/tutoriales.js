@@ -137,7 +137,7 @@ const baseDeTutoriales = {
         detalle:   "Las aplicaciones (o 'apps') son las herramientas del celular. Tu teléfono viene con algunas, pero vos podés bajarle las que necesites, como la del banco, la de ANSES o juegos.",
         pasos: [
             "En la pantalla de tu celular buscá el ícono de <strong>'Play Store'</strong>. Es un dibujo que parece un triángulo acostado pintado de cuatro colores (azul, verde, amarillo y rojo).",
-            "Arriba de todo vas a ver una barra alargada que dice <strong>'Buscar apps y juegos'</strong>. Tocala y escribí el nombre de lo que querés bajar (por ejemplo: <em>'PAMI'</em> o <em>'WhatsApp'</em>).",
+            "Arriba de todo vas a ver una barra alargada que dice <strong>'Buscar apps y juegos'</strong>. Tocala and escribí el nombre de lo que querés bajar (por ejemplo: <em>'PAMI'</em> o <em>'WhatsApp'</em>).",
             "Te van a aparecer los resultados de búsqueda. Fijate cuál es la correcta y tocá el botón verde grande que dice <strong>'Instalar'</strong>.",
             "Vas a ver que empieza a dar vueltas un círculo verde. Eso significa que se está descargando. Tené paciencia, puede tardar un par de minutos.",
             "Cuando termine, el botón verde va a cambiar y va a decir <strong>'Abrir'</strong>. ¡Listo! Si volvés a la pantalla principal de tu celular, vas a ver que el dibujito nuevo ya apareció."
@@ -162,21 +162,23 @@ const baseDeTutoriales = {
     },
 
     memoria: {
-            titulo:  "Cómo limpiar el celu cuando se llena la memoria y anda lento",
-                icono:   "📱",
-                    detalle: "Viste cuando el celu te tira ese cartel molesto de 'Memoria llena' y no te deja sacar fotos ni ver los videos de WhatsApp? Y encima se te re traba porque tiene poquita memoria (como 4 gigas de RAM). No te preocupes, acá te enseñamos a limpiarlo a fondo sin borrar tus cosas importantes.",
-                        pasos:   [
-                                "<strong>Paso 1: Frenar las descargas automáticas de WhatsApp.</strong> ¡Este es el secreto número uno! Entrá a WhatsApp, tocá los 3 puntitos de arriba a la derecha y elegí 'Ajustes'. Después buscá donde dice 'Almacenamiento y datos'.",
-                                        "<strong>Paso 2: Desactivar la descarga automática.</strong> En esa pantalla vas a ver dos opciones: 'Descargar con datos móviles' y 'Descargar con Wi-Fi'. Entrá a cada una y DESMARCÁ todas las casillas (fotos, videos, audios). Así, las cosas que manden a los grupos solo se van a bajar si vos les hacés clic encima. ¡Te ahorrás toneladas de espacio!",
-                                                "<strong>Paso 3: Borrar la mugre de WhatsApp de un tirón.</strong> En esa misma pantalla de Almacenamiento, tocá arriba de todo donde dice 'Administrar almacenamiento'. Ahí vas a ver ordenados cuáles son los chats o grupos que más memoria te están comiendo. Entrá al que quieras limpiar, seleccioná los videos pesados o memes repetidos y borralos sin miedo.",
-                                                        "<strong>Paso 4: Sacar las aplicaciones que ya no usás.</strong> Salí de WhatsApp y entrá a los 'Ajustes' o 'Configuración' de tu celu (el dibujito de la tuerquita). Buscá la opción 'Aplicaciones'. Mirá la lista con paciencia. ¿Viste ese juego que bajó tu nieto hace un año y nadie más tocó? Tocalo y dale al botón 'Desinstalar'. Menos bulto, más claridad.",
-                                                                "<strong>Paso 5: Limpiar el 'Caché' (la basurita invisible).</strong> Ahí mismo, en la lista de Aplicaciones, entrá a las que más usás (como Facebook, Google Chrome o Instagram). Buscá donde dice 'Almacenamiento' y tocá el botón que dice 'Eliminar Caché' o 'Borrar Caché'. ¡OJO! No toques 'Borrar datos' porque ahí sí se te borra tu cuenta. El caché es solo la grasa que junta la app por andar en el día a día.",
-                                                                        "<strong>Paso 6: Nivel Experto: Limpieza profunda desde el 'Recovery'.</strong> Si el celu sigue re pesado y lerdo, hay un truco de técnico. Apagá el celu por completo. Ahora, mantené apretados al mismo tiempo el botón de Subir Volumen y el de Encender hasta que la pantalla prenda con unas letras raras en inglés. Ese es el menú 'Recovery' (el sistema de emergencia).",
-                                                                                "<strong>Paso 7: ¡Mucho cuidado acá!</strong> En esa pantalla negra no anda el dedo. Tenés que bajar usando los botones de volumen de tu celu. Buscá la opción que dice 'Wipe Cache Partition' (significa borrar la basura del sistema) y apretá el botón de encender para aceptar. Te va a preguntar si estás seguro, bajá hasta 'Yes' y dale al botón de encender. Jamás de los jamases toques lo que dice 'Wipe Data/Factory Reset' porque eso te borra el celu de fábrica.",
-                                                                                        "<strong>Paso 8: Reiniciar el dispositivo.</strong> Para terminar y salir, buscá la opción de arriba de todo que dice 'Reboot system now' (reiniciar el sistema ahora) y apretá el botón de encender. El celu va a prender de manera normal, pero vas a notar que arranca mucho más liviano y vuela."
-                                                                                            ]
-                                                                                            }
-    }
+        categoria: 'tramites',
+        nivel:     'basico',
+        titulo:    "Cómo limpiar el celu cuando se llena la memoria y anda lento",
+        icono:     "📱",
+        detalle:   "Viste cuando el celu te tira ese cartel molesto de 'Memoria llena' y no te deja sacar fotos ni ver los videos de WhatsApp? Y encima se te re traba porque tiene poquita memoria (como 4 gigas de RAM). No te preocupes, acá te enseñamos a limpiarlo a fondo sin borrar tus cosas importantes.",
+        pasos: [
+            "<strong>Paso 1: Frenar las descargas automáticas de WhatsApp.</strong> ¡Este es el secreto número uno! Entrá a WhatsApp, tocá los 3 puntitos de arriba a la derecha y elegí 'Ajustes'. Después buscá donde dice 'Almacenamiento y datos'.",
+            "<strong>Paso 2: Desactivar la descarga automática.</strong> En esa pantalla vas a ver dos opciones: 'Descargar con datos móviles' y 'Descargar con Wi-Fi'. Entrá a cada una y DESMARCÁ todas las casillas (fotos, videos, audios). Así, las cosas que manden a los grupos solo se van a bajar si vos les hacés clic encima. ¡Te ahorrás toneladas de espacio!",
+            "<strong>Paso 3: Borrar la mugre de WhatsApp de un tirón.</strong> En esa misma pantalla de Almacenamiento, tocá arriba de todo donde dice 'Administrar almacenamiento'. Ahí vas a ver ordenados cuáles son los chats o grupos que más memoria te están comiendo. Entrá al que quieras limpiar, seleccioná los videos pesados o memes repetidos y borralos sin miedo.",
+            "<strong>Paso 4: Sacar las aplicaciones que ya no usás.</strong> Salí de WhatsApp y entrá a los 'Ajustes' o 'Configuración' de tu celu (el dibujito de la tuerquita). Buscá la opción 'Aplicaciones'. Mirá la lista con paciencia. ¿Viste ese juego que bajó tu nieto hace un año y nadie más tocó? Tocalo y dale al botón 'Desinstalar'. Menos bulto, más claridad.",
+            "<strong>Paso 5: Limpiar el 'Caché' (la basurita invisible).</strong> Ahí mismo, en la lista de Aplicaciones, entrá a las que más usás (como Facebook, Google Chrome o Instagram). Buscá donde dice 'Almacenamiento' y tocá el botón que dice 'Eliminar Caché' o 'Borrar Caché'. ¡OJO! No toques 'Borrar datos' porque ahí sí se te borra tu cuenta. El caché es solo la grasa que junta la app por andar en el día a día.",
+            "<strong>Paso 6: Nivel Experto: Limpieza profunda desde el 'Recovery'.</strong> Si el celu sigue re pesado y lerdo, hay un truco de técnico. Apagá el celu por completo. Ahora, mantené apretados al mismo tiempo el botón de Subir Volumen y el de Encender hasta que la pantalla prenda con unas letras raras en inglés. Ese es el menú 'Recovery' (el sistema de emergencia).",
+            "<strong>Paso 7: ¡Mucho cuidado acá!</strong> En esa pantalla negra no anda el dedo. Tenés que bajar usando los botones de volumen de tu celu. Buscá la opción que dice 'Wipe Cache Partition' (significa borrar la basura del sistema) y apretá el botón de encender para aceptar. Te va a preguntar si estás seguro, bajá hasta 'Yes' y dale al botón de encender. Jamás de los jamases toques lo que dice 'Wipe Data/Factory Reset' porque eso te borra el celu de fábrica.",
+            "<strong>Paso 8: Reiniciar el dispositivo.</strong> Para terminar y salir, buscá la opción de arriba de todo que dice 'Reboot system now' (reiniciar el sistema ahora) y apretá el botón de encender. El celu va a prender de manera normal, pero vas a notar que arranca mucho más liviano y vuela."
+        ]
+    },
+
     // ══════════════════════════════════════════════════════
     // CATEGORÍA: cuidado
     // Seguridad, privacidad y ciudadanía digital
@@ -224,7 +226,7 @@ const baseDeTutoriales = {
             "<strong>Señales de que un mensaje puede ser falso:</strong> te dicen que ganaste algo sin haber participado en nada, te piden que hagas algo urgente o que pierdas un beneficio si no actuás ya, el link tiene una dirección rara que no termina en .gob.ar, o te piden datos o fotos del DNI.",
             "Si el mensaje tiene un link (una dirección web en azul), <strong>no lo toques</strong>. Los links falsos pueden robar tus datos o instalar cosas en tu celu sin que vos te des cuenta.",
             "Antes de hacer cualquier cosa, <strong>preguntale a alguien de confianza</strong> — un familiar, un vecino, alguien del barrio que entienda de tecnología. Tomarte unos minutos no te hace perder ningún beneficio real.",
-            "Si el mensaje dice ser de ANSES, del banco, o de algún organismo, buscá el teléfono oficial de ese organismo por tu cuenta y llamá para verificar. No uses el teléfono que aparece en el mensaje sospechoso.",
+            "Si el mensaje dice ser de ANSES, del banco, o de algún organismo, buscá el teléfono oficial de ese organismo por tu cuenta y llamá para verificar. No usá el teléfono que aparece en el mensaje sospechoso.",
             "Podés <strong>eliminar el mensaje</strong> sin miedo. Si era real y lo borraste, el organismo siempre puede volverte a contactar por un canal oficial."
         ],
         nota: "🧘 La urgencia es una trampa. Los estafadores quieren que actúes rápido, sin pensar. Respirá, consultá, y recién después decidí."
@@ -261,7 +263,7 @@ const baseDeTutoriales = {
             "<strong>¿Qué es en palabras simples?</strong> La inteligencia artificial (IA) es un programa de computadora que aprendió a responder preguntas, escribir textos, traducir idiomas y hacer muchas cosas más, leyendo una cantidad enorme de información. Es como un asistente muy rápido, pero que no piensa como una persona.",
             "<strong>¿Qué puede hacer por vos?</strong> Puede ayudarte a redactar una nota o un reclamo, explicarte algo que no entendés, buscar información, traducir un texto, o resumir algo largo. Todo esto sin costo, desde el celular.",
             "<strong>¿Qué NO puede hacer?</strong> No conoce tu situación personal. No tiene sentimientos. No siempre tiene razón — a veces inventa información que suena verdadera pero es falsa. No reemplaza a un médico, un abogado, o a alguien que te conoce.",
-            "<strong>¿Cómo sabés si lo que te dice es verdad?</strong> Verificá la información importante en fuentes oficiales (páginas .gob.ar) o consultá con una persona de confianza. La IA es útil como punto de partida, no como última palabra.",
+            "<strong>¿Cómo sabés si lo que te dice es verdad?</strong> Verificá la información importante en fuentes fuentes oficiales (páginas .gob.ar) o consultá con una persona de confianza. La IA es útil como punto de partida, no como última palabra.",
             "<strong>¿Es peligrosa?</strong> No si se usa con criterio. Como cualquier herramienta, depende del uso. Un martillo puede clavar un clavo o romper algo — depende de quién lo usa y cómo. La IA es similar."
         ],
         nota: "💡 La IA es una herramienta, no un oráculo. Usarla con criterio propio es parte de la ciudadanía digital."
