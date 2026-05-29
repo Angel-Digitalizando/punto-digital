@@ -826,6 +826,7 @@ html.modo-alto-contraste .banner-seg-item   { color: #fff !important; }
     /* Subir si el panel de voz está visible */
     margin-bottom: env(safe-area-inset-bottom, 0px);
 }
+
 .btn-compartir-flotante:hover  { background: var(--azul-oscuro); transform: scale(1.07); }
 .btn-compartir-flotante:active { transform: scale(.96); }
 .btn-compartir-flotante:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
@@ -861,5 +862,38 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
     .btn-paso {
         max-width: 300px;
         margin: 5px auto;
+    }
+}
+/* ========================================================= */
+/* ESTILOS DEL BOTÓN CERRAR (X) */
+/* ========================================================= */
+.btn-cerrar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    z-index: 100; /* Para que quede siempre arriba de los textos */
+}
+
+.btn-cerrar:hover {
+    color: #e74c3c; /* Rojo al pasar el dedo o el mouse */
+}
+
+/* ========================================================= */
+/* MODO HORIZONTAL (Landscape) PARA CELULARES */
+/* ========================================================= */
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    .modal, .contenedor-principal {
+        max-width: 80%;
+        margin: 0 auto;
+        max-height: 85vh; 
+        overflow-y: auto;
     }
 }
