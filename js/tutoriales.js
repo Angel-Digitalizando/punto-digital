@@ -183,7 +183,38 @@ const baseDeTutoriales = {
     // CATEGORÍA: cuidado
     // Seguridad, privacidad y ciudadanía digital
     // ══════════════════════════════════════════════════════
-
+// Agregar este bloque dentro de la categoría correspondiente en js/tutoriales.js
+{
+    id: "cuidado-dispositivo",
+        titulo: "Cuidar la salud de tu celular",
+            descripcion: "Consejos prácticos para que el teléfono no se ponga lento, te dure más la batería y evitar que se rompa.",
+                icono: "📱",
+                    categoria: "cuidado",
+                        tiempo: "5 min",
+                            introduccion: "El celular es tu herramienta de estudio y comunicación. Cuidar tanto el aparato por fuera como el sistema por dentro hace que te dure años sin tener que gastar plata en el servicio técnico.",
+                                pasos: [
+                                        {
+                                                    nro: 1,
+                                                                subtitulo: "Liberar espacio de almacenamiento",
+                                                                            detalle: "Cuando el celu se llena, se pone muy lento. Entrá a Ajustes > Almacenamiento (o usá la app Files de Google) y borrá las fotos duplicadas, los videos pesados de WhatsApp y las aplicaciones que ya no uses."
+                                                                                    },
+                                                                                            {
+                                                                                                        nro: 2,
+                                                                                                                    subtitulo: "Proteger la vida útil de la batería",
+                                                                                                                                detalle: "Evitá que el teléfono se apague por completo (0%) o dejarlo cargando toda la noche si ya llegó al 100%. Lo ideal para cuidar la batería a largo plazo es mantenerla siempre entre el 20% y el 80% de carga."
+                                                                                                                                        },
+                                                                                                                                                {
+                                                                                                                                                            nro: 3,
+                                                                                                                                                                        subtitulo: "Cuidado físico y limpieza",
+                                                                                                                                                                                    detalle: "No uses alcohol puro ni limpiavidrios para limpiar la pantalla porque dañan el protector de fábrica. Usá un paño apenas húmedo. Evitá dejar el celular expuesto al sol directo o arriba de la mesa mientras comés para evitar accidentes con líquidos."
+                                                                                                                                                                                            },
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                                nro: 4,
+                                                                                                                                                                                                                            subtitulo: "Actualizaciones de seguridad",
+                                                                                                                                                                                                                                        detalle: "Una vez al mes, entrá a Ajustes > Sistema > Actualización de software. Mantener el sistema al día parchea fallos que los atacantes usan para meter virus o robar información."
+                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                    ]
+                                                                                                                                                                                                                                                    }  
     paginas_oficiales: {
         categoria: 'cuidado',
         nivel:     'basico',
