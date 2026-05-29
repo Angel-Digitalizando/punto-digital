@@ -348,3 +348,5 @@ const baseDeTutoriales = {
     }
 
 }; // <-- CIERRE FINAL DEL ARCHIVO
+// Añadir al final de js/tutoriales.js
+window.baseDeTutoriales = baseDeTutoriales;
