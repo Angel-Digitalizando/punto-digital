@@ -18,7 +18,7 @@
 //   - Expone filtrarPorCategoria en window.PD_UI
 // =========================================================
 
-() => {
+(() => {
     'use strict';
 
     // ── Mapa de categorías: clave → etiqueta y color ──────
