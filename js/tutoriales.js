@@ -361,9 +361,10 @@ const baseDeTutoriales = {
             "<strong>Módulo 5: ¡Manos a la obra!</strong><br>1️⃣ Mirá tu pantalla: ¿hay más de 15 íconos?<br>2️⃣ Eliminá del inicio las apps que no usás a diario.<br>3️⃣ Poné tus 4 apps principales en el renglón de abajo (Dock).<br>4️⃣ Arrastrá una app sobre otra para crear carpetas por temas.",
             "<strong>Módulo 6: ¿Qué nivel sos?</strong><br>🏆 <strong>Principiante:</strong> Tengo íconos que no conozco.<br>🏆 <strong>Organizado:</strong> Mis apps están en carpetas con nombre.<br>🏆 <strong>Productivo:</strong> Encuentro todo en menos de 3 segundos.<br>👑 <strong>Experto UX:</strong> Mi pantalla es minimalista, ordenada y ergonómica."
         ],
-        nota: "💡 ¿Sabías qué? Las grandes empresas de tecnología gastan millones investigando cómo hacer que encuentres todo más rápido. Hoy, ese conocimiento ya es suyo."
+        nota: "💡 ¿Sabías qué? Las grandes empresas de tecnología gastan millones investigando cómo hacer que encuentres todo más rápido."
     }
 };
 
-
+// FUERZA LA EXPOSICIÓN GLOBAL (REQUERIDO POR UI.JS)
 window.baseDeTutoriales = baseDeTutoriales;
+console.log("Tutoriales cargados correctamente en window:", window.baseDeTutoriales);
