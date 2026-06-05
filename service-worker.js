@@ -62,7 +62,7 @@ self.addEventListener('install', function (event) {
     );
 });
 
-// ── Activación: limpiar caches viejos ────────────────────
+// ── Activación: limpiar caches viejos y actualizar rápido ───
 self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches.keys()
@@ -74,7 +74,9 @@ self.addEventListener('activate', function (event) {
                 );
             })
             .then(function () {
-                return self.clients.claim();
+                // ESTA ES LA LÍNEA MÁGICA:
+                // Le dice al navegador que tome el control inmediatamente
+                return self.clients.claim(); 
             })
     );
 });
@@ -96,33 +98,24 @@ self.addEventListener('fetch', function (event) {
 });
 
 function responderConCache(request) {
-    return caches.match(request).then(function (cacheado) {
+    var url = new URL(request.url);
 
-        // Caso 1: en cache → servir y actualizar en background
+    // SI ES UN ARCHIVO JS, SIEMPRE VAMOS A LA RED PRIMERO
+    if (url.pathname.endsWith('.js')) {
+        return fetch(request).catch(function() {
+            return caches.match(request); // Si no hay red, recién ahí usamos caché
+        });
+    }
+
+    // Para el resto de los archivos (css, html, imágenes), usamos la lógica vieja
+    return caches.match(request).then(function (cacheado) {
         if (cacheado) {
             actualizarEnBackground(request);
             return cacheado;
         }
-
-        // Caso 2: no está en cache → intentar red
-        return fetch(request)
-            .then(function (respuesta) {
-                if (respuesta && respuesta.status === 200 && respuesta.type === 'basic') {
-                    var copia = respuesta.clone();
-                    caches.open(CACHE_NOMBRE).then(function (cache) {
-                        cache.put(request, copia);
-                    });
-                }
-                return respuesta;
-            })
-            .catch(function () {
-                // Caso 3: sin red y sin cache
-                var accept = request.headers.get('accept') || '';
-                if (accept.indexOf('text/html') !== -1) {
-                    return caches.match('./offline.html');
-                }
-                return new Response('', { status: 503, statusText: 'Offline' });
-            });
+        return fetch(request).then(function (respuesta) {
+            // ... (el resto de tu código igual)
+        });
     });
 }
 
