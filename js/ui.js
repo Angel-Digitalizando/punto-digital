@@ -421,11 +421,21 @@
         });
     };
 // ── Inicialización Segura ────────────────────────────────────
+/**
+ * ── Lógica de Interfaz y Renderizado ─────────────────────────
+ * Este módulo actúa como el "motor" visual de la PWA.
+ * * Responsabilidades:
+ * 1. Categorización: Traduce las claves de 'tutoriales.js' en etiquetas visuales.
+ * 2. Filtrado: Gestiona la navegación lógica (trámites, usos, personalización, ia etc.).
+ * 3. Renderizado Dinámico: Construye las tarjetas de tutoriales en el DOM.
+ * 4. Accesibilidad: Sincroniza estados con la "Lupa Digital" y lectores de pantalla.
+ */
     const init = () => {
         if (!window.baseDeTutoriales) {
             console.warn("Esperando baseDeTutoriales...");
             setTimeout(init, 100);
             return;
+            console.log("Versión de tutoriales cargada:", "2026-06-05");
         }
 
         renderizarMenu();
