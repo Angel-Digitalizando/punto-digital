@@ -363,7 +363,5 @@ const baseDeTutoriales = {
         ],
         nota: "💡 ¿Sabías qué? Las grandes empresas de tecnología gastan millones investigando cómo hacer que encuentres todo más rápido. Hoy, ese conocimiento ya es tuyo."
     },
-
-// FUERZA LA EXPOSICIÓN GLOBAL
-window.baseDeTutoriales = baseDeTutoriales;
-console.log("Tutoriales cargados en window:", window.baseDeTutoriales);
+// ... (La siguiente línea es el final de toda tu lista de tutoriales)
+}; 
