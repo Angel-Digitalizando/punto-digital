@@ -18,11 +18,8 @@
         else if (hora >= 12 && hora < 19) saludo = '¡Buenas tardes, vecino! 🌤️';
         else                               saludo = '¡Buenas noches, vecino! 🌙';
 
-        h2.textContent = saludo;
-
-// BANCO DE VARIACIONES DE SUBTÍTULOS (h2)
+        // BANCO DE VARIACIONES DE SUBTÍTULOS
         var variaciones = [
-            // --- Versiones Cálidas y Cercanas ---
             '¿Listo para aprender algo nuevo hoy? 😊',
             'Qué bueno verte por acá. ¿Qué descubrimos hoy? ✨',
             'Paso a paso, sin miedo ni apuro. ¡El conocimiento es tuyo!',
@@ -35,8 +32,6 @@
             'Hoy es un gran día para perderle el miedo al celular. 📱',
             'Mate en mano y listos para hacer ese trámite pendiente. 🧉',
             'Acá no hay preguntas tontas. ¡Estamos para aprender!',
-
-            // --- Versiones Serias e Instructivas ---
             'Hoy, lectura instructiva sobre asuntos digitales.',
             'Herramientas prácticas para tu autonomía tecnológica diaria.',
             'Capacitación digital abierta para toda la comunidad.',
@@ -45,14 +40,10 @@
             'Educación tecnológica para la inclusión social de Moreno.',
             'Construyendo soberanía y autonomía digital desde el barrio.',
             'Información clara y precisa para navegar la red con seguridad.',
-
-            // --- Versiones de Prevención y Cuidado Digital (Cortas) ---
             'Recordá: Ningún banco te va a pedir tu clave por teléfono. 🛡️',
             'Navegar seguros es tan importante como saber buscar.',
             'Cuidá tus datos. Ante la duda, preguntale a alguien de confianza. 🛑',
             'Las urgencias en internet suelen ser trampas. Respirá y leé bien.',
-
-            // --- Versiones Estilo Código (Seguras en texto plano, activan la fuente de consola) ---
             '> ejecutar: aprender_algo_nuevo.sh',
             '// Conectando saberes comunitarios...',
             '> PuntoDigital_ inicializado correctamente',
@@ -67,17 +58,26 @@
             '// Renderizando interfaz amigable para el vecino.'
         ];
 
-        // Selección matemática aleatoria del arreglo
         var fraseAleatoria = variaciones[Math.floor(Math.random() * variaciones.length)];
 
+        // 1. Vaciamos el H2 por completo para evitar que queden textos previos o basura del HTML
+        h2.innerHTML = ''; 
+
+        // 2. Creamos un span exclusivo para el saludo principal
+        var spanSaludo = document.createElement('span');
+        spanSaludo.textContent = saludo;
+        spanSaludo.style.display = 'block'; // Asegura que quede arriba
+        h2.appendChild(spanSaludo);
+
+        // 3. Creamos el span para el subtítulo aleatorio (tu código original)
         var sub  = document.createElement('span');
         sub.textContent = fraseAleatoria;
         sub.style.cssText = 'font-size:0.8em;color:#555;display:block;margin-top:5px;';
 
-        // EFECTO VISUAL EXTRA: Si es estilo código, cambiamos la tipografía automáticamente
+        // Aplicamos el Easter Egg tecnológico
         if (fraseAleatoria.indexOf('>') === 0 || fraseAleatoria.indexOf('//') === 0) {
             sub.style.fontFamily = 'monospace, Courier New, serif';
-            sub.style.color = '#00838F'; // Color cian oscuro simulando consola
+            sub.style.color = '#00838F'; 
             sub.style.fontWeight = 'bold';
         }
 
