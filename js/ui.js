@@ -18,7 +18,7 @@
 //   - Expone filtrarPorCategoria en window.PD_UI
 // =========================================================
 
-(()) => {
+() => {
     'use strict';
 
     // ── Mapa de categorías: clave → etiqueta y color ──────
@@ -32,7 +32,7 @@
         personalizacion: {
             etiqueta: '🎨 Organizar mi Celular'
             descripcion: 'Ajustes visuales, orden y pantallas',
-            color: '#00838F', // Un tono cian/teal para diferenciarlo                                                     },
+            color: '#00838F',                                           
         },
 
         usos_tecnologia: {
@@ -40,6 +40,7 @@
             descripcion: 'Herramientas del día a día para sacarle el jugo al celu',
             color: '#E65100', // Naranja oscuro para buena visibilidad
         },
+
         cuidado: {
             etiqueta: '🛡️ Cuidado Digital',
             descripcion: 'Estafas, contraseñas, páginas oficiales',
