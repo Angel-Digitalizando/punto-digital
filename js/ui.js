@@ -30,7 +30,7 @@
         },
 
         personalizacion: {
-            etiqueta: '🎨 Organizar mi Celular'
+            etiqueta: '🎨 Organizar mi Celular',
             descripcion: 'Ajustes visuales, orden y pantallas',
             color: '#00838F',                                           
         },

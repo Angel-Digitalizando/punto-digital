@@ -364,3 +364,6 @@ const baseDeTutoriales = {
         nota: "💡 ¿Sabías qué? Las grandes empresas de tecnología gastan millones investigando cómo hacer que encuentres todo más rápido. Hoy, ese conocimiento ya es suyo."
     }
 };
+
+
+window.baseDeTutoriales = baseDeTutoriales;
