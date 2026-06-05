@@ -18,7 +18,7 @@
 //   - Expone filtrarPorCategoria en window.PD_UI
 // =========================================================
 
-(() => {
+(()) => {
     'use strict';
 
     // ── Mapa de categorías: clave → etiqueta y color ──────
@@ -29,11 +29,10 @@
             color: '#0B5AA2',
         },
 
-     // 👉 Casi todo relacionado con intefaz y experiencia de usuario explicados en nuestra lengua Argentina de Buenos Aires, Moreno
-            personalizacion: {
-                etiqueta: '🎨 Organizar mi Celular'
-                descripcion: 'Ajustes visuales, orden y pantallas',
-                color: '#00838F', // Un tono cian/teal para diferenciarlo                                                     },
+        personalizacion: {
+            etiqueta: '🎨 Organizar mi Celular'
+            descripcion: 'Ajustes visuales, orden y pantallas',
+            color: '#00838F', // Un tono cian/teal para diferenciarlo                                                     },
         },
 
         usos_tecnologia: {
