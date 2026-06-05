@@ -250,15 +250,48 @@ const baseDeTutoriales = {
         nivel:     'basico',
         titulo:    "¿Qué es la Inteligencia Artificial?",
         icono:     "🤖",
-        detalle:   "Escuchás hablar de inteligencia artificial en todos lados. Acá te explicamos qué es en serio, sin tecnicismos, y qué podés esperar de ella — y qué no.",
+        detalle:   "Escuchás hablar de inteligencia artificial en todos lados. Acá te explicamos qué es en serio, sin tecnicismos, cómo conversar con ella y cómo aprovecharla como una herramienta útil para aprender, crear y resolver problemas.",
         pasos: [
-            "<strong>¿Qué es en palabras simples?</strong> La inteligencia artificial (IA) es un programa de computadora que aprendió a responder preguntas, escribir textos, traducir idiomas y hacer muchas cosas más, leyendo una cantidad enorme de información. Es como un asistente muy rápido, pero que no piensa como una persona.",
-            "<strong>¿Qué puede hacer por vos?</strong> Puede ayudarte a redactar una nota o un reclamo, explicarte algo que no entendés, buscar información, traducir un texto, o resumir algo largo. Todo esto sin costo, desde el celular.",
-            "<strong>¿Qué NO puede hacer?</strong> No conoce tu situación personal. No tiene sentimientos. No siempre tiene razón — a veces inventa información que suena verdadera pero es falsa. No reemplaza a un médico, un abogado, o a alguien que te conoce.",
-            "<strong>¿Cómo saber si hablo con una IA o una persona?</strong> Si responde al instante, a cualquier hora de la madrugada, con textos larguísimos y redacción perfecta en segundos, lo más seguro es que estés hablando con una IA.",
-            "<strong>Animate a probar:</strong> La mejor forma de sacarle el miedo es usarla. Podés preguntarle recetas con lo que te quedó en la heladera o pedirle que te arme una rutina de ejercicios suaves."
-        ],
-        nota: "💡 La IA es una excelente compañera de ideas, pero la decisión final y el criterio humano siempre los tenés vos."
+             "<strong>¿Qué es en palabras simples?</strong> La inteligencia artificial (IA) es un programa de computadora que aprendió a reconocer patrones leyendo una enorme cantidad de textos, imágenes y ejemplos. Es como una biblioteca gigantesca que puede ayudarte a encontrar información, explicar conceptos y redactar contenido en pocos segundos.",
+             "<strong>¿Qué puede hacer por vos?</strong> Puede ayudarte a redactar cartas, reclamos, mensajes, currículums, listas de compras, resúmenes, explicaciones y planes de estudio. También puede traducir idiomas, ordenar ideas y explicar temas difíciles de una forma más sencilla.",
+             "<strong>¿Qué NO puede hacer?</strong> No conoce tu vida personal, no puede leer tu mente y no siempre tiene razón. A veces puede equivocarse o generar información incorrecta. Por eso siempre es importante verificar los datos importantes antes de tomar decisiones.",
+             "<strong>¿Cómo saber si hablo con una IA o una persona?</strong> Una IA suele responder muy rápido, a cualquier hora del día, puede escribir textos largos en segundos y rara vez necesita tiempo para pensar. Sin embargo, detrás de estas herramientas siempre existen equipos humanos que las desarrollan y supervisan.",
+             "<strong>¿Qué es un Prompt?</strong> La palabra 'prompt' puede sonar complicada, pero significa algo muy simple: es el mensaje o instrucción que vos escribís. Cuanto más clara sea tu pregunta, más útil suele ser la respuesta. Por ejemplo, en lugar de escribir 'ayudame', podés escribir 'ayudame a redactar una nota para solicitar un turno médico'.",
+             "<strong>La Caja de Mensajes:</strong> Es el espacio donde escribís tus preguntas y donde aparecen las respuestas. Funciona como una conversación. Podés seguir preguntando sobre el mismo tema, pedir ejemplos, solicitar explicaciones más simples o corregir algo que no entendiste.",
+             "<strong>La IA como asistente de escritura:</strong> Muchas personas la utilizan para organizar ideas antes de escribir. Puede ayudarte a transformar apuntes desordenados en textos claros, resumir documentos largos, corregir errores o encontrar formas más simples de explicar una idea.",
+             "<strong>La importancia de la auditoría humana:</strong> Aunque la IA sea útil, la última revisión siempre debe hacerla una persona. Fechas, números, nombres, trámites, cuestiones legales o médicas deben ser revisados antes de utilizarlos. La tecnología ayuda, pero la responsabilidad final sigue siendo humana.",
+             "<strong>Aprender a conversar con la tecnología:</strong> No hace falta saber programación para usar inteligencia artificial. Lo importante es aprender a hacer preguntas claras. Si la respuesta no te sirve, podés pedir que la explique mejor, que use palabras más simples o que te muestre ejemplos prácticos.",
+             "<strong>Glosario rápido:</strong><br><br>• <strong>IA:</strong> Inteligencia Artificial.<br>• <strong>Prompt:</strong> La instrucción o pregunta que escribís.<br>• <strong>Chat:</strong> La conversación entre vos y la herramienta.<br>• <strong>Respuesta:</strong> El contenido generado por la IA.<br>• <strong>Auditoría Humana:</strong> La revisión realizada por una persona.<br>• <strong>Generación de Texto:</strong> La capacidad de redactar contenido a partir de instrucciones.",
+             "<strong>Una herramienta para unir conocimientos:</strong> La tecnología funciona mejor cuando ayuda a conectar personas, compartir experiencias y facilitar el aprendizaje. Puede servir para acercar información, simplificar tareas y colaborar en proyectos donde cada persona aporta algo valioso desde su propia experiencia.",
+             "<strong>La creatividad sigue siendo humana:</strong> La IA puede ayudar a encontrar palabras, ordenar ideas o generar borradores, pero las historias, recuerdos, emociones y experiencias reales siguen naciendo de las personas. La tecnología puede acompañar la escritura, pero no reemplaza la mirada única de cada ser humano.",
+             "<strong>Animate a probar:</strong> Podés empezar con preguntas sencillas como: 'explicame qué es una factura', 'ayudame a organizar mis gastos', 'haceme una lista de compras económica' o 'explicame este trámite paso a paso'. La mejor manera de entender una herramienta es usarla.",
+             ],
+
+        nota: "💡 La inteligencia artificial puede ser una gran compañera para aprender, organizar ideas y resolver dudas. Sin embargo, las decisiones importantes siempre deben pasar por el criterio, la experiencia y la revisión de las personas."
+
+    },
+
+
+        primeros_prompts: {
+            categoria: 'inteligencia_artificial',
+            nivel:     'basico',
+            titulo:    "Mis Primeros Prompts",
+            icono:     "💬",
+            detalle:   "Aprender a hablar con una inteligencia artificial es parecido a aprender a hacer buenas preguntas. No hace falta saber programación ni usar palabras difíciles. Cuanto más clara sea la pregunta, más útil suele ser la respuesta.",
+            pasos: [
+                "<strong>¿Qué es un prompt?</strong> Un prompt es simplemente el mensaje que escribís en la caja de conversación. Puede ser una pregunta, una idea, una tarea o una explicación. Por ejemplo: 'Explicame qué es una factura electrónica' o 'Ayudame a redactar una nota para mi trabajo' entre otros, son llamados 'PROMPTS'.",
+                "<strong>No existen preguntas perfectas.</strong> Muchas personas creen que deben escribir algo técnico o complicado. En realidad, podés escribir como hablás todos los días. Si la respuesta no te convence, podés volver a preguntar, agregar detalles o pedir que te lo explique de otra manera.",
+                "<strong>Una conversación sirve para construir ideas.</strong> La IA puede ayudar a organizar pensamientos, encontrar distintos puntos de vista o explicar conceptos. Sin embargo, las decisiones importantes siguen dependiendo de tu criterio, tu experiencia y las personas de confianza que te rodean.",
+                "<strong>Un ejemplo de pregunta profunda.</strong> Una de las primeras preguntas que muchas personas hacen no es técnica, sino filosófica. Algunos preguntan: '¿Cómo podemos salir de esta simulación?'. Es una pregunta relacionada con el sentido de la realidad, la conciencia y la existencia. Ninguna inteligencia artificial puede demostrar una respuesta definitiva porque actualmente no existe una prueba científica concluyente sobre esa idea.",
+                "<strong>¿Entonces para qué sirve preguntar eso?</strong> Porque las preguntas profundas nos ayudan a pensar. Una misma pregunta puede inspirar respuestas muy distintas. Algunas personas encuentran sentido en la meditación, otras en la ciencia, otras en la lectura, el estudio, el arte, el trabajo, los afectos o simplemente en disfrutar la experiencia de estar vivos.",
+                "<strong>La IA no entrega verdades absolutas.</strong> Cuando hacés una pregunta filosófica, la IA puede mostrar teorías, argumentos e ideas de distintas épocas, pero no puede decidir cuál es la verdad última. Esa parte pertenece al pensamiento humano, a la reflexión personal y al diálogo con otros.",
+                "<strong>Probá hacer preguntas abiertas.</strong> Por ejemplo: '¿Qué pensaban los filósofos sobre la realidad?', '¿Cómo explicarías la conciencia a alguien de 10 años?' o '¿Qué distintas formas existen de encontrar sentido a la vida?'. Las respuestas suelen ser más interesantes cuando invitan a explorar varias posibilidades.",
+                "<strong>La curiosidad es una herramienta.</strong> No hace falta usar la IA solamente para resolver problemas prácticos. También puede servir para aprender historia, ciencia, literatura, arte, astronomía o cualquier tema que despierte tu interés. Una buena pregunta puede abrir caminos que antes no habías considerado.",
+                "<strong>La tecnología y las personas.</strong> Las herramientas digitales cambian con el tiempo, pero las grandes preguntas humanas siguen acompañándonos desde hace siglos. La tecnología puede ayudar a explorarlas, pero el significado que encontramos en ellas continúa siendo una construcción personal y colectiva.",
+                "<strong>Un buen comienzo.</strong> Si no sabés qué preguntar, empezá por algo simple: '¿Qué puedo aprender hoy que no sabía ayer?'. Muchas veces una sola pregunta abre la puerta a decenas de descubrimientos."
+                  ],
+
+    nota: "💡 Una inteligencia artificial puede acompañar tu aprendizaje, pero las preguntas más importantes suelen crecer con la experiencia, la observación, la lectura, la conversación y el tiempo."
     },
 
 
