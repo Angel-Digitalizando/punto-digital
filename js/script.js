@@ -1,22 +1,12 @@
 // =========================================================
 // script.js — Saludo dinámico, año actual, footer interactivo
 // Punto Digital Comunitario Morenense
-//
-// Dependencias en carga: ninguna.
-// Dependencias en runtime: PD_Toast (para feedback de copia).
-//   PD_Toast se resuelve lazy: este módulo no falla si toast.js
-//   no cargó, simplemente degrada a sin-feedback-visual.
-//
-// Side effects en init():
-//   - Modifica textContent de #anio-actual
-//   - Modifica innerHTML de .intro h2 (saludo dinámico)
-//   - Agrega event listeners en #texto-direccion y #texto-autor
 // =========================================================
 
 (function () {
     'use strict';
 
-    // ─── Saludo dinámico por hora ─────────────────────────
+    // ─── Saludo dinámico y subtítulo aleatorio ─────────────
     function aplicarSaludo() {
         var h2 = document.querySelector('.intro h2');
         if (!h2) return;
@@ -28,14 +18,69 @@
         else if (hora >= 12 && hora < 19) saludo = '¡Buenas tardes, vecino! 🌤️';
         else                               saludo = '¡Buenas noches, vecino! 🌙';
 
-        // textContent para el saludo, span separado para el subtítulo.
-        // No usar innerHTML directo en el h2 completo para no pisar
-        // posibles nodos hijos que otros módulos pudieran agregar.
         h2.textContent = saludo;
 
+// BANCO DE VARIACIONES DE SUBTÍTULOS (h2)
+        var variaciones = [
+            // --- Versiones Cálidas y Cercanas ---
+            '¿Listo para aprender algo nuevo hoy? 😊',
+            'Qué bueno verte por acá. ¿Qué descubrimos hoy? ✨',
+            'Paso a paso, sin miedo ni apuro. ¡El conocimiento es tuyo!',
+            'Un día más para domar la tecnología juntos. 🤝',
+            'Tomate tu tiempo, acá nadie te apura. ☕',
+            'No se rompe nada por tocar la pantalla. ¡Animate a explorar! 🚀',
+            'La tecnología es para todos, sin importar la edad. 💙',
+            'Si te equivocás, volvemos a empezar. ¡No pasa nada!',
+            'Un espacio pensado para acompañarte en cada clic.',
+            'Hoy es un gran día para perderle el miedo al celular. 📱',
+            'Mate en mano y listos para hacer ese trámite pendiente. 🧉',
+            'Acá no hay preguntas tontas. ¡Estamos para aprender!',
+
+            // --- Versiones Serias e Instructivas ---
+            'Hoy, lectura instructiva sobre asuntos digitales.',
+            'Herramientas prácticas para tu autonomía tecnológica diaria.',
+            'Capacitación digital abierta para toda la comunidad.',
+            'El acceso a la información es tu derecho. Ejerzamoslo.',
+            'Guías paso a paso para facilitar tus trámites cotidianos.',
+            'Educación tecnológica para la inclusión social de Moreno.',
+            'Construyendo soberanía y autonomía digital desde el barrio.',
+            'Información clara y precisa para navegar la red con seguridad.',
+
+            // --- Versiones de Prevención y Cuidado Digital (Cortas) ---
+            'Recordá: Ningún banco te va a pedir tu clave por teléfono. 🛡️',
+            'Navegar seguros es tan importante como saber buscar.',
+            'Cuidá tus datos. Ante la duda, preguntale a alguien de confianza. 🛑',
+            'Las urgencias en internet suelen ser trampas. Respirá y leé bien.',
+
+            // --- Versiones Estilo Código (Seguras en texto plano, activan la fuente de consola) ---
+            '> ejecutar: aprender_algo_nuevo.sh',
+            '// Conectando saberes comunitarios...',
+            '> PuntoDigital_ inicializado correctamente',
+            '// Rompiendo la brecha digital, un vecino a la vez.',
+            '> cargando_modulo_autonomia_digital...',
+            '// status: listo_para_aprender (100%)',
+            '> ping a_la_comunidad_morenense -t',
+            '// TODO: Perderle el miedo a la tecnología.',
+            '> sudo apt-get install conocimiento_digital',
+            '// Compilando guías paso a paso para el usuario...',
+            '> systemctl start confianza_en_uno_mismo.service',
+            '// Renderizando interfaz amigable para el vecino.'
+        ];
+
+        // Selección matemática aleatoria del arreglo
+        var fraseAleatoria = variaciones[Math.floor(Math.random() * variaciones.length)];
+
         var sub  = document.createElement('span');
-        sub.textContent = '¿Listo para aprender algo nuevo hoy?';
+        sub.textContent = fraseAleatoria;
         sub.style.cssText = 'font-size:0.8em;color:#555;display:block;margin-top:5px;';
+
+        // EFECTO VISUAL EXTRA: Si es estilo código, cambiamos la tipografía automáticamente
+        if (fraseAleatoria.indexOf('>') === 0 || fraseAleatoria.indexOf('//') === 0) {
+            sub.style.fontFamily = 'monospace, Courier New, serif';
+            sub.style.color = '#00838F'; // Color cian oscuro simulando consola
+            sub.style.fontWeight = 'bold';
+        }
+
         h2.appendChild(sub);
     }
 
@@ -46,14 +91,6 @@
     }
 
     // ─── Copiar al portapapeles ───────────────────────────
-    // Estrategia de detección en tres niveles:
-    //   1. navigator.clipboard.writeText (moderno, async, seguro)
-    //   2. document.execCommand('copy')  (deprecated pero funciona
-    //      en Android 5/6, Chrome < 66 — target audience real)
-    //   3. alert() como último recurso si nada funciona
-    //
-    // No usar execCommand como primera opción porque genera
-    // DeprecationWarning en Chrome 90+ en consola (ruido).
     function copiar(texto, mensajeExito) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(texto)
@@ -65,8 +102,6 @@
     }
 
     function copiarFallback(texto, mensajeExito) {
-        // execCommand requiere un elemento seleccionable en el DOM.
-        // Se usa textarea off-screen para no alterar el layout.
         var ta = document.createElement('textarea');
         ta.value       = texto;
         ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
@@ -76,7 +111,6 @@
 
         var exito = false;
         try {
-            // eslint-disable-next-line no-restricted-syntax
             exito = document.execCommand('copy');
         } catch (_) { /* silenciar */ }
 
@@ -85,33 +119,29 @@
         if (exito) {
             feedback(mensajeExito);
         } else {
-            // Solo llegar acá en browsers muy viejos sin ninguna API
             alert('No se pudo copiar automáticamente.\nTexto: ' + texto);
         }
     }
 
-    // Feedback visual unificado a través de PD_Toast
     function feedback(mensaje) {
         if (window.PD_Toast && window.PD_Toast.mostrarToast) {
             window.PD_Toast.mostrarToast('✅ ' + mensaje, 'exito', 2500);
         }
-        // Sin fallback: el texto ya se copió, el feedback es cosmético
     }
 
-    // ─── Footer interactivo ───────────────────────────────
+    // ─── Footer interactivo (BUG DE COMAS CORREGIDO AQUÍ) ───
     function inicializarFooter() {
         activarBotonCopia(
             'texto-direccion',
             'Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.',
             'Dirección copiada al portapapeles'
         );
+        
+        // Corregido: Se unificaron las cadenas separadas que hacían romper el código
         activarBotonCopia(
             'texto-autor',
             'Angel Nicolás Villegas (CENS 453, Moreno)',
-            'Nombre del autor copiado en portapapeles de su teclado'
-            'Podés buscarlo en redes sociales'
-            'o sino'
-            'Preguntale a tu IA favorita sobre él'
+            'Nombre del autor copiado.\nPodés buscarlo en redes sociales o preguntarle a tu IA favorita sobre él.'
         );
     }
 
@@ -119,7 +149,6 @@
         var el = document.getElementById(id);
         if (!el) return;
 
-        // Asegurar que sea interactivo para lectores de pantalla
         el.setAttribute('role',     'button');
         el.setAttribute('tabindex', '0');
 
@@ -127,23 +156,14 @@
             copiar(texto, mensaje);
         });
 
-        // Activación por teclado (Enter y Espacio, igual que un botón real)
         el.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault(); // Prevenir scroll en Espacio
+                e.preventDefault();
                 copiar(texto, mensaje);
             }
         });
     }
 
-    // ─── Inicialización ───────────────────────────────────
-    function init() {
-        aplicarAnio();
-        aplicarSaludo();
-        inicializarFooter();
-        inicializarHeaderInicio();
-        inicializarCompartirFlotante();
-    }
     // ─── Header → volver al inicio ────────────────────────
     function inicializarHeaderInicio() {
         var btn = document.getElementById('btn-inicio-header');
@@ -180,9 +200,7 @@
     }
 
     function copiarURLFallback(url) {
-        var toast = window.PD_Toast && window.PD_Toast.mostrarToast
-            ? window.PD_Toast
-            : null;
+        var toast = window.PD_Toast && window.PD_Toast.mostrarToast ? window.PD_Toast : null;
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(url)
@@ -213,10 +231,18 @@
         }
     }
 
-   if (document.readyState === 'loading') {
+    // ─── Inicialización Segura ────────────────────────────
+    function init() {
+        aplicarAnio();
+        aplicarSaludo();
+        inicializarFooter();
+        inicializarHeaderInicio();
+        inicializarCompartirFlotante();
+    }
+
+    if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
-
 })();
