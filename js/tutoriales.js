@@ -12,19 +12,20 @@ const baseDeTutoriales = {
     correo: {
         categoria: 'tramites',
         nivel:     'basico',
-        titulo:    "Crear un Correo Electrónico",
+        titulo:    "Crear y Entender el Correo Electrónico",
         icono:     "✉️",
-        detalle:   "El correo es como tu buzón de cartas pero en el celu. Te lo van a pedir para casi todo: para sacar turnos, para el banco y para registrarte en las aplicaciones. ¡Es una llave personal de internet!",
+        detalle:   "El correo es tu identidad en internet. Te lo piden para turnos, bancos y apps. Descubrí cómo funciona realmente por dentro y elegí la plataforma que mejor se adapte a vos.",
         pasos: [
-            "Tenés dos opciones: buscá en tu celular una aplicación que se llame <strong>Gmail</strong> (tiene el dibujo de un sobrecito blanco con bordes rojos) y tocá. O, si preferís, entrá directo desde el navegador tocando este botón: <button class='btn-paso' onclick=\"window.open('https://accounts.google.com/SignUp','_blank','noopener,noreferrer')\">Ir directo a crear cuenta en Gmail</button>",
-            "Si te aparece para iniciar sesión, buscá abajo un texto que dice <strong>'Crear cuenta'</strong> o <strong>'Registrarse'</strong> y seleccionalo. Elegí la opción que dice <strong>'Para mi uso personal'</strong>.",
-            "Escribí tu <strong>Nombre</strong> y, si querés, el <strong>Apellido</strong> en los casilleros blancos. Después tocá el botón azul que dice <strong>'Siguiente'</strong>.",
-            "Poné el día, mes y año de tu nacimiento, y tu género. Volvé a tocar <strong>'Siguiente'</strong>.",
-            "Ahora tienes que inventar el <strong>'nombre de usuario'</strong> de tu correo. Por ejemplo: <em>Maria_Moreno2026@gmail.com</em>. Si te dice que ya existe, probá agregando un número.",
-            "¡Momento contraseña! Inventá una clave segura. Poné algo que te acuerdes (por ejemplo, el nombre de tu nieto y el año). Un buen ejemplo: <em>NicoAngel003$</em>. <strong>¡Anotala en un cuadernito y guardalo bien!</strong>",
-            "Dale todo para adelante tocando <strong>'Aceptar'</strong> o <strong>'Siguiente'</strong> a los carteles que aparezcan. ¡Listo! Ya tenés tu dirección de correo electrónico propia. ¡Felicidades!"
+            "<strong>1. El correo no es uno solo (Las Plataformas):</strong> Existen muchas 'empresas de correos' (como Gmail, Outlook o Yahoo). Lo importante es saber que tus mensajes no viven adentro de tu aparato, sino en internet. Por eso podés abrir tu correo desde el navegador de una compu (Windows o Mac), o desde una app en cualquier celular (Android o iPhone). ¡Tu buzón es siempre el mismo!",
+            "<strong>2. ¿Cómo viajan los mensajes? (IMAP vs POP):</strong> Los técnicos usan estas palabras raras para explicar cómo tu celular lee los mensajes. <br><br>👉 <strong>IMAP (El Espejo Mágico):</strong> Es lo que usamos hoy. Tu celular es un espejo de internet. Si leés o borrás un correo en el celu, también se marca como leído o se borra en la compu. <br>👉 <strong>POP (El Cartero Antiguo):</strong> El celular descarga la carta y la borra del correo central. Si perdés el celu, perdés la carta. Hoy casi no se usa.",
+            "<strong>3. Crear cuenta en Gmail (La más común):</strong> Si tenés Android, es la más fácil. Buscá la app <strong>Gmail</strong> (un sobre blanco con bordes rojos). Si no, tocá este botón para abrirlo en el navegador: <button class='btn-paso' style='margin-top:8px;' onclick=\"window.open('https://accounts.google.com/SignUp','_blank','noopener,noreferrer')\">Ir a crear cuenta en Gmail</button>",
+            "<strong>4. Los datos básicos:</strong> Tocá donde dice <strong>'Crear cuenta'</strong> y elegí <strong>'Para mi uso personal'</strong>. Escribí tu Nombre, tu Apellido, tu fecha de nacimiento y género en los casilleros blancos. Luego tocá 'Siguiente'.",
+            "<strong>5. Tu dirección única:</strong> Inventá tu <strong>'nombre de usuario'</strong>. Por ejemplo: <em>Maria_Moreno2026@gmail.com</em>. Si te dice que ya existe (porque otra María lo eligió antes), probá agregándole un número o tu barrio.",
+            "<strong>6. ¡Momento contraseña!</strong> Inventá una clave segura. Usá algo que te acuerdes mezclado con números (ej: <em>NicoAngel003$</em>). <strong>¡Anotala en un cuadernito de papel y guardalo bien!</strong> Tocá 'Aceptar' a los carteles finales y listo.",
+            "<strong>7. Otras excelentes opciones (Elegí la tuya):</strong> Gmail no es el dueño de internet. Podés crearte correos gratuitos en otras plataformas tocando estos botones:<br><br><button class='btn-paso' style='margin-bottom:8px;' onclick=\"window.open('https://signup.live.com/','_blank')\">📧 Outlook / Hotmail (Ideal para Windows)</button><br><button class='btn-paso' style='margin-bottom:8px;' onclick=\"window.open('https://login.yahoo.com/account/create','_blank')\">🟣 Yahoo Mail (Un clásico muy fácil de usar)</button><br><button class='btn-paso' style='margin-bottom:8px;' onclick=\"window.open('https://proton.me/es/mail','_blank')\">🛡️ Proton Mail (Ultra privado y seguro)</button>",
+            "<strong>8. ¿Y si tengo un negocio? (Dominio Propio):</strong> Si ves un correo que termina en <em>@ferreteriajuan.com.ar</em>, significa que Juan registró su propia dirección exclusiva en internet (el 'dominio' o terreno) y alquiló un espacio privado para guardar sus mensajes (el 'servidor' o local físico). Aunque es un paso un poquito más técnico y requiere pagar una cuota anual, funciona como el cartel luminoso de tu local: le da muchísima confianza, seriedad y profesionalismo a tu emprendimiento frente a los clientes."
         ],
-        nota: "💡 Si en algún paso te trabás, cerrá la aplicación y volvé a intentar desde el principio. No perdés nada de lo que ya hiciste."
+        nota: "💡 Si en algún paso te trabás, cerrá la aplicación y volvé a intentar desde el principio. El sistema está hecho para que no rompas nada."
     },
 
     anses: {
