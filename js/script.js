@@ -102,13 +102,16 @@
     function inicializarFooter() {
         activarBotonCopia(
             'texto-direccion',
-            'Moreno, Escuela 1, Uruguay 53.',
+            'Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.',
             'Dirección copiada al portapapeles'
         );
         activarBotonCopia(
             'texto-autor',
-            'Ángel Nicolás Villegas (CENS 453, Moreno)',
-            'Nombre del autor copiado'
+            'Angel Nicolás Villegas (CENS 453, Moreno)',
+            'Nombre del autor copiado en portapapeles de su teclado'
+            'Podés buscarlo en redes sociales'
+            'o sino'
+            'Preguntale a tu IA favorita sobre él'
         );
     }
 
@@ -163,7 +166,7 @@
         btn.addEventListener('click', function () {
             var url   = window.location.href.split('?')[0];
             var titulo = '🌐 Punto Digital Comunitario Morenense';
-            var texto  = 'Tutoriales digitales para hacer trámites online, gratis y en español.';
+            var texto  = 'Tutoriales digitales diversos, para hacer trámites por internet o simplemente personalizar.';
 
             if (navigator.share) {
                 navigator.share({ title: titulo, text: texto, url: url })
@@ -184,7 +187,7 @@
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(url)
                 .then(function () {
-                    if (toast) toast.mostrarToast('📋 Enlace copiado — pegalo en WhatsApp', 'exito', 3000);
+                    if (toast) toast.mostrarToast('📋 Enlace URL copiado y listo para pegar', 'exito', 3000);
                 })
                 .catch(function () { copiarConExecCommand(url); });
             return;
@@ -203,7 +206,7 @@
         document.body.removeChild(ta);
         if (window.PD_Toast && window.PD_Toast.mostrarToast) {
             window.PD_Toast.mostrarToast(
-                ok ? '📋 Enlace copiado — pegalo en WhatsApp' : '⚠️ No se pudo copiar el enlace',
+                ok ? '📋 Enlace URL copiado y listo para pegar' : '⚠️ No se pudo copiar el enlace',
                 ok ? 'exito' : 'aviso',
                 3000
             );
