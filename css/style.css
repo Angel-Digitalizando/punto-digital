@@ -896,4 +896,9 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
         max-height: 85vh; 
         overflow-y: auto;
     }
+
+#btn-volver-arriba:active {
+        transform: scale(0.95); /* El botón se achica un poco al tocarlo */
+            background: #08457c;   /* Cambia ligeramente de color al presionar */
+            }
 }
