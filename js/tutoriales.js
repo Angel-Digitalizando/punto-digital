@@ -401,9 +401,9 @@ const baseDeTutoriales = {
     servicios: {
         categoria: 'comunidad',
         nivel:     'intermedio',
-        titulo:    "Servicios del Barrio y Trámites",
-        icono:     "🚌",
-        detalle:   "Accedé directo a las herramientas que necesitás para moverte y gestionar tus papeles sin vueltas.",
+        titulo:    'Servicios del Barrio y Trámites',
+        icono:     '🚌',
+        detalle:   'Accedé directo a las herramientas que necesitás para moverte y gestionar tus papeles sin vueltas.',
         pasos: [
             "<button class='btn-paso' onclick=\"window.open('https://www.laperlita.com.ar/','_blank')\">🚌 La Perlita (Horarios y recorridos)</button>",
             "<button class='btn-paso' onclick=\"window.open('https://mi.argentina.gob.ar/','_blank')\">🇦🇷 Mi Argentina (DNI, trámites y credenciales)</button>",    
