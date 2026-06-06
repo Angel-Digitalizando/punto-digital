@@ -344,7 +344,7 @@ const baseDeTutoriales = {
             "<strong>Cómo gestionar:</strong> Nunca borres carpetas que no conozcas. Si necesitás limpiar espacio, usá siempre la opción 'Limpiar' o 'Liberar espacio' que trae la misma app de 'Files' de Google, es más seguro que borrar archivos a mano."
         ],
         nota: "💡 <strong>Consejo:</strong> Si conectás el celu a la compu por cable USB, la computadora lo verá como una memoria externa. Ahí sí, navegá como si fuera una carpeta más de Windows."
-    },
+               },
 
     uso_navegador_seguro: {
         categoria: 'usos_tecnologia',
@@ -363,7 +363,7 @@ const baseDeTutoriales = {
             "<strong>Tu elección siempre es válida:</strong> Si preferís seguir usando el navegador que ya trajo tu celular de fábrica, está perfecto. Lo más importante, uses el que uses, es no dejarse invadir por las 'ventanitas sorpresa' (pop-ups). Son esos carteles molestos que saltan de golpe tapando la pantalla, muchas veces ofreciendo premios falsos. Nunca toques sus botones llamativos; simplemente buscá una pequeña cruz ('X') en alguna esquina para cerrarlos y seguir tu camino tranquilo."
         ],
         nota: "⚠️ <strong>Dato clave:</strong> Por dentro, Brave está construido con las mismas piezas que otros navegadores conocidos. Esto significa que si ya sabías entrar a internet antes, vas a saber usar este de inmediato, sintiéndote mucho más cuidado."
-    },
+              },
 
     copia_seguridad: {
         categoria: 'usos_tecnologia',
@@ -379,7 +379,7 @@ const baseDeTutoriales = {
             "<strong>Liberar espacio con confianza:</strong> Una vez que Google Fotos termine de hacer la copia de seguridad de tus imágenes, podés usar un botón dentro de esa misma aplicación que dice <strong>'Liberar espacio'</strong>. Eso borra las fotos del aparato para que no esté lento, pero te las deja guardadas y visibles en la nube."
         ],
         nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
-    },
+               },
 
     organizacion_pantallas: {
         categoria: 'personalizacion',
@@ -396,6 +396,21 @@ const baseDeTutoriales = {
             "<strong>Módulo 6: ¿Qué nivel sos?</strong><br>🏆 <strong>Principiante:</strong> Tengo íconos que no conozco.<br>🏆 <strong>Organizado:</strong> Mis apps están en carpetas con nombre.<br>🏆 <strong>Productivo:</strong> Encuentro todo en menos de 3 segundos.<br>👑 <strong>Experto UX:</strong> Mi pantalla es minimalista, ordenada y ergonómica."
         ],
         nota: "💡 ¿Sabías qué? Las grandes empresas de tecnología gastan millones investigando cómo hacer que encuentres todo más rápido."
+               },
+
+    servicios: {
+        categoria: 'comunidad',
+        titulo: "Servicios del Barrio y Trámites",
+        icono: "🚌",
+        detalle: "Accedé directo a las herramientas que necesitás para moverte y gestionar tus papeles sin vueltas.",
+        pasos: [
+                "<button class='btn-paso' onclick=\"window.open('https://www.laperlita.com.ar/','_blank')\">🚌 La Perlita (Horarios y recorridos)</button>",
+                "<button class='btn-paso' onclick=\"window.open('https://mi.argentina.gob.ar/','_blank')\">🇦🇷 Mi Argentina (DNI, trámites y credenciales)</button>",
+                "<button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar/','_blank')\">🏛️ ANSES (Jubilaciones y Asignaciones)</button>",
+               "<button class='btn-paso' onclick=\"window.open('http://www.moreno.gob.ar/','_blank')\">🏠 Municipio de Moreno (Servicios Locales)</button>"
+                ],
+        nota: "💡 Estos enlaces te llevan a las páginas oficiales. Recordá nunca compartir tus claves personales en lugares públicos."
+                }
     }
 };
 
