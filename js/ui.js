@@ -70,8 +70,9 @@
         comunidad: {
             etiqueta: '📍 Servicios y Trámites del Barrio',
             descripcion: 'Tu puente directo con el Estado y la ciudad. Consultá horarios de La Perlita, Mi Argentina, ANSES y la Muni sin dar vueltas.',
-            color: '#3C9DD9', // Usamos el Celeste Institucional que definimos antes
-        },
+            color: '#3C9DD9', 
+        }
+    }; // <-- ASEGURATE
 
     let tutorialActualId = null;
     let categoriaActiva  = null; // null = todas
