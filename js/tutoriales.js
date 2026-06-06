@@ -405,10 +405,12 @@ const baseDeTutoriales = {
         detalle: "Accedé directo a las herramientas que necesitás para moverte y gestionar tus papeles sin vueltas.",
         pasos: [
              "<button class='btn-paso' onclick=\"window.open('https://www.laperlita.com.ar/','_blank')\">🚌 La Perlita (Horarios y recorridos)</button>",
-             "<button class='btn-paso' onclick=\"window.open('https://mi.argentina.gob.ar/','_blank')\">🇦🇷 Mi Argentina (DNI, trámites y credenciales)</button>",                                              "<button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar/','_blank')\">🏛️ ANSES (Jubilaciones y Asignaciones)</button>",
-             "<button class='btn-paso' onclick=\"window.open('http://www.moreno.gob.ar/','_blank')\">🏠 Municipio de Moreno (Servicios Locales)</button>"
-        ]                                                                                                       nota: "💡 Estos enlaces te llevan a las páginas oficiales. Recordá nunca compartir tus claves personales en lugares públicos."
-    },
+             "<button class='btn-paso' onclick=\"window.open('https://mi.argentina.gob.ar/','_blank')\">🇦🇷 Mi Argentina (DNI, trámites y credenciales)</button>",    
+             "<button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar/','_blank')\">🏛️ ANSES (Jubilaciones y Asignaciones)</button>",
+             "<button class='btn-paso' onclick=\"window.open('http://www.moreno.gob.ar/','_blank')\">🏠 Municipio de Moreno (Servicios Locales)</button>",
+        ],
+        nota: "💡 Estos enlaces te llevan a las páginas oficiales. Recordá nunca compartir tus claves personales en lugares públicos."
+    }
 };                                                                                                       
 // FUERZA LA EXPOSICIÓN GLOBAL (REQUERIDO POR UI.JS)
  window.baseDeTutoriales = baseDeTutoriales;
