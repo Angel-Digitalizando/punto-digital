@@ -415,3 +415,6 @@ const baseDeTutoriales = {
 // FUERZA LA EXPOSICIÓN GLOBAL (REQUERIDO POR UI.JS)
  window.baseDeTutoriales = baseDeTutoriales;
  console.log("Tutoriales cargados correctamente en window:", window.baseDeTutoriales);
+
+
+ 
