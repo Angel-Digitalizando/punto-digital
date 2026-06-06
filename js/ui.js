@@ -64,6 +64,11 @@
             descripcion: 'Para quienes enseñan, asisten o ayudan',
             color: '#198754',
         },
+        servicios: {
+            etiqueta: 'Servicios útiles y prácticos de tu barrio'
+            descripcion: 'Accesos directos a las aplicaciones de Internet Público'
+            color: '#C62828',
+        },
     };
 
     let tutorialActualId = null;
@@ -494,13 +499,13 @@
 
 // Acción al hacer clic: ir a una sección o al principio
     btn.addEventListener('click', () => {
-// Opción A: Ir al principio de la página                                           window.scrollTo({ top: 0, behavior: 'smooth' });
+// Opción A: Ir al principio de la página                                           
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
 // Opción B: Si quisieras ir a una sección específica (ej: el header)
 // document.querySelector('#header').scrollIntoView({ behavior: 'smooth' });
    });
    }
-
-                                                                                                                        // Asegurate de llamar a esta función en tu init() de ui.js
-                                                                                                                        // init() { ... inicializarVolverArriba(); ... }
+// Asegurate de llamar a esta función en tu init() de ui.js
+/ init() { ... inicializarVolverArriba(); ... }
 })();
