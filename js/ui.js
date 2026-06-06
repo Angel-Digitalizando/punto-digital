@@ -282,7 +282,7 @@
             <div role="list" id="lista-pasos">${pasosHtml}</div>
             ${notaHtml}
             <button id="btn-finalizar-tutorial" class="btn-menu" style="margin-top:25px;text-align:center;display:block;width:100%;background:var(--azul-oscuro);color:white;" aria-label="Terminé el tutorial, volver al inicio">
-                ✅ tocá acà para volver al inicio
+                ✅ tocá acá para volver al inicio
             </button>
         `;
 
