@@ -487,27 +487,25 @@
 
 // ── Botón para volver arriba ─────────────────────────────────
     function inicializarVolverArriba() {
-    const btn = document.getElementById('btn-volver-arriba');
-    if (!btn) return;
+        const btn = document.getElementById('btn-volver-arriba');
+        if (!btn) return;
 
-// Mostrar el botón solo después de hacer scroll hacia abajo
-    window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-    btn.style.display = 'block';
-    } else {
-        btn.style.display = 'none';
-    }
-    });
+        // Mostrar el botón solo después de hacer scroll hacia abajo
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
 
-// Acción al hacer clic: ir a una sección o al principio
-    btn.addEventListener('click', () => {
-// Opción A: Ir al principio de la página                                           
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-// Opción B: Si quisieras ir a una sección específica (ej: el header)
-// document.querySelector('#header').scrollIntoView({ behavior: 'smooth' });
-   });
+        // Acción al hacer clic: ir a una sección o al principio
+        btn.addEventListener('click', () => {                                         
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
    }
+
 // Asegurate de llamar a esta función en tu init() de ui.js
 // init() { ... inicializarVolverArriba(); ... }
-})();
+
+})(); // <-- ESTO ES LO ÚLTIMO QUE DEBE HABER EN EL ARCHIVO
