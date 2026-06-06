@@ -54,19 +54,22 @@
             descripcion: 'Estafas, contraseñas, páginas oficiales',
             color: '#C62828',
         },
+
         inteligencia_artificial: {
             etiqueta: '🤖 Inteligencia Artificial',
             descripcion: 'Qué es, cómo usarla con criterio',
             color: '#6f42c1',
         },
+
         acompanar: {
             etiqueta: '🤝 Acompañar a Otros',
             descripcion: 'Para quienes enseñan, asisten o ayudan',
             color: '#198754',
         },
+
         servicios: {
-            etiqueta: 'Servicios útiles y prácticos de tu barrio'
-            descripcion: 'Accesos directos a las aplicaciones de Internet Público'
+            etiqueta: 'Servicios útiles y prácticos de tu barrio',
+            descripcion: 'Accesos directos a las aplicaciones de Internet Público',
             color: '#C62828',
         },
     };
@@ -279,7 +282,7 @@
             <div role="list" id="lista-pasos">${pasosHtml}</div>
             ${notaHtml}
             <button id="btn-finalizar-tutorial" class="btn-menu" style="margin-top:25px;text-align:center;display:block;width:100%;background:var(--azul-oscuro);color:white;" aria-label="Terminé el tutorial, volver al inicio">
-                ✅ Entendí todo, volver al inicio
+                ✅ tocá acà para volver al inicio
             </button>
         `;
 
@@ -446,9 +449,9 @@
     const init = () => {
         if (!window.baseDeTutoriales) {
             console.warn("Esperando baseDeTutoriales...");
-            setTimeout(init, 100);
-            return;
             console.log("Versión de tutoriales cargada:", "2026-06-05");
+            setTimeout(init, 100);
+            return;        
         }
 
         renderizarMenu();
@@ -456,6 +459,7 @@
         inicializarBuscador();
         mostrarBotonReciente();
         inicializarLupa();
+        inicializarVolverArriba();
 
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
 
@@ -465,8 +469,6 @@
         }
 
         document.getElementById('btn-volver')?.addEventListener('click', ocultarTutorial);
-// ESTO ES LA INICIALIZACIÓN DEl BOTÓN VOLVER ARRIBA
-    inicializarVolverArriba(); 
   };
 
 // ── API pública ───────────────────────────────────────
@@ -507,5 +509,5 @@
    });
    }
 // Asegurate de llamar a esta función en tu init() de ui.js
-/ init() { ... inicializarVolverArriba(); ... }
+// init() { ... inicializarVolverArriba(); ... }
 })();
