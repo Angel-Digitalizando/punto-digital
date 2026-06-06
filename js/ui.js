@@ -460,7 +460,9 @@
         }
 
         document.getElementById('btn-volver')?.addEventListener('click', ocultarTutorial);
-    };
+// ESTO ES LA INICIALIZACIÓN DEl BOTÓN VOLVER ARRIBA
+    inicializarVolverArriba(); 
+  };
 
 // ── API pública ───────────────────────────────────────
     window.mostrarTutorial   = mostrarTutorial;
