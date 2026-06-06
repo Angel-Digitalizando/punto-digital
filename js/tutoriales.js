@@ -400,7 +400,7 @@ const baseDeTutoriales = {
 
     servicios: {
         categoria: 'comunidad',
-        nivel:     'intermedio'
+        nivel:     'intermedio',
         titulo:    "Servicios del Barrio y Trámites",
         icono:     "🚌",
         detalle:   "Accedé directo a las herramientas que necesitás para moverte y gestionar tus papeles sin vueltas.",
