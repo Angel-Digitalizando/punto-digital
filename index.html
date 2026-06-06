@@ -148,67 +148,81 @@
             </button>
         </section>
         
-    </main><footer class="footer" id="pie-pagina" role="contentinfo">
-        <div class="container">
-            <p>Conectando a nuestra comunidad, enchufado al barrio. 🌐
-               Espacios de Alfabetización y Educación Digital Comunitaria.</p>
+    </main>
 
-            <div style="margin-top:15px;border-top:1px solid #444;padding-top:10px;font-size:0.9rem;">
-                <p style="margin:5px 0;">
-                    📍 <strong>Dirección:</strong>
-                    <span id="texto-direccion"
-                          style="cursor:pointer;color:#4da6ff;"
-                          title="Tocá para copiar la dirección"
-                          aria-label="Buenos Aires, Moreno, Escuela Nº 1, Uruguay 53.">
-                        Buenos Aires, Moreno, Escuela Nº1, Uruguay 53.
-                    </span>
-                    <span style="font-size:0.8rem;color:#888;">(📋 Tocá para copiar)</span>
-                </p>
-                <p style="margin:5px 0;">
-                    © <span id="anio-actual"></span> Todos los derechos reservados.
-                </p>
-                <p style="margin:5px 0;color:#bbb;">
-                    📚 Contenido educativo desarrollado por
-                    <strong>Angel N. Villegas</strong>.
-                    <span id="texto-autor"
-                          style="cursor:pointer;color:#4da6ff;"
-                          title="Tocá para copiar el nombre del autor"
-                          aria-label="Tocá para copiar el nombre del autor">
-                        (📋 Copiar autor)
-                    </span>
-                </p>
-            </div>
+    <footer class="footer" id="pie-pagina" role="contentinfo">
+    <div class="container">
+        <p>Conectando a nuestra comunidad, enchufado al barrio. 🌐<br>
+           Espacios de Alfabetización y Educación Digital Comunitaria.</p>
 
-            <div style="margin-top:12px;font-size:0.85rem;">
-                <button
-                    onclick="if(window.PD_Onboarding){window.PD_Onboarding.resetear();window.PD_Onboarding.mostrar();}"
-                    style="background:none;border:none;color:#4da6ff;cursor:pointer;
-                           font-size:0.85rem;min-height:auto;padding:4px;font-weight:normal;
-                           text-decoration:underline;width:auto;"
-                    aria-label="Ver nuevamente la bienvenida de la aplicación">
-                    🔁 Ver la bienvenida de nuevo
-                </button>
-            </div>
+        <div style="margin-top:15px; border-top:1px solid #444; padding-top:15px; font-size:0.9rem;">
+            
+            <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 10px; font-style: italic;">
+                💡 <strong>Tip:</strong> Tocá sobre cualquier texto marcado en azul para copiarlo y pegarlo donde necesites (mapas, buscadores o chats).
+            </p>
+
+            <p style="margin:8px 0;">
+                📍 <strong>Dirección:</strong><br>
+                <span id="texto-direccion"
+                      style="cursor:pointer; color:#4da6ff; font-weight:bold; display:block; padding:5px 0;"
+                      title="Tocá para copiar"
+                      aria-label="Argentina, Buenos Aires, Moreno, Escuela Nº1, Uruguay 53.">
+                    Argentina, Buenos Aires, Moreno, Escuela Nº1, Uruguay 53.
+                </span>
+            </p>
+
+            <p style="margin:8px 0;">
+                📚 <strong>Autor:</strong><br>
+                <span id="texto-autor"
+                      style="cursor:pointer; color:#4da6ff; font-weight:bold; display:block; padding:5px 0;"
+                      title="Tocá para copiar el nombre del autor">
+                    Angel Nicolás Villegas (CENS 453, Moreno)
+                </span>
+            </p>
+
+            <p style="margin-top:15px; font-size:0.8rem; color:#888;">
+                © <span id="anio-actual"></span> Todos los derechos reservados.
+            </p>
         </div>
+
+        <div style="margin-top:12px;">
+            <button
+                onclick="if(window.PD_Onboarding){window.PD_Onboarding.resetear();window.PD_Onboarding.mostrar();}"
+                style="background:none; border:1px solid #444; border-radius:5px; color:#ccc; cursor:pointer;
+                       font-size:0.85rem; padding:8px 12px; margin-top:10px;"
+                aria-label="Ver nuevamente la bienvenida de la aplicación">
+                🔁 Ver la bienvenida de nuevo
+            </button>
+        </div>
+
+        <div style="margin-top:12px;">
+            <button id="btn-volver-arriba" 
+                style="position:fixed; bottom:20px; right:20px; display:none; 
+                       background:#0B5AA2; color:white; border:none; border-radius:50%; 
+                       width:50px; height:50px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.3);
+                       z-index:1000; font-size:20px;"
+                       aria-label="Volver arriba">
+                       ↑
+            </button>
+        </div>
+    </div>
     </footer>
 
-    <script src="js/storage.js"></script>
-    <script src="js/tutoriales.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/components/toast.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/tutoriales.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/components/toast.js"></script>
 
-    <script src="js/components/progressBar.js"></script>
-    <script src="js/components/tutorialCard.js"></script>
-    <script src="js/voice/speech.js"></script>
+<script src="js/components/progressBar.js"></script>
+<script src="js/components/tutorialCard.js"></script>
+<script src="js/voice/speech.js"></script>
 
-    
+<script src="js/accesibilidad.js"></script>
+<script src="js/script.js"></script>
+<script src="js/onboarding.js"></script>
+<script src="js/deeplink.js"></script>
 
-    <script src="js/accesibilidad.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/onboarding.js"></script>
-    <script src="js/deeplink.js"></script>
-
-    <script src="js/pwa.js"></script>
+<script src="js/pwa.js"></script>
     
 <button
     id="btn-compartir-flotante"

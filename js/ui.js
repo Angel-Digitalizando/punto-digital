@@ -17,11 +17,19 @@
 //   - Inicializa la Lupa Digital de accesibilidad
 //   - Expone filtrarPorCategoria en window.PD_UI
 // =========================================================
+/* ── [UI] Navegación: Botón Volver Arriba ──────────────────────
+* Este componente mejora la usabilidad en dispositivos móviles.
+* Lógica:
+* 1. El botón permanece oculto (display: none) al cargar la página.
+* 2. Un evento 'scroll' monitorea la posición de la ventana.
+* 3. Si el usuario baja más de 300px, el botón aparece (display: block).
+* 4. Al hacer click, ejecuta un scroll suave hacia el top del DOM.
+*/
 
 (() => {
     'use strict';
 
-    // ── Mapa de categorías: clave → etiqueta y color ──────
+// ── Mapa de categorías: clave → etiqueta y color ──────
     const CATEGORIAS = {
         tramites: {
             etiqueta: '🏛️ Trámites del Estado',
@@ -31,7 +39,7 @@
 
         personalizacion: {
             etiqueta: '🎨 Organizar mi Celular',
-            descripcion: 'Ajustes visuales, orden y pantallas',
+            descripcion: 'Ajustes visuales, orden, pantallas y Personalización',
             color: '#00838F',                                           
         },
 
@@ -53,7 +61,7 @@
         },
         acompanar: {
             etiqueta: '🤝 Acompañar a Otros',
-            descripcion: 'Para quienes enseñan o ayudan',
+            descripcion: 'Para quienes enseñan, asisten o ayudan',
             color: '#198754',
         },
     };
@@ -61,7 +69,7 @@
     let tutorialActualId = null;
     let categoriaActiva  = null; // null = todas
 
-    // ── Renderizar menú con categorías ───────────────────
+// ── Renderizar menú con categorías ───────────────────
     const renderizarMenu = () => {
         const db = window.baseDeTutoriales;
         const menu = document.getElementById('menu-tutoriales');
@@ -69,7 +77,7 @@
 
         menu.innerHTML = '';
 
-        // Agrupar tutoriales por categoría
+// Agrupar tutoriales por categoría
         const grupos = {};
         Object.entries(db).forEach(([clave, info]) => {
             const cat = info.categoria || 'tramites';
@@ -77,14 +85,14 @@
             grupos[cat].push({ clave, info });
         });
 
-        // Renderizar cada grupo en orden definido en CATEGORIAS
+// Renderizar cada grupo en orden definido en CATEGORIAS
         Object.keys(CATEGORIAS).forEach((catClave) => {
             const items = grupos[catClave];
             if (!items || items.length === 0) return;
 
             const catInfo = CATEGORIAS[catClave];
 
-            // Encabezado de categoría
+// Encabezado de categoría
             const encabezado = document.createElement('div');
             encabezado.className = 'categoria-encabezado';
             encabezado.dataset.categoria = catClave;
@@ -96,7 +104,7 @@
             `;
             menu.appendChild(encabezado);
 
-            // Grid de botones para esta categoría
+// Grid de botones para esta categoría
             const grid = document.createElement('div');
             grid.className = 'categoria-grid';
             grid.dataset.categoria = catClave;
@@ -121,7 +129,7 @@
         window.PD_Progress?.actualizarBotonesMenu();
     };
 
-    // ── Filtrar menú por categoría ────────────────────────
+// Filtrar menú por categoría
     const filtrarPorCategoria = (catClave) => {
         categoriaActiva = (catClave === 'todos' || !catClave) ? null : catClave;
 
@@ -133,13 +141,13 @@
             }
         });
 
-        // Actualizar tabs si existen
+// Actualizar tabs si existen
         document.querySelectorAll('.tab-categoria').forEach((tab) => {
             tab.classList.toggle('tab-activo', tab.dataset.categoria === (categoriaActiva || 'todos'));
         });
     };
 
-    // ── Renderizar tabs de categoría (sobre el menú) ──────
+// ── Renderizar tabs de categoría (sobre el menú) ──────
     const renderizarTabs = () => {
         const menu = document.getElementById('menu-tutoriales');
         if (!menu || document.getElementById('tabs-categorias')) return;
@@ -149,7 +157,7 @@
         wrapper.setAttribute('role', 'tablist');
         wrapper.setAttribute('aria-label', 'Filtrar tutoriales por categoría');
 
-        // Tab "Todos"
+// Tab "Todos"
         const tabTodos = document.createElement('button');
         tabTodos.className = 'tab-categoria tab-activo';
         tabTodos.dataset.categoria = 'todos';
@@ -190,7 +198,7 @@
         menu.parentNode.insertBefore(wrapper, menu);
     };
 
-    // ── Lógica nativa de Compartir ────────────────────────
+// ── Lógica nativa de Compartir ────────────────────────
     const compartirTutorial = (idClave, info) => {
         const urlCompartir = `${window.location.origin}${window.location.pathname}?tutorial=${idClave}`;
         
@@ -209,7 +217,7 @@
         }
     };
 
-    // ── Mostrar tutorial ──────────────────────────────────
+// ── Mostrar tutorial ──────────────────────────────────
     const mostrarTutorial = (idClave) => {
         const db = window.baseDeTutoriales;
         if (!db || !db[idClave]) return;
@@ -220,13 +228,13 @@
 
         window.PD_Storage?.guardarTutorialReciente(idClave);
 
-        // Ocultar secciones del menú
+// Ocultar secciones del menú
         ['menu-tutoriales', 'tabs-categorias', 'introduccion', 'seccion-buscador', 'seccion-favoritos', 'seccion-progreso']
             .forEach((id) => {
                 document.getElementById(id)?.classList.add('oculto');
             });
 
-        // Construir pasos
+// Construir pasos
         const pasosHtml = info.pasos.map((texto, idx) => `
             <div class="paso-tutorial" id="paso-${idx}" role="listitem" aria-label="Paso ${idx + 1} de ${totalPasos}">
                 <h3>Paso ${idx + 1}</h3>
@@ -234,7 +242,7 @@
             </div>
         `).join('');
 
-        // Nota de cierre (opcional por tutorial)
+// Nota de cierre (opcional por tutorial)
         const notaHtml = info.nota ? `<div class="nota-tutorial" role="note">${info.nota}</div>` : '';
 
         const contenedor = document.getElementById('contenido-dinamico');
@@ -274,13 +282,13 @@
 
         window.PD_TutorialCard?.inyectarAccionesTutorial(idClave);
 
-        // Listeners del tutorial
+// Listeners del tutorial
         document.getElementById('btn-compartir-tutorial').addEventListener('click', () => compartirTutorial(idClave, info));
         document.getElementById('btn-finalizar-tutorial').addEventListener('click', ocultarTutorial);
 
         document.getElementById('zona-tutorial')?.classList.remove('oculto');
 
-        // Foco accesible al título del tutorial
+// Foco accesible al título del tutorial
         setTimeout(() => {
             document.getElementById('titulo-tutorial')?.focus();
         }, 80);
@@ -288,7 +296,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // ── Ocultar tutorial y volver al menú ────────────────
+// ── Ocultar tutorial y volver al menú ────────────────
     const ocultarTutorial = () => {
         window.PD_Speech?.detener();
 
@@ -305,14 +313,14 @@
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
         window.PD_Progress?.actualizarBotonesMenu();
 
-        // Volver a la pantalla principal reseteando los filtros (Muestra TODO)
+// Volver a la pantalla principal reseteando los filtros (Muestra TODO)
         filtrarPorCategoria(null);
 
         tutorialActualId = null;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // ── Barra de progreso de pasos ────────────────────────
+// ── Barra de progreso de pasos ────────────────────────
     const renderizarBarraPasos = (paso, total) => {
         const cont = document.getElementById('indicador-progreso');
         if (!cont) return;
@@ -325,7 +333,7 @@
         `;
     };
 
-    // ── Buscador ──────────────────────────────────────────
+// ── Buscador ──────────────────────────────────────────
     const inicializarBuscador = () => {
         const input = document.getElementById('input-buscador');
         const contador = document.getElementById('contador-resultados');
@@ -344,7 +352,7 @@
                 if (mostrar) vis++;
             });
 
-            // Ocultar encabezados de categorías vacías
+// Ocultar encabezados de categorías vacías
             document.querySelectorAll('.categoria-encabezado').forEach((enc) => {
                 const cat = enc.dataset.categoria;
                 const grid = document.querySelector(`.categoria-grid[data-categoria="${cat}"]`);
@@ -366,7 +374,7 @@
         });
     };
 
-    // ── Tutorial reciente ─────────────────────────────────
+// ── Tutorial reciente ─────────────────────────────────
     const mostrarBotonReciente = () => {
         const store = window.PD_Storage;
         const db = window.baseDeTutoriales;
@@ -398,12 +406,12 @@
         intro.appendChild(div);
     };
 
-    // ── Lupa Digital (Accesibilidad Visual) ────────────────
+// ── Lupa Digital (Accesibilidad Visual) ────────────────
     const inicializarLupa = () => {
         const btnLupa = document.getElementById('btn-lupa');
         if (!btnLupa) return;
 
-        // Comprobar si ya estaba activa en una sesión anterior
+// Comprobar si ya estaba activa en una sesión anterior
         const lupaPrevia = localStorage.getItem('pd_lupa_activa') === 'true';
         if (lupaPrevia) {
             document.body.classList.add('lupa-activa');
@@ -454,17 +462,43 @@
         document.getElementById('btn-volver')?.addEventListener('click', ocultarTutorial);
     };
 
-    // ── API pública ───────────────────────────────────────
+// ── API pública ───────────────────────────────────────
     window.mostrarTutorial   = mostrarTutorial;
     window.ocultarTutorial   = ocultarTutorial;
 
     if (!window.PD_UI) window.PD_UI = {};
     window.PD_UI.filtrarPorCategoria = filtrarPorCategoria;
 
-    // Lanza la inicialización
+// Lanza la inicialización
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
+
+// ── Botón para volver arriba ─────────────────────────────────
+    function inicializarVolverArriba() {
+    const btn = document.getElementById('btn-volver-arriba');
+    if (!btn) return;
+
+// Mostrar el botón solo después de hacer scroll hacia abajo
+    window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+    btn.style.display = 'block';
+    } else {
+        btn.style.display = 'none';
+    }
+    });
+
+// Acción al hacer clic: ir a una sección o al principio
+    btn.addEventListener('click', () => {
+// Opción A: Ir al principio de la página                                           window.scrollTo({ top: 0, behavior: 'smooth' });
+
+// Opción B: Si quisieras ir a una sección específica (ej: el header)
+// document.querySelector('#header').scrollIntoView({ behavior: 'smooth' });
+   });
+   }
+
+                                                                                                                        // Asegurate de llamar a esta función en tu init() de ui.js
+                                                                                                                        // init() { ... inicializarVolverArriba(); ... }
 })();
