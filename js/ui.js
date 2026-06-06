@@ -67,12 +67,11 @@
             color: '#198754',
         },
 
-        servicios: {
-            etiqueta: 'Servicios útiles y prácticos de tu barrio',
-            descripcion: 'Accesos directos a las aplicaciones de Internet Público',
-            color: '#C62828',
+        comunidad: {
+            etiqueta: '📍 Servicios y Trámites del Barrio',
+            descripcion: 'Tu puente directo con el Estado y la ciudad. Consultá horarios de La Perlita, Mi Argentina, ANSES y la Muni sin dar vueltas.',
+            color: '#3C9DD9', // Usamos el Celeste Institucional que definimos antes
         },
-    };
 
     let tutorialActualId = null;
     let categoriaActiva  = null; // null = todas
