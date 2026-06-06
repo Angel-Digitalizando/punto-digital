@@ -19,7 +19,7 @@
 //   Esto es correcto para GitHub Pages con subdirectorio.
 // =========================================================
 
-const CACHE_VERSION = 'punto-digital-v8'; // ¡Cada vez le vamos agregando un número cuando agregamos funciones y necesitamos espacio de almacenamiento cache!
+const CACHE_VERSION = 'punto-digital-v9'; // ¡Cada vez le vamos agregando un número cuando agregamos funciones y necesitamos espacio de almacenamiento cache!
 const CACHE_NOMBRE  = CACHE_VERSION + '-assets';
 
 const ASSETS_PRECACHE = [
