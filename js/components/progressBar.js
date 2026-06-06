@@ -31,12 +31,17 @@
             <div id="badges-contenedor" class="badges-contenedor" aria-label="Tus medallas conseguidas"></div>
         `;
 
-        // Insertar antes de los consejos
-        const consejos = document.querySelector('.consejos');
-        if (consejos) {
-            consejos.parentNode.insertBefore(seccion, consejos);
+        javascript
+        // CORRECCIÓN: .consejos no existe en esta app.
+        // Insertar la sección de progreso justo después del bloque de introducción.
+        const intro = document.getElementById('introduccion');
+        const main  = document.getElementById('contenido-principal');
+
+        if (intro && intro.nextSibling) {
+            intro.parentNode.insertBefore(seccion, intro.nextSibling);
+        } else if (main) {
+            main.appendChild(seccion);
         }
-    }
 
     // ─── Actualizar la barra y texto ─────────────────────
     function actualizarProgreso() {

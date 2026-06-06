@@ -19,7 +19,7 @@
 //   Esto es correcto para GitHub Pages con subdirectorio.
 // =========================================================
 
-const CACHE_VERSION = 'punto-digital-v13'; // ¡Cada vez le vamos agregando un número cuando agregamos funciones y necesitamos espacio de almacenamiento cache!
+const CACHE_VERSION = 'punto-digital-v14'; // ¡Cada vez le vamos agregando un número cuando agregamos funciones y necesitamos espacio de almacenamiento cache!
 const CACHE_NOMBRE  = CACHE_VERSION + '-assets';
 
 const ASSETS_PRECACHE = [
@@ -102,10 +102,21 @@ function responderConCache(request) {
 
     // SI ES UN ARCHIVO JS, SIEMPRE VAMOS A LA RED PRIMERO
     if (url.pathname.endsWith('.js')) {
-        return fetch(request).catch(function() {
-            return caches.match(request); // Si no hay red, recién ahí usamos caché
+        return fetch(request).then(function (respuesta) {
+            if (!respuesta || respuesta.status !== 200 || respuesta.type !== 'basic') {
+                return respuesta;
+            }
+            // Guardar en caché para uso offline futuro
+            var resClonada = respuesta.clone();
+            caches.open(CACHE_NOMBRE).then(function (cache) {
+                cache.put(request, resClonada);
+            });
+            return respuesta;
+        }).catch(function () {
+            // Sin red y sin caché — retornar nada (el SW no puede hacer más)
+            return caches.match(request);
         });
-    }
+}
 
     // Para el resto de los archivos (css, html, imágenes), usamos la lógica vieja
     return caches.match(request).then(function (cacheado) {

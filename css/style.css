@@ -902,3 +902,201 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
             background: #08457c;   /* Cambia ligeramente de color al presionar */
             }
 }
+
+/* ============================================================
+   REDISEÑO MUNICIPAL — Punto Digital v3
+   ─────────────────────────────────────────────────────────
+   INSTRUCCIONES: Pegar este bloque AL FINAL de tu style.css
+   Sobreescribe estilos anteriores con diseño institucional
+   Municipalidad de Moreno: bloques, plano, alto contraste
+   ============================================================ */
+
+/* ─── Variables adicionales ────────────────────────────── */
+:root {
+    --municipal-navy:  #1a2b4c;
+    --municipal-border: #c8d8e8;
+    --municipal-surface: #e8f1fb;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECCIÓN MENÚ: Cambia a diseño de bloques verticales
+   El bug principal de layout era que .grid-menu usaba
+   CSS Grid, y los encabezados de categoría quedaban en
+   una sola columna en lugar de ocupar todo el ancho.
+   Solución: flex-column para el contenedor padre;
+   cada .categoria-grid tiene su propio grid interno.
+   ══════════════════════════════════════════════════════════ */
+
+.grid-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+/* ─── Encabezados de Categoría ─────────────────────────── */
+.categoria-encabezado {
+    margin: 22px 0 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.categoria-encabezado:first-of-type {
+    margin-top: 0;
+}
+
+/*  El .categoria-titulo ahora usa fondo de color sólido
+    (color asignado dinámicamente por JS via style="background:...")
+    en lugar del borde izquierdo anterior.                   */
+.categoria-titulo {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: white;
+    padding: 9px 16px;
+    border-radius: 5px 5px 0 0;
+    border-left: none;         /* Anula el border-left anterior */
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.categoria-desc {
+    font-size: 0.88rem;
+    color: var(--texto-suave);
+    padding: 6px 16px 9px;
+    background: var(--municipal-surface);
+    border-radius: 0 0 5px 5px;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+/* ─── Grid de botones dentro de cada categoría ─────────── */
+.categoria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOTONES MUNICIPALES
+   Estilo: fondo blanco, borde izquierdo de color sólido
+   (color del borde asignado por JS: btn.style.borderLeftColor)
+   Radio mínimo (4px) en lugar de las 22px anteriores.
+   ══════════════════════════════════════════════════════════ */
+
+.btn-menu {
+    background: white;
+    border: 1px solid var(--municipal-border);
+    border-left: 7px solid var(--celeste-arg); /* sobreescrito por JS */
+    border-radius: 4px;
+    padding: 14px 13px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s, box-shadow 0.15s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    position: relative;
+    line-height: 1.4;
+}
+
+.btn-menu:hover {
+    background: #f0f7ff;
+    box-shadow: 0 3px 10px rgba(11, 90, 162, 0.1);
+    transform: none !important; /* Elimina el salto vertical anterior */
+}
+
+.btn-menu:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TABS DE CATEGORÍA: Estilo institucional
+   Rectangulares en lugar de pastillas (border-radius: 30px)
+   Activo: fondo navy oscuro (idéntico al header de Moreno)
+   ══════════════════════════════════════════════════════════ */
+
+#tabs-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 16px 0 0;
+    padding: 0;
+}
+
+.tab-categoria {
+    background: white;
+    color: var(--azul-oscuro);
+    border: 2px solid var(--municipal-border);
+    border-radius: 3px;           /* Casi sin redondeo = look institucional */
+    padding: 8px 12px;
+    font-size: 0.88rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    min-height: auto !important;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+.tab-categoria:hover {
+    background: #EBF4FF;
+    border-color: var(--azul-arg);
+    color: var(--azul-arg);
+}
+
+.tab-categoria.tab-activo {
+    background: var(--municipal-navy);
+    color: white;
+    border-color: var(--municipal-navy);
+}
+
+.tab-categoria:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+/* ─── Responsive Mobile ─────────────────────────────────── */
+@media (max-width: 540px) {
+    .categoria-grid {
+        grid-template-columns: 1fr;
+    }
+    .tab-categoria {
+        padding: 7px 9px;
+    }
+}
+
+/* ─── Alto contraste: ajuste de tabs y botones ─────────── */
+html.modo-alto-contraste .btn-menu {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .tab-categoria {
+    background: #111 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .tab-categoria.tab-activo {
+    background: #FFD700 !important;
+    color: #000 !important;
+}
+html.modo-alto-contraste .categoria-titulo {
+    outline: 2px solid #FFD700;
+}
+
+/* ─── Modo Ultra: tamaños extendidos ───────────────────── */
+html.modo-ultra .btn-menu {
+    font-size: 1.3rem !important;
+    padding: 18px 16px !important;
+}
+html.modo-ultra .tab-categoria {
+    font-size: 1.05rem !important;
+    padding: 11px 16px !important;
+}

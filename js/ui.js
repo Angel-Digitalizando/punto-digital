@@ -105,7 +105,7 @@
             encabezado.className = 'categoria-encabezado';
             encabezado.dataset.categoria = catClave;
             encabezado.innerHTML = `
-                <h3 class="categoria-titulo" style="border-color:${catInfo.color}">
+                <h3 class="categoria-titulo" style="background:${catInfo.color}">
                     ${catInfo.etiqueta}
                 </h3>
                 <p class="categoria-desc">${catInfo.descripcion}</p>
@@ -123,6 +123,7 @@
                 btn.dataset.clave = item.clave;
                 btn.dataset.categoria = catClave;
                 btn.setAttribute('aria-label', `Abrir tutorial: ${item.info.titulo}`);
+                btn.style.borderLeftColor = catInfo.color; // ← línea nueva: acento municipal
                 btn.innerHTML = `
                     ${item.info.icono} ${item.info.titulo}
                     <span class="btn-badge" aria-hidden="true"></span>
