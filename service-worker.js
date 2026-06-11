@@ -18,18 +18,21 @@
 //   Las rutas './index.html' resuelven a /punto-digital/index.html.
 //   Esto es correcto para GitHub Pages con subdirectorio.
 // =========================================================
+// service-worker.js — Punto Digital Comunitario Morenense
+//
+// v17 (Junio 2026): bump de versión para forzar reinstalación
+// completa tras la reingeniería del sistema de accesibilidad,
+// corrección de progressBar.js y script.js.
+// =========================================================
 
-const CACHE_VERSION = 'punto-digital-v15'; // ¡Cada vez le vamos agregando un número cuando agregamos funciones y necesitamos espacio de almacenamiento cache!
+const CACHE_VERSION = 'punto-digital-v18';
 const CACHE_NOMBRE  = CACHE_VERSION + '-assets';
 
 const ASSETS_PRECACHE = [
-    // Shell de la app
     './',
     './index.html',
     './offline.html',
-    // Estilos
     './css/style.css',
-    // Módulos JS — en precache el orden no importa
     './js/storage.js',
     './js/tutoriales.js',
     './js/components/toast.js',
@@ -42,7 +45,6 @@ const ASSETS_PRECACHE = [
     './js/onboarding.js',
     './js/deeplink.js',
     './js/pwa.js',
-    // Manifest y assets
     './manifest.json',
     './assets/icons/icon.svg',
     './assets/icons/icon-192.png',
@@ -53,16 +55,12 @@ const ASSETS_PRECACHE = [
 self.addEventListener('install', function (event) {
     event.waitUntil(
         caches.open(CACHE_NOMBRE)
-            .then(function (cache) {
-                return cache.addAll(ASSETS_PRECACHE);
-            })
-            .then(function () {
-                return self.skipWaiting();
-            })
+            .then(function (cache) { return cache.addAll(ASSETS_PRECACHE); })
+            .then(function () { return self.skipWaiting(); })
     );
 });
 
-// ── Activación: limpiar caches viejos y actualizar rápido ───
+// ── Activación: limpiar caches viejos ────────────────────
 self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches.keys()
@@ -73,24 +71,17 @@ self.addEventListener('activate', function (event) {
                         .map(function (n) { return caches.delete(n); })
                 );
             })
-            .then(function () {
-                // ESTA ES LA LÍNEA MÁGICA:
-                // Le dice al navegador que tome el control inmediatamente
-                return self.clients.claim(); 
-            })
+            .then(function () { return self.clients.claim(); })
     );
 });
 
-// ── Fetch: Cache-First con actualización en background ───
+// ── Fetch: Network-First para JS, Cache-First para el resto ─
 self.addEventListener('fetch', function (event) {
     if (event.request.method !== 'GET') return;
 
     var url;
-    try {
-        url = new URL(event.request.url);
-    } catch (_) { return; }
+    try { url = new URL(event.request.url); } catch (_) { return; }
 
-    // Solo interceptar mismo origen
     if (url.origin !== self.location.origin) return;
     if (url.protocol === 'chrome-extension:') return;
 
@@ -100,33 +91,39 @@ self.addEventListener('fetch', function (event) {
 function responderConCache(request) {
     var url = new URL(request.url);
 
-    // SI ES UN ARCHIVO JS, SIEMPRE VAMOS A LA RED PRIMERO
+    // JS: siempre red primero para garantizar código actualizado
     if (url.pathname.endsWith('.js')) {
-        return fetch(request).then(function (respuesta) {
-            if (!respuesta || respuesta.status !== 200 || respuesta.type !== 'basic') {
+        return fetch(request)
+            .then(function (respuesta) {
+                if (respuesta && respuesta.status === 200 && respuesta.type === 'basic') {
+                    var clon = respuesta.clone();
+                    caches.open(CACHE_NOMBRE).then(function (cache) { cache.put(request, clon); });
+                }
                 return respuesta;
-            }
-            // Guardar en caché para uso offline futuro
-            var resClonada = respuesta.clone();
-            caches.open(CACHE_NOMBRE).then(function (cache) {
-                cache.put(request, resClonada);
-            });
-            return respuesta;
-        }).catch(function () {
-            // Sin red y sin caché — retornar nada (el SW no puede hacer más)
-            return caches.match(request);
-        });
-}
+            })
+            .catch(function () { return caches.match(request); });
+    }
 
-    // Para el resto de los archivos (css, html, imágenes), usamos la lógica vieja
+    // CSS / HTML / assets: Cache-First con actualización en background
     return caches.match(request).then(function (cacheado) {
         if (cacheado) {
             actualizarEnBackground(request);
             return cacheado;
         }
-        return fetch(request).then(function (respuesta) {
-            // ... (el resto de tu código igual)
-        });
+        return fetch(request)
+            .then(function (respuesta) {
+                if (respuesta && respuesta.status === 200 && respuesta.type === 'basic') {
+                    var clon = respuesta.clone();
+                    caches.open(CACHE_NOMBRE).then(function (cache) { cache.put(request, clon); });
+                }
+                return respuesta;
+            })
+            .catch(function () {
+                if ((request.headers.get('accept') || '').indexOf('text/html') !== -1) {
+                    return caches.match('./offline.html');
+                }
+                return new Response('', { status: 503, statusText: 'Offline' });
+            });
     });
 }
 
@@ -134,9 +131,7 @@ function actualizarEnBackground(request) {
     fetch(request)
         .then(function (respuesta) {
             if (respuesta && respuesta.status === 200 && respuesta.type === 'basic') {
-                caches.open(CACHE_NOMBRE).then(function (cache) {
-                    cache.put(request, respuesta);
-                });
+                caches.open(CACHE_NOMBRE).then(function (cache) { cache.put(request, respuesta); });
             }
         })
         .catch(function () { /* offline — esperado */ });

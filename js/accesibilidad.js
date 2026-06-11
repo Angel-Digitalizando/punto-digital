@@ -1,68 +1,70 @@
 // =========================================================
-// accesibilidad.js — Modos accesibles, WCAG, reduced-motion
+// accesibilidad.js — Sistema de Accesibilidad Flotante v3
 // Punto Digital Comunitario Morenense
-// ─── Dependencias: PD_Storage (storage.js), PD_Speech (speech.js)
-//     PD_Speech es opcional: se resuelve en runtime, no en carga.
+//
+// Cambios v3 (Junio 2026):
+//   - FAB flotante bottom-right con ícono ISA inline SVG
+//   - Panel compacto independiente con animación suave
+//   - Cierre por clic afuera, Escape o botón ×
+//   - Sin Font Awesome, sin icon packs, sin dependencias externas
+//   - API pública invariante: toggleLecturaGrande, toggleAltoContraste,
+//     toggleModoUltra expuestas en window
+//   - Eliminada inyectarBarra() — sin barra sticky
+//
+// Dependencias en carga: ninguna.
+// Dependencias en runtime: PD_Storage (storage.js), PD_Speech (speech.js),
+//   PD_Toast (toast.js) — todas lazy/opcionales.
 // =========================================================
 
 (function () {
     'use strict';
 
-    // ─── Núcleo: aplicar/retirar un modo ─────────────────
-    // Todos los modos pasan por acá. Única fuente de verdad.
+    // ─── Estado del panel ─────────────────────────────────
+    var panelVisible = false;
+
+    // ─────────────────────────────────────────────────────
+    // NÚCLEO — Aplicar / retirar modos accesibles
+    // Única fuente de verdad para todos los modos.
+    // ─────────────────────────────────────────────────────
+
     function aplicarModo(clase, activo, claveStorage) {
         document.documentElement.classList.toggle(clase, activo);
 
-        // Persistir solo si storage está disponible
         if (window.PD_Storage) {
             window.PD_Storage.guardarConfiguracion({ [claveStorage]: activo });
         }
 
-        // Sincronizar aria-pressed en TODOS los botones que controlan este modo
+        // Sincronizar aria-pressed y estado visual en TODOS los botones
+        // que controlan este modo (el panel puede tener >1 por modo).
         document.querySelectorAll('[data-modo="' + clase + '"]').forEach(function (btn) {
-            btn.setAttribute('aria-pressed', activo.toString());
+            btn.setAttribute('aria-pressed', String(activo));
+            var est = btn.querySelector('.acc-estado');
+            if (est) est.textContent = activo ? 'ON' : 'OFF';
+            btn.classList.toggle('acc-opcion-activa', activo);
         });
     }
 
-    // ─── Lectura Grande ───────────────────────────────────
     function aplicarLecturaGrande(activo, esManual) {
         aplicarModo('modo-lectura-grande', activo, 'lecturaGrande');
-        // Registrar si fue el usuario (no Modo Ultra) quien lo activó
         if (esManual !== undefined && window.PD_Storage) {
             window.PD_Storage.guardarConfiguracion({ lecturaGrandeManual: !!esManual });
         }
-        var btn = document.getElementById('btn-lectura-grande');
-        if (btn) btn.textContent = activo ? '🔡 Letra Normal' : '🔠 Letra Grande';
     }
 
-    // ─── Alto Contraste ───────────────────────────────────
     function aplicarAltoContraste(activo, esManual) {
         aplicarModo('modo-alto-contraste', activo, 'altoContraste');
         if (esManual !== undefined && window.PD_Storage) {
             window.PD_Storage.guardarConfiguracion({ altoContrasteManual: !!esManual });
         }
-        var btn = document.getElementById('btn-alto-contraste');
-        if (btn) btn.textContent = activo ? '🌕 Contraste Normal' : '🌑 Alto Contraste';
     }
 
-    // ─── Modo Ultra ───────────────────────────────────────
-    // Al ACTIVAR: enciende Lectura Grande + Alto Contraste marcándolos
-    //             como "activados por Ultra" (esManual = false).
-    // Al DESACTIVAR: solo apaga los submodos que Ultra encendió.
-    //                Respeta los que el usuario activó independientemente.
     function aplicarModoUltra(activo) {
         aplicarModo('modo-ultra', activo, 'modoUltra');
 
-        var btn = document.getElementById('btn-ultra');
-        if (btn) btn.textContent = activo ? '👓 Modo Normal' : '👓 Modo Ultra';
-
         if (activo) {
-            // Activar submodos sin marcarlos como manuales
-            aplicarLecturaGrande(true,  false);
-            aplicarAltoContraste(true,  false);
+            aplicarLecturaGrande(true, false);
+            aplicarAltoContraste(true, false);
         } else {
-            // Al desactivar Ultra: solo apagar submodos que el usuario
-            // NO activó por su cuenta antes o después de encender Ultra.
             var config = window.PD_Storage ? window.PD_Storage.obtenerConfiguracion() : {};
             if (!config.lecturaGrandeManual) aplicarLecturaGrande(false, false);
             if (!config.altoContrasteManual) aplicarAltoContraste(false, false);
@@ -70,11 +72,10 @@
     }
 
     // ─── Toggles públicos ─────────────────────────────────
+
     function toggleLecturaGrande() {
         var activo = document.documentElement.classList.contains('modo-lectura-grande');
-        // Si el usuario lo activa manualmente, marcar como manual
         aplicarLecturaGrande(!activo, true);
-        // Si lo desactiva manualmente, limpiar flag manual también
         if (activo && window.PD_Storage) {
             window.PD_Storage.guardarConfiguracion({ lecturaGrandeManual: false });
         }
@@ -92,93 +93,213 @@
         aplicarModoUltra(!document.documentElement.classList.contains('modo-ultra'));
     }
 
-    // ─── Inyectar barra de accesibilidad ─────────────────
-    function inyectarBarra() {
-        if (document.getElementById('barra-accesibilidad')) return;
+    // Toggle de voz: no persiste (speech se reinicia al recargar).
+    // Usa id="btn-voz" para compatibilidad con speech.js que llama
+    // sincronizarBtnVozExterno() buscando ese id.
+    function toggleVoz() {
+        if (!window.PD_Speech) {
+            if (window.PD_Toast) {
+                window.PD_Toast.mostrarToast(
+                    '⚠️ Lectura en voz alta no disponible en este dispositivo.',
+                    'aviso', 3500
+                );
+            }
+            return;
+        }
+        var panelVoz = document.getElementById('panel-voz');
+        var vozActiva = panelVoz && panelVoz.style.display !== 'none';
+        if (vozActiva) {
+            window.PD_Speech.detener();
+        } else {
+            window.PD_Speech.iniciar();
+        }
+    }
 
-        var barra = document.createElement('div');
-        barra.id = 'barra-accesibilidad';
-        barra.setAttribute('role', 'toolbar');
-        barra.setAttribute('aria-label', 'Herramientas de accesibilidad');
-        barra.innerHTML =
-            '<div class="barra-acc-inner container">' +
-                '<span class="barra-acc-label" aria-hidden="true">♿</span>' +
-                '<button id="btn-lectura-grande" class="btn-acc"' +
-                    ' data-modo="modo-lectura-grande" aria-pressed="false"' +
-                    ' title="Activar letra más grande">' +
-                    '🔠 Letra Grande' +
+    // ─────────────────────────────────────────────────────
+    // SVGs INLINE PROPIOS — sin dependencias externas
+    // ─────────────────────────────────────────────────────
+
+    // Ícono ISA (International Symbol of Access) moderno:
+    // figura humana con brazos extendidos.
+    var SVG_ACCESIBILIDAD =
+        '<svg width="26" height="26" viewBox="0 0 26 26" fill="none"' +
+        ' xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        // Cabeza
+        '<circle cx="13" cy="5" r="2.4" fill="white"/>' +
+        // Tronco
+        '<path d="M13 7.8V15.5" stroke="white" stroke-width="2.4" stroke-linecap="round"/>' +
+        // Brazos extendidos
+        '<path d="M7.5 11.5L13 9.8L18.5 11.5" stroke="white" stroke-width="2.4"' +
+        ' stroke-linecap="round" stroke-linejoin="round"/>' +
+        // Piernas
+        '<path d="M13 15.5L10.2 22" stroke="white" stroke-width="2.4" stroke-linecap="round"/>' +
+        '<path d="M13 15.5L15.8 22" stroke="white" stroke-width="2.4" stroke-linecap="round"/>' +
+        '</svg>';
+
+    var SVG_CERRAR =
+        '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">' +
+        '<path d="M3.5 3.5L14.5 14.5M14.5 3.5L3.5 14.5"' +
+        ' stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>' +
+        '</svg>';
+
+    // ─────────────────────────────────────────────────────
+    // BUILDER — HTML de una opción del panel
+    // ─────────────────────────────────────────────────────
+
+    function buildOpcion(id, modoData, emoji, label) {
+        // Si modoData es 'modo-voz', no se usa data-modo para evitar
+        // que aplicarModo() intente togglear una clase CSS inexistente.
+        var dataAttr = modoData ? (' data-modo="' + modoData + '"') : '';
+        return (
+            '<button id="' + id + '" class="acc-opcion"' + dataAttr +
+            ' aria-pressed="false" aria-label="' + label + '">' +
+            '<span class="acc-opcion-emoji" aria-hidden="true">' + emoji + '</span>' +
+            '<span class="acc-opcion-label">' + label + '</span>' +
+            '<span class="acc-estado" aria-hidden="true">OFF</span>' +
+            '</button>'
+        );
+    }
+
+    // ─────────────────────────────────────────────────────
+    // INYECCIÓN — FAB + Panel en el DOM
+    // ─────────────────────────────────────────────────────
+
+    function inyectarBotonFlotante() {
+        if (document.getElementById('btn-acc-flotante')) return;
+
+        // ── FAB ──────────────────────────────────────────
+        var fab = document.createElement('button');
+        fab.id = 'btn-acc-flotante';
+        fab.setAttribute('aria-label', 'Abrir herramientas de accesibilidad');
+        fab.setAttribute('aria-expanded', 'false');
+        fab.setAttribute('aria-controls', 'panel-acc');
+        fab.setAttribute('title', 'Accesibilidad');
+        fab.innerHTML = SVG_ACCESIBILIDAD;
+        document.body.appendChild(fab);
+
+        // ── Panel ─────────────────────────────────────────
+        var panel = document.createElement('div');
+        panel.id = 'panel-acc';
+        panel.setAttribute('role', 'region');
+        panel.setAttribute('aria-label', 'Herramientas de accesibilidad');
+        panel.setAttribute('hidden', '');
+
+        panel.innerHTML =
+            '<div class="acc-panel-header">' +
+                '<span class="acc-panel-titulo">♿ Accesibilidad</span>' +
+                '<button id="btn-acc-cerrar" class="acc-btn-cerrar"' +
+                    ' aria-label="Cerrar panel de accesibilidad">' +
+                    SVG_CERRAR +
                 '</button>' +
-                '<button id="btn-alto-contraste" class="btn-acc"' +
-                    ' data-modo="modo-alto-contraste" aria-pressed="false"' +
-                    ' title="Activar alto contraste">' +
-                    '🌑 Alto Contraste' +
-                '</button>' +
-                '<button id="btn-ultra" class="btn-acc btn-ultra"' +
-                    ' data-modo="modo-ultra" aria-pressed="false"' +
-                    ' title="Modo especial para máxima accesibilidad">' +
-                    '👓 Modo Ultra' +
-                '</button>' +
-                '<button id="btn-voz" class="btn-acc"' +
-                    ' aria-pressed="false"' +
-                    ' aria-label="Activar lectura en voz alta del tutorial">' +
-                    '🔊 Leer' +
+            '</div>' +
+            '<div class="acc-panel-opciones">' +
+                buildOpcion('acc-btn-letra',     'modo-lectura-grande', '🔠', 'Letra Grande')   +
+                buildOpcion('acc-btn-contraste', 'modo-alto-contraste', '🌑', 'Alto Contraste') +
+                buildOpcion('acc-btn-ultra',     'modo-ultra',          '👓', 'Modo Ultra')      +
+                // btn-voz: id="btn-voz" para compatibilidad con speech.js
+                // No usa data-modo porque voz no es un modo CSS persistido.
+                '<button id="btn-voz" class="acc-opcion"' +
+                    ' aria-pressed="false" aria-label="Leer tutorial en voz alta">' +
+                    '<span class="acc-opcion-emoji" aria-hidden="true">🔊</span>' +
+                    '<span class="acc-opcion-label">Leer en voz alta</span>' +
+                    '<span class="acc-estado" aria-hidden="true">OFF</span>' +
                 '</button>' +
             '</div>';
 
-        // Insertar inmediatamente después del header
-        var header = document.querySelector('.header');
-        if (header && header.parentNode) {
-            header.parentNode.insertBefore(barra, header.nextSibling);
-        } else {
-            // Fallback: primer hijo del body
-            document.body.insertBefore(barra, document.body.firstChild);
-        }
+        document.body.appendChild(panel);
 
-        // ── Eventos ──
-        document.getElementById('btn-lectura-grande')
-            .addEventListener('click', toggleLecturaGrande);
+        // ── Eventos FAB ──────────────────────────────────
+        fab.addEventListener('click', function (e) {
+            e.stopPropagation();
+            panelVisible ? cerrarPanel() : abrirPanel();
+        });
 
-        document.getElementById('btn-alto-contraste')
-            .addEventListener('click', toggleAltoContraste);
+        // ── Cerrar con X ──────────────────────────────────
+        document.getElementById('btn-acc-cerrar').addEventListener('click', cerrarPanel);
 
-        document.getElementById('btn-ultra')
-            .addEventListener('click', toggleModoUltra);
+        // ── Cerrar al hacer clic fuera ────────────────────
+        document.addEventListener('click', function (e) {
+            if (!panelVisible) return;
+            if (!panel.contains(e.target) && e.target !== fab && !fab.contains(e.target)) {
+                cerrarPanel();
+            }
+        });
 
-        document.getElementById('btn-voz')
-            .addEventListener('click', function () {
-                // PD_Speech se carga después: resolver en runtime
-                if (!window.PD_Speech) {
-                    if (window.PD_Toast) {
-                        window.PD_Toast.mostrarToast(
-                            '⚠️ La lectura en voz alta no está disponible en este momento.',
-                            'aviso'
-                        );
-                    }
-                    return;
-                }
-                var panel = document.getElementById('panel-voz');
-                var panelVisible = panel && panel.style.display !== 'none';
-                if (panelVisible) {
-                    window.PD_Speech.detener();
-                    this.textContent  = '🔊 Leer';
-                    this.setAttribute('aria-pressed', 'false');
-                } else {
-                    window.PD_Speech.iniciar();
-                    this.textContent  = '🔇 Detener';
-                    this.setAttribute('aria-pressed', 'true');
-                }
-            });
+        // ── Cerrar con Escape ─────────────────────────────
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && panelVisible) {
+                cerrarPanel();
+                fab.focus();
+            }
+        });
+
+        // ── Bindings de cada opción ───────────────────────
+        var bindings = [
+            { id: 'acc-btn-letra',     fn: toggleLecturaGrande },
+            { id: 'acc-btn-contraste', fn: toggleAltoContraste  },
+            { id: 'acc-btn-ultra',     fn: toggleModoUltra      },
+            { id: 'btn-voz',           fn: toggleVoz            },
+        ];
+        bindings.forEach(function (b) {
+            var el = document.getElementById(b.id);
+            if (el) el.addEventListener('click', b.fn);
+        });
     }
 
-    // ─── Restaurar preferencias desde storage ────────────
-    // Se llama DESPUÉS de inyectarBarra para que los botones existan.
+    // ─────────────────────────────────────────────────────
+    // ABRIR / CERRAR PANEL (con animación CSS)
+    // ─────────────────────────────────────────────────────
+
+    function abrirPanel() {
+        var panel = document.getElementById('panel-acc');
+        var fab   = document.getElementById('btn-acc-flotante');
+        if (!panel) return;
+
+        panel.removeAttribute('hidden');
+        void panel.getBoundingClientRect(); // forzar reflow para CSS transition
+        panel.classList.add('acc-panel-visible');
+        panelVisible = true;
+
+        if (fab) {
+            fab.setAttribute('aria-expanded', 'true');
+            fab.classList.add('acc-fab-abierto');
+        }
+
+        // Foco accesible al primer botón del panel
+        setTimeout(function () {
+            var primero = panel.querySelector('.acc-opcion, .acc-btn-cerrar');
+            if (primero) primero.focus();
+        }, 80);
+    }
+
+    function cerrarPanel() {
+        var panel = document.getElementById('panel-acc');
+        var fab   = document.getElementById('btn-acc-flotante');
+        if (!panel) return;
+
+        panel.classList.remove('acc-panel-visible');
+        panelVisible = false;
+
+        if (fab) {
+            fab.setAttribute('aria-expanded', 'false');
+            fab.classList.remove('acc-fab-abierto');
+        }
+
+        // Ocultar tras la transición CSS (250ms)
+        setTimeout(function () {
+            if (!panelVisible) panel.setAttribute('hidden', '');
+        }, 260);
+    }
+
+    // ─────────────────────────────────────────────────────
+    // RESTAURAR PREFERENCIAS
+    // ─────────────────────────────────────────────────────
+
     function restaurarPreferencias() {
         if (!window.PD_Storage) return;
         var c = window.PD_Storage.obtenerConfiguracion();
 
-        // Restaurar en orden correcto: Ultra primero si estaba activo,
-        // porque Ultra activa los otros dos. Si no estaba Ultra,
-        // restaurar cada uno independientemente.
+        // Orden: Ultra primero porque activa los otros dos.
         if (c.modoUltra) {
             aplicarModoUltra(true);
         } else {
@@ -187,20 +308,25 @@
         }
     }
 
-    // ─── prefers-reduced-motion ───────────────────────────
+    // ─────────────────────────────────────────────────────
+    // REDUCED MOTION
+    // ─────────────────────────────────────────────────────
+
     function aplicarReducedMotion() {
         var prefiere = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         document.documentElement.classList.toggle('reduced-motion', prefiere);
     }
 
-    // ─── Inicialización ───────────────────────────────────
+    // ─────────────────────────────────────────────────────
+    // INIT
+    // ─────────────────────────────────────────────────────
+
     function init() {
-        inyectarBarra();
+        inyectarBotonFlotante();    // primero, para que restaurarPreferencias pueda sincronizar los botones
         restaurarPreferencias();
         aplicarReducedMotion();
 
         var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-        // addEventListener con fallback para Android 4/5 que usa addListener
         if (mq.addEventListener) {
             mq.addEventListener('change', aplicarReducedMotion);
         } else if (mq.addListener) {
@@ -208,7 +334,10 @@
         }
     }
 
-    // ─── API pública ──────────────────────────────────────
+    // ─────────────────────────────────────────────────────
+    // API PÚBLICA
+    // ─────────────────────────────────────────────────────
+
     window.toggleLecturaGrande = toggleLecturaGrande;
     window.toggleAltoContraste = toggleAltoContraste;
     window.toggleModoUltra     = toggleModoUltra;

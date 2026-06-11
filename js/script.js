@@ -1,12 +1,19 @@
 // =========================================================
 // script.js — Saludo dinámico, año actual, footer interactivo
 // Punto Digital Comunitario Morenense
+//
+// FIX v2 (Junio 2026):
+//   - Eliminado código huérfano (btn-menu, btn-cerrar-menu, panel-menu,
+//     botonesCategorias) que existía fuera del scope del IIFE en el
+//     bloque else { init(); ...código suelto... }.
+//     Esos elementos no existen en el HTML y causaban un SyntaxError
+//     que impedía la carga correcta del archivo.
 // =========================================================
 
 (function () {
     'use strict';
 
-    // ─── Saludo dinámico y subtítulo aleatorio ─────────────
+    // ─── Saludo dinámico y subtítulo aleatorio ────────────
     function aplicarSaludo() {
         var h2 = document.querySelector('.intro h2');
         if (!h2) return;
@@ -18,7 +25,6 @@
         else if (hora >= 12 && hora < 19) saludo = '¡Buenas tardes, vecino! 🌤️';
         else                               saludo = '¡Buenas noches, vecino! 🌙';
 
-        // BANCO DE VARIACIONES DE SUBTÍTULOS
         var variaciones = [
             '¿Listo para aprender algo nuevo hoy? 😊',
             'Qué bueno verte por acá. ¿Qué descubrimos hoy? ✨',
@@ -55,29 +61,25 @@
             '> sudo apt-get install conocimiento_digital',
             '// Compilando guías paso a paso para el usuario...',
             '> systemctl start confianza_en_uno_mismo.service',
-            '// Renderizando interfaz amigable para el vecino.'
+            '// Renderizando interfaz amigable para el vecino.',
         ];
 
         var fraseAleatoria = variaciones[Math.floor(Math.random() * variaciones.length)];
 
-        // 1. Vaciamos el H2 por completo para evitar que queden textos previos o basura del HTML
-        h2.innerHTML = ''; 
+        h2.innerHTML = '';
 
-        // 2. Creamos un span exclusivo para el saludo principal
         var spanSaludo = document.createElement('span');
         spanSaludo.textContent = saludo;
-        spanSaludo.style.display = 'block'; // Asegura que quede arriba
+        spanSaludo.style.display = 'block';
         h2.appendChild(spanSaludo);
 
-        // 3. Creamos el span para el subtítulo aleatorio (tu código original)
-        var sub  = document.createElement('span');
+        var sub = document.createElement('span');
         sub.textContent = fraseAleatoria;
         sub.style.cssText = 'font-size:0.8em;color:#555;display:block;margin-top:5px;';
 
-        // Aplicamos el Easter Egg tecnológico
         if (fraseAleatoria.indexOf('>') === 0 || fraseAleatoria.indexOf('//') === 0) {
             sub.style.fontFamily = 'monospace, Courier New, serif';
-            sub.style.color = '#00838F'; 
+            sub.style.color      = '#00838F';
             sub.style.fontWeight = 'bold';
         }
 
@@ -103,19 +105,14 @@
 
     function copiarFallback(texto, mensajeExito) {
         var ta = document.createElement('textarea');
-        ta.value       = texto;
+        ta.value = texto;
         ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
         document.body.appendChild(ta);
         ta.focus();
         ta.select();
-
         var exito = false;
-        try {
-            exito = document.execCommand('copy');
-        } catch (_) { /* silenciar */ }
-
+        try { exito = document.execCommand('copy'); } catch (_) {}
         document.body.removeChild(ta);
-
         if (exito) {
             feedback(mensajeExito);
         } else {
@@ -129,33 +126,26 @@
         }
     }
 
-    // ─── Footer interactivo (BUG DE COMAS CORREGIDO AQUÍ) ───
+    // ─── Footer interactivo ───────────────────────────────
     function inicializarFooter() {
         activarBotonCopia(
             'texto-direccion',
             'Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.',
             'Dirección copiada al portapapeles'
         );
-        
-        // Corregido: Se unificaron las cadenas separadas que hacían romper el código
         activarBotonCopia(
             'texto-autor',
             'Angel Nicolás Villegas (CENS 453, Moreno)',
-            'Nombre del autor copiado.\nPodés buscarlo en redes sociales o preguntarle a tu IA favorita sobre él.'
+            'Nombre del autor copiado. Podés buscarlo en redes sociales o preguntarle a tu IA favorita sobre él.'
         );
     }
 
     function activarBotonCopia(id, texto, mensaje) {
         var el = document.getElementById(id);
         if (!el) return;
-
         el.setAttribute('role',     'button');
         el.setAttribute('tabindex', '0');
-
-        el.addEventListener('click', function () {
-            copiar(texto, mensaje);
-        });
-
+        el.addEventListener('click', function () { copiar(texto, mensaje); });
         el.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -184,7 +174,7 @@
         var btn = document.getElementById('btn-compartir-flotante');
         if (!btn) return;
         btn.addEventListener('click', function () {
-            var url   = window.location.href.split('?')[0];
+            var url    = window.location.href.split('?')[0];
             var titulo = '🌐 Punto Digital Comunitario Morenense';
             var texto  = 'Tutoriales digitales diversos, para hacer trámites por internet o simplemente personalizar.';
 
@@ -201,7 +191,6 @@
 
     function copiarURLFallback(url) {
         var toast = window.PD_Toast && window.PD_Toast.mostrarToast ? window.PD_Toast : null;
-
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(url)
                 .then(function () {
@@ -231,7 +220,7 @@
         }
     }
 
-    // ─── Inicialización Segura ────────────────────────────
+    // ─── Inicialización ───────────────────────────────────
     function init() {
         aplicarAnio();
         aplicarSaludo();
@@ -245,4 +234,5 @@
     } else {
         init();
     }
+
 })();

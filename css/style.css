@@ -56,34 +56,12 @@ body {
 .header h1 { font-size:3rem; text-align:center; line-height:1.3; margin-bottom:15px; font-weight:700; }
 .header p  { text-align:center; font-size:1.3rem; opacity:.98; }
 
-/* ── Barra Accesibilidad ───────────────────────────────── */
-#barra-accesibilidad {
-    background:#e8f0f8; border-bottom:3px solid var(--celeste-arg);
-    padding:10px 0; position:sticky; top:0; z-index:100;
-    box-shadow:0 2px 6px rgba(0,0,0,.07);
-}
-.barra-acc-inner { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
-.barra-acc-label { font-weight:bold; color:var(--azul-oscuro); font-size:.95rem; }
-.btn-acc {
-    background:var(--azul-arg); color:white; border:none;
-    padding:9px 15px; border-radius:10px;
-    font-size:.95rem !important; font-weight:bold;
-    cursor:pointer; min-height:auto !important;
-    transition:background .15s;
-}
-.btn-acc:hover  { background:var(--azul-oscuro); }
-.btn-acc:focus  { outline:4px solid #FFD54F; outline-offset:2px; }
-.btn-acc[aria-pressed="true"] { background:#28a745; }
-.btn-ultra { background:#6f42c1 !important; }
-.btn-ultra:hover { background:#4e2d8a !important; }
-.btn-ultra[aria-pressed="true"] { background:#3d2270 !important; }
-
 /* ── Indicador Offline ─────────────────────────────────── */
 #indicador-conexion {
     display:none; background:var(--rojo); color:white;
     text-align:center; padding:12px 20px;
     font-weight:bold; font-size:1.1rem;
-    position:sticky; top:52px; z-index:99;
+    position:sticky; top:0px; z-index:99;
     border-bottom:3px solid #8B0000;
 }
 
@@ -1099,4 +1077,330 @@ html.modo-ultra .btn-menu {
 html.modo-ultra .tab-categoria {
     font-size: 1.05rem !important;
     padding: 11px 16px !important;
+}
+
+/* ==========================================================
+   NUEVO: FAB de Accesibilidad + Panel compacto
+   ========================================================== */
+
+/* ── FAB (Floating Action Button) ──────────────────────── */
+#btn-acc-flotante {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 9997;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--azul-arg);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .28);
+    transition: background .2s, transform .2s;
+    min-height: auto !important;
+    padding: 0;
+}
+
+#btn-acc-flotante:hover  { background: var(--azul-oscuro); transform: scale(1.07); }
+#btn-acc-flotante:active { transform: scale(.94); }
+#btn-acc-flotante:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+#btn-acc-flotante.acc-fab-abierto {
+    background: var(--azul-oscuro);
+    transform: scale(1.04);
+}
+
+/* ── Panel de accesibilidad ────────────────────────────── */
+#panel-acc {
+    position: fixed;
+    bottom: 168px;
+    right: 16px;
+    z-index: 9996;
+    width: 292px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .18);
+    border: 2px solid var(--gris-borde);
+    /* Estado inicial: invisible y desplazado levemente hacia abajo */
+    opacity: 0;
+    transform: translateY(12px) scale(.97);
+    transition: opacity .22s ease, transform .22s ease;
+    pointer-events: none;
+}
+
+#panel-acc.acc-panel-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* ── Header del panel ──────────────────────────────────── */
+.acc-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 2px solid var(--gris-borde);
+}
+
+.acc-panel-titulo {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    user-select: none;
+}
+
+.acc-btn-cerrar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--texto-suave);
+    padding: 4px 6px;
+    border-radius: 8px;
+    min-height: auto !important;
+    width: auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .15s, background .15s;
+    line-height: 1;
+}
+
+.acc-btn-cerrar:hover { color: var(--rojo); background: #FFF0F0; }
+.acc-btn-cerrar:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+
+/* ── Opciones del panel ─────────────────────────────────── */
+.acc-panel-opciones {
+    padding: 10px 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.acc-opcion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    background: #F5F8FC;
+    border: 2px solid var(--gris-borde);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem !important;
+    font-weight: bold;
+    color: var(--texto);
+    min-height: auto !important;
+    text-align: left;
+    transition: background .15s, border-color .15s;
+}
+
+.acc-opcion:hover {
+    background: #EBF4FF;
+    border-color: var(--azul-arg);
+}
+
+.acc-opcion:focus {
+    outline: 3px solid #FFD54F;
+    outline-offset: 1px;
+}
+
+.acc-opcion.acc-opcion-activa {
+    background: #EBF8EF;
+    border-color: var(--verde);
+    color: #145a32;
+}
+
+.acc-opcion-emoji {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.acc-opcion-label {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
+.acc-estado {
+    font-size: .82rem;
+    font-weight: bold;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #E5E7EB;
+    color: #6B7280;
+    letter-spacing: .03em;
+    flex-shrink: 0;
+    min-width: 38px;
+    text-align: center;
+    transition: background .15s, color .15s;
+}
+
+.acc-opcion-activa .acc-estado {
+    background: var(--verde);
+    color: white;
+}
+
+/* ── Subir FAB cuando el panel de voz está visible ─────── */
+/* body:has() es ampliamente soportado en navegadores modernos.
+   En Android 4/5 sin soporte, los botones simplemente no se
+   mueven — comportamiento de degradación aceptable. */
+body:has(#panel-voz[style*="block"]) #btn-acc-flotante {
+    bottom: 196px;
+}
+body:has(#panel-voz[style*="block"]) #panel-acc {
+    bottom: 264px;
+}
+
+/* ── Alto contraste ─────────────────────────────────────── */
+html.modo-alto-contraste #panel-acc {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-panel-titulo  { color: #FFD700 !important; }
+html.modo-alto-contraste .acc-panel-header  { border-color: #444 !important; }
+html.modo-alto-contraste .acc-opcion {
+    background: #222 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-opcion:hover  { border-color: #FFD700 !important; background: #333 !important; }
+html.modo-alto-contraste .acc-opcion.acc-opcion-activa {
+    border-color: #4ADE80 !important;
+    background: #062a0e !important;
+    color: #4ADE80 !important;
+}
+html.modo-alto-contraste .acc-estado {
+    background: #444 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-opcion-activa .acc-estado {
+    background: #4ADE80 !important;
+    color: #000 !important;
+}
+
+/* ── Modo ultra: panel ligeramente más ancho ───────────── */
+html.modo-ultra #panel-acc          { width: 320px !important; }
+html.modo-ultra .acc-opcion         { font-size: 1.15rem !important; padding: 16px !important; }
+html.modo-ultra .acc-panel-titulo   { font-size: 1.2rem !important; }
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    #btn-acc-flotante {
+        width: 50px;
+        height: 50px;
+        bottom: 96px;
+        right: 14px;
+    }
+    #panel-acc {
+        width: calc(100vw - 24px);
+        right: 12px;
+        bottom: 158px;
+    }
+    body:has(#panel-voz[style*="block"]) #btn-acc-flotante { bottom: 188px; }
+    body:has(#panel-voz[style*="block"]) #panel-acc        { bottom: 250px; }
+}
+
+
+/* ==========================================================
+   NUEVO: Navegación anterior / siguiente entre tutoriales
+   ========================================================== */
+
+.nav-tutorial {
+    margin: 24px 0 20px;
+    padding: 18px;
+    background: #F5F8FC;
+    border: 2px solid var(--gris-borde);
+    border-radius: 18px;
+}
+
+.nav-tutorial-contador {
+    font-size: .95rem;
+    color: var(--texto-suave);
+    text-align: center;
+    margin: 0 0 12px;
+    font-weight: bold;
+    letter-spacing: .02em;
+}
+
+.nav-tutorial-btns {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+/* Placeholder cuando no hay tutorial anterior */
+.nav-placeholder {
+    flex: 1;
+    display: block;
+}
+
+.btn-nav {
+    flex: 1;
+    padding: 13px 14px;
+    border-radius: 12px;
+    font-size: .95rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    line-height: 1.4;
+    word-break: break-word;
+    transition: background .15s, border-color .15s, transform .1s;
+    hyphens: auto;
+}
+
+.btn-nav:active { transform: scale(.97); }
+.btn-nav:focus  { outline: 4px solid #FFD54F; outline-offset: 2px; }
+
+.btn-nav-anterior {
+    background: white;
+    border: 2px solid var(--gris-borde);
+    color: var(--azul-oscuro);
+    text-align: left;
+}
+.btn-nav-anterior:hover {
+    background: #EBF4FF;
+    border-color: var(--azul-arg);
+}
+
+.btn-nav-siguiente {
+    background: var(--azul-arg);
+    border: 2px solid var(--azul-arg);
+    color: white;
+    text-align: right;
+}
+.btn-nav-siguiente:hover {
+    background: var(--azul-oscuro);
+    border-color: var(--azul-oscuro);
+}
+
+/* ── Alto contraste ──── */
+html.modo-alto-contraste .nav-tutorial {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .nav-tutorial-contador { color: #ccc !important; }
+html.modo-alto-contraste .btn-nav-anterior {
+    background: #222 !important;
+    border-color: #FFD700 !important;
+    color: #FFD700 !important;
+}
+html.modo-alto-contraste .btn-nav-siguiente {
+    background: #FFD700 !important;
+    border-color: #FFD700 !important;
+    color: #000 !important;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .nav-tutorial-btns { flex-direction: column; }
+    .nav-placeholder    { display: none; }
+    .btn-nav-anterior,
+    .btn-nav-siguiente  { text-align: center; }
 }

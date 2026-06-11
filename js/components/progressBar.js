@@ -1,6 +1,13 @@
 // =========================================================
 // components/progressBar.js — Progreso global y badges
 // Punto Digital Comunitario Morenense
+//
+// FIX v2 (Junio 2026):
+//   - Corregida la llave de cierre faltante en inyectarProgresoGlobal()
+//   - actualizarProgreso, BADGES, actualizarBadges y actualizarBotonesMenu
+//     ahora están correctamente en el scope del IIFE, no anidadas adentro
+//     de inyectarProgresoGlobal (que los hacía inaccesibles desde afuera).
+//   - window.PD_Progress se asigna al final del IIFE, no dentro de una fn.
 // =========================================================
 
 (function () {
@@ -22,7 +29,7 @@
             <h2 class="progreso-titulo">📊 Tu avance</h2>
             <div class="progreso-global-wrap">
                 <div class="progreso-global-barra-bg">
-                    <div id="progreso-global-fill" class="progreso-global-fill" 
+                    <div id="progreso-global-fill" class="progreso-global-fill"
                          role="progressbar" aria-valuemin="0" aria-valuemax="${totalTutoriales()}"
                          aria-valuenow="0"></div>
                 </div>
@@ -31,9 +38,7 @@
             <div id="badges-contenedor" class="badges-contenedor" aria-label="Tus medallas conseguidas"></div>
         `;
 
-        javascript
-        // CORRECCIÓN: .consejos no existe en esta app.
-        // Insertar la sección de progreso justo después del bloque de introducción.
+        // Insertar después de la intro o al final del main
         const intro = document.getElementById('introduccion');
         const main  = document.getElementById('contenido-principal');
 
@@ -42,8 +47,11 @@
         } else if (main) {
             main.appendChild(seccion);
         }
+    }   // ← llave de cierre correcta de inyectarProgresoGlobal
 
     // ─── Actualizar la barra y texto ─────────────────────
+    // NOTA: esta función debe vivir fuera de inyectarProgresoGlobal
+    // para ser accesible via window.PD_Progress.actualizarProgreso()
     function actualizarProgreso() {
         if (!window.PD_Storage) return;
 
@@ -51,7 +59,7 @@
         const total = totalTutoriales();
         const pct = Math.round((completados / total) * 100);
 
-        const fill = document.getElementById('progreso-global-fill');
+        const fill  = document.getElementById('progreso-global-fill');
         const texto = document.getElementById('progreso-texto');
 
         if (fill) {
@@ -62,7 +70,7 @@
             texto.textContent = `Ya terminaste ${completados} de ${total} tutorial${completados !== 1 ? 'es' : ''}`;
         }
 
-        actualizarBadges(completados, total);
+        actualizarBadges(completados);
     }
 
     // ─── Medallas (Badges) con lenguaje sencillo ─────────
@@ -93,25 +101,27 @@
     // ─── Actualizar estado del botón en el menú ──────────
     function actualizarBotonesMenu() {
         if (!window.PD_Storage || !window.baseDeTutoriales) return;
+
         document.querySelectorAll('#menu-tutoriales .btn-menu[data-clave]').forEach(btn => {
             const clave = btn.dataset.clave;
             const completado = window.PD_Storage.estaCompletado(clave);
             const fav = window.PD_Storage.esFavorito(clave);
 
-            // Indicador completado
             let badge = btn.querySelector('.btn-badge');
             if (!badge) {
                 badge = document.createElement('span');
                 badge.className = 'btn-badge';
                 btn.appendChild(badge);
             }
-            
-            // Mantenemos los íconos visuales pero actualizamos qué leen los lectores de pantalla
+
             badge.textContent = completado ? ' ✅' : (fav ? ' ⭐' : '');
             badge.setAttribute('aria-label', completado ? 'Terminado' : (fav ? 'Guardado' : ''));
         });
     }
 
+    // ─── API pública ──────────────────────────────────────
+    // Se expone aquí, al final del IIFE, donde todas las funciones
+    // están en scope y son accesibles correctamente.
     window.PD_Progress = { inyectarProgresoGlobal, actualizarProgreso, actualizarBotonesMenu };
 
 })();
