@@ -2,85 +2,231 @@
 // ui.js — Lógica de interfaz principal
 // Punto Digital Comunitario Morenense
 //
-// v2 (Junio 2026):
-//   + Agrega navegación anterior/siguiente entre tutoriales
-//     con indicador "Tutorial N de Total".
-//   + obtenerOrdenTutoriales() — lista ordenada por CATEGORIAS
-//   + inyectarNavTutorial(id)  — inyecta botones de navegación
-//   + Limpieza del nav en ocultarTutorial()
+// v3 (Junio 2026) — Navegación guiada + Acordeón
 //
-// Dependencias en carga: ninguna.
+// CAMBIOS PRINCIPALES:
+//   - Sistema de "vistas" (HOME → CATEGORIA → TUTORIAL)
+//     con transición de panel en lugar de scroll acumulativo.
+//   - Categorías como acordeón: se expanden/cierran al tocar.
+//   - Feedback inmediato en cada interacción (clase .entrando).
+//   - Buscador conectado al acordeón.
+//   - API pública invariante mantenida.
+//
 // Dependencias en runtime:
 //   - window.baseDeTutoriales (tutoriales.js) — obligatorio
-//   - window.PD_Storage       (storage.js)    — lazy
-//   - window.PD_TutorialCard  (tutorialCard.js)— lazy
-//   - window.PD_Progress      (progressBar.js) — lazy
-//   - window.PD_Speech        (speech.js)      — lazy
+//   - window.PD_Storage, PD_TutorialCard, PD_Progress, PD_Speech — lazy
 // =========================================================
 
 (() => {
     'use strict';
 
-    // ── Mapa de categorías: clave → etiqueta y color ──────
+    // ── Mapa de categorías ────────────────────────────────
     const CATEGORIAS = {
         tramites: {
-            etiqueta: '🏛️ Trámites del Estado',
+            etiqueta:    '🏛️ Trámites del Estado',
             descripcion: 'ANSES, CUIL, Mi Argentina y más',
-            color: '#0B5AA2',
+            color:       '#0B5AA2',
         },
         usos_tecnologia: {
-            etiqueta: '📱 Usos del Teléfono',
+            etiqueta:    '📱 Usos del Teléfono',
             descripcion: 'Herramientas del día a día para sacarle el jugo al celu',
-            color: '#E65100',
+            color:       '#E65100',
         },
         cuidado: {
-            etiqueta: '🛡️ Cuidado Digital',
+            etiqueta:    '🛡️ Cuidado Digital',
             descripcion: 'Estafas, contraseñas, páginas oficiales',
-            color: '#C62828',
+            color:       '#C62828',
         },
         inteligencia_artificial: {
-            etiqueta: '🤖 Inteligencia Artificial',
+            etiqueta:    '🤖 Inteligencia Artificial',
             descripcion: 'Qué es, cómo usarla con criterio',
-            color: '#6f42c1',
+            color:       '#6f42c1',
         },
         acompanar: {
-            etiqueta: '🤝 Acompañar a Otros',
+            etiqueta:    '🤝 Acompañar a Otros',
             descripcion: 'Para quienes enseñan o ayudan',
-            color: '#198754',
+            color:       '#198754',
         },
     };
 
     let tutorialActualId = null;
-    let categoriaActiva  = null;
+    let categoriaActiva  = null;  // solo para buscador/tabs externo
 
-    // ── Lista ordenada de tutoriales ──────────────────────
-    // Sigue el orden de CATEGORIAS, luego dentro de cada categoría
-    // sigue el orden de inserción en baseDeTutoriales.
-    const obtenerOrdenTutoriales = () => {
-        const db = window.baseDeTutoriales;
-        if (!db) return [];
-        const orden = [];
-        Object.keys(CATEGORIAS).forEach((catClave) => {
-            Object.entries(db).forEach(([clave, info]) => {
-                if ((info.categoria || 'tramites') === catClave) {
-                    orden.push(clave);
-                }
+    // ─────────────────────────────────────────────────────
+    // SISTEMA DE VISTAS
+    // home → muestra intro + menú acordeón
+    // tutorial → muestra zona-tutorial, oculta el resto
+    // ─────────────────────────────────────────────────────
+
+    const SECCIONES_MENU = [
+        'menu-tutoriales', 'tabs-categorias', 'introduccion',
+        'seccion-buscador', 'seccion-favoritos', 'seccion-progreso',
+    ];
+
+    function irAVistaTutorial() {
+        SECCIONES_MENU.forEach(id => {
+            document.getElementById(id)?.classList.add('oculto');
+        });
+        const zona = document.getElementById('zona-tutorial');
+        zona?.classList.remove('oculto');
+        // Feedback visual: pequeño flash de entrada
+        zona?.classList.add('vista-entrando');
+        setTimeout(() => zona?.classList.remove('vista-entrando'), 400);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function irAVistaHome() {
+        document.getElementById('zona-tutorial')?.classList.add('oculto');
+        SECCIONES_MENU.forEach(id => {
+            document.getElementById(id)?.classList.remove('oculto');
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ─────────────────────────────────────────────────────
+    // ACORDEÓN DE CATEGORÍAS
+    // ─────────────────────────────────────────────────────
+
+    // Estado: qué categorías están abiertas
+    const acordeonAbierto = new Set();
+
+    function toggleAcordeon(catClave, forzarAbrir) {
+        const grid = document.querySelector(`.categoria-grid[data-categoria="${catClave}"]`);
+        const header = document.querySelector(`.acord-header[data-categoria="${catClave}"]`);
+        if (!grid || !header) return;
+
+        const estaAbierto = acordeonAbierto.has(catClave);
+        const abrir = forzarAbrir !== undefined ? forzarAbrir : !estaAbierto;
+
+        if (abrir) {
+            acordeonAbierto.add(catClave);
+            grid.classList.remove('acord-cerrado');
+            grid.classList.add('acord-abierto');
+            header.classList.add('acord-header-activo');
+            header.setAttribute('aria-expanded', 'true');
+            // Scroll suave hacia la categoría abierta
+            setTimeout(() => {
+                header.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 80);
+        } else {
+            acordeonAbierto.delete(catClave);
+            grid.classList.remove('acord-abierto');
+            grid.classList.add('acord-cerrado');
+            header.classList.remove('acord-header-activo');
+            header.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    // ─────────────────────────────────────────────────────
+    // VISOR MODAL DE CATEGORÍA
+    // Se abre como bottom-sheet (mobile) / modal centrado (desktop)
+    // cuando el usuario toca un acordeón de categoría.
+    // ─────────────────────────────────────────────────────
+
+    let visorAbierto = false;
+
+    function inyectarVisor() {
+        if (document.getElementById('visor-categoria')) return;
+
+        const visor = document.createElement('div');
+        visor.id = 'visor-categoria';
+        visor.setAttribute('role', 'dialog');
+        visor.setAttribute('aria-modal', 'true');
+        visor.setAttribute('aria-label', 'Tutoriales de la categoría');
+
+        const overlay = document.createElement('div');
+        overlay.id = 'visor-overlay-cat';
+        overlay.addEventListener('click', cerrarVisor);
+
+        const panel = document.createElement('div');
+        panel.className = 'visor-panel';
+        panel.id = 'visor-panel';
+
+        visor.appendChild(overlay);
+        visor.appendChild(panel);
+        document.body.appendChild(visor);
+
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && visorAbierto) cerrarVisor();
+        });
+    }
+
+    function abrirVisor(catClave, items, catInfo) {
+        inyectarVisor();
+        const visor = document.getElementById('visor-categoria');
+        const panel = document.getElementById('visor-panel');
+        if (!visor || !panel) return;
+
+        // Construir contenido del panel
+        const botonesHtml = items.map(({ clave, info }) => `
+            <button class="visor-btn-tutorial" data-clave="${clave}"
+                    aria-label="Ver tutorial: ${info.titulo}">
+                <span class="visor-tut-icono">${info.icono}</span>
+                <span class="visor-tut-texto">
+                    <span class="visor-tut-titulo">${info.titulo}</span>
+                    <span class="visor-tut-detalle">${info.detalle || ''}</span>
+                </span>
+                <span class="visor-tut-flecha" aria-hidden="true">›</span>
+            </button>
+        `).join('');
+
+        panel.innerHTML = `
+            <div class="visor-header">
+                <span class="visor-titulo">${catInfo.etiqueta}</span>
+                <button class="visor-btn-cerrar" id="visor-btn-cerrar"
+                        aria-label="Cerrar panel de tutoriales">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                        <path d="M3.5 3.5L14.5 14.5M14.5 3.5L3.5 14.5"
+                              stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="visor-desc">${catInfo.descripcion}</p>
+            <div class="visor-lista">${botonesHtml}</div>
+        `;
+
+        // Eventos dentro del visor
+        document.getElementById('visor-btn-cerrar')
+            ?.addEventListener('click', (e) => { e.stopPropagation(); cerrarVisor(); });
+
+        panel.querySelectorAll('.visor-btn-tutorial').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const clave = btn.dataset.clave;
+                cerrarVisor();
+                setTimeout(() => mostrarTutorial(clave), 60);
             });
         });
-        // Tutoriales sin categoría coincidente (por si acaso)
-        Object.keys(db).forEach((clave) => {
-            if (!orden.includes(clave)) orden.push(clave);
-        });
-        return orden;
-    };
 
-    // ── Renderizar menú con categorías ───────────────────
+        // Mostrar
+        visorAbierto = true;
+        document.body.style.overflow = 'hidden';
+        visor.classList.add('visor-visible');
+
+        // No se hace focus() automático al abrir el visor.
+        // El usuario decide qué tutorial tocar.
+    }
+
+    function cerrarVisor() {
+        const visor = document.getElementById('visor-categoria');
+        if (!visor) return;
+        visor.classList.remove('visor-visible');
+        visorAbierto = false;
+        document.body.style.overflow = '';
+    }
+
+    // ─────────────────────────────────────────────────────
+    // RENDERIZAR MENÚ — Acordeones que abren el visor modal
+    // ─────────────────────────────────────────────────────
+
     const renderizarMenu = () => {
         const db   = window.baseDeTutoriales;
         const menu = document.getElementById('menu-tutoriales');
         if (!db || !menu) return;
 
         menu.innerHTML = '';
+        inyectarVisor();
 
         const grupos = {};
         Object.entries(db).forEach(([clave, info]) => {
@@ -89,37 +235,65 @@
             grupos[cat].push({ clave, info });
         });
 
+        // También construir un grid oculto para el buscador de página
         Object.keys(CATEGORIAS).forEach((catClave) => {
-            const items = grupos[catClave];
+            const items   = grupos[catClave];
             if (!items || items.length === 0) return;
             const catInfo = CATEGORIAS[catClave];
 
-            const encabezado = document.createElement('div');
-            encabezado.className = 'categoria-encabezado';
-            encabezado.dataset.categoria = catClave;
-            encabezado.innerHTML = `
-                <h3 class="categoria-titulo" style="border-color:${catInfo.color}">
-                    ${catInfo.etiqueta}
-                </h3>
-                <p class="categoria-desc">${catInfo.descripcion}</p>
+            // ── Acordeón header — toca → abre el visor modal ──
+            const header = document.createElement('button');
+            header.className = 'acord-header';
+            header.dataset.categoria = catClave;
+            header.setAttribute('aria-expanded', 'false');
+            header.setAttribute('aria-label',
+                `${catInfo.etiqueta} — ${items.length} tutorial${items.length > 1 ? 'es' : ''}. Tocá para ver`
+            );
+            header.style.setProperty('--cat-color', catInfo.color);
+            header.innerHTML = `
+                <span class="acord-icono-cat">${catInfo.etiqueta.split(' ')[0]}</span>
+                <span class="acord-texto">
+                    <span class="acord-titulo-cat">${catInfo.etiqueta.replace(/^\S+\s/, '')}</span>
+                    <span class="acord-desc-cat">${catInfo.descripcion}</span>
+                </span>
+                <span class="acord-badge">${items.length}</span>
+                <span class="acord-chevron" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M4 6.5L9 11.5L14 6.5"
+                              stroke="currentColor" stroke-width="2.2"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
             `;
-            menu.appendChild(encabezado);
 
+            header.addEventListener('click', () => {
+                abrirVisor(catClave, items, catInfo);
+            });
+
+            menu.appendChild(header);
+
+            // Grid oculto — solo para que el buscador de página encuentre los .btn-menu
             const grid = document.createElement('div');
-            grid.className = 'categoria-grid';
+            grid.className = 'categoria-grid acord-cerrado';
+            grid.id = `acord-grid-${catClave}`;
             grid.dataset.categoria = catClave;
+            grid.style.display = 'none'; // visible solo al buscar
 
-            items.forEach((item) => {
+            items.forEach(({ clave, info }) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-menu';
-                btn.dataset.clave = item.clave;
+                btn.dataset.clave     = clave;
                 btn.dataset.categoria = catClave;
-                btn.setAttribute('aria-label', `Abrir tutorial: ${item.info.titulo}`);
+                btn.setAttribute('aria-label', `Abrir tutorial: ${info.titulo}`);
                 btn.innerHTML = `
-                    ${item.info.icono} ${item.info.titulo}
+                    <span class="btn-menu-icono">${info.icono}</span>
+                    <span class="btn-menu-texto">
+                        <span class="btn-menu-titulo">${info.titulo}</span>
+                        <span class="btn-menu-detalle">${info.detalle || ''}</span>
+                    </span>
                     <span class="btn-badge" aria-hidden="true"></span>
                 `;
-                btn.addEventListener('click', () => mostrarTutorial(item.clave));
+                btn.addEventListener('click', () => mostrarTutorial(clave));
                 grid.appendChild(btn);
             });
 
@@ -129,25 +303,42 @@
         window.PD_Progress?.actualizarBotonesMenu();
     };
 
-    // ── Filtrar menú por categoría ────────────────────────
+    // ─────────────────────────────────────────────────────
+    // FILTRAR — compatible con tabs externos y deeplink
+    // ─────────────────────────────────────────────────────
+
     const filtrarPorCategoria = (catClave) => {
         categoriaActiva = (catClave === 'todos' || !catClave) ? null : catClave;
 
-        document.querySelectorAll('.categoria-encabezado, .categoria-grid').forEach((el) => {
-            if (!categoriaActiva) {
-                el.style.display = '';
-            } else {
-                el.style.display = (el.dataset.categoria === categoriaActiva) ? '' : 'none';
+        if (categoriaActiva) {
+            // Abrir el visor modal directamente para la categoría seleccionada
+            const db = window.baseDeTutoriales;
+            if (db && CATEGORIAS[categoriaActiva]) {
+                const grupos = {};
+                Object.entries(db).forEach(([clave, info]) => {
+                    const cat = info.categoria || 'tramites';
+                    if (!grupos[cat]) grupos[cat] = [];
+                    grupos[cat].push({ clave, info });
+                });
+                const items = grupos[categoriaActiva] || [];
+                if (items.length > 0) {
+                    abrirVisor(categoriaActiva, items, CATEGORIAS[categoriaActiva]);
+                }
             }
-        });
+        }
 
+        // Sincronizar tabs externos
         document.querySelectorAll('.tab-categoria').forEach((tab) => {
-            tab.classList.toggle('tab-activo', tab.dataset.categoria === (categoriaActiva || 'todos'));
-            tab.setAttribute('aria-selected', tab.dataset.categoria === (categoriaActiva || 'todos') ? 'true' : 'false');
+            const activo = tab.dataset.categoria === (categoriaActiva || 'todos');
+            tab.classList.toggle('tab-activo', activo);
+            tab.setAttribute('aria-selected', String(activo));
         });
     };
 
-    // ── Renderizar tabs de categoría ──────────────────────
+    // ─────────────────────────────────────────────────────
+    // RENDERIZAR TABS externos (encima del menú)
+    // ─────────────────────────────────────────────────────
+
     const renderizarTabs = () => {
         const menu = document.getElementById('menu-tutoriales');
         if (!menu || document.getElementById('tabs-categorias')) return;
@@ -157,72 +348,61 @@
         wrapper.setAttribute('role', 'tablist');
         wrapper.setAttribute('aria-label', 'Filtrar tutoriales por categoría');
 
-        const tabTodos = document.createElement('button');
-        tabTodos.className = 'tab-categoria tab-activo';
-        tabTodos.dataset.categoria = 'todos';
-        tabTodos.setAttribute('role', 'tab');
-        tabTodos.setAttribute('aria-selected', 'true');
-        tabTodos.setAttribute('aria-label', 'Ver todos los tutoriales');
-        tabTodos.textContent = '📋 Todos';
-        tabTodos.addEventListener('click', () => {
-            document.querySelectorAll('.tab-categoria').forEach((t) => {
-                t.setAttribute('aria-selected', 'false');
-                t.classList.remove('tab-activo');
+        const crearTab = (clave, texto, activo) => {
+            const tab = document.createElement('button');
+            tab.className = `tab-categoria${activo ? ' tab-activo' : ''}`;
+            tab.dataset.categoria = clave;
+            tab.setAttribute('role', 'tab');
+            tab.setAttribute('aria-selected', String(activo));
+            tab.setAttribute('aria-label', `Ver tutoriales: ${texto}`);
+            tab.textContent = texto;
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab-categoria').forEach(t => {
+                    t.classList.remove('tab-activo');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                tab.classList.add('tab-activo');
+                tab.setAttribute('aria-selected', 'true');
+                filtrarPorCategoria(clave === 'todos' ? null : clave);
+                // Scroll al menú
+                menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
-            tabTodos.setAttribute('aria-selected', 'true');
-            tabTodos.classList.add('tab-activo');
-            filtrarPorCategoria(null);
-        });
-        wrapper.appendChild(tabTodos);
+            return tab;
+        };
 
+        wrapper.appendChild(crearTab('todos', '📋 Todos', true));
         Object.keys(CATEGORIAS).forEach((catClave) => {
             const db = window.baseDeTutoriales || {};
-            const tieneItems = Object.values(db).some((t) => t.categoria === catClave);
-            if (!tieneItems) return;
-
-            const cat = CATEGORIAS[catClave];
-            const tab = document.createElement('button');
-            tab.className = 'tab-categoria';
-            tab.dataset.categoria = catClave;
-            tab.setAttribute('role', 'tab');
-            tab.setAttribute('aria-selected', 'false');
-            tab.setAttribute('aria-label', `Ver tutoriales de ${cat.etiqueta}`);
-            tab.textContent = cat.etiqueta;
-
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab-categoria').forEach((t) => {
-                    t.setAttribute('aria-selected', 'false');
-                    t.classList.remove('tab-activo');
-                });
-                tab.setAttribute('aria-selected', 'true');
-                tab.classList.add('tab-activo');
-                filtrarPorCategoria(catClave);
-            });
-            wrapper.appendChild(tab);
+            if (!Object.values(db).some(t => t.categoria === catClave)) return;
+            wrapper.appendChild(crearTab(catClave, CATEGORIAS[catClave].etiqueta, false));
         });
 
         menu.parentNode.insertBefore(wrapper, menu);
     };
 
-    // ── Compartir tutorial ────────────────────────────────
+    // ─────────────────────────────────────────────────────
+    // MOSTRAR TUTORIAL — con feedback visual
+    // ─────────────────────────────────────────────────────
+
     const compartirTutorial = (idClave, info) => {
         const urlCompartir = `${window.location.origin}${window.location.pathname}?tutorial=${idClave}`;
         if (navigator.share) {
             navigator.share({
                 title: info.titulo,
-                text: `Te comparto este tutorial útil del Punto Digital: "${info.titulo}" (${info.detalle})`,
-                url: urlCompartir,
-            }).catch((err) => console.log('Error al compartir:', err));
+                text:  `Punto Digital: "${info.titulo}" — ${info.detalle}`,
+                url:   urlCompartir,
+            }).catch(() => {});
         } else {
-            navigator.clipboard.writeText(urlCompartir).then(() => {
-                alert('📌 ¡Enlace copiado! Ya podés pegarlo en WhatsApp para compartirlo con un vecino.');
-            }).catch(() => {
-                alert(`Compartir enlace: ${urlCompartir}`);
-            });
+            navigator.clipboard?.writeText(urlCompartir)
+                .then(() => {
+                    window.PD_Toast?.mostrarToast('📋 Enlace copiado', 'exito', 2500);
+                })
+                .catch(() => {
+                    alert(`Enlace: ${urlCompartir}`);
+                });
         }
     };
 
-    // ── Mostrar tutorial ──────────────────────────────────
     const mostrarTutorial = (idClave) => {
         const db = window.baseDeTutoriales;
         if (!db || !db[idClave]) return;
@@ -233,14 +413,7 @@
 
         window.PD_Storage?.guardarTutorialReciente(idClave);
 
-        // Ocultar secciones del menú
-        ['menu-tutoriales', 'tabs-categorias', 'introduccion', 'seccion-buscador',
-         'seccion-favoritos', 'seccion-progreso']
-            .forEach((id) => {
-                document.getElementById(id)?.classList.add('oculto');
-            });
-
-        // Construir pasos
+        // Construir HTML del tutorial
         const pasosHtml = info.pasos.map((texto, idx) => `
             <div class="paso-tutorial" id="paso-${idx}" role="listitem"
                  aria-label="Paso ${idx + 1} de ${totalPasos}">
@@ -257,43 +430,31 @@
         if (!contenedor) return;
 
         contenedor.innerHTML = `
-            <h2 id="titulo-tutorial" tabindex="-1"
-                style="color:var(--azul-oscuro);font-size:2rem;margin-bottom:10px;">
+            <h2 id="titulo-tutorial" class="tutorial-titulo" tabindex="-1">
                 ${info.icono} ${info.titulo}
             </h2>
-            <p id="detalle-tutorial"
-               style="margin-bottom:15px;font-style:italic;color:#555;">
+            <p id="detalle-tutorial" class="tutorial-detalle">
                 ${info.detalle}
             </p>
-
-            <div class="barra-compartir-horizontal"
-                 style="display:flex;flex-direction:row;gap:12px;align-items:center;
-                        margin-bottom:20px;flex-wrap:wrap;">
+            <div class="barra-compartir-horizontal">
                 <button id="btn-compartir-tutorial" class="btn-compartir-accion"
-                    style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;
-                           background:#e9ecef;border:1px solid #ced4da;border-radius:8px;
-                           font-weight:bold;cursor:pointer;"
-                    aria-label="Compartir este tutorial con un vecino">
+                    aria-label="Compartir este tutorial">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                         stroke="#212529" stroke-width="2.5" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
                     </svg>
-                    Compartir tutorial
+                    Compartir
                 </button>
             </div>
-
             <div id="indicador-progreso" role="status" aria-live="polite"></div>
-            <hr style="border:0;height:2px;background:var(--celeste-arg);margin:18px 0;">
+            <hr class="tutorial-separador">
             <div role="list" id="lista-pasos">${pasosHtml}</div>
             ${notaHtml}
-            <button id="btn-finalizar-tutorial" class="btn-menu"
-                style="margin-top:25px;text-align:center;display:block;width:100%;
-                       background:var(--azul-oscuro);color:white;"
+            <button id="btn-finalizar-tutorial" class="btn-finalizar"
                 aria-label="Terminé el tutorial, volver al inicio">
                 ✅ Entendí todo, volver al inicio
             </button>
@@ -301,50 +462,44 @@
 
         renderizarBarraPasos(1, totalPasos);
         window.PD_TutorialCard?.inyectarAccionesTutorial(idClave);
-
-        // ↓ Navegación anterior / siguiente
         inyectarNavTutorial(idClave);
 
-        // Listeners
         document.getElementById('btn-compartir-tutorial')
             .addEventListener('click', () => compartirTutorial(idClave, info));
         document.getElementById('btn-finalizar-tutorial')
             .addEventListener('click', ocultarTutorial);
 
-        document.getElementById('zona-tutorial')?.classList.remove('oculto');
+        // ← Transición de vista (en lugar de solo quitar oculto)
+        irAVistaTutorial();
 
         setTimeout(() => {
             document.getElementById('titulo-tutorial')?.focus();
-        }, 80);
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 120);
     };
 
-    // ── Ocultar tutorial y volver al menú ────────────────
+    // ─────────────────────────────────────────────────────
+    // OCULTAR TUTORIAL — volver a home
+    // ─────────────────────────────────────────────────────
+
     const ocultarTutorial = () => {
         window.PD_Speech?.detener();
 
-        document.getElementById('zona-tutorial')?.classList.add('oculto');
-
-        ['menu-tutoriales', 'tabs-categorias', 'introduccion', 'seccion-buscador',
-         'seccion-favoritos', 'seccion-progreso']
-            .forEach((id) => {
-                document.getElementById(id)?.classList.remove('oculto');
-            });
-
         document.getElementById('acciones-tutorial')?.remove();
-        document.getElementById('nav-tutorial')?.remove(); // ← limpiar nav
+        document.getElementById('nav-tutorial')?.remove();
+
+        irAVistaHome();
 
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
         window.PD_Progress?.actualizarBotonesMenu();
 
-        filtrarPorCategoria(null);
-
+        // Mantener el estado de los acordeones (no resetear)
         tutorialActualId = null;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    // ── Barra de progreso de pasos ────────────────────────
+    // ─────────────────────────────────────────────────────
+    // BARRA DE PROGRESO DE PASOS
+    // ─────────────────────────────────────────────────────
+
     const renderizarBarraPasos = (paso, total) => {
         const cont = document.getElementById('indicador-progreso');
         if (!cont) return;
@@ -357,13 +512,31 @@
         `;
     };
 
-    // ── Inyectar navegación anterior / siguiente ──────────
-    // Aparece justo antes del botón "Terminé todo".
-    // Muestra el nombre + ícono del tutorial adyacente para
-    // que el vecino sepa adónde va antes de tocar.
+    // ─────────────────────────────────────────────────────
+    // LISTA ORDENADA DE TUTORIALES (para nav anterior/siguiente)
+    // ─────────────────────────────────────────────────────
+
+    const obtenerOrdenTutoriales = () => {
+        const db = window.baseDeTutoriales;
+        if (!db) return [];
+        const orden = [];
+        Object.keys(CATEGORIAS).forEach(catClave => {
+            Object.entries(db).forEach(([clave, info]) => {
+                if ((info.categoria || 'tramites') === catClave) orden.push(clave);
+            });
+        });
+        Object.keys(db).forEach(clave => {
+            if (!orden.includes(clave)) orden.push(clave);
+        });
+        return orden;
+    };
+
+    // ─────────────────────────────────────────────────────
+    // NAVEGACIÓN ANTERIOR / SIGUIENTE
+    // ─────────────────────────────────────────────────────
+
     const inyectarNavTutorial = (idClave) => {
         if (document.getElementById('nav-tutorial')) return;
-
         const db    = window.baseDeTutoriales;
         const orden = obtenerOrdenTutoriales();
         const idx   = orden.indexOf(idClave);
@@ -374,30 +547,24 @@
         nav.className = 'nav-tutorial';
         nav.setAttribute('aria-label', 'Navegar entre tutoriales');
 
-        // Contador
         const contador = document.createElement('p');
         contador.className = 'nav-tutorial-contador';
         contador.textContent = `Tutorial ${idx + 1} de ${orden.length}`;
         nav.appendChild(contador);
 
-        // Botones
         const btnsRow = document.createElement('div');
         btnsRow.className = 'nav-tutorial-btns';
 
         if (idx > 0) {
-            const ant     = db[orden[idx - 1]];
-            const btnAnt  = document.createElement('button');
+            const ant    = db[orden[idx - 1]];
+            const btnAnt = document.createElement('button');
             btnAnt.className = 'btn-nav btn-nav-anterior';
             btnAnt.setAttribute('aria-label', `Tutorial anterior: ${ant.titulo}`);
-            // Truncar el título si es muy largo
-            const tituloAnt = ant.titulo.length > 28
-                ? ant.titulo.substring(0, 26) + '…'
-                : ant.titulo;
-            btnAnt.innerHTML = `← ${ant.icono} ${tituloAnt}`;
+            const t = ant.titulo.length > 28 ? ant.titulo.substring(0, 26) + '…' : ant.titulo;
+            btnAnt.innerHTML = `← ${ant.icono} ${t}`;
             btnAnt.addEventListener('click', () => mostrarTutorial(orden[idx - 1]));
             btnsRow.appendChild(btnAnt);
         } else {
-            // Placeholder para mantener alineación del botón siguiente
             const ph = document.createElement('span');
             ph.className = 'nav-placeholder';
             btnsRow.appendChild(ph);
@@ -408,17 +575,14 @@
             const btnSig = document.createElement('button');
             btnSig.className = 'btn-nav btn-nav-siguiente';
             btnSig.setAttribute('aria-label', `Tutorial siguiente: ${sig.titulo}`);
-            const tituloSig = sig.titulo.length > 28
-                ? sig.titulo.substring(0, 26) + '…'
-                : sig.titulo;
-            btnSig.innerHTML = `${sig.icono} ${tituloSig} →`;
+            const t = sig.titulo.length > 28 ? sig.titulo.substring(0, 26) + '…' : sig.titulo;
+            btnSig.innerHTML = `${sig.icono} ${t} →`;
             btnSig.addEventListener('click', () => mostrarTutorial(orden[idx + 1]));
             btnsRow.appendChild(btnSig);
         }
 
         nav.appendChild(btnsRow);
 
-        // Insertar ANTES del botón "Terminé todo"
         const btnFinalizar = document.getElementById('btn-finalizar-tutorial');
         if (btnFinalizar) {
             btnFinalizar.parentNode.insertBefore(nav, btnFinalizar);
@@ -427,7 +591,10 @@
         }
     };
 
-    // ── Buscador ──────────────────────────────────────────
+    // ─────────────────────────────────────────────────────
+    // BUSCADOR PRINCIPAL (en la página)
+    // ─────────────────────────────────────────────────────
+
     const inicializarBuscador = () => {
         const input    = document.getElementById('input-buscador');
         const contador = document.getElementById('contador-resultados');
@@ -437,26 +604,36 @@
             const t = e.target.value.trim().toLowerCase();
             let vis = 0;
 
+            if (!t) {
+                // Sin texto: ocultar todos los grids (el visor modal se abre por click)
+                document.querySelectorAll('#menu-tutoriales .categoria-grid').forEach(g => {
+                    g.style.display = 'none';
+                });
+                document.querySelectorAll('#menu-tutoriales .acord-header').forEach(h => {
+                    h.style.display = '';
+                });
+                if (contador) contador.textContent = '';
+                return;
+            }
+
+            // Con texto: mostrar grids con resultados, ocultar los vacíos
             document.querySelectorAll('#menu-tutoriales .btn-menu').forEach((btn) => {
                 const enCategoria = !categoriaActiva || btn.dataset.categoria === categoriaActiva;
-                const enBusqueda  = !t || btn.textContent.toLowerCase().includes(t);
-                const mostrar     = enCategoria && enBusqueda;
-                btn.style.display = mostrar ? '' : 'none';
-                if (mostrar) vis++;
+                const enBusqueda  = btn.textContent.toLowerCase().includes(t);
+                btn.style.display = (enCategoria && enBusqueda) ? '' : 'none';
+                if (enCategoria && enBusqueda) vis++;
             });
 
-            document.querySelectorAll('.categoria-encabezado').forEach((enc) => {
-                const cat  = enc.dataset.categoria;
-                const grid = document.querySelector(`.categoria-grid[data-categoria="${cat}"]`);
+            document.querySelectorAll('#menu-tutoriales .acord-header').forEach((h) => {
+                const cat  = h.dataset.categoria;
+                const grid = document.querySelector(`#menu-tutoriales .categoria-grid[data-categoria="${cat}"]`);
                 const tieneVisibles = grid && grid.querySelector('.btn-menu:not([style*="none"])');
-                enc.style.display  = tieneVisibles ? '' : 'none';
+                h.style.display = tieneVisibles ? '' : 'none';
                 if (grid) grid.style.display = tieneVisibles ? '' : 'none';
             });
 
             if (contador) {
-                contador.textContent = t
-                    ? `${vis} resultado${vis !== 1 ? 's' : ''} encontrado${vis !== 1 ? 's' : ''}`
-                    : '';
+                contador.textContent = `${vis} resultado${vis !== 1 ? 's' : ''} encontrado${vis !== 1 ? 's' : ''}`;
             }
         });
 
@@ -468,7 +645,10 @@
         });
     };
 
-    // ── Tutorial reciente ─────────────────────────────────
+    // ─────────────────────────────────────────────────────
+    // TUTORIAL RECIENTE
+    // ─────────────────────────────────────────────────────
+
     const mostrarBotonReciente = () => {
         const store = window.PD_Storage;
         const db    = window.baseDeTutoriales;
@@ -500,30 +680,12 @@
         intro.appendChild(div);
     };
 
-    // ── Lupa Digital (Accesibilidad Visual) ───────────────
-    const inicializarLupa = () => {
-        const btnLupa = document.getElementById('btn-lupa');
-        if (!btnLupa) return;
+    // ─────────────────────────────────────────────────────
+    // INICIALIZACIÓN
+    // ─────────────────────────────────────────────────────
 
-        const lupaPrevia = localStorage.getItem('pd_lupa_activa') === 'true';
-        if (lupaPrevia) {
-            document.body.classList.add('lupa-activa');
-            btnLupa.classList.add('lupa-on');
-            btnLupa.setAttribute('aria-pressed', 'true');
-        }
-
-        btnLupa.addEventListener('click', () => {
-            const estaActiva = document.body.classList.toggle('lupa-activa');
-            btnLupa.classList.toggle('lupa-on', estaActiva);
-            btnLupa.setAttribute('aria-pressed', estaActiva ? 'true' : 'false');
-            localStorage.setItem('pd_lupa_activa', estaActiva);
-        });
-    };
-
-    // ── Inicialización segura ─────────────────────────────
     const init = () => {
         if (!window.baseDeTutoriales) {
-            console.warn('Esperando baseDeTutoriales...');
             setTimeout(init, 100);
             return;
         }
@@ -532,7 +694,6 @@
         renderizarTabs();
         inicializarBuscador();
         mostrarBotonReciente();
-        inicializarLupa();
 
         window.PD_TutorialCard?.renderizarSeccionFavoritos();
 
@@ -545,8 +706,8 @@
     };
 
     // ── API pública ───────────────────────────────────────
-    window.mostrarTutorial  = mostrarTutorial;
-    window.ocultarTutorial  = ocultarTutorial;
+    window.mostrarTutorial = mostrarTutorial;
+    window.ocultarTutorial = ocultarTutorial;
 
     if (!window.PD_UI) window.PD_UI = {};
     window.PD_UI.filtrarPorCategoria = filtrarPorCategoria;

@@ -1,31 +1,13 @@
 // =========================================================
 // service-worker.js — Punto Digital Comunitario Morenense
 //
-// Deploy: https://angel-digitalizando.github.io/punto-digital/
-//
-// Estrategia: Cache-First con Stale-While-Revalidate
-// para assets propios. Recursos externos pasan a la red.
-//
-// VERSIONADO:
-//   Cambiar CACHE_VERSION fuerza reinstalación completa.
-//   El activate handler borra TODOS los caches anteriores.
-//   Compatible con usuarios que vienen de v1, v2, v3, v4.
-//
-// RUTAS:
-//   Todas las rutas usan './' (relativas al SW).
-//   El SW vive en /punto-digital/service-worker.js,
-//   por lo que su scope es /punto-digital/ automáticamente.
-//   Las rutas './index.html' resuelven a /punto-digital/index.html.
-//   Esto es correcto para GitHub Pages con subdirectorio.
-// =========================================================
-// service-worker.js — Punto Digital Comunitario Morenense
-//
-// v17 (Junio 2026): bump de versión para forzar reinstalación
-// completa tras la reingeniería del sistema de accesibilidad,
-// corrección de progressBar.js y script.js.
+// v19 (Junio 2026): menú hamburguesa + drawer, tooltip primera visita,
+// botón volver arriba con SVG, fixes de contraste y tipografía.
 // =========================================================
 
-const CACHE_VERSION = 'punto-digital-v18';
+// v19 (Junio 2026): menú hamburguesa, drawer, tooltip primera vez,
+// botón volver arriba mejorado, fixes UX/contraste/tipografía.
+const CACHE_VERSION = 'punto-digital-v19';
 const CACHE_NOMBRE  = CACHE_VERSION + '-assets';
 
 const ASSETS_PRECACHE = [

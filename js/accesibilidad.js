@@ -192,12 +192,15 @@
                     SVG_CERRAR +
                 '</button>' +
             '</div>' +
+            // ── Control de escala tipográfica (reemplaza Lectura Grande + Ultra) ──
+            '<div class="acc-escala-wrap">' +
+                '<span class="acc-escala-label">🔡 Tamaño de texto</span>' +
+                '<button id="acc-escala-menos" class="acc-escala-btn" aria-label="Reducir texto">−</button>' +
+                '<span id="acc-escala-valor" class="acc-escala-valor">Normal</span>' +
+                '<button id="acc-escala-mas" class="acc-escala-btn" aria-label="Aumentar texto">+</button>' +
+            '</div>' +
             '<div class="acc-panel-opciones">' +
-                buildOpcion('acc-btn-letra',     'modo-lectura-grande', '🔠', 'Letra Grande')   +
                 buildOpcion('acc-btn-contraste', 'modo-alto-contraste', '🌑', 'Alto Contraste') +
-                buildOpcion('acc-btn-ultra',     'modo-ultra',          '👓', 'Modo Ultra')      +
-                // btn-voz: id="btn-voz" para compatibilidad con speech.js
-                // No usa data-modo porque voz no es un modo CSS persistido.
                 '<button id="btn-voz" class="acc-opcion"' +
                     ' aria-pressed="false" aria-label="Leer tutorial en voz alta">' +
                     '<span class="acc-opcion-emoji" aria-hidden="true">🔊</span>' +
@@ -233,17 +236,63 @@
             }
         });
 
-        // ── Bindings de cada opción ───────────────────────
+        // ── Bindings de opciones ──────────────────────────
         var bindings = [
-            { id: 'acc-btn-letra',     fn: toggleLecturaGrande },
-            { id: 'acc-btn-contraste', fn: toggleAltoContraste  },
-            { id: 'acc-btn-ultra',     fn: toggleModoUltra      },
-            { id: 'btn-voz',           fn: toggleVoz            },
+            { id: 'acc-btn-contraste', fn: toggleAltoContraste },
+            { id: 'btn-voz',           fn: toggleVoz           },
         ];
         bindings.forEach(function (b) {
             var el = document.getElementById(b.id);
             if (el) el.addEventListener('click', b.fn);
         });
+
+        // ── Control de escala tipográfica ─────────────────
+        var ESCALAS = ['-2', '-1', '0', '+1', '+2'];
+        var ETIQUETAS = { '-2': 'Muy chico', '-1': 'Chico', '0': 'Normal', '+1': 'Grande', '+2': 'Muy grande' };
+        var escalaActual = '0';
+
+        function aplicarEscala(val) {
+            escalaActual = val;
+            var html = document.documentElement;
+            if (val === '0') {
+                html.removeAttribute('data-fs');
+            } else {
+                html.setAttribute('data-fs', val);
+            }
+            var label = document.getElementById('acc-escala-valor');
+            if (label) label.textContent = ETIQUETAS[val] || 'Normal';
+            var btnMenos = document.getElementById('acc-escala-menos');
+            var btnMas   = document.getElementById('acc-escala-mas');
+            if (btnMenos) btnMenos.disabled = (val === '-2');
+            if (btnMas)   btnMas.disabled   = (val === '+2');
+            // Persistir
+            try { localStorage.setItem('pd_fs_scale', val); } catch(_) {}
+        }
+
+        var btnMenos = document.getElementById('acc-escala-menos');
+        var btnMas   = document.getElementById('acc-escala-mas');
+        if (btnMenos) {
+            btnMenos.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var idx = ESCALAS.indexOf(escalaActual);
+                if (idx > 0) aplicarEscala(ESCALAS[idx - 1]);
+            });
+        }
+        if (btnMas) {
+            btnMas.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var idx = ESCALAS.indexOf(escalaActual);
+                if (idx < ESCALAS.length - 1) aplicarEscala(ESCALAS[idx + 1]);
+            });
+        }
+
+        // Restaurar escala guardada
+        try {
+            var escalaGuardada = localStorage.getItem('pd_fs_scale');
+            if (escalaGuardada && ESCALAS.includes(escalaGuardada)) {
+                aplicarEscala(escalaGuardada);
+            }
+        } catch(_) {}
     }
 
     // ─────────────────────────────────────────────────────

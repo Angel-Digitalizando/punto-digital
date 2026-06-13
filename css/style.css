@@ -4,13 +4,14 @@
 ========================================================= */
 
 :root {
+    /* ── Paleta institucional ────────────────────────── */
     --azul-arg:    #0B5AA2;
     --azul-oscuro: #073763;
     --celeste-arg: #37B5E5;
     --fondo:       #F5F8FC;
     --blanco:      #FFFFFF;
     --texto:       #1F2937;
-    --texto-suave: #4B5563;
+    --texto-suave: #374151;
     --gris-borde:  #D7E1EA;
     --verde:       #198754;
     --amarillo:    #FFF3CD;
@@ -19,6 +20,23 @@
     --shadow:      0 3px 10px rgba(0,0,0,.07);
     --radius:      18px;
     --espacio:     clamp(16px, 3vw, 32px);
+
+    /* ── Escala tipográfica controlada ───────────────── */
+    /* JS solo cambia --fs-scale. Todo lo demás escala junto. */
+    --fs-scale: 1;
+    --fs-xs:   calc(0.82rem  * var(--fs-scale));
+    --fs-sm:   calc(0.95rem  * var(--fs-scale));
+    --fs-md:   calc(1.1rem   * var(--fs-scale));
+    --fs-lg:   calc(1.25rem  * var(--fs-scale));
+    --fs-xl:   calc(1.5rem   * var(--fs-scale));
+    --fs-2xl:  calc(1.9rem   * var(--fs-scale));
+    --fs-3xl:  calc(2.3rem   * var(--fs-scale));
+
+    /* Tamaños fijos que NUNCA escalan (iconos / UI chrome) */
+    --icon-sm: 18px;
+    --icon-md: 22px;
+    --icon-lg: 28px;
+    --btn-fab: 50px;
 }
 
 /* ── Reset ─────────────────────────────────────────────── */
@@ -29,7 +47,8 @@ body {
     color: var(--texto);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.8;
-    font-size: 22px;
+    /* clamp: mín 18px en móvil estrecho, fluido, máx 22px en desktop */
+    font-size: clamp(18px, 4.2vw, 22px);
     min-height: 100vh;
     -webkit-text-size-adjust: 100%;
 }
@@ -53,8 +72,12 @@ body {
     border-bottom:8px solid var(--celeste-arg);
     box-shadow: var(--shadow);
 }
-.header h1 { font-size:3rem; text-align:center; line-height:1.3; margin-bottom:15px; font-weight:700; }
-.header p  { text-align:center; font-size:1.3rem; opacity:.98; }
+.header h1 {
+    font-size: clamp(1.5rem, 6.5vw, 3rem);
+    text-align:center; line-height:1.3; margin-bottom:15px; font-weight:700;
+    overflow-wrap: break-word; word-break: break-word;
+}
+.header p  { text-align:center; font-size: clamp(1rem, 3vw, 1.3rem); opacity:.98; }
 
 /* ── Indicador Offline ─────────────────────────────────── */
 #indicador-conexion {
@@ -322,80 +345,267 @@ a:hover { text-decoration:underline; }
     to   { opacity:1; transform:translateY(0); }
 }
 
-/* ── Modos accesibles ──────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   SISTEMA DE ESCALADO TIPOGRÁFICO CONTROLADO
+   JS cambia SOLO --fs-scale en :root. Nada más.
+   Todos los textos heredan el cambio de forma uniforme.
+   Los iconos y FABs están desacoplados y no se deforman.
+   ══════════════════════════════════════════════════════════ */
 
-/* Lectura Grande */
-html.modo-lectura-grande body { font-size:27px !important; }
-html.modo-lectura-grande .paso-tutorial p,
-html.modo-lectura-grande .intro p { font-size:1.35rem !important; line-height:2 !important; }
-html.modo-lectura-grande .btn-menu { font-size:1.5rem !important; padding:32px !important; }
-html.modo-lectura-grande button    { font-size:1.35rem !important; min-height:70px !important; }
-html.modo-lectura-grande .input-buscador { font-size:1.4rem; padding:18px; }
+/* Escala -2 (texto más pequeño) */
+html[data-fs="-2"] { --fs-scale: 0.82; }
+/* Escala -1 */
+html[data-fs="-1"] { --fs-scale: 0.91; }
+/* Escala 0 — normal (por defecto, no necesita declaración) */
+/* Escala +1 */
+html[data-fs="+1"] { --fs-scale: 1.15; }
+/* Escala +2 (texto más grande) */
+html[data-fs="+2"] { --fs-scale: 1.32; }
 
-/* Alto Contraste */
-html.modo-alto-contraste body { background:#111 !important; color:#fff !important; }
-html.modo-alto-contraste .header { background:#000 !important; border-bottom-color:#FFD700 !important; }
-html.modo-alto-contraste .btn-menu,
+/* Aplicar la escala al cuerpo del texto (no a iconos ni UI) */
+body { font-size: calc(clamp(18px, 4.2vw, 22px) * var(--fs-scale)); }
+
+/* Botones de texto usan la escala — pero el PADDING no escala para no deformar */
+.btn-menu    { font-size: var(--fs-md) !important; }
+.btn-accion  { font-size: var(--fs-sm) !important; }
+.btn-paso    { font-size: var(--fs-sm) !important; }
+.tab-categoria { font-size: var(--fs-xs) !important; }
+.input-buscador { font-size: var(--fs-lg); }
+.paso-tutorial p { font-size: var(--fs-lg); line-height: 1.9; }
+.paso-tutorial h3 { font-size: var(--fs-xl); }
+.intro h2 { font-size: var(--fs-2xl); }
+.drawer-item { font-size: var(--fs-md) !important; }
+
+/* Iconos y FABs — SIEMPRE tamaño fijo, no escalan */
+.btn-hamburger,
+.btn-compartir-flotante,
+#btn-acc-flotante,
+.btn-volver-arriba {
+    width: var(--btn-fab) !important;
+    height: var(--btn-fab) !important;
+    min-height: auto !important;
+    font-size: 0 !important; /* el contenido es SVG, no texto */
+}
+.btn-hamburger { width: 48px !important; height: 48px !important; }
+.hamburger-linea { width: 22px; height: 2.5px; } /* nunca cambia */
+
+.btn-hamburger svg,
+.btn-compartir-flotante svg,
+#btn-acc-flotante svg,
+.btn-volver-arriba svg,
+.drawer-btn-cerrar svg,
+.acc-btn-cerrar svg {
+    width: var(--icon-md) !important;
+    height: var(--icon-md) !important;
+    flex-shrink: 0;
+    display: block;
+}
+
+/* ── ALTO CONTRASTE — regla única y completa ──────────── */
+
+html.modo-alto-contraste,
+html.modo-alto-contraste body {
+    background: #111 !important;
+    color: #fff !important;
+}
+
+/* Todos los contenedores */
+html.modo-alto-contraste .header,
+html.modo-alto-contraste .footer {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .header h1,
+html.modo-alto-contraste .header p { color: #fff !important; }
+
 html.modo-alto-contraste .intro,
 html.modo-alto-contraste .tutorial-container,
 html.modo-alto-contraste .paso-tutorial,
 html.modo-alto-contraste .seccion-buscador,
 html.modo-alto-contraste .seccion-favoritos,
-html.modo-alto-contraste .seccion-progreso { background:#111 !important; color:#fff !important; border-color:#FFD700 !important; }
+html.modo-alto-contraste .seccion-progreso,
+html.modo-alto-contraste .banner-seguridad,
+html.modo-alto-contraste .alerta-tranquilidad,
+html.modo-alto-contraste .nota-tutorial,
+html.modo-alto-contraste .nav-tutorial {
+    background: #111 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+
+/* Textos enfatizados */
 html.modo-alto-contraste .paso-tutorial h3,
-html.modo-alto-contraste .intro h2  { color:#FFD700 !important; }
-html.modo-alto-contraste .input-buscador { background:#000 !important; color:#fff !important; border-color:#FFD700 !important; }
-html.modo-alto-contraste a { color:#FFD700 !important; }
-html.modo-alto-contraste #barra-accesibilidad { background:#000 !important; border-color:#FFD700 !important; }
+html.modo-alto-contraste .intro h2,
+html.modo-alto-contraste .progreso-titulo,
+html.modo-alto-contraste .favoritos-titulo,
+html.modo-alto-contraste .banner-seg-titulo {
+    color: #FFD700 !important;
+}
 
-/* Modo Ultra */
-html.modo-ultra body { font-size:28px !important; letter-spacing:.01em; }
-html.modo-ultra .paso-tutorial { padding:32px !important; margin-bottom:28px !important; }
-html.modo-ultra .paso-tutorial p { font-size:1.45rem !important; line-height:2.1 !important; }
-html.modo-ultra .btn-menu { padding:36px !important; font-size:1.6rem !important; min-height:110px !important; }
-html.modo-ultra button { min-height:76px !important; font-size:1.4rem !important; }
-html.modo-ultra .barra-progreso-wrap { height:24px !important; }
-html.modo-ultra * { transition:none !important; animation:none !important; }
+/* Botones del menú */
+html.modo-alto-contraste .btn-menu {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+    border-left-color: #FFD700 !important;
+}
+html.modo-alto-contraste .btn-menu:hover {
+    background: #222 !important;
+}
 
-/* Reduced motion */
-html.reduced-motion *, html.reduced-motion *::before, html.reduced-motion *::after {
-    animation-duration:1ms !important;
-    transition-duration:1ms !important;
+/* Acordeón */
+html.modo-alto-contraste .acord-header {
+    background: #000 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .acord-header-activo { background: #1a1a00 !important; }
+html.modo-alto-contraste .categoria-grid      { border-color: #FFD700 !important; }
+
+/* Drawer completo */
+html.modo-alto-contraste .drawer-nav {
+    background: #111 !important;
+    border-left: 2px solid #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-header { background: #000 !important; }
+html.modo-alto-contraste .drawer-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .drawer-btn-cerrar { color: #FFD700 !important; }
+html.modo-alto-contraste .drawer-seccion-titulo {
+    background: #1a1a00 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-item {
+    color: #fff !important;
+    border-color: #333 !important;
+}
+html.modo-alto-contraste .drawer-item:hover {
+    background: #222 !important;
+    color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-cat-btn {
+    background: #111 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-buscador-input {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-resultado-item {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+
+/* Buscador principal */
+html.modo-alto-contraste .input-buscador {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+
+/* Links */
+html.modo-alto-contraste a { color: #FFD700 !important; }
+
+/* Panel accesibilidad */
+html.modo-alto-contraste #panel-acc {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .acc-panel-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .acc-opcion {
+    background: #222 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-opcion.acc-opcion-activa {
+    border-color: #4ADE80 !important;
+    background: #062a0e !important;
+    color: #4ADE80 !important;
+}
+html.modo-alto-contraste .acc-estado {
+    background: #444 !important;
+    color: #fff !important;
+}
+
+/* Tabs de categoría */
+html.modo-alto-contraste .tab-categoria {
+    background: #111 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .tab-categoria.tab-activo {
+    background: #FFD700 !important;
+    color: #000 !important;
+}
+
+/* FABs en alto contraste */
+html.modo-alto-contraste .btn-hamburger {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+html.modo-alto-contraste .hamburger-linea { background: #FFD700 !important; }
+html.modo-alto-contraste .btn-volver-arriba {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+
+/* Sección atencion-comunidad */
+html.modo-alto-contraste #atencion-comunidad {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste #atencion-comunidad a { color: #FFD700 !important; }
+
+/* ── MODO ULTRA — usa la escala +2 ────────────────────── */
+html.modo-ultra { --fs-scale: 1.32; }
+html.modo-ultra .paso-tutorial { padding: 32px !important; }
+html.modo-ultra .barra-progreso-wrap { height: 24px !important; }
+html.modo-ultra * { transition: none !important; animation: none !important; }
+
+/* ── Reduced motion ────────────────────────────────────── */
+html.reduced-motion *,
+html.reduced-motion *::before,
+html.reduced-motion *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
 }
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration:1ms !important; transition-duration:1ms !important; }
+    *, *::before, *::after {
+        animation-duration: 1ms !important;
+        transition-duration: 1ms !important;
+    }
 }
 
-/* ── Focus visible ──────────────────────────────────────── */
-:focus-visible { outline:4px solid #FFD54F; outline-offset:3px; }
+/* ── Focus visible ─────────────────────────────────────── */
+:focus-visible { outline: 4px solid #FFD54F; outline-offset: 3px; }
 
-/* ── Tablet ─────────────────────────────────────────────── */
-@media (max-width:900px) {
-    body { font-size:21px; }
-    .header h1 { font-size:2.4rem; }
+/* ── Responsive — Tablet ───────────────────────────────── */
+@media (max-width: 900px) {
+    .header h1 { font-size: clamp(1.4rem, 5.5vw, 2.4rem); }
 }
 
-/* ── Celulares ──────────────────────────────────────────── */
-@media (max-width:600px) {
-    body { font-size:23px; }
-    .container { width:96%; }
-    .header { padding:28px 14px; }
-    .header h1 { font-size:2.1rem; line-height:1.4; }
-    .header p  { font-size:1.2rem; }
+/* ── Responsive — Mobile ───────────────────────────────── */
+@media (max-width: 600px) {
+    .container { width: 96%; }
+    .header { padding: 28px 14px; }
     .intro, .tutorial-container, .seccion-buscador,
-    .seccion-favoritos, .seccion-progreso { padding:20px; }
-    .intro h2 { font-size:1.9rem; }
-    .barra-acc-inner { gap:6px; }
-    .btn-acc  { font-size:.88rem !important; padding:8px 11px; }
-    .btn-menu { padding:22px 16px; font-size:1.2rem !important; }
-    .paso-tutorial { padding:20px; }
-    .paso-tutorial h3 { font-size:1.6rem; }
-    .paso-tutorial p  { font-size:1.25rem; }
-    button  { width:100%; font-size:1.25rem !important; padding:17px !important; }
-    .btn-volver { max-width:100%; }
-    .btn-acc, .btn-accion, .btn-paso, .btn-voz-ctrl { width:auto; }
-    .panel-voz-controles { gap:6px; }
-    .btn-voz-ctrl { font-size:.9rem !important; padding:8px 10px; }
+    .seccion-favoritos, .seccion-progreso { padding: 20px; }
+    .btn-volver { max-width: 100%; }
+    .btn-acc, .btn-accion, .btn-paso, .btn-voz-ctrl { width: auto; }
+    .panel-voz-controles { gap: 6px; }
+    .btn-voz-ctrl { font-size: var(--fs-xs) !important; padding: 8px 10px; }
+    /* Botones de acción NO ocupan 100% ancho en mobile (era regla global) */
+    button {
+        font-size: var(--fs-md) !important;
+        padding: 16px 18px !important;
+    }
+    .btn-hamburger, .btn-volver-arriba,
+    .btn-compartir-flotante, #btn-acc-flotante {
+        padding: 0 !important; /* los FABs no llevan padding de texto */
+    }
 }
 
 /* =========================================================
@@ -1404,3 +1614,1174 @@ html.modo-alto-contraste .btn-nav-siguiente {
     .btn-nav-anterior,
     .btn-nav-siguiente  { text-align: center; }
 }
+
+/* ==========================================================
+   v4 — MENÚ HAMBURGUESA + DRAWER + TOOLTIP + VOLVER ARRIBA
+   + FIXES DE UX/ACCESIBILIDAD
+   Punto Digital Comunitario Morenense
+   ========================================================== */
+
+/* ── Variables nuevas ────────────────────────────────────── */
+:root {
+    --drawer-ancho:  300px;
+    --hamburger-top: 14px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOTÓN HAMBURGUESA
+   ══════════════════════════════════════════════════════════ */
+
+.btn-hamburger {
+    position: fixed;
+    top: var(--hamburger-top);
+    right: 14px;
+    z-index: 10001;
+    width: 48px;
+    height: 48px;
+    background: var(--azul-arg);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .28);
+    min-height: auto !important;
+    transition: background .18s, transform .15s;
+}
+
+.btn-hamburger:hover { background: var(--azul-oscuro); }
+.btn-hamburger:active { transform: scale(.93); }
+.btn-hamburger:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+/* Estado "abierto" del hamburger → se convierte en ✕ */
+.btn-hamburger.ham-abierto { background: var(--azul-oscuro); }
+.btn-hamburger.ham-abierto .hamburger-linea:nth-child(1) {
+    transform: translateY(12px) rotate(45deg);
+}
+.btn-hamburger.ham-abierto .hamburger-linea:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.btn-hamburger.ham-abierto .hamburger-linea:nth-child(3) {
+    transform: translateY(-12px) rotate(-45deg);
+}
+
+.hamburger-linea {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background: white;
+    border-radius: 3px;
+    transition: transform .25s ease, opacity .2s ease;
+    transform-origin: center;
+}
+
+/* ── Alto contraste ──────────────────────────────────────── */
+html.modo-alto-contraste .btn-hamburger {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+html.modo-alto-contraste .hamburger-linea { background: #FFD700 !important; }
+
+/* ══════════════════════════════════════════════════════════
+   OVERLAY + DRAWER
+   ══════════════════════════════════════════════════════════ */
+
+/* Overlay semitransparente al abrir el menú */
+.drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 55, 99, .55);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .28s ease;
+}
+.drawer-overlay.drawer-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Panel lateral */
+.drawer-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(var(--drawer-ancho), 88vw);
+    background: white;
+    z-index: 10002;
+    transform: translateX(100%);
+    transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: -6px 0 28px rgba(0, 0, 0, .18);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+.drawer-nav.drawer-visible {
+    transform: translateX(0);
+}
+
+/* Header del drawer */
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 16px;
+    background: var(--azul-oscuro);
+    color: white;
+    flex-shrink: 0;
+}
+
+.drawer-titulo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: .02em;
+}
+
+.drawer-btn-cerrar {
+    background: rgba(255, 255, 255, .15);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: auto !important;
+    width: auto !important;
+    transition: background .15s;
+}
+.drawer-btn-cerrar:hover { background: rgba(255, 255, 255, .3); }
+.drawer-btn-cerrar:focus { outline: 3px solid #FFD54F; outline-offset: 2px; }
+
+/* Lista de items */
+.drawer-lista {
+    list-style: none;
+    padding: 12px 0;
+    margin: 0;
+    flex: 1;
+}
+
+.drawer-lista li {
+    border-bottom: 1px solid #EEF2F7;
+}
+
+.drawer-lista li:last-child { border-bottom: none; }
+
+.drawer-item {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--azul-oscuro);
+    font-size: 1.1rem !important;
+    font-weight: bold;
+    text-align: left;
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: auto !important;
+    transition: background .14s, color .14s;
+    line-height: 1.3;
+}
+
+.drawer-item:hover {
+    background: #EBF4FF;
+    color: var(--azul-arg);
+}
+
+.drawer-item:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: -3px;
+}
+
+/* ── Alto contraste: drawer ─────────────────────────────── */
+html.modo-alto-contraste .drawer-nav {
+    background: #111 !important;
+    border-left: 2px solid #FFD700;
+}
+html.modo-alto-contraste .drawer-header  { background: #000 !important; }
+html.modo-alto-contraste .drawer-lista li { border-color: #333 !important; }
+html.modo-alto-contraste .drawer-item    { color: #fff !important; }
+html.modo-alto-contraste .drawer-item:hover { background: #222 !important; color: #FFD700 !important; }
+
+/* ══════════════════════════════════════════════════════════
+   TOOLTIP "Tocá acá para abrir el menú"
+   ══════════════════════════════════════════════════════════ */
+
+.tooltip-nav {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    z-index: 10003;
+    background: var(--azul-arg);
+    color: white;
+    border-radius: 12px;
+    padding: 10px 12px;
+    max-width: 196px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .22);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* El div completo tiene pointer-events:none para no interceptar
+       clicks dirigidos al hamburger que queda debajo/detrás */
+    pointer-events: none;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+@keyframes tooltip-entrada {
+    0%   { opacity: 0; transform: translateY(-10px); }
+    60%  { opacity: 1; transform: translateY(4px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.tooltip-nav { animation: tooltip-entrada .5s ease .8s both; }
+
+.tooltip-nav.tooltip-oculto {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+}
+
+/* Solo el botón ✕ capta eventos — el resto del tooltip es pass-through */
+.tooltip-cerrar {
+    pointer-events: auto;   /* ← única zona interactiva */
+    background: rgba(255, 255, 255, .2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 0.8rem !important;
+    /* Tamaño fijo — no escala con el texto */
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px !important;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background .15s;
+    line-height: 1;
+    order: -1;  /* X a la izquierda */
+}
+.tooltip-cerrar:hover { background: rgba(255, 255, 255, .4); }
+.tooltip-cerrar:focus { outline: 2px solid #FFD54F; outline-offset: 1px; }
+
+.tooltip-texto {
+    font-size: 0.9rem;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0;
+    flex: 1;
+    /* texto también pass-through */
+    pointer-events: none;
+}
+
+.tooltip-flecha-wrap {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+.tooltip-flecha-wrap svg {
+    width: 28px !important;
+    height: 28px !important;
+    flex-shrink: 0;
+}
+
+/* Ocultar en alto contraste */
+html.modo-alto-contraste .tooltip-nav { display: none !important; }
+
+/* ══════════════════════════════════════════════════════════
+   BOTÓN VOLVER ARRIBA — rediseñado
+   Reemplaza los inline styles del HTML anterior
+   ══════════════════════════════════════════════════════════ */
+
+.btn-volver-arriba {
+    position: fixed;
+    /* Columna derecha: arriba del btn-compartir (bottom:28px+58px+8px = 94px)
+       y abajo del btn-acc (bottom:100px → queda justo encima de compartir) */
+    bottom: 164px;
+    right: 20px;
+    z-index: 9998;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--celeste-arg);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: none;   /* JS lo muestra con scroll */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+    min-height: auto !important;
+    padding: 0;
+    transition: background .15s, transform .15s, opacity .25s;
+    opacity: 0;
+}
+
+/* Cuando JS agrega .visible → display:flex + opacity:1 */
+.btn-volver-arriba.visible {
+    display: flex !important;
+    opacity: 1;
+}
+
+.btn-volver-arriba:hover  { background: var(--azul-arg); transform: scale(1.08); }
+.btn-volver-arriba:active { transform: scale(.93); }
+.btn-volver-arriba:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+/* Sube cuando el panel de voz está activo */
+body:has(#panel-voz[style*="block"]) .btn-volver-arriba {
+    bottom: 258px;
+}
+
+/* ── Alto contraste ──────────────────────────────────────── */
+html.modo-alto-contraste .btn-volver-arriba {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .btn-volver-arriba {
+        bottom: 152px;
+        right: 14px;
+        width: 46px;
+        height: 46px;
+    }
+    body:has(#panel-voz[style*="block"]) .btn-volver-arriba { bottom: 244px; }
+
+    /* El hamburger en mobile ya está bien con right:14px del header fixed */
+}
+
+/* ══════════════════════════════════════════════════════════
+   FIXES UX / TIPOGRAFÍA / CONTRASTE / JERARQUÍA
+   ══════════════════════════════════════════════════════════ */
+
+/*  FIX 1 — Compensar el header por el botón hamburguesa fijo.
+    Sin esto, el hamburger tapa el texto del título en mobile.  */
+.header {
+    padding-top: 50px;   /* espacio para que el botón no tape el h1 */
+    padding-right: 70px; /* margen derecho para el botón hamburguesa */
+}
+
+/*  FIX 2 — Mejorar legibilidad del texto de pasos.
+    El tamaño 1.2rem era justo al límite; sube a 1.25rem base.  */
+.paso-tutorial p {
+    font-size: 1.25rem;
+    line-height: 1.95;
+}
+
+/*  FIX 3 — Contraste del texto suave (#4B5563 sobre blanco = 7.2:1 ✔)
+    pero dentro de las intro cards el color era muy gris.  */
+.intro p,
+.categoria-desc {
+    color: #374151;  /* sube contraste de #4B5563 a #374151 (WCAG AA) */
+}
+
+/*  FIX 4 — Los pasos numerados (h3) en mobile eran difíciles de
+    distinguir del cuerpo. Se les agrega borde izquierdo institucional
+    y se baja el font-size del paso para dar protagonismo al contenido. */
+.paso-tutorial h3 {
+    font-size: 1.5rem;
+    color: var(--azul-oscuro);
+    border-left: 5px solid var(--celeste-arg);
+    padding-left: 12px;
+    margin-bottom: 14px;
+}
+
+/*  FIX 5 — Separación entre secciones del menú principal.
+    La segunda categoría quedaba pegada a la primera sin aire visual. */
+.categoria-encabezado {
+    margin-top: 28px;
+}
+.categoria-encabezado:first-of-type {
+    margin-top: 4px;
+}
+
+/*  FIX 6 — El banner-seg-btn (#C62828) sobre fondo #FFF1F1 ya era
+    suficientemente contrastado, pero el texto de los items era #1F2937
+    sobre #FFF1F1, que da un ratio de 14:1. OK.
+    Lo que faltaba: que el tamaño del texto del banner sea legible. */
+.banner-seg-item {
+    font-size: 1.12rem;
+}
+
+/*  FIX 7 — El textarea del buscador tenía placeholder muy claro.
+    #9CA3AF sobre #F9FBFD = 3.2:1 (falla WCAG AA).
+    Sube a #6B7280 = 4.6:1 (pasa AA).                              */
+.input-buscador::placeholder {
+    color: #6B7280;
+}
+
+/*  FIX 8 — Jerarquía visual: los h2 de sección necesitan más aire
+    arriba para separarse del bloque anterior.                       */
+.seccion-buscador,
+.intro,
+.seccion-favoritos,
+.seccion-progreso,
+.banner-seguridad {
+    margin-top: 28px;
+}
+
+/*  FIX 9 — El botón de volver en el tutorial era de ancho 100% en
+    desktop, lo que lo hacía demasiado ancho. Ajuste a fit-content
+    en pantallas grandes.                                            */
+@media (min-width: 600px) {
+    .btn-volver { width: auto; min-width: 200px; }
+}
+
+/* ── Reduce motion: drawer sin transición ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .drawer-nav,
+    .drawer-overlay,
+    .tooltip-nav,
+    .btn-volver-arriba,
+    .hamburger-linea,
+    .btn-hamburger { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+}
+
+/* ==========================================================
+   v5 — ACORDEÓN + VISOR MODAL DE CATEGORÍA + DRAWER FIXES
+   + ESCALADO TIPOGRÁFICO + RESPONSIVE GLOBAL
+   Punto Digital Comunitario Morenense
+   ========================================================== */
+
+/* ── Transición de vista (feedback cuando cambia pantalla) ── */
+@keyframes vistaEntrada {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.vista-entrando { animation: vistaEntrada .28s ease both; }
+
+/* ══════════════════════════════════════════════════════════
+   ACORDEÓN DE CATEGORÍAS
+   ══════════════════════════════════════════════════════════ */
+
+/* Header clickable del acordeón */
+.acord-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: white;
+    border: 2px solid var(--gris-borde);
+    border-left: 6px solid var(--cat-color, var(--azul-arg));
+    border-radius: 8px;
+    padding: 16px 18px;
+    cursor: pointer;
+    text-align: left;
+    font-size: var(--fs-md) !important;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    min-height: auto !important;
+    margin-top: 10px;
+    transition: background .15s, box-shadow .15s;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    position: relative;
+}
+
+.acord-header:first-child { margin-top: 0; }
+
+.acord-header:hover {
+    background: #F0F7FF;
+    box-shadow: 0 3px 10px rgba(11,90,162,.1);
+}
+
+.acord-header:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+.acord-header-activo {
+    background: #EBF4FF;
+    border-left-width: 8px;
+}
+
+/* Partes del header del acordeón */
+.acord-icono-cat {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    line-height: 1;
+    /* Desacoplado del font-size del body — tamaño fijo */
+    width: 36px;
+    text-align: center;
+}
+
+.acord-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.acord-titulo-cat {
+    font-size: var(--fs-md);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--azul-oscuro);
+}
+
+.acord-desc-cat {
+    font-size: var(--fs-xs);
+    color: var(--texto-suave);
+    font-weight: normal;
+    line-height: 1.3;
+}
+
+.acord-badge {
+    background: var(--cat-color, var(--azul-arg));
+    color: white;
+    font-size: var(--fs-xs);
+    font-weight: 900;
+    border-radius: 20px;
+    padding: 3px 10px;
+    flex-shrink: 0;
+    min-width: 28px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Chevron — SVG fijo, solo rota */
+.acord-chevron {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: var(--texto-suave);
+    transition: transform .22s ease;
+    /* SVG siempre 18x18, no escala */
+    width: 18px;
+    height: 18px;
+}
+.acord-chevron svg { width: 18px !important; height: 18px !important; }
+
+.acord-header-activo .acord-chevron {
+    transform: rotate(180deg);
+    color: var(--azul-arg);
+}
+
+/* Grid de tutoriales dentro del acordeón */
+.categoria-grid.acord-cerrado {
+    display: none;
+}
+
+.categoria-grid.acord-abierto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 8px;
+    padding: 10px 0 6px;
+    animation: vistaEntrada .22s ease both;
+}
+
+/* Botones dentro del acordeón — texto enriquecido */
+.btn-menu {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    line-height: 1.35;
+}
+
+.btn-menu-icono {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    /* Tamaño fijo — no escala con el texto */
+    width: 30px;
+    text-align: center;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+.btn-menu-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.btn-menu-titulo {
+    font-size: var(--fs-md);
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+}
+
+.btn-menu-detalle {
+    font-size: var(--fs-xs);
+    color: var(--texto-suave);
+    font-weight: normal;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   VISOR MODAL DE CATEGORÍA
+   Se abre cuando el usuario toca una categoría.
+   Reemplaza el comportamiento de "agregar debajo".
+   ══════════════════════════════════════════════════════════ */
+
+#visor-categoria {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: flex-end;     /* sube desde abajo en mobile */
+    justify-content: center;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+#visor-categoria.visor-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#visor-overlay-cat {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 55, 99, .55);
+}
+
+.visor-panel {
+    position: relative;
+    z-index: 1;
+    background: white;
+    border-radius: 22px 22px 0 0;
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow: 0 -8px 40px rgba(0,0,0,.18);
+    transform: translateY(100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+}
+
+#visor-categoria.visor-visible .visor-panel {
+    transform: translateY(0);
+}
+
+/* En desktop: centrado como modal */
+@media (min-width: 600px) {
+    #visor-categoria {
+        align-items: center;
+        padding: 20px;
+    }
+    .visor-panel {
+        border-radius: 22px;
+        max-height: 80vh;
+    }
+}
+
+.visor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px 16px;
+    border-bottom: 2px solid var(--gris-borde);
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 2;
+}
+
+.visor-titulo {
+    font-size: var(--fs-xl);
+    font-weight: 900;
+    color: var(--azul-oscuro);
+    line-height: 1.2;
+}
+
+.visor-btn-cerrar {
+    background: #F3F4F6;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    min-height: auto !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto);
+    flex-shrink: 0;
+    transition: background .15s;
+    padding: 0;
+    font-size: 0 !important;
+}
+.visor-btn-cerrar:hover  { background: #E5E7EB; }
+.visor-btn-cerrar:focus  { outline: 4px solid #FFD54F; outline-offset: 2px; }
+.visor-btn-cerrar svg    { width: 18px !important; height: 18px !important; }
+
+.visor-desc {
+    font-size: var(--fs-sm);
+    color: var(--texto-suave);
+    padding: 10px 22px 0;
+}
+
+.visor-lista {
+    padding: 12px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Botón de tutorial dentro del visor */
+.visor-btn-tutorial {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    background: white;
+    border: 2px solid var(--gris-borde);
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    text-align: left;
+    min-height: auto !important;
+    transition: background .14s, border-color .14s, transform .1s;
+    font-size: var(--fs-md) !important;
+}
+
+.visor-btn-tutorial:hover {
+    background: #F0F7FF;
+    border-color: var(--celeste-arg);
+    transform: translateX(3px);
+}
+
+.visor-btn-tutorial:active { transform: translateX(1px); }
+.visor-btn-tutorial:focus  { outline: 4px solid #FFD54F; outline-offset: 2px; }
+
+.visor-tut-icono {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    width: 34px;
+    text-align: center;
+}
+
+.visor-tut-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.visor-tut-titulo {
+    display: block;
+    font-size: var(--fs-md);
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+}
+
+.visor-tut-detalle {
+    display: block;
+    font-size: var(--fs-xs);
+    color: var(--texto-suave);
+    margin-top: 3px;
+    line-height: 1.35;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.visor-tut-flecha {
+    color: var(--celeste-arg);
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+/* ── Alto contraste: visor ─────────────────────────────── */
+html.modo-alto-contraste .visor-panel {
+    background: #111 !important;
+    border: 2px solid #FFD700;
+}
+html.modo-alto-contraste .visor-header { background: #000 !important; border-color: #FFD700 !important; }
+html.modo-alto-contraste .visor-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .visor-btn-cerrar { background: #333 !important; color: #FFD700 !important; }
+html.modo-alto-contraste .visor-btn-tutorial {
+    background: #000 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .visor-btn-tutorial:hover {
+    background: #1a1a00 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .visor-tut-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .visor-tut-detalle { color: #ccc !important; }
+
+/* ══════════════════════════════════════════════════════════
+   DRAWER — estilos del buscador y secciones nuevas
+   ══════════════════════════════════════════════════════════ */
+
+/* Sección título dentro del drawer */
+.drawer-seccion-titulo {
+    font-size: var(--fs-xs);
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    padding: 14px 20px 6px;
+    background: #F5F8FC;
+    border-top: 1px solid var(--gris-borde);
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+/* Buscador */
+.drawer-buscador-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px 10px;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.drawer-buscador-label {
+    color: var(--texto-suave);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    cursor: text;
+}
+.drawer-buscador-label svg { width: 18px !important; height: 18px !important; }
+
+.drawer-buscador-input {
+    flex: 1;
+    border: 2px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: var(--fs-md) !important;
+    outline: none;
+    background: #F9FBFD;
+    color: var(--texto);
+    -webkit-appearance: none;
+    min-height: auto;
+}
+.drawer-buscador-input:focus {
+    border-color: var(--azul-arg);
+    box-shadow: 0 0 0 3px rgba(11,90,162,.12);
+}
+.drawer-buscador-input::placeholder { color: #9CA3AF; }
+
+/* Resultados del buscador */
+.drawer-resultados {
+    list-style: none;
+    margin: 0;
+    padding: 6px 12px 6px;
+    background: #F5F8FC;
+    border-bottom: 2px solid var(--gris-borde);
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.drawer-resultado-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: white;
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    text-align: left;
+    min-height: auto !important;
+    font-size: var(--fs-sm) !important;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    transition: background .12s, border-color .12s;
+}
+.drawer-resultado-item:last-child { margin-bottom: 0; }
+.drawer-resultado-item:hover { background: #EBF4FF; border-color: var(--celeste-arg); }
+.drawer-resultado-item:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+
+.dr-icono { font-size: 1.2rem; flex-shrink: 0; width: 24px; text-align: center; }
+.dr-titulo { flex: 1; line-height: 1.3; }
+
+.drawer-sin-resultado {
+    padding: 12px 4px;
+    font-size: var(--fs-sm);
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
+/* Filtros de categoría en el drawer */
+.drawer-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.drawer-cat-btn {
+    background: #F5F8FC;
+    border: 2px solid var(--gris-borde);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: var(--fs-xs) !important;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--azul-oscuro);
+    min-height: auto !important;
+    transition: background .14s, border-color .14s, color .14s;
+    white-space: nowrap;
+}
+.drawer-cat-btn:hover { background: #EBF4FF; border-color: var(--azul-arg); color: var(--azul-arg); }
+.drawer-cat-btn:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+.drawer-cat-btn.cat-activa { background: var(--azul-arg); color: white; border-color: var(--azul-arg); }
+
+/* ══════════════════════════════════════════════════════════
+   PANEL DE ACCESIBILIDAD — nuevo control de escala
+   Reemplaza Lectura Grande / Modo Ultra con +/-/Normal
+   ══════════════════════════════════════════════════════════ */
+
+.acc-escala-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 14px;
+    border: 2px solid var(--gris-borde);
+    border-radius: 12px;
+    margin: 0 12px 6px;
+    background: #F5F8FC;
+}
+
+.acc-escala-label {
+    font-size: var(--fs-sm);
+    font-weight: bold;
+    color: var(--texto);
+    flex: 1;
+}
+
+.acc-escala-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 2px solid var(--gris-borde);
+    background: white;
+    font-size: 1.1rem !important;
+    font-weight: 900;
+    cursor: pointer;
+    color: var(--azul-oscuro);
+    min-height: auto !important;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .14s, border-color .14s;
+    flex-shrink: 0;
+}
+.acc-escala-btn:hover { background: #EBF4FF; border-color: var(--azul-arg); }
+.acc-escala-btn:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+.acc-escala-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.acc-escala-valor {
+    min-width: 52px;
+    text-align: center;
+    font-size: var(--fs-sm);
+    font-weight: bold;
+    color: var(--azul-oscuro);
+}
+
+/* ── Alto contraste: control de escala ─────────────────── */
+html.modo-alto-contraste .acc-escala-wrap {
+    background: #222 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .acc-escala-label { color: #fff !important; }
+html.modo-alto-contraste .acc-escala-btn {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+    color: #FFD700 !important;
+}
+html.modo-alto-contraste .acc-escala-valor { color: #FFD700 !important; }
+
+/* ── Modo Ultra: mayor escala en panel ─────────────────── */
+html.modo-ultra .acc-escala-btn { width: 42px !important; height: 42px !important; }
+
+/* ══════════════════════════════════════════════════════════
+   DRAWER — pointer-events cuando está cerrado
+   Previene clicks fantasma en algunos browsers
+   ══════════════════════════════════════════════════════════ */
+.drawer-nav { pointer-events: none; }
+.drawer-nav.drawer-visible { pointer-events: auto; }
+
+
+/* ==========================================================
+   CABECERA SIMPLIFICADA — logo + "Punto Digital"
+   ========================================================== */
+
+.header-titulo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    min-height: auto !important;
+    width: 100%;
+}
+
+.header-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Logo SVG: tamaño fijo, nunca escala con el texto */
+.header-logo-svg {
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0;
+    display: block;
+}
+
+.header-titulo-btn h1 {
+    color: white;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin: 0;
+    text-align: left;
+    letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+}
+
+.header-titulo-btn:hover h1 { opacity: .85; }
+.header-titulo-btn:focus     { outline: 4px solid #FFD54F; outline-offset: 4px; border-radius: 8px; }
+
+/* Alto contraste */
+html.modo-alto-contraste .header-titulo-btn h1 { color: #fff !important; }
+html.modo-alto-contraste .header-logo-svg circle,
+html.modo-alto-contraste .header-logo-svg ellipse,
+html.modo-alto-contraste .header-logo-svg line { stroke: #FFD700 !important; }
+
+/* Mobile: logo un poco más chico */
+@media (max-width: 600px) {
+    .header-logo-svg { width: 34px !important; height: 34px !important; }
+    .header-titulo-btn { gap: 10px; }
+}
+
+/* ==========================================================
+   TUTORIAL — clases para contenido dinámico
+   Reemplazan los estilos inline de ui.js.
+   Todo usa variables --fs-* para respetar --fs-scale.
+   ========================================================== */
+
+/* Título del tutorial */
+.tutorial-titulo {
+    color: var(--azul-oscuro);
+    font-size: var(--fs-2xl);
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+}
+
+/* Detalle/subtítulo del tutorial */
+.tutorial-detalle {
+    font-size: var(--fs-md);
+    font-style: italic;
+    color: var(--texto-suave);
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+/* Barra de compartir */
+.barra-compartir-horizontal {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+/* Botón compartir */
+.btn-compartir-accion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: var(--fs-sm) !important;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--texto);
+    min-height: auto !important;
+    transition: background .15s;
+}
+.btn-compartir-accion:hover { background: #dee2e6; }
+.btn-compartir-accion:focus { outline: 3px solid #FFD54F; }
+.btn-compartir-accion svg { flex-shrink: 0; }
+
+/* Separador horizontal */
+.tutorial-separador {
+    border: 0;
+    height: 2px;
+    background: var(--celeste-arg);
+    margin: 18px 0;
+}
+
+/* Botón finalizar tutorial */
+.btn-finalizar {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+    background: var(--azul-oscuro);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 18px;
+    font-size: var(--fs-md) !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    transition: background .15s;
+}
+.btn-finalizar:hover { background: #052a55; }
+.btn-finalizar:focus { outline: 4px solid #FFD54F; outline-offset: 2px; }
+
+/* Alto contraste */
+html.modo-alto-contraste .tutorial-titulo   { color: #FFD700 !important; }
+html.modo-alto-contraste .tutorial-detalle  { color: #ccc !important; }
+html.modo-alto-contraste .btn-compartir-accion {
+    background: #222 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .btn-finalizar {
+    background: #FFD700 !important;
+    color: #000 !important;
+}
+html.modo-alto-contraste .tutorial-separador { background: #FFD700 !important; }
+

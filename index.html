@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#0B5AA2">
 
-    <title>Punto Digital Comunitario - Morenense</title>
+    <title>Punto Digital</title>
     <meta name="description" content="Tutoriales paso a paso para trámites digitales, ANSES, cuidado del celular y uso de tecnología para toda la comunidad.">
 
     <meta property="og:title"       content="Punto Digital Comunitario Morenense">
@@ -28,15 +28,142 @@
         Ir al contenido principal
     </a>
 
+    <!-- ── Botón Hamburguesa (fijo, esquina superior derecha) ── -->
+    <button
+        id="btn-hamburger"
+        class="btn-hamburger"
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+        aria-controls="drawer-nav">
+        <span class="hamburger-linea"></span>
+        <span class="hamburger-linea"></span>
+        <span class="hamburger-linea"></span>
+    </button>
+
+    <!-- ── Consejo de herramienta 'menú' por primera vez ── -->
+    <div id="tooltip-nav" class="tooltip-nav" role="tooltip" aria-hidden="true">
+        <button class="tooltip-cerrar" aria-label="Cerrar sugerencia" id="btn-cerrar-tooltip">✕</button>
+        <p class="tooltip-texto">Tocá acá para abrir el menú</p>
+        <div class="tooltip-flecha-wrap" aria-hidden="true">
+            <svg width="40" height="24" viewBox="0 0 40 24"
+     fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 18
+                       H28
+                       V6"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <polyline points="24,10 28,6 32,10"
+            stroke="white"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ── Drawer de navegación ── -->
+    <div id="drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
+    <nav id="drawer-nav"
+         class="drawer-nav"
+         role="navigation"
+         aria-label="Menú principal de navegación"
+         aria-hidden="true">
+
+        <!-- Cabecera del drawer -->
+        <div class="drawer-header">
+            <span class="drawer-titulo">🌐 Punto Digital</span>
+            <button id="btn-cerrar-drawer"
+                    class="drawer-btn-cerrar"
+                    aria-label="Cerrar menú de navegación">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M4 4L16 16M16 4L4 16"
+                          stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Buscador interno -->
+        <div class="drawer-buscador-wrap">
+            <label for="drawer-buscador-input" class="drawer-buscador-label">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2.2"/>
+                    <path d="M14 14L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+            </label>
+            <input type="search"
+                   id="drawer-buscador-input"
+                   class="drawer-buscador-input"
+                   placeholder="Buscar tutorial..."
+                   autocomplete="off"
+                   spellcheck="false"
+                   aria-label="Buscar tutorial en el menú"/>
+        </div>
+
+        <!-- Resultados del buscador (se llenan por JS) -->
+        <ul id="drawer-resultados"
+            class="drawer-resultados"
+            role="list"
+            aria-label="Resultados de búsqueda"
+            style="display:none"></ul>
+
+        <!-- Filtros rápidos por categoría -->
+        <div class="drawer-seccion-titulo">Categorías</div>
+        <div class="drawer-cats" role="group" aria-label="Filtrar por categoría">
+            <button class="drawer-cat-btn" data-cat="tramites">🏛️ Trámites</button>
+            <button class="drawer-cat-btn" data-cat="cuidado">🛡️ Seguridad</button>
+            <button class="drawer-cat-btn" data-cat="usos_tecnologia">📱 Tecnología</button>
+            <button class="drawer-cat-btn" data-cat="inteligencia_artificial">🤖 IA</button>
+        </div>
+
+        <!-- Navegación principal -->
+        <div class="drawer-seccion-titulo">Navegación</div>
+        <ul class="drawer-lista" role="list">
+            <li><button class="drawer-item" data-accion="inicio">
+                🏠 <span>Inicio</span>
+            </button></li>
+            <li><button class="drawer-item" data-accion="tutoriales">
+                📚 <span>Ver todos los tutoriales</span>
+            </button></li>
+            <li><button class="drawer-item" data-accion="favoritos">
+                ⭐ <span>Mis favoritos</span>
+            </button></li>
+            <li><button class="drawer-item" data-accion="seguridad">
+                🛡️ <span>¿Te llegó un mensaje raro?</span>
+            </button></li>
+            <li><button class="drawer-item" data-accion="atencion">
+                📞 <span>Atención a la Comunidad</span>
+            </button></li>
+            <li><button class="drawer-item" data-accion="onboarding">
+                🔁 <span>Ver bienvenida</span>
+            </button></li>
+        </ul>
+
+    </nav>
+
     <header class="header" role="banner">
     <div class="container">
         <button
             id="btn-inicio-header"
             class="header-titulo-btn"
-            aria-label="Volver al inicio y ver todos los tutoriales">
-            <h1>🌐 Punto Digital Comunitario Morenense</h1>
+            aria-label="Volver al inicio">
+            <span class="header-logo-wrap" aria-hidden="true">
+                <!-- icon.svg inlined — tamaño fijo, no escala con el texto -->
+                <svg class="header-logo-svg" width="40" height="40" viewBox="0 0 100 100"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="white" stroke-width="5"/>
+                    <ellipse cx="50" cy="50" rx="20" ry="46" fill="none" stroke="white" stroke-width="3.5"/>
+                    <line x1="4" y1="50" x2="96" y2="50" stroke="white" stroke-width="3.5"/>
+                    <line x1="14" y1="24" x2="86" y2="24" stroke="white" stroke-width="3"/>
+                    <line x1="14" y1="76" x2="86" y2="76" stroke="white" stroke-width="3"/>
+                </svg>
+            </span>
+            <h1>Punto Digital</h1>
         </button>
-        <p>Guión fácil y paso a paso para hacer tus trámites por internet.</p>
+        <p>Guía paso a paso para tus trámites digitales.</p>
     </div>
 </header>
 
@@ -99,7 +226,7 @@
         <section class="banner-seguridad" aria-label="Cuidado digital — información importante">
             <div class="banner-seg-header">
                 <span class="banner-seg-icono" aria-hidden="true">🛡️</span>
-                <h2 class="banner-seg-titulo">Cuidá tus datos — cosas importantes</h2>
+                <h2 class="banner-seg-titulo">Cuidá tus datos y cosas importantes</h2>
             </div>
 
             <div class="banner-seg-items">
@@ -107,7 +234,7 @@
                 <div class="banner-seg-item">
                     <span class="banner-seg-emoji" aria-hidden="true">📵</span>
                     <div>
-                        <strong>ANSES, PAMI y el banco jamás te van a llaman para pedirte claves.</strong>
+                        <strong>ANSES, PAMI y el banco jamás te van a llaman para pedirte contraseñas, ni claves.</strong>
                         Si llaman y, te piden tu contraseña o datos bancarios, cortá la llamada.
                         Es una estafa.
                     </div>
@@ -117,7 +244,7 @@
                     <span class="banner-seg-emoji" aria-hidden="true">🔗</span>
                     <div>
                         <strong>Las páginas oficiales del gobierno terminan en .gob.ar</strong>
-                        — por ejemplo: anses.gob.ar o argentina.gob.ar.
+                         por ejemplo: anses.gob.ar o argentina.gob.ar.
                         Si la dirección termina en .com o tiene letras raras, no es oficial.
                     </div>
                 </div>
@@ -125,8 +252,8 @@
                 <div class="banner-seg-item">
                     <span class="banner-seg-emoji" aria-hidden="true">💬</span>
                     <div>
-                        <strong>Si te llega un mensaje que dice que ganaste algo o que hay un problema urgente</strong>
-                        con tu cuenta, no toques el enlace url. Primero consultá con alguien de confianza.
+                        <strong>Si te llega un mensaje que dice que ganaste un vehículo y jamás te has registrado, o que hay un problema urgente</strong>
+                        con tu cuenta, no toques el enlace url, lo mejor es primero consultar con alguien de confianza.
                     </div>
                 </div>
 
@@ -210,44 +337,43 @@
     </div>
 
     <div style="margin-top: 20px;">
-        <p style="font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 5px;">ATENCIÓN A LA COMUNIDAD</p>
-        <a href="tel:02374669200" style="font-size: 2.2rem; font-weight: bold; color: white; text-decoration: none; display: block; margin-bottom: 15px;">
+        <p style="font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 5px;">LÍNEA CIUDADANA</p>
+        <a href="tel:02374669200" style="font-size: 2.2rem; font-weight: bold; color: white; text-decoration: none; display: block; margin-bottom: 8px;">
             0237 466 9200
         </a>
-        <p style="font-size: 0.75rem; color: #aaa;">0237 466 9100 | Asconapé 51 | Palacio Municipal</p>
     </div>
 
 </section>
 
     <footer class="footer" id="pie-pagina" role="contentinfo">
     <div class="container">
-        <p>Conectando a nuestra comunidad, enchufado al barrio. 🌐<br>
-           Espacios de Alfabetización y Educación Digital Comunitaria.</p>
+        <p>Punto Digital🌐<br>
+           Espacios de Alfabetización y Educación Digital</p>
 
         <div style="margin-top:15px; border-top:1px solid #444; padding-top:15px; font-size:0.9rem;">
             
             <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 10px; font-style: italic;">
-                💡 <strong>Tip:</strong> Tocá sobre cualquier texto marcado en azul para copiarlo y pegarlo donde necesites (mapas, buscadores o chats).
+                💡 <strong>Consejo:</strong> Tocá sobre cualquier texto marcado en azul para copiarlo y pegarlo donde necesites (mapas, buscadores o conversaciones/chats).
             </p>
 
             <p style="margin:8px 0;">
-                📍 <strong>Dirección:</strong><br>
+                📍 <strong>Dirección de la Escuela:</strong><br>
                 <span id="texto-direccion"
                       style="cursor:pointer; color:#3C9DD9; font-weight:bold; display:block; padding:5px 0;"
                       title="Tocá para copiar"
                       aria-label="Argentina, Buenos Aires, Moreno, Escuela Nº1, Uruguay 53.">
-                    Argentina, Buenos Aires, Moreno, Escuela Nº1, Uruguay 53.
+                    Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.
                 </span>
             </p>
 
             <p style="margin:8px 0;">
-                📚 <strong>Autor:</strong><br>
+                📚 <strong>Nombre del Autor:</strong><br>
                 <span id="texto-autor"
                       style="cursor:pointer; color:#3C9DD9; font-weight:bold; display:block; padding:5px 0;"
                       title="Tocá para copiar el nombre del autor">
-                    Angel Nicolás Villegas (CENS 453, Moreno)
+                    Angel Nicolás Villegas
                 </span>
-            </p>
+            </p>            
 
             <p style="margin-top:15px; font-size:0.8rem; color:#888;">
                 © <span id="anio-actual"></span> Todos los derechos reservados.
@@ -298,14 +424,15 @@
     </svg>
     </button>
 
-<!-- Movemos el bottom a 80px para que no se solape con el botón azul -->
-    <button id="btn-volver-arriba" 
-        style="position:fixed; bottom:80px; right:20px; display:none; 
-        background:#3C9DD9; color:white; border:none; border-radius:50%; 
-        width:50px; height:50px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.3);
-        z-index:9999; font-size:20px;"
-        aria-label="Volver arriba">
-    ↑
+    <button id="btn-volver-arriba"
+        class="btn-volver-arriba"
+        aria-label="Volver al inicio de la página">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11 18V4M4 11L11 4L18 11"
+                  stroke="white" stroke-width="2.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </button>
 
 </body>
