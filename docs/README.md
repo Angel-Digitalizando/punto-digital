@@ -1,100 +1,84 @@
 # 🌐 Punto Digital Comunitario Morenense
 
-**Tutoriales digitales accesibles y servicios municipales para vecinos de Moreno, Buenos Aires.**
+> **Una guía práctica para resolver trámites y emergencias en Moreno, sin depender de internet.**
 
-Guía paso a paso para hacer trámites online (ANSES, CUIL, Mi Argentina) y acceso directo a servicios de emergencia y gestión municipal. Diseñada especialmente para adultos mayores y personas con baja experiencia tecnológica.
-
----
-
-## ✨ ¿Qué es esto?
-
-Una Progressive Web App (PWA) educativa que:
-- **Funciona offline:** Acceso total sin internet después de la primera visita.
-- **Nativa:** Se puede instalar en la pantalla de inicio del celular.
-- **Accesible:** Incluye lectura en voz alta (TTS), modo de letra grande y alto contraste.
-- **Privada:** Guarda favoritos y progreso 100% en el dispositivo (LocalStorage).
-- **Municipal:** Integración directa con teléfonos de emergencia (SAME, Bomberos, Violencia de Género) y sedes administrativas (Palacio Municipal, anexos).
+Este proyecto es una herramienta educativa creada por estudiantes. Su objetivo es cerrar la **brecha digital** en nuestra comunidad, permitiendo que cualquier persona realice trámites del gobierno y llame a emergencias incluso si no tiene datos móviles o WiFi.
 
 ---
 
-## 📱 Sección: Atención a la Comunidad
+## ✨ ¿Por qué es especial?
 
-La plataforma ahora incluye un módulo integrado de servicios municipales esenciales:
-- **Llamadas rápidas:** Marcación directa con un toque a servicios de emergencia (107, 911, 144, etc).
-- **Gestión diaria:** Enlaces directos a denuncias de basurales y farmacias de turno en Moreno.
-- **Referencias geográficas:** Información clara sobre la ubicación del Palacio Municipal, Anexos (España y Bv. Evita) y Av. Victorica.
+Es una **Aplicación Web Progresiva (PWA)** diseñada para funcionar en cualquier celular, incluso los más antiguos:
 
----
-
-## 🗂️ Estructura del Proyecto
-
-punto-digital/
-├── index.html
-├── offline.html
-├── service-worker.js
-├── manifest.json
-├── netlify.toml
-├── _headers
-├── README.md
-├── css/
-│   └── style.css
-└── js/
-├── tutoriales.js
-├── ui.js
-├── storage.js
-├── pwa.js
-├── script.js
-├── components/
-│   ├── toast.js
-│   ├── progressBar.js
-│   └── tutorialCard.js
-└── voice/
-└── speech.js
+- 🚫 **Sin Internet:** Una vez que la abres, funciona totalmente offline.
+- 📱 **Como una App:** Se instala en la pantalla de inicio de tu celular.
+- 🔊 **Accesible:** Tiene opción de "Lectura en voz alta", letras grandes y alto contraste.
+- 🔒 **Privada:** Tus datos (favoritos, progreso) se guardan solo en tu teléfono, no se envían a nadie.
+- 🏛️ **Local:** Incluye números de emergencia de Moreno y enlaces a la Municipalidad.
 
 ---
 
-## 🛠️ Cómo mantener y ampliar
+## 📱 Funciones Principales
 
-### 1. Agregar Tutoriales
+### 1. Trámites Paso a Paso
+Guías visuales para realizar gestiones en:
+- ANSES
+- CUIL / CUIT
+- Mi Argentina
 
-Toda la información reside en `js/tutoriales.js`.
-
-* **Categoría:** Si es nueva, regístrala en el objeto `CATEGORIAS` de `js/ui.js`.
-* **Tutorial:** Añade el objeto siguiendo la estructura (título, pasos, icono). La App lo detectará automáticamente.
-
-### 2. Actualizar Servicios Municipales
-
-Para cambiar números o direcciones, edita la sección en `index.html` (antes del footer).
-
-* **Importante:** Al usar enlaces `tel:`, asegúrate de mantener el formato sin espacios para que los navegadores móviles lo reconozcan correctamente como llamada.
-
----
-
-## ♿ Accesibilidad y UX
-
-Cumplimos con pautas WCAG 2.1:
-
-* **Alto contraste:** Colores institucionales para visibilidad clara.
-* **Responsive:** Diseño adaptado a dispositivos de gama baja.
-* **Navegación intuitiva:** Botón "Volver arriba" y estructura de bloques tipo "gobierno" para facilitar la orientación del vecino.
+### 2. Atención e Emergencias
+Botones grandes para llamar con un solo toque a:
+- 🚑 **107** (SAME)
+- 🚒 **911** (Policía / Emergencias)
+- 🚺 **144** (Violencia de Género)
+- 🗑️ **Denuncias:** Enlaces para reportar basurales y ver farmacias de turno en Moreno.
 
 ---
 
-## 🏗️ Bitácora de Desarrollo (Junio 2026)
+## 🛠️ Para Desarrolladores (Cómo mantenerlo)
 
-* **Feat:** Integración de módulo "Atención a la Comunidad" con enlaces a servicios oficiales.
-* **Fix:** Corrección de sintaxis en `ui.js` y optimización del flujo de carga de secciones.
-* **Style:** Re-diseño de menús basado en la identidad visual de la Municipalidad de Moreno.
-* **UX:** Implementación de referencias geográficas en el footer para facilitar la presencialidad.
+Si querés agregar nuevos tutoriales o arreglar cosas:
+
+1.  **Agregar un Tutorial:**
+    Todo el contenido está en el archivo `js/tutoriales.js`.
+    - Si es una categoría nueva, agregala en `js/ui.js`.
+    - Copia la estructura de un tutorial existente en `tutoriales.js` y cambia el texto. La app lo detectará sola.
+
+2.  **Estructura del Proyecto:**
+    ```text
+    punto-digital/
+    ├── index.html          (Página principal)
+    ├── js/
+    │   ├── tutoriales.js   (Aquí están los textos y pasos)
+    │   ├── ui.js           (Configuración de categorías)
+    │   └── ...
+    └── css/
+        └── style.css       (Colores y diseño)
+    ```
 
 ---
 
-## 📜 Licencia y Contacto
+## ♿ Accesibilidad
+Cumplimos con estándares internacionales para que todos puedan usarlo:
+- **Diseño Responsivo:** Se adapta a pantallas pequeñas.
+- **Contraste Alto:** Colores claros para mejor lectura.
+- **Navegación Sencilla:** Botones claros y estructura fácil de entender.
 
-Licencia MIT.
-Desarrollado por: **Angel Nicolás Villegas (CENS 453, Moreno)**.
-📍 **Contacto:** Escuela N°1, Uruguay 53, Moreno.
+---
 
-```
+## 📜 Notas de la Versión (Junio 2026)
 
-```
+- ✅ **Nuevo:** Módulo "Atención a la Comunidad" con enlaces oficiales.
+- 🔧 **Correcciones:** Arreglos en el código y optimización de velocidad.
+- 🎨 **Diseño:** Colores y estilo actualizados a la identidad de la Municipalidad de Moreno.
+
+---
+
+## 👨‍💻 Créditos y Licencia
+
+- **Autor:** Angel Nicolás Villegas.
+- **Licencia:** MIT (Código abierto).
+- **Contexto:** Proyecto Escolar.
+- **Eje Problemático:** Desigualdades en el acceso a la tecnología como herramienta de organización social.
+
+> **Misión:** Apropiarse de la tecnología para empoderar a la comunidad.
