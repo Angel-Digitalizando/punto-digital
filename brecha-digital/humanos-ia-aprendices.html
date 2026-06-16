@@ -11,35 +11,57 @@
 <a href="#contenido" class="skip">Ir al contenido</a>
 
 <!-- ══ HERO ══════════════════════════════════════════════ -->
-<header>
-<div class="hero">
-  <div class="terminal-bar" aria-hidden="true">
-    <span class="t-dot red"></span>
-    <span class="t-dot yellow"></span>
-    <span class="t-dot green"></span>
-    <span class="t-filename">humanos-ia-aprendices.html — Punto Digital</span>
-  </div>
-  <div class="hero-inner">
-    <span class="hero-eyebrow">// Punto Digital · CENS 453 · Moreno, Buenos Aires</span>
-    <h1>Humanos e <span class="accent">IA</span> Aprendices</h1>
-    <p class="hero-bajada">
-      La tecnología no empieza con una computadora. Empieza cuando una persona
-      descubre cómo acceder a información, comprenderla y compartirla con otros.
-      Esta página es un punto de partida.
-    </p>
-    <div class="hero-logos" aria-label="Herramientas de IA presentadas">
-      <span class="hero-logo-chip">
-        <img src="https://www.anthropic.com/images/icons/apple-touch-icon.png" width="16" height="16" alt="" style="border-radius:4px;vertical-align:middle"> Claude
-      </span>
-      <span class="hero-logo-chip">
-        <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" width="16" height="16" alt="" style="vertical-align:middle"> Gemini
-      </span>
-      <span class="hero-logo-chip">
-        <img src="https://cdn.oaistatic.com/assets/favicon-mktg-5exeknamhh2wxfmf7y.webp" width="16" height="16" alt="" style="border-radius:4px;vertical-align:middle"> ChatGPT
-      </span>
+<header class="header" role="banner">
+    <div class="container">
+
+        <a href="../index.html"
+           class="header-titulo-btn"
+           aria-label="Volver a Punto Digital">
+
+            <span class="header-logo-wrap" aria-hidden="true">
+
+                <svg class="header-logo-svg"
+                     width="40"
+                     height="40"
+                     viewBox="0 0 100 100"
+                     xmlns="http://www.w3.org/2000/svg">
+
+                    <circle cx="50" cy="50" r="46"
+                            fill="none"
+                            stroke="white"
+                            stroke-width="5"/>
+
+                    <ellipse cx="50" cy="50"
+                             rx="20"
+                             ry="46"
+                             fill="none"
+                             stroke="white"
+                             stroke-width="3.5"/>
+
+                    <line x1="4" y1="50" x2="96" y2="50"
+                          stroke="white"
+                          stroke-width="3.5"/>
+
+                    <line x1="14" y1="24" x2="86" y2="24"
+                          stroke="white"
+                          stroke-width="3"/>
+
+                    <line x1="14" y1="76" x2="86" y2="76"
+                          stroke="white"
+                          stroke-width="3"/>
+                </svg>
+
+            </span>
+
+            <h1>Humanos e IA Aprendices</h1>
+
+        </a>
+
+        <p>
+            Tecnología e internet desde nuestros datos.
+        </p>
+
     </div>
-  </div>
-</div>
 </header>
 
 <!-- ══ CONTENIDO ══════════════════════════════════════════ -->
@@ -48,273 +70,504 @@
 
   <!-- Índice -->
   <nav class="indice" aria-label="Índice de la página">
-    <h2>📋 En esta página</h2>
+    <h2>📋 Índice de esta página</h2>
     <ol>
-      <li><a href="#s1">I. ¿Cómo llegamos hasta acá? — Cronología</a></li>
-      <li><a href="#s2">II. De los bits a la IA</a></li>
-      <li><a href="#s3">III. Primer contacto con la tecnología</a></li>
-      <li><a href="#s4">IV. Introducción al código</a></li>
-      <li><a href="#s5">V. Aprender con IA</a></li>
-      <li><a href="#s6">VI. Crear una cuenta y empezar</a></li>
-      <li><a href="#s7">VII. Aprender haciendo — la experiencia del Punto Digital</a></li>
-      <li><a href="#s8">VIII. Instituciones y conocimiento abierto</a></li>
-      <li><a href="#s9">IX. Recursos para seguir aprendiendo</a></li>
+      <li><a href="#s1"> ¿Cómo llegamos hasta acá? — Cronología</a></li>
+      <li><a href="#s2"> De los bits a la IA</a></li>
+      <li><a href="#s3"> Primer contacto con la tecnología</a></li>
+      <li><a href="#s4"> Introducción al código</a></li>
+      <li><a href="#s5"> Aprender con IA</a></li>
+      <li><a href="#s6"> Crear una cuenta y empezar</a></li>
+      <li><a href="#s7"> Aprender haciendo — la experiencia del Punto Digital</a></li>
+      <li><a href="#s8"> Instituciones y conocimiento abierto</a></li>
+      <li><a href="#s9"> Recursos para seguir aprendiendo</a></li>
     </ol>
   </nav>
 
 
   <!-- S1 — Cronología -->
-  <section class="seccion" id="s1">
+
+<section class="seccion" id="s1">
+
+  <div class="seccion-header">
+    <div class="seccion-num">I</div>
+    <h2>01. Desde la escritura hasta las Inteligencias Artificiales</h2>
+  </div>
+
+  <p>
+    La tecnología digital no apareció de golpe. Es el resultado de miles de años de intentos
+    humanos por registrar conocimiento, comunicarse a distancia y transmitir información a las
+    siguientes generaciones.
+  </p>
+
+  <p>
+    Cada avance fue construyéndose sobre los anteriores. La escritura permitió conservar ideas.
+    La imprenta permitió multiplicarlas. La electricidad permitió enviarlas. Internet permitió
+    conectarlas. Y la Inteligencia Artificial comenzó a ayudarnos a explorarlas.
+  </p>
+
+  <div class="timeline" role="list" aria-label="Cronología de la tecnología">
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">~3500 a.C.</div>
+  <div class="tl-titulo">La escritura</div>
+  <div class="tl-desc">
+    Los primeros sistemas de escritura aparecen en Mesopotamia. Por primera vez la información
+    puede sobrevivir a quien la creó.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">1440</div>
+  <div class="tl-titulo">La imprenta</div>
+  <div class="tl-desc">
+    Johannes Gutenberg desarrolla la imprenta de tipos móviles. Los libros dejan de ser
+    objetos extremadamente escasos y el conocimiento comienza a circular masivamente.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">1837</div>
+  <div class="tl-titulo">Telégrafo</div>
+  <div class="tl-desc">
+    Samuel Morse desarrolla el telégrafo eléctrico. La comunicación deja de depender de la
+    velocidad de los caballos o los barcos.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">1946</div>
+  <div class="tl-titulo">ENIAC</div>
+  <div class="tl-desc">
+    Una de las primeras computadoras electrónicas de propósito general ocupa una sala completa
+    y consume enormes cantidades de energía.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">1969</div>
+  <div class="tl-titulo">ARPANET</div>
+  <div class="tl-desc">
+    Varias computadoras son conectadas entre sí mediante una red experimental. Es uno de los
+    antecedentes directos de Internet.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">1983</div>
+  <div class="tl-titulo">TCP/IP</div>
+  <div class="tl-desc">
+    Internet adopta el conjunto de protocolos TCP/IP. Es el lenguaje común que todavía hoy
+    permite que millones de dispositivos se comuniquen.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">1991</div>
+  <div class="tl-titulo">World Wide Web</div>
+  <div class="tl-desc">
+    Tim Berners-Lee publica la Web. Nacen HTML, las páginas web y los hipervínculos que
+    usamos todos los días.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">1991</div>
+  <div class="tl-titulo">Linux y software libre</div>
+  <div class="tl-desc">
+    Linus Torvalds publica Linux. Miles de desarrolladores colaboran en proyectos abiertos
+    que hoy sostienen gran parte de Internet.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">2007</div>
+  <div class="tl-titulo">La era móvil</div>
+  <div class="tl-desc">
+    Los teléfonos inteligentes convierten Internet en una herramienta permanente que llevamos
+    en el bolsillo.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">2010s</div>
+  <div class="tl-titulo">Computación en la nube</div>
+  <div class="tl-desc">
+    Los archivos, aplicaciones y servicios comienzan a ejecutarse en centros de datos
+    distribuidos por todo el mundo.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">2022</div>
+  <div class="tl-titulo">IA conversacional masiva</div>
+  <div class="tl-desc">
+    Herramientas como ChatGPT acercan los modelos de lenguaje a millones de personas y
+    popularizan el uso cotidiano de la Inteligencia Artificial.
+  </div>
+</div>
+
+<div class="tl-item" role="listitem">
+  <div class="tl-año">2023–Hoy</div>
+  <div class="tl-titulo">Modelos abiertos y comunidad</div>
+  <div class="tl-desc">
+    Aparecen alternativas abiertas como Llama, Mistral, DeepSeek, Qwen y otros modelos
+    que pueden ejecutarse localmente o ser estudiados por investigadores y comunidades
+    de software libre.
+  </div>
+</div>
+  </div>
+  <div class="nota-aprendizaje">
+    <strong>¿Por qué importa esta historia?</strong>
+    <p>
+      Porque cada herramienta tecnológica que usamos hoy, desde WhatsApp hasta una Inteligencia
+      Artificial, forma parte de una cadena de conocimientos construida durante siglos por miles
+      de personas. Aprender tecnología no significa memorizar botones. Significa comprender cómo
+      se conectan las ideas que hicieron posible el mundo digital actual.
+    </p>
+  </div>
+
+</section>
+<!-- S2 — De los bits a las Inteligencias Artificiales -->
+<section class="seccion seccion-dark" id="s2">
+
     <div class="seccion-header">
-      <div class="seccion-num">I</div>
-      <h2>¿Cómo llegamos hasta acá?</h2>
+        <div class="seccion-num">II</div>
+        <h2>02. De los bits a las Inteligencias Artificiales</h2>
     </div>
 
-    <p>La tecnología digital no apareció de la noche a la mañana. Es el resultado de miles de años de personas queriendo comunicarse, registrar y compartir conocimiento.</p>
+    <p>
+        Cada foto, mensaje, audio, video, página web o programa que usamos todos los días
+        está construido con una misma materia prima: información digital.
+        Las computadoras representan esa información utilizando únicamente dos estados:
+        <strong>0</strong> y <strong>1</strong>. A esos estados se los conoce como bits.
+    </p>
 
-    <div class="timeline" role="list" aria-label="Cronología de la tecnología">
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">~3500 a.C.</div>
-        <div class="tl-titulo">Escritura</div>
-        <div class="tl-desc">La humanidad inventa sistemas de símbolos para registrar información. El primer "archivo" de la historia.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">1440</div>
-        <div class="tl-titulo">Imprenta de Gutenberg</div>
-        <div class="tl-desc">El conocimiento deja de ser exclusivo de los pocos. Los libros se multiplican. Primera gran democratización de la información.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">1800s</div>
-        <div class="tl-titulo">Electricidad y telégrafo</div>
-        <div class="tl-desc">La información viaja por primera vez a la velocidad de la luz. El tiempo de comunicación colapsa de semanas a segundos.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">1940s</div>
-        <div class="tl-titulo">Primeras computadoras</div>
-        <div class="tl-desc">Máquinas del tamaño de una habitación que podían hacer cálculos. Creadas para resolver problemas militares y científicos.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">1969</div>
-        <div class="tl-titulo">ARPANET → Internet</div>
-        <div class="tl-desc">Red de computadoras conectadas entre sí, creada por el gobierno de EE.UU. La semilla de internet tal como la conocemos.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">1991</div>
-        <div class="tl-titulo">La Web (WWW)</div>
-        <div class="tl-desc">Tim Berners-Lee inventa el sistema de páginas web. Internet deja de ser solo para científicos y se vuelve accesible para todos.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">2007</div>
-        <div class="tl-titulo">iPhone — la era móvil</div>
-        <div class="tl-desc">Internet cabe en el bolsillo. La computadora más poderosa que muchas personas van a tocar en su vida.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">2010s</div>
-        <div class="tl-titulo">La Nube</div>
-        <div class="tl-desc">Los archivos y programas ya no viven en tu dispositivo. Viven en servidores en algún lugar del mundo, accesibles desde cualquier lado.</div>
-      </div>
-      <div class="tl-item" role="listitem">
-        <div class="tl-año">2022–hoy</div>
-        <div class="tl-titulo">Inteligencia Artificial masiva</div>
-        <div class="tl-desc">Por primera vez, cualquier persona puede conversar con una computadora en lenguaje natural. ChatGPT, Claude, Gemini y muchos más.</div>
-      </div>
+    <div class="terminal-bloque" aria-label="Cómo evoluciona la información digital">
+
+<div class="evolucion-digital">
+
+<div class="ed-paso">
+    <div class="ed-icono">0️⃣1️⃣</div>
+    <div class="ed-contenido">
+        <h4>Bit</h4>
+        <p>La unidad más pequeña de información digital.</p>
+        <span class="ed-dato">0 ó 1</span>
     </div>
-  </section>
+</div>
+
+<div class="ed-flecha">↓</div>
+
+<div class="ed-paso">
+    <div class="ed-icono">🔠</div>
+    <div class="ed-contenido">
+        <h4>Byte</h4>
+        <p>Ocho bits agrupados pueden representar letras, números y símbolos.</p>
+        <span class="ed-dato">01000001 = A</span>
+    </div>
+</div>
+
+<div class="ed-flecha">↓</div>
+
+<div class="ed-paso">
+    <div class="ed-icono">📄</div>
+    <div class="ed-contenido">
+        <h4>Archivo</h4>
+        <p>Muchos bytes forman documentos, imágenes, audios o videos.</p>
+    </div>
+</div>
+
+<div class="ed-flecha">↓</div>
+
+<div class="ed-paso">
+    <div class="ed-icono">⚙️</div>
+    <div class="ed-contenido">
+        <h4>Programa</h4>
+        <p>Conjunto de instrucciones que ejecuta una computadora.</p>
+    </div>
+</div>
+
+<div class="ed-flecha">↓</div>
+
+<div class="ed-paso">
+    <div class="ed-icono">🌐</div>
+    <div class="ed-contenido">
+        <h4>Internet</h4>
+        <p>Millones de dispositivos compartiendo información entre sí.</p>
+    </div>
+</div>
+
+<div class="ed-flecha">↓</div>
+
+<div class="ed-paso">
+    <div class="ed-icono">🧠</div>
+    <div class="ed-contenido">
+        <h4>Inteligencias Artificiales</h4>
+        <p>Modelos entrenados para reconocer patrones en enormes cantidades de datos.</p>
+    </div>
+</div>
+
+</div>
 
 
-  <!-- S2 — De los bits a la IA -->
-  <section class="seccion dark" id="s2">
-    <div class="seccion-header">
-      <div class="seccion-num">II</div>
-      <h2>De los bits a la IA</h2>
     </div>
 
-    <p>Todo lo que hace una computadora — desde mostrar una foto hasta generar texto con IA — se reduce a una sola cosa: ceros y unos. Así de simple y así de increíble.</p>
+    <p>
+        Cuando utilizamos una Inteligencia Artificial, no estamos hablando con una persona
+        ni con una máquina que "piensa" como un ser humano. Lo que existe detrás es un modelo
+        matemático entrenado con enormes cantidades de texto, imágenes y datos.
+    </p>
 
-    <div class="terminal-bloque" aria-label="Ejemplo de código binario y progresión tecnológica">
-<span class="t-com">// Todo empieza con un bit: 0 o 1</span>
-<span class="t-plain">bit     = </span><span class="t-val">0</span><span class="t-plain"> | </span><span class="t-val">1</span>
-<span class="t-plain">byte    = </span><span class="t-val">8 bits</span><span class="t-com">  // ej: 01000001 = letra "A"</span>
-<span class="t-plain">archivo = </span><span class="t-val">miles de bytes</span>
-<span class="t-plain">app     = </span><span class="t-val">millones de archivos</span>
-<span class="t-plain">internet= </span><span class="t-val">apps hablando entre sí</span>
-<span class="t-plain">IA      = </span><span class="t-val">internet aprendiendo patrones</span>
+    <p>
+        Durante ese entrenamiento, el sistema aprende relaciones entre palabras,
+        conceptos y contextos. Luego, cuando recibe una pregunta, calcula cuál es
+        la respuesta más probable según los patrones que aprendió anteriormente.
+    </p>
+
+    <div class="nota-aprendizaje">
+
+        <h3>Entonces, ¿una IA piensa?</h3>
+
+        <p>
+            No exactamente. Las Inteligencias Artificiales actuales reconocen patrones,
+            realizan predicciones y generan contenido. Pueden ser extremadamente útiles,
+            pero también pueden equivocarse, inventar información o interpretar mal una
+            consulta. Por eso la herramienta más importante sigue siendo el pensamiento
+            crítico de quien la utiliza.
+        </p>
+
     </div>
 
-    <p>Una red neuronal — el corazón de la IA moderna — es un programa que aprendió leyendo enormes cantidades de texto humano. Cuando le hacés una pregunta, busca el patrón más probable de respuesta. No piensa. Pero imita el pensamiento de una manera que puede ser muy útil.</p>
-
-    <div class="nota">
-      💡 La IA no sabe nada por sí sola. Todo lo que "sabe" lo aprendió de texto escrito por personas. Por eso puede equivocarse, tener sesgos, o no conocer eventos muy recientes. <strong>El criterio final siempre es tuyo.</strong>
-    </div>
-  </section>
-
+</section>
 
   <!-- S3 — Primer contacto -->
-  <section class="seccion" id="s3">
-    <div class="seccion-header">
-      <div class="seccion-num">III</div>
-      <h2>Primer contacto con la tecnología</h2>
+<section class="seccion" id="s3">
+
+  <div class="seccion-header">
+    <div class="seccion-num">III</div>
+    <h2>03. Primer contacto con la tecnología</h2>
+  </div>
+
+  <p>
+    No importa si tu primera computadora es una notebook nueva o un celular Android usado.
+    Lo importante es comprender cómo se organizan los archivos. Esa lógica es prácticamente
+    la misma en cualquier dispositivo moderno.
+  </p>
+
+  <div class="terminal-bloque estructura-archivos"
+       aria-label="Ejemplo de organización de carpetas y archivos">
+
+    <div class="terminal-linea terminal-comentario">
+      // Cómo guarda información una computadora
     </div>
 
-    <p>No importa si tu primera computadora es un celular Android de segunda mano. Lo que importa es entender cómo se organiza la información dentro de cualquier dispositivo.</p>
-
-    <div class="terminal-bloque" aria-label="Conceptos básicos de organización de archivos">
-<span class="t-com">// Así se organiza la información en cualquier dispositivo</span>
-<span class="t-kw">dispositivo</span><span class="t-plain">/</span>
-<span class="t-plain">  ├── </span><span class="t-fn">Fotos</span><span class="t-plain">/</span>          <span class="t-com">// carpeta = contenedor</span>
-<span class="t-plain">  │   ├── </span><span class="t-str">foto_cumple.jpg</span>   <span class="t-com">// archivo de imagen</span>
-<span class="t-plain">  │   └── </span><span class="t-str">foto_barrio.png</span>   <span class="t-com">// otro formato de imagen</span>
-<span class="t-plain">  ├── </span><span class="t-fn">Documentos</span><span class="t-plain">/</span>
-<span class="t-plain">  │   └── </span><span class="t-str">curriculum.pdf</span>    <span class="t-com">// archivo de texto</span>
-<span class="t-plain">  └── </span><span class="t-fn">Descargas</span><span class="t-plain">/</span>
-<span class="t-plain">      └── </span><span class="t-str">factura.pdf</span>       <span class="t-com">// lo que bajaste de internet</span>
+    <div class="terminal-linea">
+      <span class="t-kw">dispositivo</span><span class="t-plain">/</span>
     </div>
 
-    <p><strong>Conceptos clave que conviene entender desde el principio:</strong></p>
+    <div class="terminal-linea nivel-1">
+      <span class="t-fn">📁 Fotos</span>
+      <span class="t-com">Carpeta para imágenes</span>
+    </div>
 
-    <p>Un <strong>archivo</strong> es un contenedor de información — puede ser texto, imagen, audio o video. Una <strong>carpeta</strong> es como una caja donde guardás archivos relacionados. El <strong>formato</strong> (la extensión: .jpg, .pdf, .mp3) le dice al dispositivo cómo abrir ese archivo. <strong>Almacenamiento</strong> es el espacio donde viven todos esos archivos — puede ser en el dispositivo o en la nube.</p>
+    <div class="terminal-linea nivel-2">
+      <span class="t-str">🖼 foto_cumple.jpg</span>
+    </div>
+
+    <div class="terminal-linea nivel-2">
+      <span class="t-str">🖼 foto_barrio.png</span>
+    </div>
+
+    <div class="terminal-linea nivel-1">
+      <span class="t-fn">📁 Documentos</span>
+      <span class="t-com">Archivos de texto o trabajo</span>
+    </div>
+
+    <div class="terminal-linea nivel-2">
+      <span class="t-str">📄 curriculum.pdf</span>
+    </div>
+
+    <div class="terminal-linea nivel-1">
+      <span class="t-fn">📁 Descargas</span>
+      <span class="t-com">Contenido obtenido de Internet</span>
+    </div>
+
+    <div class="terminal-linea nivel-2">
+      <span class="t-str">📄 factura.pdf</span>
+    </div>
+
+  </div>
+
+  <div class="nota-aprendizaje">
+    <strong>Idea clave</strong>
+    <p>
+      Una carpeta funciona como un cajón. Dentro de ese cajón guardamos archivos.
+      Aprender esta estructura es uno de los primeros pasos para manejar cualquier
+      celular, computadora o tablet con mayor autonomía.
+    </p>
+  </div>
+</section>
+
+<p><strong>Conceptos clave que conviene entender desde el principio:</strong></p>
+
+    <p>Un <strong>archivo</strong> es un contenedor de información, puede ser texto, imagen, audio o video. Una <strong>carpeta</strong> es como una caja donde guardás archivos relacionados. El <strong>formato</strong> (la extensión: .jpg, .pdf, .mp3) le dice al dispositivo cómo abrir ese archivo. <strong>Almacenamiento</strong> es el espacio donde viven todos esos archivos, puede ser en el dispositivo o en un servirdor en la nube.</p>
   </section>
-
-
-  <!-- S4 — Introducción al código -->
+<!-- S4 — Introducción al código -->
   <section class="seccion dark" id="s4">
-    <div class="seccion-header">
-      <div class="seccion-num">IV</div>
-      <h2>Introducción al código</h2>
-    </div>
+  <div class="seccion-header">
+    <div class="seccion-num">IV</div>
+    <h2>04. Introducción al código</h2>
+  </div>
 
-    <p>El código es una forma de darle instrucciones a una computadora. No es magia, no es exclusivo de genios — es un lenguaje con reglas, como cualquier otro.</p>
+  <p>El código es simplemente una forma de darle instrucciones a una computadora. No es magia ni exclusivo para genios: es un lenguaje con reglas claras, como cualquier otro que usamos para comunicarnos.</p>
 
-    <div class="terminal-bloque" aria-label="Ejemplo simple de HTML, CSS y JavaScript">
-<span class="t-com">&lt;!-- HTML: estructura — le dice QUÉ hay --&gt;</span>
+  <div class="terminal-contenedor">
+    <pre class="terminal-bloque" tabindex="0"><code><span class="t-com">&lt;!-- HTML: La estructura (el esqueleto) --&gt;</span>
 <span class="t-kw">&lt;h1&gt;</span><span class="t-str">Hola, Moreno</span><span class="t-kw">&lt;/h1&gt;</span>
-<span class="t-kw">&lt;p&gt;</span><span class="t-str">Este es un párrafo de texto.</span><span class="t-kw">&lt;/p&gt;</span>
 <span class="t-kw">&lt;button&gt;</span><span class="t-str">Tocá acá</span><span class="t-kw">&lt;/button&gt;</span>
 
-<span class="t-com">/* CSS: estilos — le dice CÓMO se ve */</span>
+<span class="t-com">/* CSS: El estilo (la apariencia) */</span>
 <span class="t-fn">h1</span> {
-  <span class="t-kw">color</span>: <span class="t-val">#0B5AA2</span><span class="t-plain">;</span>
-  <span class="t-kw">font-size</span>: <span class="t-val">2rem</span><span class="t-plain">;</span>
+  <span class="t-kw">color</span>: <span class="t-val">#0B5AA2</span>;
+  <span class="t-kw">font-size</span>: <span class="t-val">2rem</span>;
 }
 
-<span class="t-com">// JavaScript: comportamiento — le dice QUÉ HACE</span>
+<span class="t-com">// JavaScript: El comportamiento (la acción)</span>
 <span class="t-fn">document</span>.<span class="t-fn">querySelector</span>(<span class="t-str">'button'</span>)
   .<span class="t-fn">addEventListener</span>(<span class="t-str">'click'</span>, () =&gt; {
-    <span class="t-fn">alert</span>(<span class="t-str">'¡Funcionó!'</span>)
-  })
-    </div>
+    <span class="t-fn">alert</span>(<span class="t-str">'¡Funcionó!'</span>);
+  });</code></pre>
+  </div>
 
-    <p>La página que estás viendo ahora mismo está construida exactamente con esas tres cosas: HTML para la estructura, CSS para los colores y la tipografía, y JavaScript para los botones y la navegación.</p>
+  <p>La página que estás viendo ahora mismo está construida exactamente con estos tres pilares: HTML para definir qué elementos existen, CSS para darles vida visual, y JavaScript para gestionar la interactividad.</p>
 
-    <div class="nota" style="background:#161b22; color:#8b949e; border-color:#e3b341;">
-      ⚡ No necesitás aprender a programar para usar la tecnología. Pero si alguna vez sentís curiosidad de saber cómo funciona algo — podés abrir cualquier página web, hacer clic derecho, y elegir "Ver código fuente". Toda la arquitectura queda expuesta.
-    </div>
-  </section>
+  <aside class="nota" aria-label="Consejo adicional">
+    <p><strong>⚡ Dato curioso:</strong> No necesitás ser programador para curiosear. Si te da curiosidad saber cómo funciona algo en la web, hacé clic derecho en cualquier página y seleccioná "Ver código fuente". Toda su arquitectura quedará expuesta ante tus ojos.</p>
+  </aside>
+</section>
 
+<section class="seccion" id="s5">
+  <div class="seccion-header">
+    <div class="seccion-num">V</div>
+    <h2>05. Aprender con IA</h2>
+  </div>
 
-  <!-- S5 — Aprender con IA -->
-  <section class="seccion" id="s5">
-    <div class="seccion-header">
-      <div class="seccion-num">V</div>
-      <h2>Aprender con IA</h2>
-    </div>
+  <p>Las herramientas de Inteligencia Artificial pueden ser enormemente útiles para aprender. No actúan como un atajo para evitar pensar, sino como un tutor personal disponible las 24 horas, con paciencia infinita y sin juicios.</p>
 
-    <p>Las herramientas de Inteligencia Artificial pueden ser enormemente útiles para aprender. No como un atajo, sino como un compañero de práctica disponible las 24 horas, con paciencia infinita y sin juicios.</p>
+  <p>Hoy en día, el ecosistema de la IA se divide principalmente en dos grandes mundos: los <strong>modelos comerciales</strong> (desarrollados por corporaciones) y los <strong>modelos de código abierto</strong> (Open Source), construidos y mejorados por la comunidad global.</p>
 
-    <div class="ia-grid" role="list" aria-label="Herramientas de IA para aprender">
-
-      <div class="ia-card" role="listitem">
+  <div class="ia-contenedor">
+    <div class="ia-grid">
+      
+      <article class="ia-card">
         <div class="ia-card-header">
           <div class="ia-card-logo">
-            <img src="https://www.anthropic.com/images/icons/apple-touch-icon.png" width="28" height="28" alt="Claude" style="border-radius:8px;">
+            <img src="../assets/icons/another-icons/AI_Claude_icon.svg" alt="Logo de Claude" width="24" height="24">
           </div>
-          <div>
+          <div class="ia-card-titulo">
             <div class="ia-card-nombre">Claude</div>
             <div class="ia-card-sub">por Anthropic</div>
           </div>
         </div>
-        <p class="ia-card-desc">Especialmente bueno para explicar conceptos, revisar código, y tener conversaciones largas con contexto. Ideal para aprender paso a paso.</p>
-        <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="ia-card-link">
-          Abrir claude.ai →
-        </a>
-      </div>
+        <p class="ia-card-desc">Especialmente bueno para explicar conceptos, revisar código y razonamiento lógico. Ideal para aprender paso a paso.</p>
+        <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="ia-card-link">Abrir claude.ai →</a>
+      </article>
 
-      <div class="ia-card" role="listitem">
+      <article class="ia-card">
         <div class="ia-card-header">
           <div class="ia-card-logo">
-            <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" width="28" height="28" alt="Gemini">
+            <img src="../assets/icons/another-icons/AI_Gemini_icon.svg" alt="Logo de Gemini" width="24" height="24">
           </div>
-          <div>
+          <div class="ia-card-titulo">
             <div class="ia-card-nombre">Gemini</div>
             <div class="ia-card-sub">por Google</div>
           </div>
         </div>
-        <p class="ia-card-desc">Integrado con el ecosistema de Google. Puede buscar información actualizada en internet y está disponible en Android de forma nativa.</p>
-        <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="ia-card-link">
-          Abrir gemini.google.com →
-        </a>
-      </div>
+        <p class="ia-card-desc">Integrado con el ecosistema de Google. Puede buscar información actualizada en internet y es nativo en Android.</p>
+        <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="ia-card-link">Abrir gemini.google.com →</a>
+      </article>
 
-      <div class="ia-card" role="listitem">
+      <article class="ia-card">
         <div class="ia-card-header">
           <div class="ia-card-logo">
-            <img src="https://cdn.oaistatic.com/assets/favicon-mktg-5exeknamhh2wxfmf7y.webp" width="28" height="28" alt="ChatGPT" style="border-radius:8px;">
+            <img src="../assets/icons/another-icons/AI_ChatGPT_icon.svg" alt="Logo de ChatGPT" width="24" height="24">
           </div>
-          <div>
+          <div class="ia-card-titulo">
             <div class="ia-card-nombre">ChatGPT</div>
             <div class="ia-card-sub">por OpenAI</div>
           </div>
         </div>
-        <p class="ia-card-desc">El más conocido a nivel mundial. La versión gratuita es muy capaz para aprender, redactar textos, resolver dudas y practicar idiomas.</p>
-        <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" class="ia-card-link">
-          Abrir chat.openai.com →
-        </a>
-      </div>
+        <p class="ia-card-desc">El más conocido a nivel mundial. La versión gratuita es muy capaz para redactar textos, resolver dudas y practicar idiomas.</p>
+        <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" class="ia-card-link">Abrir chat.openai.com →</a>
+      </article>
+
+      <article class="ia-card">
+        <div class="ia-card-header">
+          <div class="ia-card-logo">
+            <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Logo de HuggingChat" width="24" height="24">
+          </div>
+          <div class="ia-card-titulo">
+            <div class="ia-card-nombre">HuggingChat</div>
+            <div class="ia-card-sub">Comunidad Abierta</div>
+          </div>
+        </div>
+        <p class="ia-card-desc">La alternativa libre. Te permite probar modelos de código abierto (como Llama o Mistral) sin comprometer tu privacidad.</p>
+        <a href="https://huggingface.co/chat/" target="_blank" rel="noopener noreferrer" class="ia-card-link">Abrir HuggingChat →</a>
+      </article>
 
     </div>
+  </div>
 
-    <div class="cita">
-      <p>La IA es útil cuando la pregunta es tuya. "Explicame qué es un CUIL como si tuviera 10 años", "Ayudame a redactar una nota para el trabajo", "¿Por qué este código no funciona?" — esas son preguntas poderosas. La calidad de lo que obtenés depende de la calidad de lo que preguntás.</p>
-    </div>
-  </section>
+  <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.3rem; color: var(--azul-oscuro);">El poder del Código Abierto (Open Source)</h3>
+  <p>A diferencia de los modelos comerciales que operan como "cajas negras", la IA de código abierto funciona como una receta pública. El código fuente está disponible para que estudiantes, investigadores y desarrolladores independientes puedan inspeccionarlo y modificarlo.</p>
 
-
-  <!-- S6 — Crear cuenta y empezar -->
+  <div class="nota-aprendizaje">
+    <strong>Beneficios clave del Código Abierto:</strong>
+    <ul style="padding-left: 20px; color: var(--texto); margin-top: 10px;">
+      <li style="margin-bottom: 8px;"><strong>Transparencia:</strong> Al poder ver cómo está construido el modelo, la comunidad identifica y corrige sesgos más rápido.</li>
+      <li style="margin-bottom: 8px;"><strong>Privacidad absoluta:</strong> Podés descargar una IA (con herramientas como <em>Ollama</em>) y usarla sin internet. Tus datos nunca salen de tu dispositivo.</li>
+      <li><strong>Soberanía tecnológica:</strong> Garantiza que el avance no quede monopolizado por corporaciones gigantes, permitiendo que universidades y pymes desarrollen soluciones propias.</li>
+    </ul>
+  </div>
   <section class="seccion" id="s6">
-    <div class="seccion-header">
-      <div class="seccion-num">VI</div>
-      <h2>Crear una cuenta y empezar</h2>
-    </div>
+  <div class="seccion-header">
+    <div class="seccion-num">VI</div>
+    <h2>06. Crear una cuenta y empezar</h2>
+  </div>
 
-    <p>Todas las plataformas de IA tienen versiones gratuitas. Para usarlas necesitás una dirección de correo electrónico. Si no tenés una, el primer paso es crear una cuenta de Gmail.</p>
+  <p>Casi todas las plataformas de Inteligencia Artificial tienen versiones gratuitas. Para usarlas necesitás una dirección de correo electrónico. Si usás un celular con Android, ya tenés una cuenta de Gmail (y con esa misma podés entrar directo a <strong>Gemini</strong> sin registrarte de nuevo).</p>
+  
+  <p>Para usar otras herramientas como Claude o ChatGPT, el proceso es muy similar a abrirte un Facebook o un Instagram por primera vez:</p>
 
-    <div class="terminal-bloque" aria-label="Pasos para crear una cuenta en cualquier plataforma de IA">
-<span class="t-com">// Pasos genéricos para cualquier plataforma</span>
-<span class="t-val">1.</span> <span class="t-plain">Abrí el navegador (Chrome, Brave, Firefox)</span>
-<span class="t-val">2.</span> <span class="t-plain">Escribí la dirección en la barra: </span><span class="t-str">claude.ai</span>
-<span class="t-val">3.</span> <span class="t-plain">Tocá </span><span class="t-str">"Crear cuenta"</span><span class="t-plain"> o </span><span class="t-str">"Sign up"</span>
-<span class="t-val">4.</span> <span class="t-plain">Ingresá tu correo electrónico</span>
-<span class="t-val">5.</span> <span class="t-plain">Revisá el correo — va a llegar un código</span>
-<span class="t-val">6.</span> <span class="t-plain">Escribí el código en la pantalla</span>
-<span class="t-val">7.</span> <span class="t-plain">¡Listo! Ya podés empezar a preguntar</span>
+  <div class="terminal-contenedor">
+    <pre class="terminal-bloque" tabindex="0" aria-label="Pasos para crear una cuenta en cualquier plataforma de IA"><code><span class="t-com">// Pasos genéricos para plataformas como Claude o ChatGPT</span>
+<span class="t-val">1.</span> <span class="t-plain">Abrí el navegador (Chrome o Brave) y escribí:</span> <span class="t-str">claude.ai</span>
+<span class="t-val">2.</span> <span class="t-plain">Tocá el botón que dice</span> <span class="t-str">"Sign up"</span> <span class="t-plain">o</span> <span class="t-str">"Registrarse"</span>
+<span class="t-val">3.</span> <span class="t-plain">Ingresá tu correo electrónico.</span>
+<span class="t-val">4.</span> <span class="t-plain">Revisá tu correo: te va a llegar un código numérico.</span>
+<span class="t-val">5.</span> <span class="t-plain">Escribí ese código en la pantalla de la página.</span>
+<span class="t-val">6.</span> <span class="t-com">DATO: Te van a pedir tu número de celular. Es normal, </span>
+   <span class="t-com">lo usan para enviarte un SMS y verificar que sos una persona.</span>
+<span class="t-val">7.</span> <span class="t-plain">¡Listo! Ya podés empezar a conversar.</span>
 
-<span class="t-com">// Primera pregunta recomendada:</span>
-<span class="t-str">"Hola. Soy principiante en tecnología.
-¿Podés explicarme qué podés hacer vos 
-y cómo puedo aprovechar esta herramienta?"</span>
-    </div>
+<span class="t-com">// Primera pregunta recomendada (podés copiarla y pegarla):</span>
+<span class="t-str">"Hola. Soy principiante usando tecnología. 
+¿Podés explicarme qué cosas podés hacer vos 
+y cómo me podés ayudar en mi día a día?"</span></code></pre>
+  </div>
 
-    <div class="nota">
-      🔒 <strong>Sobre la privacidad:</strong> No pongas en una IA información sensible como contraseñas, números de tarjeta o datos de salud. Usá estas herramientas para aprender, crear y explorar — no como repositorio de datos personales.
-    </div>
-  </section>
+  <aside class="nota-aprendizaje" aria-label="Advertencia de Privacidad">
+    <strong>🔒 Regla de oro sobre tu privacidad:</strong>
+    <p>Nunca compartas con una IA información sensible como contraseñas, números de tarjeta de crédito, tu DNI, ni datos médicos o de salud. Usá estas herramientas para aprender, redactar y explorar, pero no como un lugar para guardar datos personales.</p>
+  </aside>
+</section>
 
 
   <!-- S7 — Aprender haciendo -->
   <section class="seccion dark" id="s7">
     <div class="seccion-header">
       <div class="seccion-num">VII</div>
-      <h2>Aprender haciendo — la experiencia del Punto Digital</h2>
+      <h2>07. Aprender haciendo, la experiencia del Punto Digital</h2>
     </div>
 
     <p>El proyecto Punto Digital que estás navegando ahora fue construido exactamente de esta manera: investigando, leyendo documentación, observando código de otros, experimentando, rompiendo cosas, y usando IA como asistente de aprendizaje.</p>
@@ -344,143 +597,129 @@ y cómo puedo aprovechar esta herramienta?"</span>
   </section>
 
 
-  <!-- S8 — Instituciones -->
-  <section class="seccion" id="s8">
-    <div class="seccion-header">
-      <div class="seccion-num">VIII</div>
-      <h2>Instituciones y conocimiento abierto</h2>
-    </div>
+ <section class="seccion" id="s8">
+  <div class="seccion-header">
+    <div class="seccion-num">VIII</div>
+    <h2>08. Instituciones y conocimiento abierto</h2>
+  </div>
 
-    <p>Hay organizaciones en todo el mundo que comparten conocimiento de forma gratuita. Estas son algunas que vale la pena conocer.</p>
+  <p>Existen organizaciones en todo el mundo dedicadas a democratizar el acceso a la información. Comparten conocimiento, herramientas y datos científicos de forma pública y gratuita. Estas son algunas que vale la pena explorar:</p>
 
-    <div class="recursos-grid" role="list" aria-label="Instituciones de conocimiento abierto">
+  <div class="recursos-grid" role="list" aria-label="Instituciones de conocimiento abierto">
 
-      <a href="https://developer.mozilla.org/es/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="MDN Web Docs — Documentación oficial de la web">
-        <span class="recurso-emoji">🦊</span>
-        <span class="recurso-nombre">MDN Web Docs</span>
-        <span class="recurso-desc">La documentación más completa de HTML, CSS y JavaScript. Mantenida por Mozilla.</span>
-        <span class="recurso-tag tag-gratis">Gratis</span>
-      </a>
+    <a href="https://developer.mozilla.org/es/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🦊</span>
+      <span class="recurso-nombre">MDN Web Docs</span>
+      <span class="recurso-desc">La enciclopedia oficial de la web. Documentación exhaustiva sobre HTML, CSS y JavaScript, mantenida por Mozilla.</span>
+      <span class="recurso-tag tag-gratis">Gratis</span>
+    </a>
 
-      <a href="https://www.freecodecamp.org/espanol/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="freeCodeCamp en español">
-        <span class="recurso-emoji">🔥</span>
-        <span class="recurso-nombre">freeCodeCamp</span>
-        <span class="recurso-desc">Aprende a programar gratis con proyectos reales. Tiene certificaciones reconocidas.</span>
-        <span class="recurso-tag tag-gratis">Gratis</span>
-      </a>
+    <a href="https://www.freecodecamp.org/espanol/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🔥</span>
+      <span class="recurso-nombre">freeCodeCamp</span>
+      <span class="recurso-desc">Aprende a programar construyendo proyectos reales. Ofrece certificaciones gratuitas muy valoradas en la industria.</span>
+      <span class="recurso-tag tag-gratis">Gratis</span>
+    </a>
 
-      <a href="https://es.khanacademy.org/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="Khan Academy en español">
-        <span class="recurso-emoji">🎓</span>
-        <span class="recurso-nombre">Khan Academy</span>
-        <span class="recurso-desc">Matemática, ciencia, programación y más. 100% gratuito y en español.</span>
-        <span class="recurso-tag tag-gratis">Gratis</span>
-      </a>
+    <a href="https://es.khanacademy.org/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🎓</span>
+      <span class="recurso-nombre">Khan Academy</span>
+      <span class="recurso-desc">Una plataforma educativa de clase mundial. Matemática, ciencia y programación, 100% gratuita y en tu idioma.</span>
+      <span class="recurso-tag tag-gratis">Gratis</span>
+    </a>
 
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="GitHub — Plataforma de código abierto">
-        <span class="recurso-emoji">🐙</span>
-        <span class="recurso-nombre">GitHub</span>
-        <span class="recurso-desc">Donde vive el código de la mayoría de los proyectos de software libre del mundo.</span>
-        <span class="recurso-tag tag-abierto">Open Source</span>
-      </a>
+    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🐙</span>
+      <span class="recurso-nombre">GitHub</span>
+      <span class="recurso-desc">El lugar donde vive el código. Aquí se alojan y construyen de forma colaborativa la mayoría de los proyectos de software libre.</span>
+      <span class="recurso-tag tag-abierto">Open Source</span>
+    </a>
 
-      <a href="https://www.w3.org/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="W3C — Consorcio de la World Wide Web">
-        <span class="recurso-emoji">🌐</span>
-        <span class="recurso-nombre">W3C</span>
-        <span class="recurso-desc">El organismo que define los estándares de la web. Todo HTML y CSS que existe pasa por acá.</span>
-        <span class="recurso-tag tag-oficial">Oficial</span>
-      </a>
+    <a href="https://www.w3.org/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🌐</span>
+      <span class="recurso-nombre">W3C</span>
+      <span class="recurso-desc">El organismo internacional que define las reglas y estándares de Internet. Todo lo que ves en la web pasa por acá.</span>
+      <span class="recurso-tag tag-oficial">Oficial</span>
+    </a>
 
-      <a href="https://www.nasa.gov/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="NASA — Agencia espacial con datos abiertos">
-        <span class="recurso-emoji">🚀</span>
-        <span class="recurso-nombre">NASA</span>
-        <span class="recurso-desc">Comparte imágenes, datos científicos y APIs públicas. Un recurso increíble para aprender.</span>
-        <span class="recurso-tag tag-oficial">Datos abiertos</span>
-      </a>
+    <a href="https://www.nasa.gov/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🚀</span>
+      <span class="recurso-nombre">NASA</span>
+      <span class="recurso-desc">No solo exploran el espacio, también comparten imágenes, descubrimientos y datos científicos de acceso libre para aprender.</span>
+      <span class="recurso-tag tag-oficial">Datos abiertos</span>
+    </a>
 
-      <a href="https://www.conicet.gov.ar/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="CONICET — Ciencia argentina">
-        <span class="recurso-emoji">🔬</span>
-        <span class="recurso-nombre">CONICET</span>
-        <span class="recurso-desc">Consejo Nacional de Investigaciones Científicas de Argentina. Ciencia pública nacional.</span>
-        <span class="recurso-tag tag-oficial">Argentina</span>
-      </a>
+    <a href="https://www.conicet.gov.ar/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🔬</span>
+      <span class="recurso-nombre">CONICET</span>
+      <span class="recurso-desc">El principal organismo dedicado a la promoción de la ciencia y la tecnología en Argentina. Ciencia pública y nacional.</span>
+      <span class="recurso-tag tag-oficial">Argentina</span>
+    </a>
 
-      <a href="https://www.ohchr.org/es/human-rights/universal-declaration" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem" aria-label="Declaración Universal de Derechos Humanos">
-        <span class="recurso-emoji">📜</span>
-        <span class="recurso-nombre">Derechos Humanos</span>
-        <span class="recurso-desc">La Declaración Universal de Derechos Humanos. El acceso a la información y la educación son derechos.</span>
-        <span class="recurso-tag tag-oficial">ONU</span>
-      </a>
+    <a href="https://www.ohchr.org/es/human-rights/universal-declaration" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">📜</span>
+      <span class="recurso-nombre">Derechos Humanos</span>
+      <span class="recurso-desc">La Declaración Universal. Nos recuerda que el acceso a la información, la cultura y la educación son derechos fundamentales.</span>
+      <span class="recurso-tag tag-oficial">ONU</span>
+    </a>
 
-    </div>
-  </section>
+  </div>
+</section>
 
 
-  <!-- S9 — Recursos -->
-  <section class="seccion" id="s9">
-    <div class="seccion-header">
-      <div class="seccion-num">IX</div>
-      <h2>Recursos para seguir aprendiendo</h2>
-    </div>
+<!-- S9 — Recursos -->
+<section class="seccion" id="s9">
+  <div class="seccion-header">
+    <div class="seccion-num">IX</div>
+    <h2>09. Recursos para seguir aprendiendo</h2>
+  </div>
 
-    <p>Esta no es una lista definitiva. Es un punto de partida. El conocimiento en tecnología está en constante cambio — la mejor habilidad que podés desarrollar es saber dónde buscar.</p>
+  <p>Esta no es una lista definitiva, sino un punto de partida. El conocimiento en tecnología está en constante evolución, la mejor herramienta que podés desarrollar es aprender a aprender y saber dónde buscar la información.</p>
 
-    <div class="recursos-grid" role="list" aria-label="Recursos de aprendizaje adicionales">
+  <div class="recursos-grid" role="list" aria-label="Recursos de aprendizaje adicionales">
 
-      <a href="https://web.dev/learn/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem">
-        <span class="recurso-emoji">💡</span>
-        <span class="recurso-nombre">web.dev / Learn</span>
-        <span class="recurso-desc">Guías de Google sobre HTML, CSS, JavaScript y accesibilidad web moderna.</span>
-        <span class="recurso-tag tag-gratis">Gratis</span>
-      </a>
+    <a href="https://web.dev/learn/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">💡</span>
+      <span class="recurso-nombre">web.dev / Learn</span>
+      <span class="recurso-desc">Las guías oficiales de Google para aprender diseño y desarrollo web moderno, con un fuerte enfoque en accesibilidad.</span>
+      <span class="recurso-tag tag-gratis">Gratis</span>
+    </a>
 
-      <a href="https://www.edx.org/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem">
-        <span class="recurso-emoji">🏛️</span>
-        <span class="recurso-nombre">edX</span>
-        <span class="recurso-desc">Cursos de universidades como MIT, Harvard y más. Muchos gratuitos para auditar.</span>
-        <span class="recurso-tag tag-gratis">Auditar gratis</span>
-      </a>
+    <a href="https://www.edx.org/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">🏛️</span>
+      <span class="recurso-nombre">edX</span>
+      <span class="recurso-desc">Cursos de nivel universitario dictados por el MIT, Harvard y más. Podés elegir la opción "Auditar" para cursar completamente gratis.</span>
+      <span class="recurso-tag tag-gratis">Auditar gratis</span>
+    </a>
 
-      <a href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem">
-        <span class="recurso-emoji">📚</span>
-        <span class="recurso-nombre">Coursera</span>
-        <span class="recurso-desc">Cursos de tecnología, programación y ciencias. Ayuda financiera disponible.</span>
-        <span class="recurso-tag tag-abierto">Con ayuda financiera</span>
-      </a>
+    <a href="https://www.coursera.org/" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">📚</span>
+      <span class="recurso-nombre">Coursera</span>
+      <span class="recurso-desc">Miles de cursos en tecnología y ciencias. Si no podés pagar, la plataforma permite solicitar ayuda económica para certificarte sin costo.</span>
+      <span class="recurso-tag tag-abierto">Con ayuda financiera</span>
+    </a>
 
-      <a href="https://creativecommons.org/licenses/?lang=es" target="_blank" rel="noopener noreferrer"
-         class="recurso-card" role="listitem">
-        <span class="recurso-emoji">⚖️</span>
-        <span class="recurso-nombre">Creative Commons</span>
-        <span class="recurso-desc">Entendé cómo funciona el conocimiento libre y las licencias abiertas.</span>
-        <span class="recurso-tag tag-abierto">Licencias abiertas</span>
-      </a>
+    <a href="https://creativecommons.org/licenses/?lang=es" target="_blank" rel="noopener noreferrer" class="recurso-card" role="listitem">
+      <span class="recurso-emoji" aria-hidden="true">⚖️</span>
+      <span class="recurso-nombre">Creative Commons</span>
+      <span class="recurso-desc">Aprendé cómo funcionan las licencias que permiten compartir cultura, arte, herramientas y conocimiento libremente en Internet.</span>
+      <span class="recurso-tag tag-abierto">Licencias abiertas</span>
+    </a>
 
-    </div>
+  </div>
 
+  <!-- TODO: Futuras implementaciones comunitarias -->
+  <div class="terminal-contenedor" style="margin-top: 3rem;">
+    <pre class="terminal-bloque" tabindex="0" aria-label="Contenido planeado para futuras versiones"><code><span class="t-com">// TODO — Próximas actualizaciones (en desarrollo)</span>
+<span class="t-com">// Elementos a incorporar en las siguientes versiones del sitio:</span>
 
-    <!-- TODO -->
-    <div class="todo-bloque" aria-label="Contenido planeado para futuras versiones">
-      <div class="todo-titulo">// TODO — Próximas secciones (no implementadas aún)</div>
-      <ul class="todo-items">
-        <li>grabaciones de voz del barrio y testimonios comunitarios</li>
-        <li>relatos en primera persona de vecinos aprendiendo tecnología</li>
-        <li>entrevistas con docentes de la comunidad</li>
-        <li>documentación audiovisual de talleres del Punto Digital</li>
-        <li>material de campo: fotos y videos del espacio</li>
-      </ul>
-    </div>
-  </section>
+<span class="t-val">[ ]</span> <span class="t-plain">Grabaciones de voz del barrio y testimonios comunitarios.</span>
+<span class="t-val">[ ]</span> <span class="t-plain">Relatos en primera persona de vecinos aprendiendo tecnología.</span>
+<span class="t-val">[ ]</span> <span class="t-plain">Entrevistas con docentes de la comunidad.</span>
+<span class="t-val">[ ]</span> <span class="t-plain">Documentación audiovisual de talleres del Punto Digital.</span>
+<span class="t-val">[ ]</span> <span class="t-plain">Material de campo: fotos y videos del espacio.</span></code></pre>
+  </div>
+</section>
 
 
 
@@ -488,31 +727,112 @@ y cómo puedo aprovechar esta herramienta?"</span>
 </main>
 
 <!-- ══ FOOTER ════════════════════════════════════════════ -->
-<footer>
-  <!-- Navegación entre páginas -->
-  <nav class="footer-nav-paginas" aria-label="Navegación entre páginas del proyecto">
-    <a href="../index.html" class="footer-nav-btn">
-      🌐 Punto Digital
-    </a>
-    <span class="footer-nav-sep" aria-hidden="true">›</span>
-    <a href="./brecha-digital.html" class="footer-nav-btn">
-      📋 Brecha Digital
-    </a>
-    <span class="footer-nav-sep" aria-hidden="true">›</span>
-    <span class="footer-nav-actual" aria-current="page">
-      🤖 Humanos e IA
-    </span>
-  </nav>
+<footer class="footer" id="pie-pagina" role="contentinfo">
+  <div class="container">
 
-  <p>
-    <strong>Ángel Nicolás Villegas</strong> ·
-    CENS 453 · Escuela N°1, Uruguay 53, Moreno · 2026
-  </p>
-  <p style="margin-top: 10px; font-size: .8rem; opacity: .5;">
-    Parte del proyecto
-    <a href="../index.html">Punto Digital Comunitario Morenense</a>
-  </p>
+    <nav class="footer-nav-paginas" aria-label="Navegación entre páginas del proyecto">
+      <a href="../index.html" class="footer-nav-btn">
+        🌐 Punto Digital
+      </a>
+      <span class="footer-nav-sep" aria-hidden="true">›</span>
+      <a href="../brecha-digital/index.html" class="footer-nav-btn">
+        📋 Brecha Digital
+      </a>
+      <span class="footer-nav-sep" aria-hidden="true">›</span>
+      <span class="footer-nav-actual" aria-current="page">
+        🤖 Humanos e IA
+      </span>
+    </nav>
+
+    <p style="margin-top: 20px;">Punto Digital 🌐<br>
+       Espacios de Alfabetización y Educación Digital</p>
+
+    <div style="margin-top:15px; border-top:1px solid #444; padding-top:15px; font-size:0.9rem; text-align: center;">
+        
+        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 10px; font-style: italic;">
+            💡 <strong>Consejo:</strong> Tocá sobre cualquier texto marcado en azul para copiarlo y pegarlo donde necesites (mapas, buscadores o chats).
+        </p>
+
+        <p style="margin:8px 0;">
+            📍 <strong>Dirección de la Escuela:</strong><br>
+            <span id="texto-direccion"
+                  style="cursor:pointer; color:#3C9DD9; font-weight:bold; display:block; padding:5px 0;"
+                  title="Tocá para copiar"
+                  aria-label="Argentina, Buenos Aires, Moreno, Escuela Nº1, Uruguay 53.">
+                Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.
+            </span>
+        </p>
+
+        <p style="margin:8px 0;">
+            📚 <strong>Nombre del Autor:</strong><br>
+            <span id="texto-autor"
+                  style="cursor:pointer; color:#3C9DD9; font-weight:bold; display:block; padding:5px 0;"
+                  title="Tocá para copiar el nombre del autor">
+                Angel Nicolás Villegas
+            </span>
+            <span style="display:block; font-size:0.8rem; color:#888; margin-top:2px;">
+                CENS 453 · En unión y libertad, junto a mis hermanos/as.
+            </span>
+        </p>            
+
+        <p style="margin-top:15px; font-size:0.8rem; color:#888;">
+            © <span id="anio-actual"></span> Todos los derechos reservados.<br>
+            Parte del proyecto del <a href="https://fines.educacion.gob.ar/#" style="color:#3C9DD9; text-decoration: none;">Plan FinEs (Programa de Finalización de Estudios Primarios y Secundarios)</a>
+        </p>
+    </div>
+
+    <div style="margin-top:12px; text-align: center;">
+        <button
+            onclick="if(window.PD_Onboarding){window.PD_Onboarding.resetear();window.PD_Onboarding.mostrar();}"
+            style="background:none; border:1px solid #444; border-radius:5px; color:#ccc; cursor:pointer;
+                   font-size:0.85rem; padding:8px 12px; margin-top:10px;"
+            aria-label="Ver nuevamente la bienvenida de la aplicación">
+            🔁 Ver la bienvenida
+        </button>
+    </div>
+  </div>
 </footer>
+
+<button
+    id="btn-compartir-flotante"
+    class="btn-compartir-flotante"
+    aria-label="Compartir esta aplicación">
+    <svg width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor"
+        stroke-width="2.5" stroke-linecap="round"
+        stroke-linejoin="round" aria-hidden="true">
+        <circle cx="18" cy="5" r="3"></circle>
+        <circle cx="6" cy="12" r="3"></circle>
+        <circle cx="18" cy="19" r="3"></circle>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+    </svg>
+</button>
+
+<button id="btn-volver-arriba"
+    class="btn-volver-arriba"
+    aria-label="Volver al inicio de la página">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M11 18V4M4 11L11 4L18 11"
+              stroke="white" stroke-width="2.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</button>
+
+<script src="../js/storage.js"></script>
+<script src="../js/tutoriales.js"></script>
+<script src="../js/ui.js"></script>
+<script src="../js/components/toast.js"></script>
+<script src="../js/components/progressBar.js"></script>
+<script src="../js/components/tutorialCard.js"></script>
+<script src="../js/voice/speech.js"></script>
+<script src="../js/accesibilidad.js"></script>
+<script src="../js/script.js"></script>
+<script src="../js/onboarding.js"></script>
+<script src="../js/deeplink.js"></script>
+<script src="../js/pwa.js"></script>
 
 </body>
 </html>
+
