@@ -1,0 +1,3869 @@
+/* =========================================================
+   PUNTO DIGITAL COMUNITARIO MORENENSE — v2
+   Institucional Argentina · Accesibilidad extrema · 2026
+========================================================= */
+
+:root {
+    /* ── Paleta institucional ────────────────────────── */
+    --azul-arg:    #0B5AA2;
+    --azul-oscuro: #073763;
+    --celeste-arg: #37B5E5;
+    --fondo:       #F5F8FC;
+    --blanco:      #FFFFFF;
+    --texto:       #1F2937;
+    --texto-suave: #374151;
+    --gris-borde:  #D7E1EA;
+    --verde:       #198754;
+    --amarillo:    #FFF3CD;
+    --amarillo-txt:#664D03;
+    --rojo:        #C62828;
+    --shadow:      0 3px 10px rgba(0,0,0,.07);
+    --radius:      18px;
+    --espacio:     clamp(16px, 3vw, 32px);
+
+    /* ── Escala tipográfica controlada ───────────────── */
+    /* JS solo cambia --fs-scale. Todo lo demás escala junto. */
+    --fs-scale: 1;
+    --fs-xs:   calc(0.82rem  * var(--fs-scale));
+    --fs-sm:   calc(0.95rem  * var(--fs-scale));
+    --fs-md:   calc(1.1rem   * var(--fs-scale));
+    --fs-lg:   calc(1.25rem  * var(--fs-scale));
+    --fs-xl:   calc(1.5rem   * var(--fs-scale));
+    --fs-2xl:  calc(1.9rem   * var(--fs-scale));
+    --fs-3xl:  calc(2.3rem   * var(--fs-scale));
+
+    /* Tamaños fijos que NUNCA escalan (iconos / UI chrome) */
+    --icon-sm: 18px;
+    --icon-md: 22px;
+    --icon-lg: 28px;
+    --btn-fab: 50px;
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.8;
+    /* clamp: mín 18px en móvil estrecho, fluido, máx 22px en desktop */
+    font-size: clamp(18px, 4.2vw, 22px);
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* ── Skip Link ─────────────────────────────────────────── */
+.skip-link {
+    position:absolute; top:-100px; left:10px;
+    background:var(--azul-arg); color:white;
+    padding:10px 18px; border-radius:8px;
+    font-weight:bold; z-index:9999; transition:top .2s;
+}
+.skip-link:focus { top:10px; }
+
+/* ── Contenedor ────────────────────────────────────────── */
+.container { width:95%; max-width:1200px; margin:auto; }
+
+/* ── Header ────────────────────────────────────────────── */
+.header {
+    background: linear-gradient(180deg, var(--azul-arg), var(--azul-oscuro));
+    color:white; padding:40px 20px;
+    border-bottom:8px solid var(--celeste-arg);
+    box-shadow: var(--shadow);
+}
+.header h1 {
+    font-size: clamp(1.5rem, 6.5vw, 3rem);
+    text-align:center; line-height:1.3; margin-bottom:15px; font-weight:700;
+    overflow-wrap: break-word; word-break: break-word;
+}
+.header p  { text-align:center; font-size: clamp(1rem, 3vw, 1.3rem); opacity:.98; }
+
+/* ── Indicador Offline ─────────────────────────────────── */
+#indicador-conexion {
+    display:none; background:var(--rojo); color:white;
+    text-align:center; padding:12px 20px;
+    font-weight:bold; font-size:1.1rem;
+    position:sticky; top:0px; z-index:99;
+    border-bottom:3px solid #8B0000;
+}
+
+/* ── Toast sistema ─────────────────────────────────────── */
+#toast-contenedor {
+    position:fixed; bottom:24px; right:16px;
+    display:flex; flex-direction:column; gap:8px;
+    z-index:1002; max-width:min(340px, 92vw);
+}
+.toast {
+    padding:13px 18px; border-radius:10px;
+    font-size:1.1rem; font-weight:bold;
+    box-shadow:0 4px 12px rgba(0,0,0,.18);
+    opacity:0; transform:translateY(10px);
+    transition:opacity .3s, transform .3s;
+}
+.toast-visible   { opacity:1; transform:translateY(0); }
+.toast-exito     { background:#28a745; color:white; }
+.toast-info      { background:var(--azul-arg); color:white; }
+.toast-aviso     { background:#e67e22; color:white; }
+
+/* ── Panel de Voz ──────────────────────────────────────── */
+#panel-voz {
+    position:fixed; bottom:0; left:0; right:0;
+    background:var(--azul-oscuro); color:white;
+    padding:14px 16px; z-index:200;
+    border-top:4px solid var(--celeste-arg);
+    box-shadow:0 -4px 14px rgba(0,0,0,.2);
+}
+.panel-voz-inner   { max-width:900px; margin:auto; }
+.panel-voz-titulo  { display:block; font-size:1.1rem; font-weight:bold; margin-bottom:10px; }
+.panel-voz-controles { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+.btn-voz-ctrl {
+    background:rgba(255,255,255,.15); color:white; border:2px solid rgba(255,255,255,.3);
+    padding:9px 14px; border-radius:8px;
+    font-size:1rem !important; font-weight:bold;
+    cursor:pointer; min-height:auto !important;
+    transition:background .15s;
+}
+.btn-voz-ctrl:hover    { background:rgba(255,255,255,.3); }
+.btn-voz-ctrl:focus    { outline:3px solid #FFD54F; }
+.btn-voz-detener       { background:rgba(198,40,40,.5) !important; }
+.panel-voz-velocidad   { display:flex; align-items:center; gap:10px; font-size:1rem; }
+.panel-voz-velocidad input[type=range] { flex:1; cursor:pointer; }
+#valor-velocidad { min-width:2.5em; text-align:right; font-weight:bold; }
+
+/* Resaltado paso leído */
+.paso-leyendo {
+    border-left-color: var(--celeste-arg) !important;
+    background: #EAF6FD !important;
+    box-shadow: 0 0 0 3px var(--celeste-arg);
+    transition: background .3s, box-shadow .3s;
+}
+
+/* ── Buscador ──────────────────────────────────────────── */
+.seccion-buscador {
+    margin:25px 0 0; background:white;
+    border-radius:var(--radius); padding:24px 28px;
+    box-shadow:var(--shadow); border:2px solid var(--gris-borde);
+}
+.label-buscador { display:block; font-size:1.2rem; font-weight:bold; color:var(--azul-oscuro); margin-bottom:10px; }
+.input-buscador {
+    width:100%; padding:15px 18px; font-size:1.25rem;
+    border:3px solid var(--celeste-arg); border-radius:14px;
+    outline:none; color:var(--texto); background:#F9FBFD;
+    transition:border-color .2s, box-shadow .2s;
+    -webkit-appearance:none;
+}
+.input-buscador:focus {
+    border-color:var(--azul-arg);
+    box-shadow:0 0 0 4px rgba(11,90,162,.12);
+}
+.input-buscador::placeholder { color:#9CA3AF; }
+.contador-resultados { margin-top:8px; font-size:1rem; color:var(--texto-suave); min-height:1.4em; }
+
+/* ── Intro ─────────────────────────────────────────────── */
+.intro {
+    background:white; margin-top:22px; padding:32px;
+    border-radius:var(--radius); box-shadow:var(--shadow);
+    border:2px solid var(--gris-borde);
+}
+.intro h2 { color:var(--azul-oscuro); font-size:2.1rem; margin-bottom:16px; }
+.intro p   { font-size:1.2rem; color:var(--texto-suave); }
+
+/* Tutorial reciente */
+.reciente-wrap { margin-top:18px; padding-top:16px; border-top:2px dashed var(--gris-borde); }
+.reciente-label { font-size:1rem; color:var(--texto-suave); margin-bottom:8px; }
+.btn-reciente-item {
+    background:white; border:2px solid var(--azul-arg);
+    color:var(--azul-arg); padding:12px 18px;
+    border-radius:12px; font-size:1.1rem !important;
+    font-weight:bold; cursor:pointer; min-height:auto !important;
+    transition:background .15s;
+}
+.btn-reciente-item:hover { background:#EBF4FF; }
+
+/* ── Favoritos ─────────────────────────────────────────── */
+.seccion-favoritos {
+    background:#FFFBF0; border:2px solid #FFD54F;
+    border-radius:var(--radius); padding:24px 28px;
+    margin-top:25px; box-shadow:var(--shadow);
+}
+.favoritos-titulo { color:#7B5800; font-size:1.6rem; margin-bottom:14px; }
+.favoritos-grid { display:flex; flex-wrap:wrap; gap:12px; }
+.btn-favorito-item {
+    background:white; border:2px solid #FFD54F;
+    padding:12px 18px; border-radius:12px;
+    font-size:1.1rem !important; font-weight:bold;
+    color:var(--texto); cursor:pointer; min-height:auto !important;
+    transition:background .15s;
+}
+.btn-favorito-item:hover { background:#FFFBEA; }
+
+/* ── Progreso Global ───────────────────────────────────── */
+.seccion-progreso {
+    background:white; border:2px solid var(--gris-borde);
+    border-radius:var(--radius); padding:24px 28px;
+    margin-top:25px; box-shadow:var(--shadow);
+}
+.progreso-titulo   { color:var(--azul-oscuro); font-size:1.6rem; margin-bottom:14px; }
+.progreso-global-wrap { display:flex; flex-direction:column; gap:8px; }
+.progreso-global-barra-bg {
+    background:#DDE8F2; border-radius:20px; height:20px; overflow:hidden;
+}
+.progreso-global-fill {
+    height:100%;
+    background:linear-gradient(90deg, var(--azul-arg), var(--celeste-arg));
+    border-radius:20px; transition:width .6s ease; min-width:6px;
+}
+.progreso-texto { font-size:1.1rem; color:var(--texto-suave); }
+.badges-contenedor { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.badge {
+    background:#EEF7E0; color:#2D6A4F;
+    border:2px solid #74C69D; border-radius:20px;
+    padding:6px 14px; font-size:1rem; font-weight:bold;
+}
+
+/* ── Menú Principal ────────────────────────────────────── */
+.grid-menu {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(290px, 1fr));
+    gap:22px; margin-top:28px; margin-bottom:35px;
+}
+.btn-menu {
+    background:white; border:3px solid var(--celeste-arg);
+    border-radius:22px; padding:26px;
+    cursor:pointer; text-align:left;
+    box-shadow:var(--shadow);
+    font-size:1.25rem; font-weight:bold;
+    color:var(--azul-oscuro); line-height:1.4;
+    transition:transform .15s, border-color .15s, background .15s;
+    position:relative;
+}
+.btn-menu:hover { transform:translateY(-3px); border-color:var(--azul-arg); background:#F0F8FF; }
+.btn-menu:focus { outline:5px solid #FFD54F; outline-offset:2px; }
+.btn-badge { font-size:.9rem; margin-left:6px; }
+
+/* ── Acciones del Tutorial ─────────────────────────────── */
+.acciones-tutorial {
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin:14px 0; padding:16px 0;
+    border-bottom:2px solid var(--gris-borde);
+}
+.btn-accion {
+    background:white; border:2px solid var(--gris-borde);
+    color:var(--texto); padding:10px 16px;
+    border-radius:10px; font-size:1rem !important;
+    font-weight:bold; cursor:pointer; min-height:auto !important;
+    transition:background .15s, border-color .15s;
+}
+.btn-accion:hover { background:#F3F4F6; border-color:var(--azul-arg); }
+.btn-accion:focus { outline:4px solid #FFD54F; }
+.btn-accion.activo {
+    background:#EBF8EF; border-color:var(--verde); color:var(--verde);
+}
+
+/* ── Tutorial Container ────────────────────────────────── */
+.tutorial-container {
+    background:white; border-radius:22px; padding:32px;
+    box-shadow:var(--shadow); margin-bottom:35px;
+    border:2px solid var(--gris-borde);
+}
+.oculto { display:none !important; }
+
+/* ── Botón Volver ──────────────────────────────────────── */
+.btn-volver {
+    background:var(--azul-arg); color:white; border:none;
+    padding:16px 26px; border-radius:14px;
+    font-size:1.2rem; font-weight:bold; cursor:pointer;
+    margin-bottom:26px; width:100%; max-width:340px;
+    transition:background .15s;
+}
+.btn-volver:hover { background:var(--azul-oscuro); }
+.btn-volver:focus { outline:5px solid #FFD54F; }
+
+/* ── Barra de Progreso de Pasos ────────────────────────── */
+#indicador-progreso { margin:10px 0 18px; }
+.texto-progreso { display:block; font-size:1.1rem; font-weight:bold; color:var(--azul-oscuro); margin-bottom:7px; }
+.barra-progreso-wrap  { background:#DDE8F2; border-radius:20px; height:14px; overflow:hidden; }
+.barra-progreso-fill  { height:100%; background:linear-gradient(90deg, var(--azul-arg), var(--celeste-arg)); border-radius:20px; transition:width .4s ease; min-width:6px; }
+
+/* ── Pasos ─────────────────────────────────────────────── */
+.paso-tutorial {
+    background:#FAFCFE; border:2px solid #DDE8F2;
+    border-left:10px solid var(--celeste-arg);
+    border-radius:18px; padding:26px; margin-bottom:22px;
+}
+.paso-tutorial h3 { color:var(--azul-oscuro); font-size:1.7rem; margin-bottom:13px; }
+.paso-tutorial p  { font-size:1.2rem; line-height:1.9; }
+
+/* ── Botones paso ──────────────────────────────────────── */
+.btn-paso {
+    background:var(--azul-arg); color:white; border:none;
+    padding:11px 16px; border-radius:9px; cursor:pointer;
+    font-size:1rem !important; font-weight:bold;
+    min-height:auto !important; margin-top:7px;
+    transition:background .15s;
+}
+.btn-paso:hover { background:var(--azul-oscuro); }
+.btn-paso:focus { outline:4px solid #FFD54F; }
+
+/* ── Regla global botones ─────────────────────────────── */
+button { font-size:1.2rem !important; min-height:62px; font-weight:bold; }
+
+/* ── Alertas ───────────────────────────────────────────── */
+.alerta-tranquilidad {
+    background:var(--amarillo); color:var(--amarillo-txt);
+    border-left:8px solid #FFCA2C; padding:22px;
+    border-radius:16px; margin-top:22px; font-size:1.15rem;
+}
+.consejos {
+    background:#FFF1F1; border-left:8px solid var(--rojo);
+    padding:28px; border-radius:18px; margin-top:36px;
+}
+.consejos h2 { color:var(--rojo); font-size:1.9rem; margin-bottom:13px; }
+.consejos ul  { padding-left:20px; }
+.consejos li  { margin-bottom:10px; font-size:1.1rem; }
+
+/* ── Links ─────────────────────────────────────────────── */
+a { color:var(--azul-arg); font-weight:bold; text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+/* ── Footer ────────────────────────────────────────────── */
+.footer {
+    background:var(--azul-oscuro); color:white;
+    text-align:center; padding:38px 20px;
+    margin-top:48px; border-top:8px solid var(--celeste-arg);
+}
+.footer p { font-size:1.05rem; }
+
+/* ── Animaciones ───────────────────────────────────────── */
+.tutorial-container, .btn-menu, .intro, .seccion-buscador,
+.seccion-favoritos, .seccion-progreso {
+    animation: fadeIn .3s ease;
+}
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(8px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SISTEMA DE ESCALADO TIPOGRÁFICO CONTROLADO
+   JS cambia SOLO --fs-scale en :root. Nada más.
+   Todos los textos heredan el cambio de forma uniforme.
+   Los iconos y FABs están desacoplados y no se deforman.
+   ══════════════════════════════════════════════════════════ */
+
+/* Escala -2 (texto más pequeño) */
+html[data-fs="-2"] { --fs-scale: 0.82; }
+/* Escala -1 */
+html[data-fs="-1"] { --fs-scale: 0.91; }
+/* Escala 0 — normal (por defecto, no necesita declaración) */
+/* Escala +1 */
+html[data-fs="+1"] { --fs-scale: 1.15; }
+/* Escala +2 (texto más grande) */
+html[data-fs="+2"] { --fs-scale: 1.32; }
+
+/* Aplicar la escala al cuerpo del texto (no a iconos ni UI) */
+body { font-size: calc(clamp(18px, 4.2vw, 22px) * var(--fs-scale)); }
+
+/* Botones de texto usan la escala — pero el PADDING no escala para no deformar */
+.btn-menu    { font-size: var(--fs-md) !important; }
+.btn-accion  { font-size: var(--fs-sm) !important; }
+.btn-paso    { font-size: var(--fs-sm) !important; }
+.tab-categoria { font-size: var(--fs-xs) !important; }
+.input-buscador { font-size: var(--fs-lg); }
+.paso-tutorial p { font-size: var(--fs-lg); line-height: 1.9; }
+.paso-tutorial h3 { font-size: var(--fs-xl); }
+.intro h2 { font-size: var(--fs-2xl); }
+.drawer-item { font-size: var(--fs-md) !important; }
+
+/* Iconos y FABs — SIEMPRE tamaño fijo, no escalan */
+.btn-hamburger,
+.btn-compartir-flotante,
+#btn-acc-flotante,
+.btn-volver-arriba {
+    width: var(--btn-fab) !important;
+    height: var(--btn-fab) !important;
+    min-height: auto !important;
+    font-size: 0 !important; /* el contenido es SVG, no texto */
+}
+.btn-hamburger { width: 48px !important; height: 48px !important; }
+.hamburger-linea { width: 22px; height: 2.5px; } /* nunca cambia */
+
+.btn-hamburger svg,
+.btn-compartir-flotante svg,
+#btn-acc-flotante svg,
+.btn-volver-arriba svg,
+.drawer-btn-cerrar svg,
+.acc-btn-cerrar svg {
+    width: var(--icon-md) !important;
+    height: var(--icon-md) !important;
+    flex-shrink: 0;
+    display: block;
+}
+
+/* ── ALTO CONTRASTE — regla única y completa ──────────── */
+
+html.modo-alto-contraste,
+html.modo-alto-contraste body {
+    background: #111 !important;
+    color: #fff !important;
+}
+
+/* Todos los contenedores */
+html.modo-alto-contraste .header,
+html.modo-alto-contraste .footer {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .header h1,
+html.modo-alto-contraste .header p { color: #fff !important; }
+
+html.modo-alto-contraste .intro,
+html.modo-alto-contraste .tutorial-container,
+html.modo-alto-contraste .paso-tutorial,
+html.modo-alto-contraste .seccion-buscador,
+html.modo-alto-contraste .seccion-favoritos,
+html.modo-alto-contraste .seccion-progreso,
+html.modo-alto-contraste .banner-seguridad,
+html.modo-alto-contraste .alerta-tranquilidad,
+html.modo-alto-contraste .nota-tutorial,
+html.modo-alto-contraste .nav-tutorial {
+    background: #111 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+
+/* Textos enfatizados */
+html.modo-alto-contraste .paso-tutorial h3,
+html.modo-alto-contraste .intro h2,
+html.modo-alto-contraste .progreso-titulo,
+html.modo-alto-contraste .favoritos-titulo,
+html.modo-alto-contraste .banner-seg-titulo {
+    color: #FFD700 !important;
+}
+
+/* Botones del menú */
+html.modo-alto-contraste .btn-menu {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+    border-left-color: #FFD700 !important;
+}
+html.modo-alto-contraste .btn-menu:hover {
+    background: #222 !important;
+}
+
+/* Acordeón */
+html.modo-alto-contraste .acord-header {
+    background: #000 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .acord-header-activo { background: #1a1a00 !important; }
+html.modo-alto-contraste .categoria-grid      { border-color: #FFD700 !important; }
+
+/* Drawer completo */
+html.modo-alto-contraste .drawer-nav {
+    background: #111 !important;
+    border-left: 2px solid #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-header { background: #000 !important; }
+html.modo-alto-contraste .drawer-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .drawer-btn-cerrar { color: #FFD700 !important; }
+html.modo-alto-contraste .drawer-seccion-titulo {
+    background: #1a1a00 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-item {
+    color: #fff !important;
+    border-color: #333 !important;
+}
+html.modo-alto-contraste .drawer-item:hover {
+    background: #222 !important;
+    color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-cat-btn {
+    background: #111 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-buscador-input {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .drawer-resultado-item {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+
+/* Buscador principal */
+html.modo-alto-contraste .input-buscador {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+
+/* Links */
+html.modo-alto-contraste a { color: #FFD700 !important; }
+
+/* Panel accesibilidad */
+html.modo-alto-contraste #panel-acc {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .acc-panel-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .acc-opcion {
+    background: #222 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-opcion.acc-opcion-activa {
+    border-color: #4ADE80 !important;
+    background: #062a0e !important;
+    color: #4ADE80 !important;
+}
+html.modo-alto-contraste .acc-estado {
+    background: #444 !important;
+    color: #fff !important;
+}
+
+/* Tabs de categoría */
+html.modo-alto-contraste .tab-categoria {
+    background: #111 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .tab-categoria.tab-activo {
+    background: #FFD700 !important;
+    color: #000 !important;
+}
+
+/* FABs en alto contraste */
+html.modo-alto-contraste .btn-hamburger {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+html.modo-alto-contraste .hamburger-linea { background: #FFD700 !important; }
+html.modo-alto-contraste .btn-volver-arriba {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+
+/* Sección atencion-comunidad */
+html.modo-alto-contraste #atencion-comunidad {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste #atencion-comunidad a { color: #FFD700 !important; }
+
+/* ── MODO ULTRA — usa la escala +2 ────────────────────── */
+html.modo-ultra { --fs-scale: 1.32; }
+html.modo-ultra .paso-tutorial { padding: 32px !important; }
+html.modo-ultra .barra-progreso-wrap { height: 24px !important; }
+html.modo-ultra * { transition: none !important; animation: none !important; }
+
+/* ── Reduced motion ────────────────────────────────────── */
+html.reduced-motion *,
+html.reduced-motion *::before,
+html.reduced-motion *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 1ms !important;
+        transition-duration: 1ms !important;
+    }
+}
+
+/* ── Focus visible ─────────────────────────────────────── */
+:focus-visible { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+/* ── Responsive — Tablet ───────────────────────────────── */
+@media (max-width: 900px) {
+    .header h1 { font-size: clamp(1.4rem, 5.5vw, 2.4rem); }
+}
+
+/* ── Responsive — Mobile ───────────────────────────────── */
+@media (max-width: 600px) {
+    .container { width: 96%; }
+    .header { padding: 28px 14px; }
+    .intro, .tutorial-container, .seccion-buscador,
+    .seccion-favoritos, .seccion-progreso { padding: 20px; }
+    .btn-volver { max-width: 100%; }
+    .btn-acc, .btn-accion, .btn-paso, .btn-voz-ctrl { width: auto; }
+    .panel-voz-controles { gap: 6px; }
+    .btn-voz-ctrl { font-size: var(--fs-xs) !important; padding: 8px 10px; }
+    /* Botones de acción NO ocupan 100% ancho en mobile (era regla global) */
+    button {
+        font-size: var(--fs-md) !important;
+        padding: 16px 18px !important;
+    }
+    .btn-hamburger, .btn-volver-arriba,
+    .btn-compartir-flotante, #btn-acc-flotante {
+        padding: 0 !important; /* los FABs no llevan padding de texto */
+    }
+}
+
+/* =========================================================
+   ESTILOS FASE 2 — Categorías, Onboarding, Deeplink, Notas
+   Punto Digital Comunitario Morenense
+   Agregados sobre el sistema existente — sin romper nada.
+========================================================= */
+
+/* ── Tabs de categoría ─────────────────────────────────── */
+#tabs-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 22px 0 0;
+    padding: 0;
+}
+
+.tab-categoria {
+    background: white;
+    border: 2px solid var(--gris-borde);
+    color: var(--texto-suave);
+    padding: 10px 16px;
+    border-radius: 30px;
+    font-size: 1rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    transition: border-color .15s, background .15s, color .15s;
+    white-space: nowrap;
+}
+
+.tab-categoria:hover {
+    border-color: var(--azul-arg);
+    color: var(--azul-arg);
+    background: #EBF4FF;
+}
+
+.tab-categoria.tab-activo {
+    background: var(--azul-arg);
+    border-color: var(--azul-arg);
+    color: white;
+}
+
+.tab-categoria:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+/* ── Encabezados y grids de categoría ──────────────────── */
+.categoria-encabezado {
+    margin: 30px 0 10px;
+    padding-bottom: 10px;
+}
+
+.categoria-titulo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    border-left: 6px solid var(--azul-arg); /* color se sobreescribe por JS */
+    padding-left: 14px;
+    margin-bottom: 4px;
+}
+
+.categoria-desc {
+    font-size: 1rem;
+    color: var(--texto-suave);
+    padding-left: 20px;
+    margin: 0;
+}
+
+.categoria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 10px;
+}
+
+/* ── Nota de cierre del tutorial ───────────────────────── */
+.nota-tutorial {
+    background: var(--amarillo);
+    color: var(--amarillo-txt);
+    border-left: 6px solid #FFCA2C;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* ── Onboarding overlay ────────────────────────────────── */
+#overlay-onboarding {
+    position: fixed;
+    inset: 0; /* top:0 right:0 bottom:0 left:0 */
+    background: rgba(7, 55, 99, 0.88);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+#overlay-onboarding.onb-visible {
+    opacity: 1;
+}
+
+#overlay-onboarding.onb-saliendo {
+    opacity: 0;
+}
+
+.onb-panel {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 32px 28px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, .3);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.onb-paso { /* cada "pantalla" del onboarding */ }
+
+.onb-icono {
+    font-size: 3.5rem;
+    text-align: center;
+    display: block;
+    margin-bottom: 16px;
+    line-height: 1;
+}
+
+.onb-titulo {
+    color: var(--azul-oscuro);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 18px;
+    line-height: 1.3;
+}
+
+.onb-texto {
+    font-size: 1.15rem;
+    color: var(--texto);
+    line-height: 1.8;
+    margin-bottom: 14px;
+}
+
+.onb-btn-siguiente,
+.onb-btn-empezar {
+    display: block;
+    width: 100%;
+    background: var(--azul-arg);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 18px;
+    font-size: 1.2rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 24px;
+    min-height: auto !important;
+    transition: background .15s;
+}
+
+.onb-btn-siguiente:hover,
+.onb-btn-empezar:hover {
+    background: var(--azul-oscuro);
+}
+
+.onb-btn-empezar {
+    background: var(--verde);
+}
+
+.onb-btn-empezar:hover {
+    background: #146c43;
+}
+
+/* Opciones de categoría en paso 2 */
+.onb-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.onb-opcion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #F9FBFD;
+    border: 2px solid var(--gris-borde);
+    border-radius: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem !important;
+    min-height: auto !important;
+    transition: border-color .15s, background .15s;
+    color: var(--texto);
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+.onb-opcion:hover {
+    border-color: var(--azul-arg);
+    background: #EBF4FF;
+}
+
+.onb-opcion.onb-opcion-activa {
+    border-color: var(--verde);
+    background: #EBF8EF;
+}
+
+.onb-opcion-icono {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+/* Indicador de pasos (puntitos) */
+.onb-indicador {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.onb-punto {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gris-borde);
+    transition: background .2s;
+}
+
+.onb-punto-activo {
+    background: var(--azul-arg);
+}
+
+/* ── Alto contraste: onboarding ────────────────────────── */
+html.modo-alto-contraste .onb-panel {
+    background: #111 !important;
+    color: #fff !important;
+    border: 2px solid #FFD700;
+}
+
+html.modo-alto-contraste .onb-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .onb-texto  { color: #fff !important; }
+html.modo-alto-contraste .onb-opcion {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+
+/* ── Modo ultra: onboarding ────────────────────────────── */
+html.modo-ultra .onb-titulo { font-size: 2.1rem !important; }
+html.modo-ultra .onb-texto  { font-size: 1.35rem !important; line-height: 2 !important; }
+html.modo-ultra .onb-opcion { font-size: 1.2rem !important; padding: 20px !important; }
+
+/* ── Celulares: ajustes onboarding ─────────────────────── */
+@media (max-width: 600px) {
+    .onb-panel {
+        padding: 28px 20px 22px;
+    }
+    .onb-titulo { font-size: 1.6rem; }
+    .onb-texto  { font-size: 1.1rem; }
+    .categoria-titulo { font-size: 1.25rem; }
+    #tabs-categorias { gap: 6px; }
+    .tab-categoria { font-size: .88rem !important; padding: 8px 12px; }
+    .categoria-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   BANNER DE SEGURIDAD DIGITAL
+   Reemplaza .consejos — más visible, más humano
+========================================================= */
+
+.banner-seguridad {
+    background: #FFF1F1;
+    border: 2px solid #F5C6C6;
+    border-left: 8px solid var(--rojo);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-top: 36px;
+}
+
+.banner-seg-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.banner-seg-icono {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.banner-seg-titulo {
+    color: var(--rojo);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.banner-seg-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.banner-seg-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--texto);
+}
+
+.banner-seg-emoji {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.banner-seg-btn {
+    background: var(--rojo);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 1.05rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    width: 100%;
+    transition: background .15s;
+}
+
+.banner-seg-btn:hover  { background: #a31e1e; }
+.banner-seg-btn:focus  { outline: 4px solid #FFD54F; }
+
+/* Alto contraste */
+html.modo-alto-contraste .banner-seguridad {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .banner-seg-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .banner-seg-item   { color: #fff !important; }
+
+/* Celulares */
+@media (max-width: 600px) {
+    .banner-seguridad { padding: 20px; }
+    .banner-seg-titulo { font-size: 1.3rem; }
+    .banner-seg-item { font-size: 1.05rem; }
+}
+/* ── Header interactivo ────────────────────────────────── */
+.header-titulo-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    min-height: auto !important;
+    text-align: center;
+}
+
+.header-titulo-btn h1 {
+    color: white;
+    font-size: 3rem;
+    line-height: 1.3;
+    margin-bottom: 15px;
+    font-weight: 700;
+    transition: opacity .15s;
+}
+
+.header-titulo-btn:hover h1  { opacity: .85; }
+.header-titulo-btn:focus      { outline: 4px solid #FFD54F; outline-offset: 4px; border-radius: 8px; }
+
+/* ── Botón flotante compartir ──────────────────────────── */
+.btn-compartir-flotante {
+    position: fixed;
+    bottom: 28px;
+    right: 20px;
+    z-index: 9999;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--azul-arg);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+    transition: background .15s, transform .15s;
+    min-height: auto !important;
+    /* Subir si el panel de voz está visible */
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.btn-compartir-flotante:hover  { background: var(--azul-oscuro); transform: scale(1.07); }
+.btn-compartir-flotante:active { transform: scale(.96); }
+.btn-compartir-flotante:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+/* Sube el botón cuando el panel de voz está activo */
+#panel-voz ~ .btn-compartir-flotante,
+body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
+    bottom: 120px;
+}
+
+@media (max-width: 600px) {
+    .btn-compartir-flotante { width: 52px; height: 52px; bottom: 20px; right: 14px; }
+}
+/* ========================================================= */
+/* MODO HORIZONTAL (Landscape) PARA CELULARES */
+/* ========================================================= */
+
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    /* Ajusta el contenedor de tus tutoriales para que no ocupe el 100% del ancho */
+    .contenedor-principal, .modal {
+        max-width: 80%;
+        margin: 0 auto; /* Lo centra en la pantalla */
+        
+        /* Agregamos scroll interno por si la pantalla es muy bajita de alto */
+        max-height: 85vh; 
+        overflow-y: auto;
+        
+        /* Opcional: Agrandar un poquito la fuente porque están más lejos de la pantalla */
+        font-size: 1.1rem; 
+    }
+
+    /* Si tenés botones muy anchos, acá los achicamos un poco */
+    .btn-paso {
+        max-width: 300px;
+        margin: 5px auto;
+    }
+}
+/* ========================================================= */
+/* ESTILOS DEL BOTÓN CERRAR (X) */
+/* ========================================================= */
+.btn-cerrar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    z-index: 100; /* Para que quede siempre arriba de los textos */
+}
+
+.btn-cerrar:hover {
+    color: #e74c3c; /* Rojo al pasar el dedo o el mouse */
+}
+
+/* ========================================================= */
+/* MODO HORIZONTAL (Landscape) PARA CELULARES */
+/* ========================================================= */
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    .modal, .contenedor-principal {
+        max-width: 80%;
+        margin: 0 auto;
+        max-height: 85vh; 
+        overflow-y: auto;
+    }
+
+#btn-volver-arriba:active {
+        transform: scale(0.95); /* El botón se achica un poco al tocarlo */
+            background: #08457c;   /* Cambia ligeramente de color al presionar */
+            }
+}
+
+/* ============================================================
+   REDISEÑO MUNICIPAL — Punto Digital v3
+   ─────────────────────────────────────────────────────────
+   INSTRUCCIONES: Pegar este bloque AL FINAL de tu style.css
+   Sobreescribe estilos anteriores con diseño institucional
+   Municipalidad de Moreno: bloques, plano, alto contraste
+   ============================================================ */
+
+/* ─── Variables adicionales ────────────────────────────── */
+:root {
+    --municipal-navy:  #1a2b4c;
+    --municipal-border: #c8d8e8;
+    --municipal-surface: #e8f1fb;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECCIÓN MENÚ: Cambia a diseño de bloques verticales
+   El bug principal de layout era que .grid-menu usaba
+   CSS Grid, y los encabezados de categoría quedaban en
+   una sola columna en lugar de ocupar todo el ancho.
+   Solución: flex-column para el contenedor padre;
+   cada .categoria-grid tiene su propio grid interno.
+   ══════════════════════════════════════════════════════════ */
+
+.grid-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+/* ─── Encabezados de Categoría ─────────────────────────── */
+.categoria-encabezado {
+    margin: 22px 0 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.categoria-encabezado:first-of-type {
+    margin-top: 0;
+}
+
+/*  El .categoria-titulo ahora usa fondo de color sólido
+    (color asignado dinámicamente por JS via style="background:...")
+    en lugar del borde izquierdo anterior.                   */
+.categoria-titulo {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: white;
+    padding: 9px 16px;
+    border-radius: 5px 5px 0 0;
+    border-left: none;         /* Anula el border-left anterior */
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.categoria-desc {
+    font-size: 0.88rem;
+    color: var(--texto-suave);
+    padding: 6px 16px 9px;
+    background: var(--municipal-surface);
+    border-radius: 0 0 5px 5px;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+/* ─── Grid de botones dentro de cada categoría ─────────── */
+.categoria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOTONES MUNICIPALES
+   Estilo: fondo blanco, borde izquierdo de color sólido
+   (color del borde asignado por JS: btn.style.borderLeftColor)
+   Radio mínimo (4px) en lugar de las 22px anteriores.
+   ══════════════════════════════════════════════════════════ */
+
+.btn-menu {
+    background: white;
+    border: 1px solid var(--municipal-border);
+    border-left: 7px solid var(--celeste-arg); /* sobreescrito por JS */
+    border-radius: 4px;
+    padding: 14px 13px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s, box-shadow 0.15s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    position: relative;
+    line-height: 1.4;
+}
+
+.btn-menu:hover {
+    background: #f0f7ff;
+    box-shadow: 0 3px 10px rgba(11, 90, 162, 0.1);
+    transform: none !important; /* Elimina el salto vertical anterior */
+}
+
+.btn-menu:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TABS DE CATEGORÍA: Estilo institucional
+   Rectangulares en lugar de pastillas (border-radius: 30px)
+   Activo: fondo navy oscuro (idéntico al header de Moreno)
+   ══════════════════════════════════════════════════════════ */
+
+#tabs-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 16px 0 0;
+    padding: 0;
+}
+
+.tab-categoria {
+    background: white;
+    color: var(--azul-oscuro);
+    border: 2px solid var(--municipal-border);
+    border-radius: 3px;           /* Casi sin redondeo = look institucional */
+    padding: 8px 12px;
+    font-size: 0.88rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    min-height: auto !important;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+.tab-categoria:hover {
+    background: #EBF4FF;
+    border-color: var(--azul-arg);
+    color: var(--azul-arg);
+}
+
+.tab-categoria.tab-activo {
+    background: var(--municipal-navy);
+    color: white;
+    border-color: var(--municipal-navy);
+}
+
+.tab-categoria:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+/* ─── Responsive Mobile ─────────────────────────────────── */
+@media (max-width: 540px) {
+    .categoria-grid {
+        grid-template-columns: 1fr;
+    }
+    .tab-categoria {
+        padding: 7px 9px;
+    }
+}
+
+/* ─── Alto contraste: ajuste de tabs y botones ─────────── */
+html.modo-alto-contraste .btn-menu {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .tab-categoria {
+    background: #111 !important;
+    color: #FFD700 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .tab-categoria.tab-activo {
+    background: #FFD700 !important;
+    color: #000 !important;
+}
+html.modo-alto-contraste .categoria-titulo {
+    outline: 2px solid #FFD700;
+}
+
+/* ─── Modo Ultra: tamaños extendidos ───────────────────── */
+html.modo-ultra .btn-menu {
+    font-size: 1.3rem !important;
+    padding: 18px 16px !important;
+}
+html.modo-ultra .tab-categoria {
+    font-size: 1.05rem !important;
+    padding: 11px 16px !important;
+}
+
+/* ==========================================================
+   NUEVO: FAB de Accesibilidad + Panel compacto
+   ========================================================== */
+
+/* ── FAB (Floating Action Button) ──────────────────────── */
+#btn-acc-flotante {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 9997;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--azul-arg);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .28);
+    transition: background .2s, transform .2s;
+    min-height: auto !important;
+    padding: 0;
+}
+
+#btn-acc-flotante:hover  { background: var(--azul-oscuro); transform: scale(1.07); }
+#btn-acc-flotante:active { transform: scale(.94); }
+#btn-acc-flotante:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+#btn-acc-flotante.acc-fab-abierto {
+    background: var(--azul-oscuro);
+    transform: scale(1.04);
+}
+
+/* ── Panel de accesibilidad ────────────────────────────── */
+#panel-acc {
+    position: fixed;
+    bottom: 168px;
+    right: 16px;
+    z-index: 9996;
+    width: 292px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .18);
+    border: 2px solid var(--gris-borde);
+    /* Estado inicial: invisible y desplazado levemente hacia abajo */
+    opacity: 0;
+    transform: translateY(12px) scale(.97);
+    transition: opacity .22s ease, transform .22s ease;
+    pointer-events: none;
+}
+
+#panel-acc.acc-panel-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* ── Header del panel ──────────────────────────────────── */
+.acc-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 2px solid var(--gris-borde);
+}
+
+.acc-panel-titulo {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    user-select: none;
+}
+
+.acc-btn-cerrar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--texto-suave);
+    padding: 4px 6px;
+    border-radius: 8px;
+    min-height: auto !important;
+    width: auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .15s, background .15s;
+    line-height: 1;
+}
+
+.acc-btn-cerrar:hover { color: var(--rojo); background: #FFF0F0; }
+.acc-btn-cerrar:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+
+/* ── Opciones del panel ─────────────────────────────────── */
+.acc-panel-opciones {
+    padding: 10px 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.acc-opcion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    background: #F5F8FC;
+    border: 2px solid var(--gris-borde);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem !important;
+    font-weight: bold;
+    color: var(--texto);
+    min-height: auto !important;
+    text-align: left;
+    transition: background .15s, border-color .15s;
+}
+
+.acc-opcion:hover {
+    background: #EBF4FF;
+    border-color: var(--azul-arg);
+}
+
+.acc-opcion:focus {
+    outline: 3px solid #FFD54F;
+    outline-offset: 1px;
+}
+
+.acc-opcion.acc-opcion-activa {
+    background: #EBF8EF;
+    border-color: var(--verde);
+    color: #145a32;
+}
+
+.acc-opcion-emoji {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.acc-opcion-label {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
+.acc-estado {
+    font-size: .82rem;
+    font-weight: bold;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #E5E7EB;
+    color: #6B7280;
+    letter-spacing: .03em;
+    flex-shrink: 0;
+    min-width: 38px;
+    text-align: center;
+    transition: background .15s, color .15s;
+}
+
+.acc-opcion-activa .acc-estado {
+    background: var(--verde);
+    color: white;
+}
+
+/* ── Subir FAB cuando el panel de voz está visible ─────── */
+/* body:has() es ampliamente soportado en navegadores modernos.
+   En Android 4/5 sin soporte, los botones simplemente no se
+   mueven — comportamiento de degradación aceptable. */
+body:has(#panel-voz[style*="block"]) #btn-acc-flotante {
+    bottom: 196px;
+}
+body:has(#panel-voz[style*="block"]) #panel-acc {
+    bottom: 264px;
+}
+
+/* ── Alto contraste ─────────────────────────────────────── */
+html.modo-alto-contraste #panel-acc {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-panel-titulo  { color: #FFD700 !important; }
+html.modo-alto-contraste .acc-panel-header  { border-color: #444 !important; }
+html.modo-alto-contraste .acc-opcion {
+    background: #222 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-opcion:hover  { border-color: #FFD700 !important; background: #333 !important; }
+html.modo-alto-contraste .acc-opcion.acc-opcion-activa {
+    border-color: #4ADE80 !important;
+    background: #062a0e !important;
+    color: #4ADE80 !important;
+}
+html.modo-alto-contraste .acc-estado {
+    background: #444 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .acc-opcion-activa .acc-estado {
+    background: #4ADE80 !important;
+    color: #000 !important;
+}
+
+/* ── Modo ultra: panel ligeramente más ancho ───────────── */
+html.modo-ultra #panel-acc          { width: 320px !important; }
+html.modo-ultra .acc-opcion         { font-size: 1.15rem !important; padding: 16px !important; }
+html.modo-ultra .acc-panel-titulo   { font-size: 1.2rem !important; }
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    #btn-acc-flotante {
+        width: 50px;
+        height: 50px;
+        bottom: 96px;
+        right: 14px;
+    }
+    #panel-acc {
+        width: calc(100vw - 24px);
+        right: 12px;
+        bottom: 158px;
+    }
+    body:has(#panel-voz[style*="block"]) #btn-acc-flotante { bottom: 188px; }
+    body:has(#panel-voz[style*="block"]) #panel-acc        { bottom: 250px; }
+}
+
+
+/* ==========================================================
+   NUEVO: Navegación anterior / siguiente entre tutoriales
+   ========================================================== */
+
+.nav-tutorial {
+    margin: 24px 0 20px;
+    padding: 18px;
+    background: #F5F8FC;
+    border: 2px solid var(--gris-borde);
+    border-radius: 18px;
+}
+
+.nav-tutorial-contador {
+    font-size: .95rem;
+    color: var(--texto-suave);
+    text-align: center;
+    margin: 0 0 12px;
+    font-weight: bold;
+    letter-spacing: .02em;
+}
+
+.nav-tutorial-btns {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+/* Placeholder cuando no hay tutorial anterior */
+.nav-placeholder {
+    flex: 1;
+    display: block;
+}
+
+.btn-nav {
+    flex: 1;
+    padding: 13px 14px;
+    border-radius: 12px;
+    font-size: .95rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    line-height: 1.4;
+    word-break: break-word;
+    transition: background .15s, border-color .15s, transform .1s;
+    hyphens: auto;
+}
+
+.btn-nav:active { transform: scale(.97); }
+.btn-nav:focus  { outline: 4px solid #FFD54F; outline-offset: 2px; }
+
+.btn-nav-anterior {
+    background: white;
+    border: 2px solid var(--gris-borde);
+    color: var(--azul-oscuro);
+    text-align: left;
+}
+.btn-nav-anterior:hover {
+    background: #EBF4FF;
+    border-color: var(--azul-arg);
+}
+
+.btn-nav-siguiente {
+    background: var(--azul-arg);
+    border: 2px solid var(--azul-arg);
+    color: white;
+    text-align: right;
+}
+.btn-nav-siguiente:hover {
+    background: var(--azul-oscuro);
+    border-color: var(--azul-oscuro);
+}
+
+/* ── Alto contraste ──── */
+html.modo-alto-contraste .nav-tutorial {
+    background: #111 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .nav-tutorial-contador { color: #ccc !important; }
+html.modo-alto-contraste .btn-nav-anterior {
+    background: #222 !important;
+    border-color: #FFD700 !important;
+    color: #FFD700 !important;
+}
+html.modo-alto-contraste .btn-nav-siguiente {
+    background: #FFD700 !important;
+    border-color: #FFD700 !important;
+    color: #000 !important;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .nav-tutorial-btns { flex-direction: column; }
+    .nav-placeholder    { display: none; }
+    .btn-nav-anterior,
+    .btn-nav-siguiente  { text-align: center; }
+}
+
+/* ==========================================================
+   v4 — MENÚ HAMBURGUESA + DRAWER + TOOLTIP + VOLVER ARRIBA
+   + FIXES DE UX/ACCESIBILIDAD
+   Punto Digital Comunitario Morenense
+   ========================================================== */
+
+/* ── Variables nuevas ────────────────────────────────────── */
+:root {
+    --drawer-ancho:  300px;
+    --hamburger-top: 14px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOTÓN HAMBURGUESA
+   ══════════════════════════════════════════════════════════ */
+
+.btn-hamburger {
+    position: fixed;
+    top: var(--hamburger-top);
+    right: 14px;
+    z-index: 10001;
+    width: 48px;
+    height: 48px;
+    background: var(--azul-arg);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .28);
+    min-height: auto !important;
+    transition: background .18s, transform .15s;
+}
+
+.btn-hamburger:hover { background: var(--azul-oscuro); }
+.btn-hamburger:active { transform: scale(.93); }
+.btn-hamburger:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+/* Estado "abierto" del hamburger → se convierte en ✕ */
+.btn-hamburger.ham-abierto { background: var(--azul-oscuro); }
+.btn-hamburger.ham-abierto .hamburger-linea:nth-child(1) {
+    transform: translateY(12px) rotate(45deg);
+}
+.btn-hamburger.ham-abierto .hamburger-linea:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.btn-hamburger.ham-abierto .hamburger-linea:nth-child(3) {
+    transform: translateY(-12px) rotate(-45deg);
+}
+
+.hamburger-linea {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background: white;
+    border-radius: 3px;
+    transition: transform .25s ease, opacity .2s ease;
+    transform-origin: center;
+}
+
+/* ── Alto contraste ──────────────────────────────────────── */
+html.modo-alto-contraste .btn-hamburger {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+html.modo-alto-contraste .hamburger-linea { background: #FFD700 !important; }
+
+/* ══════════════════════════════════════════════════════════
+   OVERLAY + DRAWER
+   ══════════════════════════════════════════════════════════ */
+
+/* Overlay semitransparente al abrir el menú */
+.drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 55, 99, .55);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .28s ease;
+}
+.drawer-overlay.drawer-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Panel lateral */
+.drawer-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(var(--drawer-ancho), 88vw);
+    background: white;
+    z-index: 10002;
+    transform: translateX(100%);
+    transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: -6px 0 28px rgba(0, 0, 0, .18);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+.drawer-nav.drawer-visible {
+    transform: translateX(0);
+}
+
+/* Header del drawer */
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 16px;
+    background: var(--azul-oscuro);
+    color: white;
+    flex-shrink: 0;
+}
+
+.drawer-titulo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: .02em;
+}
+
+.drawer-btn-cerrar {
+    background: rgba(255, 255, 255, .15);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: auto !important;
+    width: auto !important;
+    transition: background .15s;
+}
+.drawer-btn-cerrar:hover { background: rgba(255, 255, 255, .3); }
+.drawer-btn-cerrar:focus { outline: 3px solid #FFD54F; outline-offset: 2px; }
+
+/* Lista de items */
+.drawer-lista {
+    list-style: none;
+    padding: 12px 0;
+    margin: 0;
+    flex: 1;
+}
+
+.drawer-lista li {
+    border-bottom: 1px solid #EEF2F7;
+}
+
+.drawer-lista li:last-child { border-bottom: none; }
+
+.drawer-item {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--azul-oscuro);
+    font-size: 1.1rem !important;
+    font-weight: bold;
+    text-align: left;
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: auto !important;
+    transition: background .14s, color .14s;
+    line-height: 1.3;
+}
+
+.drawer-item:hover {
+    background: #EBF4FF;
+    color: var(--azul-arg);
+}
+
+.drawer-item:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: -3px;
+}
+
+/* ── Alto contraste: drawer ─────────────────────────────── */
+html.modo-alto-contraste .drawer-nav {
+    background: #111 !important;
+    border-left: 2px solid #FFD700;
+}
+html.modo-alto-contraste .drawer-header  { background: #000 !important; }
+html.modo-alto-contraste .drawer-lista li { border-color: #333 !important; }
+html.modo-alto-contraste .drawer-item    { color: #fff !important; }
+html.modo-alto-contraste .drawer-item:hover { background: #222 !important; color: #FFD700 !important; }
+
+/* ══════════════════════════════════════════════════════════
+   TOOLTIP "Tocá acá para abrir el menú"
+   ══════════════════════════════════════════════════════════ */
+
+.tooltip-nav {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    z-index: 10003;
+    background: var(--azul-arg);
+    color: white;
+    border-radius: 12px;
+    padding: 10px 12px;
+    max-width: 196px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .22);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* El div completo tiene pointer-events:none para no interceptar
+       clicks dirigidos al hamburger que queda debajo/detrás */
+    pointer-events: none;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+@keyframes tooltip-entrada {
+    0%   { opacity: 0; transform: translateY(-10px); }
+    60%  { opacity: 1; transform: translateY(4px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.tooltip-nav { animation: tooltip-entrada .5s ease .8s both; }
+
+.tooltip-nav.tooltip-oculto {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+}
+
+/* Solo el botón ✕ capta eventos — el resto del tooltip es pass-through */
+.tooltip-cerrar {
+    pointer-events: auto;   /* ← única zona interactiva */
+    background: rgba(255, 255, 255, .2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 0.8rem !important;
+    /* Tamaño fijo — no escala con el texto */
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px !important;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background .15s;
+    line-height: 1;
+    order: -1;  /* X a la izquierda */
+}
+.tooltip-cerrar:hover { background: rgba(255, 255, 255, .4); }
+.tooltip-cerrar:focus { outline: 2px solid #FFD54F; outline-offset: 1px; }
+
+.tooltip-texto {
+    font-size: 0.9rem;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 0;
+    flex: 1;
+    /* texto también pass-through */
+    pointer-events: none;
+}
+
+.tooltip-flecha-wrap {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+.tooltip-flecha-wrap svg {
+    width: 28px !important;
+    height: 28px !important;
+    flex-shrink: 0;
+}
+
+/* Ocultar en alto contraste */
+html.modo-alto-contraste .tooltip-nav { display: none !important; }
+
+/* ══════════════════════════════════════════════════════════
+   BOTÓN VOLVER ARRIBA — rediseñado
+   Reemplaza los inline styles del HTML anterior
+   ══════════════════════════════════════════════════════════ */
+
+.btn-volver-arriba {
+    position: fixed;
+    /* Columna derecha: arriba del btn-compartir (bottom:28px+58px+8px = 94px)
+       y abajo del btn-acc (bottom:100px → queda justo encima de compartir) */
+    bottom: 164px;
+    right: 20px;
+    z-index: 9998;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--celeste-arg);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: none;   /* JS lo muestra con scroll */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+    min-height: auto !important;
+    padding: 0;
+    transition: background .15s, transform .15s, opacity .25s;
+    opacity: 0;
+}
+
+/* Cuando JS agrega .visible → display:flex + opacity:1 */
+.btn-volver-arriba.visible {
+    display: flex !important;
+    opacity: 1;
+}
+
+.btn-volver-arriba:hover  { background: var(--azul-arg); transform: scale(1.08); }
+.btn-volver-arriba:active { transform: scale(.93); }
+.btn-volver-arriba:focus  { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+/* Sube cuando el panel de voz está activo */
+body:has(#panel-voz[style*="block"]) .btn-volver-arriba {
+    bottom: 258px;
+}
+
+/* ── Alto contraste ──────────────────────────────────────── */
+html.modo-alto-contraste .btn-volver-arriba {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .btn-volver-arriba {
+        bottom: 152px;
+        right: 14px;
+        width: 46px;
+        height: 46px;
+    }
+    body:has(#panel-voz[style*="block"]) .btn-volver-arriba { bottom: 244px; }
+
+    /* El hamburger en mobile ya está bien con right:14px del header fixed */
+}
+
+/* ══════════════════════════════════════════════════════════
+   FIXES UX / TIPOGRAFÍA / CONTRASTE / JERARQUÍA
+   ══════════════════════════════════════════════════════════ */
+
+/*  FIX 1 — Compensar el header por el botón hamburguesa fijo.
+    Sin esto, el hamburger tapa el texto del título en mobile.  */
+.header {
+    padding-top: 50px;   /* espacio para que el botón no tape el h1 */
+    padding-right: 70px; /* margen derecho para el botón hamburguesa */
+}
+
+/*  FIX 2 — Mejorar legibilidad del texto de pasos.
+    El tamaño 1.2rem era justo al límite; sube a 1.25rem base.  */
+.paso-tutorial p {
+    font-size: 1.25rem;
+    line-height: 1.95;
+}
+
+/*  FIX 3 — Contraste del texto suave (#4B5563 sobre blanco = 7.2:1 ✔)
+    pero dentro de las intro cards el color era muy gris.  */
+.intro p,
+.categoria-desc {
+    color: #374151;  /* sube contraste de #4B5563 a #374151 (WCAG AA) */
+}
+
+/*  FIX 4 — Los pasos numerados (h3) en mobile eran difíciles de
+    distinguir del cuerpo. Se les agrega borde izquierdo institucional
+    y se baja el font-size del paso para dar protagonismo al contenido. */
+.paso-tutorial h3 {
+    font-size: 1.5rem;
+    color: var(--azul-oscuro);
+    border-left: 5px solid var(--celeste-arg);
+    padding-left: 12px;
+    margin-bottom: 14px;
+}
+
+/*  FIX 5 — Separación entre secciones del menú principal.
+    La segunda categoría quedaba pegada a la primera sin aire visual. */
+.categoria-encabezado {
+    margin-top: 28px;
+}
+.categoria-encabezado:first-of-type {
+    margin-top: 4px;
+}
+
+/*  FIX 6 — El banner-seg-btn (#C62828) sobre fondo #FFF1F1 ya era
+    suficientemente contrastado, pero el texto de los items era #1F2937
+    sobre #FFF1F1, que da un ratio de 14:1. OK.
+    Lo que faltaba: que el tamaño del texto del banner sea legible. */
+.banner-seg-item {
+    font-size: 1.12rem;
+}
+
+/*  FIX 7 — El textarea del buscador tenía placeholder muy claro.
+    #9CA3AF sobre #F9FBFD = 3.2:1 (falla WCAG AA).
+    Sube a #6B7280 = 4.6:1 (pasa AA).                              */
+.input-buscador::placeholder {
+    color: #6B7280;
+}
+
+/*  FIX 8 — Jerarquía visual: los h2 de sección necesitan más aire
+    arriba para separarse del bloque anterior.                       */
+.seccion-buscador,
+.intro,
+.seccion-favoritos,
+.seccion-progreso,
+.banner-seguridad {
+    margin-top: 28px;
+}
+
+/*  FIX 9 — El botón de volver en el tutorial era de ancho 100% en
+    desktop, lo que lo hacía demasiado ancho. Ajuste a fit-content
+    en pantallas grandes.                                            */
+@media (min-width: 600px) {
+    .btn-volver { width: auto; min-width: 200px; }
+}
+
+/* ── Reduce motion: drawer sin transición ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .drawer-nav,
+    .drawer-overlay,
+    .tooltip-nav,
+    .btn-volver-arriba,
+    .hamburger-linea,
+    .btn-hamburger { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+}
+
+/* ==========================================================
+   v5 — ACORDEÓN + VISOR MODAL DE CATEGORÍA + DRAWER FIXES
+   + ESCALADO TIPOGRÁFICO + RESPONSIVE GLOBAL
+   Punto Digital Comunitario Morenense
+   ========================================================== */
+
+/* ── Transición de vista (feedback cuando cambia pantalla) ── */
+@keyframes vistaEntrada {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.vista-entrando { animation: vistaEntrada .28s ease both; }
+
+/* ══════════════════════════════════════════════════════════
+   ACORDEÓN DE CATEGORÍAS
+   ══════════════════════════════════════════════════════════ */
+
+/* Header clickable del acordeón */
+.acord-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: white;
+    border: 2px solid var(--gris-borde);
+    border-left: 6px solid var(--cat-color, var(--azul-arg));
+    border-radius: 8px;
+    padding: 16px 18px;
+    cursor: pointer;
+    text-align: left;
+    font-size: var(--fs-md) !important;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    min-height: auto !important;
+    margin-top: 10px;
+    transition: background .15s, box-shadow .15s;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    position: relative;
+}
+
+.acord-header:first-child { margin-top: 0; }
+
+.acord-header:hover {
+    background: #F0F7FF;
+    box-shadow: 0 3px 10px rgba(11,90,162,.1);
+}
+
+.acord-header:focus {
+    outline: 4px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+.acord-header-activo {
+    background: #EBF4FF;
+    border-left-width: 8px;
+}
+
+/* Partes del header del acordeón */
+.acord-icono-cat {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    line-height: 1;
+    /* Desacoplado del font-size del body — tamaño fijo */
+    width: 36px;
+    text-align: center;
+}
+
+.acord-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.acord-titulo-cat {
+    font-size: var(--fs-md);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--azul-oscuro);
+}
+
+.acord-desc-cat {
+    font-size: var(--fs-xs);
+    color: var(--texto-suave);
+    font-weight: normal;
+    line-height: 1.3;
+}
+
+.acord-badge {
+    background: var(--cat-color, var(--azul-arg));
+    color: white;
+    font-size: var(--fs-xs);
+    font-weight: 900;
+    border-radius: 20px;
+    padding: 3px 10px;
+    flex-shrink: 0;
+    min-width: 28px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Chevron — SVG fijo, solo rota */
+.acord-chevron {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    color: var(--texto-suave);
+    transition: transform .22s ease;
+    /* SVG siempre 18x18, no escala */
+    width: 18px;
+    height: 18px;
+}
+.acord-chevron svg { width: 18px !important; height: 18px !important; }
+
+.acord-header-activo .acord-chevron {
+    transform: rotate(180deg);
+    color: var(--azul-arg);
+}
+
+/* Grid de tutoriales dentro del acordeón */
+.categoria-grid.acord-cerrado {
+    display: none;
+}
+
+.categoria-grid.acord-abierto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 8px;
+    padding: 10px 0 6px;
+    animation: vistaEntrada .22s ease both;
+}
+
+/* Botones dentro del acordeón — texto enriquecido */
+.btn-menu {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    line-height: 1.35;
+}
+
+.btn-menu-icono {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    /* Tamaño fijo — no escala con el texto */
+    width: 30px;
+    text-align: center;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+.btn-menu-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.btn-menu-titulo {
+    font-size: var(--fs-md);
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+}
+
+.btn-menu-detalle {
+    font-size: var(--fs-xs);
+    color: var(--texto-suave);
+    font-weight: normal;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   VISOR MODAL DE CATEGORÍA
+   Se abre cuando el usuario toca una categoría.
+   Reemplaza el comportamiento de "agregar debajo".
+   ══════════════════════════════════════════════════════════ */
+
+#visor-categoria {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    display: flex;
+    align-items: flex-end;     /* sube desde abajo en mobile */
+    justify-content: center;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+#visor-categoria.visor-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#visor-overlay-cat {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 55, 99, .55);
+}
+
+.visor-panel {
+    position: relative;
+    z-index: 1;
+    background: white;
+    border-radius: 22px 22px 0 0;
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow: 0 -8px 40px rgba(0,0,0,.18);
+    transform: translateY(100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+}
+
+#visor-categoria.visor-visible .visor-panel {
+    transform: translateY(0);
+}
+
+/* En desktop: centrado como modal */
+@media (min-width: 600px) {
+    #visor-categoria {
+        align-items: center;
+        padding: 20px;
+    }
+    .visor-panel {
+        border-radius: 22px;
+        max-height: 80vh;
+    }
+}
+
+.visor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px 16px;
+    border-bottom: 2px solid var(--gris-borde);
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 2;
+}
+
+.visor-titulo {
+    font-size: var(--fs-xl);
+    font-weight: 900;
+    color: var(--azul-oscuro);
+    line-height: 1.2;
+}
+
+.visor-btn-cerrar {
+    background: #F3F4F6;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    min-height: auto !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto);
+    flex-shrink: 0;
+    transition: background .15s;
+    padding: 0;
+    font-size: 0 !important;
+}
+.visor-btn-cerrar:hover  { background: #E5E7EB; }
+.visor-btn-cerrar:focus  { outline: 4px solid #FFD54F; outline-offset: 2px; }
+.visor-btn-cerrar svg    { width: 18px !important; height: 18px !important; }
+
+.visor-desc {
+    font-size: var(--fs-sm);
+    color: var(--texto-suave);
+    padding: 10px 22px 0;
+}
+
+.visor-lista {
+    padding: 12px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Botón de tutorial dentro del visor */
+.visor-btn-tutorial {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    background: white;
+    border: 2px solid var(--gris-borde);
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    text-align: left;
+    min-height: auto !important;
+    transition: background .14s, border-color .14s, transform .1s;
+    font-size: var(--fs-md) !important;
+}
+
+.visor-btn-tutorial:hover {
+    background: #F0F7FF;
+    border-color: var(--celeste-arg);
+    transform: translateX(3px);
+}
+
+.visor-btn-tutorial:active { transform: translateX(1px); }
+.visor-btn-tutorial:focus  { outline: 4px solid #FFD54F; outline-offset: 2px; }
+
+.visor-tut-icono {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    width: 34px;
+    text-align: center;
+}
+
+.visor-tut-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.visor-tut-titulo {
+    display: block;
+    font-size: var(--fs-md);
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    line-height: 1.25;
+}
+
+.visor-tut-detalle {
+    display: block;
+    font-size: var(--fs-xs);
+    color: var(--texto-suave);
+    margin-top: 3px;
+    line-height: 1.35;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.visor-tut-flecha {
+    color: var(--celeste-arg);
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+/* ── Alto contraste: visor ─────────────────────────────── */
+html.modo-alto-contraste .visor-panel {
+    background: #111 !important;
+    border: 2px solid #FFD700;
+}
+html.modo-alto-contraste .visor-header { background: #000 !important; border-color: #FFD700 !important; }
+html.modo-alto-contraste .visor-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .visor-btn-cerrar { background: #333 !important; color: #FFD700 !important; }
+html.modo-alto-contraste .visor-btn-tutorial {
+    background: #000 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .visor-btn-tutorial:hover {
+    background: #1a1a00 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .visor-tut-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .visor-tut-detalle { color: #ccc !important; }
+
+/* ══════════════════════════════════════════════════════════
+   DRAWER — estilos del buscador y secciones nuevas
+   ══════════════════════════════════════════════════════════ */
+
+/* Sección título dentro del drawer */
+.drawer-seccion-titulo {
+    font-size: var(--fs-xs);
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    padding: 14px 20px 6px;
+    background: #F5F8FC;
+    border-top: 1px solid var(--gris-borde);
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+/* Buscador */
+.drawer-buscador-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px 10px;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.drawer-buscador-label {
+    color: var(--texto-suave);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    cursor: text;
+}
+.drawer-buscador-label svg { width: 18px !important; height: 18px !important; }
+
+.drawer-buscador-input {
+    flex: 1;
+    border: 2px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: var(--fs-md) !important;
+    outline: none;
+    background: #F9FBFD;
+    color: var(--texto);
+    -webkit-appearance: none;
+    min-height: auto;
+}
+.drawer-buscador-input:focus {
+    border-color: var(--azul-arg);
+    box-shadow: 0 0 0 3px rgba(11,90,162,.12);
+}
+.drawer-buscador-input::placeholder { color: #9CA3AF; }
+
+/* Resultados del buscador */
+.drawer-resultados {
+    list-style: none;
+    margin: 0;
+    padding: 6px 12px 6px;
+    background: #F5F8FC;
+    border-bottom: 2px solid var(--gris-borde);
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.drawer-resultado-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: white;
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    text-align: left;
+    min-height: auto !important;
+    font-size: var(--fs-sm) !important;
+    font-weight: bold;
+    color: var(--azul-oscuro);
+    transition: background .12s, border-color .12s;
+}
+.drawer-resultado-item:last-child { margin-bottom: 0; }
+.drawer-resultado-item:hover { background: #EBF4FF; border-color: var(--celeste-arg); }
+.drawer-resultado-item:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+
+.dr-icono { font-size: 1.2rem; flex-shrink: 0; width: 24px; text-align: center; }
+.dr-titulo { flex: 1; line-height: 1.3; }
+
+.drawer-sin-resultado {
+    padding: 12px 4px;
+    font-size: var(--fs-sm);
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
+/* Filtros de categoría en el drawer */
+.drawer-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--gris-borde);
+}
+
+.drawer-cat-btn {
+    background: #F5F8FC;
+    border: 2px solid var(--gris-borde);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: var(--fs-xs) !important;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--azul-oscuro);
+    min-height: auto !important;
+    transition: background .14s, border-color .14s, color .14s;
+    white-space: nowrap;
+}
+.drawer-cat-btn:hover { background: #EBF4FF; border-color: var(--azul-arg); color: var(--azul-arg); }
+.drawer-cat-btn:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+.drawer-cat-btn.cat-activa { background: var(--azul-arg); color: white; border-color: var(--azul-arg); }
+
+/* ══════════════════════════════════════════════════════════
+   PANEL DE ACCESIBILIDAD — nuevo control de escala
+   Reemplaza Lectura Grande / Modo Ultra con +/-/Normal
+   ══════════════════════════════════════════════════════════ */
+
+.acc-escala-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 14px;
+    border: 2px solid var(--gris-borde);
+    border-radius: 12px;
+    margin: 0 12px 6px;
+    background: #F5F8FC;
+}
+
+.acc-escala-label {
+    font-size: var(--fs-sm);
+    font-weight: bold;
+    color: var(--texto);
+    flex: 1;
+}
+
+.acc-escala-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 2px solid var(--gris-borde);
+    background: white;
+    font-size: 1.1rem !important;
+    font-weight: 900;
+    cursor: pointer;
+    color: var(--azul-oscuro);
+    min-height: auto !important;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .14s, border-color .14s;
+    flex-shrink: 0;
+}
+.acc-escala-btn:hover { background: #EBF4FF; border-color: var(--azul-arg); }
+.acc-escala-btn:focus { outline: 3px solid #FFD54F; outline-offset: 1px; }
+.acc-escala-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.acc-escala-valor {
+    min-width: 52px;
+    text-align: center;
+    font-size: var(--fs-sm);
+    font-weight: bold;
+    color: var(--azul-oscuro);
+}
+
+/* ── Alto contraste: control de escala ─────────────────── */
+html.modo-alto-contraste .acc-escala-wrap {
+    background: #222 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .acc-escala-label { color: #fff !important; }
+html.modo-alto-contraste .acc-escala-btn {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+    color: #FFD700 !important;
+}
+html.modo-alto-contraste .acc-escala-valor { color: #FFD700 !important; }
+
+/* ── Modo Ultra: mayor escala en panel ─────────────────── */
+html.modo-ultra .acc-escala-btn { width: 42px !important; height: 42px !important; }
+
+/* ══════════════════════════════════════════════════════════
+   DRAWER — pointer-events cuando está cerrado
+   Previene clicks fantasma en algunos browsers
+   ══════════════════════════════════════════════════════════ */
+.drawer-nav { pointer-events: none; }
+.drawer-nav.drawer-visible { pointer-events: auto; }
+
+
+/* ==========================================================
+   CABECERA SIMPLIFICADA — logo + "Punto Digital"
+   ========================================================== */
+
+.header-titulo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    min-height: auto !important;
+    width: 100%;
+}
+
+.header-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Logo SVG: tamaño fijo, nunca escala con el texto */
+.header-logo-svg {
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0;
+    display: block;
+}
+
+.header-titulo-btn h1 {
+    color: white;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin: 0;
+    text-align: left;
+    letter-spacing: -0.01em;
+    overflow-wrap: break-word;
+}
+
+.header-titulo-btn:hover h1 { opacity: .85; }
+.header-titulo-btn:focus     { outline: 4px solid #FFD54F; outline-offset: 4px; border-radius: 8px; }
+
+/* Alto contraste */
+html.modo-alto-contraste .header-titulo-btn h1 { color: #fff !important; }
+html.modo-alto-contraste .header-logo-svg circle,
+html.modo-alto-contraste .header-logo-svg ellipse,
+html.modo-alto-contraste .header-logo-svg line { stroke: #FFD700 !important; }
+
+/* Mobile: logo un poco más chico */
+@media (max-width: 600px) {
+    .header-logo-svg { width: 34px !important; height: 34px !important; }
+    .header-titulo-btn { gap: 10px; }
+}
+
+/* ==========================================================
+   TUTORIAL — clases para contenido dinámico
+   Reemplazan los estilos inline de ui.js.
+   Todo usa variables --fs-* para respetar --fs-scale.
+   ========================================================== */
+
+/* Título del tutorial */
+.tutorial-titulo {
+    color: var(--azul-oscuro);
+    font-size: var(--fs-2xl);
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+}
+
+/* Detalle/subtítulo del tutorial */
+.tutorial-detalle {
+    font-size: var(--fs-md);
+    font-style: italic;
+    color: var(--texto-suave);
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+/* Barra de compartir */
+.barra-compartir-horizontal {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+/* Botón compartir */
+.btn-compartir-accion {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: var(--fs-sm) !important;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--texto);
+    min-height: auto !important;
+    transition: background .15s;
+}
+.btn-compartir-accion:hover { background: #dee2e6; }
+.btn-compartir-accion:focus { outline: 3px solid #FFD54F; }
+.btn-compartir-accion svg { flex-shrink: 0; }
+
+/* Separador horizontal */
+.tutorial-separador {
+    border: 0;
+    height: 2px;
+    background: var(--celeste-arg);
+    margin: 18px 0;
+}
+
+/* Botón finalizar tutorial */
+.btn-finalizar {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+    background: var(--azul-oscuro);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 18px;
+    font-size: var(--fs-md) !important;
+    font-weight: bold;
+    cursor: pointer;
+    min-height: auto !important;
+    transition: background .15s;
+}
+.btn-finalizar:hover { background: #052a55; }
+.btn-finalizar:focus { outline: 4px solid #FFD54F; outline-offset: 2px; }
+
+/* Alto contraste */
+html.modo-alto-contraste .tutorial-titulo   { color: #FFD700 !important; }
+html.modo-alto-contraste .tutorial-detalle  { color: #ccc !important; }
+html.modo-alto-contraste .btn-compartir-accion {
+    background: #222 !important;
+    border-color: #FFD700 !important;
+    color: #fff !important;
+}
+html.modo-alto-contraste .btn-finalizar {
+    background: #FFD700 !important;
+    color: #000 !important;
+}
+html.modo-alto-contraste .tutorial-separador { background: #FFD700 !important; }
+
+
+/* ==========================================================
+   CTA — Humanos e IA Aprendices
+   Botón terminal animado en la sección de introducción
+   ========================================================== */
+
+.cta-ia {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 22px;
+    padding: 18px 20px;
+    background: #0d1117;       /* fondo terminal oscuro */
+    border: 1.5px solid #30363d;
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .25s, box-shadow .25s, transform .15s;
+    /* borde animado tipo neon al hover */
+    box-shadow: 0 0 0 0 rgba(99,220,150,0);
+}
+
+.cta-ia::before {
+    /* línea neon superior que barre de izquierda a derecha al hover */
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, #63dc96, transparent);
+    transition: left .5s ease;
+}
+
+.cta-ia:hover {
+    border-color: #63dc96;
+    box-shadow: 0 0 18px rgba(99,220,150,.22), 0 4px 16px rgba(0,0,0,.3);
+    transform: translateY(-2px);
+}
+.cta-ia:hover::before { left: 100%; }
+.cta-ia:focus {
+    outline: 3px solid #63dc96;
+    outline-offset: 3px;
+}
+.cta-ia:active { transform: translateY(0); }
+
+/* Línea de terminal */
+.cta-ia-pre {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: .78rem;
+    font-weight: bold;
+    color: #63dc96;
+    white-space: nowrap;
+    display: block;
+    letter-spacing: .03em;
+    min-width: 0;
+    /* solo en desktop — en mobile se oculta para ahorrar espacio */
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .cta-ia-pre { display: block; }
+}
+
+.cta-ia-prompt { color: #58a6ff; margin-right: 4px; }
+
+/* Cursor parpadeante */
+.cta-ia-cursor {
+    display: inline-block;
+    animation: cta-blink .9s step-end infinite;
+    color: #63dc96;
+}
+@keyframes cta-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+/* Logos IA */
+.cta-ia-logos {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.cta-ia-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    flex-shrink: 0;
+    transition: transform .2s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.4));
+}
+.cta-ia:hover .cta-ia-logo:nth-child(1) { transform: translateY(-3px); transition-delay: .0s; }
+.cta-ia:hover .cta-ia-logo:nth-child(2) { transform: translateY(-3px); transition-delay: .06s; }
+.cta-ia:hover .cta-ia-logo:nth-child(3) { transform: translateY(-3px); transition-delay: .12s; }
+
+/* Texto */
+.cta-ia-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    flex: 1;
+}
+
+.cta-ia-titulo {
+    font-size: clamp(.95rem, 2.5vw, 1.1rem);
+    font-weight: 900;
+    color: #f0f6fc;
+    line-height: 1.2;
+    letter-spacing: -.01em;
+}
+
+.cta-ia-sub {
+    font-size: clamp(.78rem, 2vw, .88rem);
+    color: #8b949e;
+    line-height: 1.35;
+}
+
+/* Alto contraste */
+html.modo-alto-contraste .cta-ia {
+    background: #000 !important;
+    border-color: #FFD700 !important;
+}
+html.modo-alto-contraste .cta-ia:hover { box-shadow: none !important; }
+html.modo-alto-contraste .cta-ia-titulo { color: #FFD700 !important; }
+html.modo-alto-contraste .cta-ia-sub    { color: #ccc !important; }
+html.modo-alto-contraste .cta-ia-pre    { color: #FFD700 !important; }
+html.modo-alto-contraste .cta-ia-prompt { color: #fff !important; }
+html.modo-alto-contraste .cta-ia-cursor { color: #FFD700 !important; }
+
+
+
+
+
+/* ==========================================================
+   BRECHA DIGITAL — estilos específicos
+   brecha-digital/index.html → usa ../style.css como base
+   ========================================================== */
+/* ── Paleta — heredada de Punto Digital + acento propio ── */
+  /* variables: ver :root en style.css */
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(16px, 3.8vw, 19px);
+    line-height: 1.8;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ── Skip link ── */
+  .skip { position: absolute; top: -60px; left: 10px; background: var(--azul);
+    color: #fff; padding: 8px 14px; border-radius: 8px; font-weight: bold;
+    z-index: 999; transition: top .2s; }
+  .skip:focus { top: 10px; }
+
+  /* ══════════════════════════════════════
+     HERO — gradiente institucional
+  ══════════════════════════════════════ */
+  .hero {
+    background: linear-gradient(160deg, var(--azul-osc) 0%, var(--azul) 55%, #1a6fb8 100%);
+    color: #fff;
+    padding: clamp(48px, 8vw, 80px) clamp(20px, 5vw, 60px) clamp(40px, 6vw, 64px);
+    border-bottom: 6px solid var(--celeste);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* línea decorativa diagonal — la firma visual de esta página */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -60px;
+    width: 260px; height: 260px;
+    border: 28px solid rgba(55,181,229,.18);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; right: 80px;
+    width: 160px; height: 160px;
+    border: 18px solid rgba(55,181,229,.1);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-inner { max-width: 820px; position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(55,181,229,.22);
+    border: 1px solid rgba(55,181,229,.4);
+    color: #b8e4f7;
+    font-size: .82rem;
+    font-weight: bold;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, 6vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: -.01em;
+  }
+
+  .hero h1 span {
+    color: var(--celeste);
+    display: block;
+  }
+
+  .hero-bajada {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    opacity: .92;
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .hero-firma {
+    font-size: .9rem;
+    opacity: .7;
+    border-top: 1px solid rgba(255,255,255,.2);
+    padding-top: 14px;
+    margin-top: 14px;
+  }
+
+  /* ══════════════════════════════════════
+     CONTENEDOR GENERAL
+  ══════════════════════════════════════ */
+  .contenedor {
+    width: 94%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(32px, 5vw, 56px) 0 48px;
+  }
+
+  /* ══════════════════════════════════════
+     ÍNDICE / NAV
+  ══════════════════════════════════════ */
+  .nav-indice {
+    background: white;
+    border: 2px solid var(--borde);
+    border-left: 6px solid var(--celeste);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow);
+  }
+
+  .nav-indice h2 {
+    font-size: 1rem;
+    color: var(--azul-osc);
+    font-weight: 900;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .nav-indice ol {
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .nav-indice a {
+    color: var(--azul);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: .95rem;
+  }
+  .nav-indice a:hover { text-decoration: underline; }
+
+  /* ══════════════════════════════════════
+     SECCIONES
+  ══════════════════════════════════════ */
+  .seccion {
+    background: white;
+    border: 2px solid var(--borde);
+    border-radius: var(--radius);
+    padding: clamp(24px, 4vw, 40px);
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+    animation: fadeIn .35s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .seccion-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--borde);
+  }
+
+  .seccion-num {
+    background: var(--azul);
+    color: white;
+    font-size: .8rem;
+    font-weight: 900;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .seccion-titulo h2 {
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    color: var(--azul-osc);
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .seccion p {
+    color: var(--suave);
+    font-size: clamp(.95rem, 2.2vw, 1.08rem);
+    line-height: 1.85;
+    margin-bottom: 14px;
+  }
+  .seccion p:last-child { margin-bottom: 0; }
+
+  /* ── Cita en primera persona ── */
+  .cita-personal {
+    background: var(--azul-osc);
+    color: #e8f0f8;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: clamp(.95rem, 2.2vw, 1.1rem);
+    line-height: 1.75;
+    font-style: italic;
+    position: relative;
+  }
+  .cita-personal::before {
+    content: '"';
+    position: absolute;
+    top: -4px; left: 14px;
+    font-size: 3.5rem;
+    color: var(--celeste);
+    line-height: 1;
+    font-style: normal;
+    opacity: .7;
+  }
+  .cita-personal p { color: inherit; padding-top: 16px; }
+
+  /* ── Definición en bloque ── */
+  .def-bloque {
+    border-left: 6px solid var(--celeste);
+    padding: 14px 18px;
+    background: #EAF6FD;
+    border-radius: 0 10px 10px 0;
+    margin: 16px 0;
+  }
+  .def-bloque strong {
+    display: block;
+    color: var(--azul-osc);
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  .def-bloque span {
+    color: var(--suave);
+    font-size: .95rem;
+    line-height: 1.7;
+  }
+
+  /* ── Alerta / nota ── */
+  .alerta {
+    background: var(--amarillo);
+    color: var(--am-txt);
+    border-left: 6px solid #FFCA2C;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-size: .95rem;
+    line-height: 1.7;
+  }
+
+  /* ── Tarjetas de tres conceptos: Acceso / Uso / Apropiación ── */
+  .triple-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 22px 0;
+  }
+
+  .triple-card {
+    border-radius: 12px;
+    padding: 18px;
+    border: 2px solid transparent;
+  }
+  .triple-card.acceso    { background: #EBF4FF; border-color: var(--azul); }
+  .triple-card.uso       { background: #EAF6FD; border-color: var(--celeste); }
+  .triple-card.apropiac  { background: #EEF7E0; border-color: var(--verde); }
+
+  .triple-card h3 {
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+    color: var(--azul-osc);
+  }
+  .triple-card p {
+    font-size: .88rem;
+    line-height: 1.65;
+    color: var(--suave);
+    margin: 0 !important;
+  }
+
+  /* ── Tabla de afecta/favorece ── */
+  .tabla-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: 12px;
+    border: 2px solid var(--borde);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .92rem;
+  }
+
+  thead th {
+    background: var(--azul);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 900;
+    font-size: .88rem;
+    letter-spacing: .04em;
+  }
+
+  tbody tr:nth-child(even) { background: #F5F8FC; }
+  tbody tr:nth-child(odd)  { background: white; }
+
+  tbody td {
+    padding: 11px 16px;
+    color: var(--suave);
+    border-bottom: 1px solid var(--borde);
+    vertical-align: top;
+    line-height: 1.5;
+    font-size: .9rem;
+  }
+
+  tbody td:first-child { font-weight: bold; color: var(--texto); }
+
+  /* ── Barrio: estilo cuaderno manuscrito ── */
+  .barrio-bloque {
+    background: #FFFEF0;
+    border: 2px solid #E5D88A;
+    border-radius: var(--radius);
+    padding: clamp(22px, 4vw, 36px);
+    position: relative;
+    /* líneas de cuaderno */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 35px,
+      #EDE9C4 35px,
+      #EDE9C4 36px
+    );
+    background-size: 100% 36px;
+    background-position: 0 28px;
+  }
+
+  .barrio-bloque p {
+    color: #2C2C1A !important;
+    font-size: clamp(.95rem, 2.2vw, 1.08rem);
+    line-height: 2.25;
+  }
+
+  .barrio-titulo {
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #7B6A00;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Consecuencias: lista con ícono ── */
+  .lista-consec {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .lista-consec li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: .95rem;
+    color: var(--suave);
+    line-height: 1.65;
+  }
+
+  .lista-consec .ico {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    background: var(--rojo);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem;
+    font-weight: 900;
+    margin-top: 1px;
+  }
+
+  /* ── Sección personal: fondo oscuro ── */
+  .seccion.personal {
+    background: var(--azul-osc);
+    color: #e0ecf8;
+    border-color: #1a4d80;
+  }
+  .seccion.personal .seccion-titulo { border-color: rgba(55,181,229,.3); }
+  .seccion.personal .seccion-titulo h2 { color: var(--celeste); }
+  .seccion.personal p { color: #c8ddf0; }
+  .seccion.personal .seccion-num { background: var(--celeste); color: var(--azul-osc); }
+
+  /* ── Preguntas del programa de radio ── */
+  .radio-bloque {
+    background: #F0F4F8;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin: 18px 0;
+    border-left: 5px solid var(--celeste);
+  }
+  .radio-bloque .radio-label {
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--azul);
+    margin-bottom: 8px;
+  }
+  .radio-bloque p { margin: 0; font-size: .95rem; }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--azul-osc);
+    color: #cdd9e8;
+    text-align: center;
+    padding: 36px 20px;
+    border-top: 6px solid var(--celeste);
+    font-size: .88rem;
+    line-height: 1.8;
+  }
+  footer strong { color: white; }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .triple-grid { grid-template-columns: 1fr; }
+    .barrio-bloque { background-image: none; background: #FFFEF0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  }
+
+  :focus-visible { outline: 4px solid #FFD54F; outline-offset: 3px; }
+
+/* ==========================================================
+   HUMANOS E IA APRENDICES — estilos específicos
+   brecha-digital/humanos-ia-aprendices.html → usa ../style.css
+   ========================================================== */
+/* variables: ver :root en style.css */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(15px, 3.5vw, 18px);
+  line-height: 1.8;
+  -webkit-text-size-adjust: 100%;
+}
+
+.skip { position: absolute; top:-60px; left:10px; background:var(--azul);
+  color:#fff; padding:8px 14px; border-radius:8px; font-weight:bold;
+  z-index:999; transition:top .2s; }
+.skip:focus { top:10px; }
+
+/* ══ HERO ══════════════════════════════════════════ */
+.hero {
+  background: var(--t-bg);
+  color: var(--t-text);
+  padding: clamp(40px,7vw,72px) clamp(20px,5vw,56px) clamp(36px,5vw,56px);
+  border-bottom: 3px solid #21262d;
+  position: relative; overflow: hidden;
+}
+
+/* grid de puntos tipo IDE */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, #30363d 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: .35;
+  pointer-events: none;
+}
+
+/* barra de título tipo ventana de terminal */
+.terminal-bar {
+  display: flex; align-items: center; gap: 7px;
+  margin-bottom: 22px; position: relative; z-index: 1;
+}
+.t-dot {
+  width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+}
+.t-dot.red    { background: #ff5f57; }
+.t-dot.yellow { background: #ffbd2e; }
+.t-dot.green  { background: #28c840; }
+.t-filename {
+  margin-left: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: .82rem;
+  color: #8b949e;
+}
+
+.hero-inner { max-width: 820px; position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  font-family: 'Courier New', monospace;
+  font-size: .8rem;
+  color: var(--t-green);
+  margin-bottom: 14px;
+  display: block;
+  letter-spacing: .04em;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-weight: 900;
+  line-height: 1.12;
+  margin-bottom: 18px;
+  color: #f0f6fc;
+  letter-spacing: -.02em;
+}
+.hero h1 .accent { color: var(--t-green); }
+
+.hero-bajada {
+  font-size: clamp(.95rem, 2.4vw, 1.1rem);
+  color: #8b949e;
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 26px;
+}
+
+/* logos IA en el hero */
+.hero-logos {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap;
+}
+.hero-logo-chip {
+  display: flex; align-items: center; gap: 7px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 20px;
+  padding: 6px 13px;
+  font-size: .82rem;
+  color: #c9d1d9;
+  font-weight: bold;
+}
+.hero-logo-chip svg { flex-shrink: 0; }
+
+/* ══ LAYOUT ════════════════════════════════════════ */
+.contenedor {
+  width: 94%; max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(28px,5vw,52px) 0 48px;
+}
+
+/* ══ SECCIONES ═════════════════════════════════════ */
+.seccion {
+  background: white;
+  border: 2px solid var(--borde);
+  border-radius: var(--radius);
+  padding: clamp(22px,4vw,38px);
+  margin-bottom: 26px;
+  box-shadow: var(--shadow);
+}
+
+.seccion.dark {
+  background: #161b22;
+  border-color: #30363d;
+  color: var(--t-text);
+}
+
+.seccion-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--borde);
+}
+.seccion.dark .seccion-header { border-color: #30363d; }
+
+.seccion-num {
+  background: var(--azul); color: white;
+  font-size: .78rem; font-weight: 900;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.seccion.dark .seccion-num { background: var(--t-green); color: #0d1117; }
+
+.seccion-header h2 {
+  font-size: clamp(1.05rem, 2.8vw, 1.4rem);
+  color: var(--azul-osc); font-weight: 900; line-height: 1.2;
+}
+.seccion.dark .seccion-header h2 { color: var(--t-green); }
+
+.seccion p {
+  color: var(--suave);
+  font-size: clamp(.9rem, 2.1vw, 1rem);
+  line-height: 1.85; margin-bottom: 13px;
+}
+.seccion p:last-child { margin-bottom: 0; }
+.seccion.dark p { color: #8b949e; }
+
+/* ══ BLOQUE TERMINAL ════════════════════════════════ */
+.terminal-bloque {
+  background: var(--t-bg);
+  border: 1px solid var(--t-borde);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 16px 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(.78rem, 2vw, .9rem);
+  line-height: 2;
+  overflow-x: auto;
+}
+.t-com    { color: #8b949e; }  /* comentario */
+.t-kw     { color: var(--t-purple); } /* keyword */
+.t-str    { color: var(--t-yellow); } /* string */
+.t-fn     { color: var(--t-blue); }   /* función */
+.t-val    { color: var(--t-green); }  /* valor */
+.t-plain  { color: var(--t-text); }
+
+/* ══ LÍNEA DE TIEMPO ════════════════════════════════ */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  margin: 18px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 6px; bottom: 6px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--celeste), var(--azul));
+  border-radius: 2px;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 18px;
+}
+.tl-item:last-child { margin-bottom: 0; }
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -24px; top: 7px;
+  width: 10px; height: 10px;
+  background: var(--celeste);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--celeste);
+}
+.tl-año {
+  font-size: .75rem; font-weight: 900;
+  color: var(--azul); letter-spacing: .06em;
+  text-transform: uppercase; margin-bottom: 3px;
+}
+.tl-titulo {
+  font-weight: 900; color: var(--azul-osc);
+  font-size: clamp(.9rem, 2.2vw, 1rem);
+  margin-bottom: 4px;
+}
+.tl-desc {
+  font-size: clamp(.82rem, 1.9vw, .92rem);
+  color: var(--suave); line-height: 1.6;
+}
+
+/* ══ TARJETAS IA ════════════════════════════════════ */
+.ia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px; margin: 18px 0;
+}
+.ia-card {
+  border-radius: 12px;
+  border: 2px solid var(--t-borde);
+  background: #7e95b6;
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .2s, transform .15s;
+}
+.ia-card:hover { border-color: var(--t-green); transform: translateY(-2px); }
+.ia-card-header {
+  display: flex; align-items: center; gap: 10px;
+}
+.ia-card-logo {
+  width: 36px; height: 36px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ia-card-nombre {
+  font-weight: 900; color: #f0f6fc;
+  font-size: .95rem; line-height: 1.2;
+}
+.ia-card-sub { font-size: .78rem; color: #8b949e; }
+.ia-card-desc {
+  font-size: .85rem; color: #8b949e; line-height: 1.6;
+}
+.ia-card-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #86b9ff; border: 1px solid #6db1ff;
+  color: var(--t-green); text-decoration: none;
+  font-size: .78rem; font-weight: bold;
+  padding: 7px 12px; border-radius: 7px;
+  transition: background .15s;
+  width: fit-content;
+}
+.ia-card-link:hover { background: #000000; }
+
+/* ══ RECURSOS GRID ══════════════════════════════════ */
+.recursos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; margin: 16px 0;
+}
+.recurso-card {
+  background: white; border: 2px solid var(--borde);
+  border-radius: 12px; padding: 16px;
+  text-decoration: none; color: inherit;
+  display: flex; flex-direction: column; gap: 7px;
+  transition: border-color .2s, transform .15s, box-shadow .2s;
+}
+.recurso-card:hover {
+  border-color: var(--celeste);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(55,181,229,.15);
+}
+.recurso-card:focus { outline: 3px solid #FFD54F; outline-offset: 2px; }
+.recurso-emoji { font-size: 1.4rem; line-height: 1; }
+.recurso-nombre { font-weight: 900; color: var(--azul-osc); font-size: .92rem; }
+.recurso-desc   { font-size: .8rem; color: var(--suave); line-height: 1.5; }
+.recurso-tag {
+  font-size: .7rem; font-weight: bold; letter-spacing: .05em;
+  text-transform: uppercase; padding: 3px 8px;
+  border-radius: 20px; width: fit-content;
+}
+.tag-gratis  { background: #EEF7E0; color: #1a6b34; }
+.tag-oficial { background: #EBF4FF; color: #0B5AA2; }
+.tag-abierto { background: #F0F4F8; color: #374151; }
+
+/* ══ BLOQUE CITA ════════════════════════════════════ */
+.cita {
+  background: var(--azul-osc); color: #000000;
+  border-radius: 12px; padding: 20px 24px;
+  margin: 18px 0; font-style: italic;
+  font-size: clamp(.9rem, 2.1vw, 1rem);
+  line-height: 1.75; position: relative;
+}
+.cita::before {
+  content: '"'; position: absolute;
+  top: -6px; left: 14px; font-size: 3rem;
+  color: var(--celeste); line-height: 1;
+  font-style: normal; opacity: .6;
+}
+.cita p { color: inherit; padding-top: 14px; }
+
+/* ══ NOTA / ALERTA ══════════════════════════════════ */
+.nota {
+  background: #207dd4; color: #664D03;
+  border-left: 5px solid #FFCA2C;
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px; margin: 16px 0;
+  font-size: .88rem; line-height: 1.7;
+}
+
+/* ══ TODO BADGE ═════════════════════════════════════ */
+.todo-bloque {
+  background: #000000;
+  border: 1px dashed #000000;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 18px 0;
+}
+.todo-titulo {
+  font-family: 'Courier New', monospace;
+  font-size: .78rem; color: var(--t-yellow);
+  font-weight: bold; letter-spacing: .04em;
+  margin-bottom: 10px;
+}
+.todo-items { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.todo-items li {
+  font-family: 'Courier New', monospace;
+  font-size: .8rem; color: #000000;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.todo-items li::before { content: '//'; color: #000000; flex-shrink: 0; }
+
+/* ══ ÍNDICE ═════════════════════════════════════════ */
+.indice {
+  background: white; border: 2px solid var(--borde);
+  border-left: 6px solid var(--celeste);
+  border-radius: var(--radius);
+  padding: 20px 24px; margin-bottom: 36px;
+  box-shadow: var(--shadow);
+}
+.indice h2 {
+  font-size: .88rem; font-weight: 900;
+  color: var(--azul-osc); letter-spacing: .06em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.indice ol { padding-left: 16px; display: flex; flex-direction: column; gap: 6px; }
+.indice a { color: var(--azul); font-weight: bold; font-size: .9rem; text-decoration: none; }
+.indice a:hover { text-decoration: underline; }
+
+/* ══ FOOTER ══════════════════════════════════════════ */
+footer {
+  background: var(--t-bg); color: #8b949e;
+  text-align: center; padding: 36px 20px;
+  border-top: 3px solid #21262d;
+  font-size: .85rem; line-height: 1.8;
+}
+footer strong { color: #f0f6fc; }
+footer a { color: var(--t-green); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ==========================================================
+   NAVEGACIÓN ENTRE PÁGINAS — footer-nav-paginas
+   Compartido por brecha-digital y humanos-ia-aprendices
+   ========================================================== */
+
+.footer-nav-paginas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.footer-nav-btn {
+    color: #c8d8e8;
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.15);
+    transition: background .15s, color .15s, border-color .15s;
+    white-space: nowrap;
+}
+.footer-nav-btn:hover {
+    background: rgba(55,181,229,.15);
+    border-color: var(--celeste);
+    color: white;
+}
+.footer-nav-btn:focus { outline: 3px solid #FFD54F; outline-offset: 2px; }
+
+.footer-nav-sep {
+    color: rgba(255,255,255,.3);
+    font-size: 1rem;
+    user-select: none;
+}
+
+.footer-nav-actual {
+    font-size: .88rem;
+    font-weight: bold;
+    color: var(--celeste);
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(55,181,229,.1);
+    border: 1px solid rgba(55,181,229,.3);
+    white-space: nowrap;
+}
+
+/* Botón volver al inicio dentro del hero de brecha-digital */
+.bd-volver-inicio {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,.65);
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: bold;
+    letter-spacing: .03em;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,.2);
+    margin-bottom: 16px;
+    transition: color .15s, border-color .15s, background .15s;
+}
+.bd-volver-inicio:hover {
+    color: white;
+    border-color: rgba(255,255,255,.5);
+    background: rgba(255,255,255,.08);
+}
+.bd-volver-inicio:focus { outline: 3px solid #FFD54F; outline-offset: 2px; }
+
+/* Alto contraste */
+html.modo-alto-contraste .footer-nav-btn    { color: #FFD700 !important; border-color: #FFD700 !important; }
+html.modo-alto-contraste .footer-nav-actual { color: #000 !important; background: #FFD700 !important; border-color: #FFD700 !important; }
+html.modo-alto-contraste .bd-volver-inicio  { color: #FFD700 !important; border-color: #FFD700 !important; }
+/* ── Fix escalado tipográfico contenido dinámico ── */
+.btn-nav,
+.nav-tutorial-contador,
+.btn-accion,
+.acciones-tutorial button { font-size: var(--fs-sm) !important; }
+.tutorial-detalle { font-size: var(--fs-md) !important; }
+.paso-tutorial p  { font-size: var(--fs-lg) !important; }
+.paso-tutorial h3 { font-size: var(--fs-xl) !important; }
+.btn-compartir-accion { font-size: var(--fs-sm) !important; }
+.nota-tutorial { font-size: var(--fs-sm) !important; }
+/* ==================================================
+   FASE UI 1 — INDEX.HTML
+   ================================================== */
+
+/* ==================================================
+   FASE UI 1 — GLOBO PUNTO DIGITAL
+   ================================================== */
+
+@keyframes globo-flotar {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-2px) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-4px) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-2px) rotate(1deg);
+    }
+}
+
+.header-logo-svg {
+    display: block;
+    transform-origin: center;
+    animation: globo-flotar 5s ease-in-out infinite;
+    transition:
+        filter 0.25s ease,
+        transform 0.25s ease;
+}
+
+.header-titulo-btn:hover .header-logo-svg {
+    filter: drop-shadow(0 0 10px rgba(0, 204, 255, 0.45));
+}
