@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0B5AA2">
+    <title>Paso a paso - Punto Digital</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/icon-192.png">
+</head>
+<body>
+
+    <a href="#contenido-principal" class="skip-link">Tocá para ir al contenido</a>
+
+    <!-- ── Botón Hamburguesa ─────────────────────────────── -->
+    <button
+        id="btn-hamburger"
+        class="btn-hamburger"
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+        aria-controls="drawer-nav">
+        <span class="hamburger-linea"></span>
+        <span class="hamburger-linea"></span>
+        <span class="hamburger-linea"></span>
+    </button>
+
+    <!-- ── Tooltip primera vez ───────────────────────────── -->
+    <div id="tooltip-nav" class="tooltip-nav" role="tooltip" aria-hidden="true">
+        <button class="tooltip-cerrar" aria-label="Cerrar sugerencia" id="btn-cerrar-tooltip">✕</button>
+        <p class="tooltip-texto">Tocá acá para abrir el menú</p>
+        <div class="tooltip-flecha-wrap" aria-hidden="true">
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 18 H28 V6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="24,10 28,6 32,10" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ── Drawer ── -->
+    <div id="drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
+    <nav id="drawer-nav"
+         class="drawer-nav"
+         role="navigation"
+         aria-label="Menú principal de navegación"
+         aria-hidden="true">
+
+        <div class="drawer-header">
+            <span class="drawer-titulo">Navegador</span>
+            <button id="btn-cerrar-drawer" class="drawer-btn-cerrar" aria-label="Cerrar menú de navegación">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="drawer-buscador-wrap">
+            <label for="drawer-buscador-input" class="drawer-buscador-label">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                    <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2.2"/>
+                    <path d="M14 14L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+            </label>
+            <input type="search"
+                   id="drawer-buscador-input"
+                   class="drawer-buscador-input"
+                   placeholder="Escribir acá..."
+                   autocomplete="off"
+                   spellcheck="false"
+                   aria-label="Buscar tutorial en el menú"/>
+        </div>
+
+        <ul id="drawer-resultados"
+            class="drawer-resultados"
+            role="list"
+            aria-label="Resultados de búsqueda"
+            style="display:none"></ul>
+
+        <div class="drawer-seccion-titulo">Categorías</div>
+        <div class="drawer-cats" role="group" aria-label="Filtrar por categoría">
+            <button class="drawer-cat-btn" data-cat="tramites">🏛️ Trámites</button>
+            <button class="drawer-cat-btn" data-cat="cuidado">🛡️ Seguridad</button>
+            <button class="drawer-cat-btn" data-cat="usos_tecnologia">📱 Tecnología</button>
+            <button class="drawer-cat-btn" data-cat="inteligencia_artificial">🤖 Inteligencia Artificial</button>
+        </div>
+
+        <div class="drawer-seccion-titulo">Navegación</div>
+        <ul class="drawer-lista" role="list">
+            <li><button class="drawer-item" data-accion="inicio">🌐 <span>Inicio del Punto Digital</span></button></li>
+            <li><button class="drawer-item" data-accion="tutoriales">📚 <span>Todos los tutoriales</span></button></li>
+        </ul>
+    </nav>
+
+    <!-- ── Header corporativo ─────────────────────────────── -->
+    <header class="header" role="banner">
+        <div class="container">
+            <a href="../index-punto-digital.html"
+               class="header-titulo-btn"
+               aria-label="Volver al inicio de Punto Digital">
+                <span class="header-logo-wrap" aria-hidden="true">
+                    <svg class="header-logo-svg" width="40" height="40" viewBox="0 0 100 100"
+                         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="50" cy="50" r="46" fill="none" stroke="white" stroke-width="5"/>
+                        <ellipse cx="50" cy="50" rx="20" ry="46" fill="none" stroke="white" stroke-width="3.5"/>
+                        <line x1="4" y1="50" x2="96" y2="50" stroke="white" stroke-width="3.5"/>
+                        <line x1="14" y1="24" x2="86" y2="24" stroke="white" stroke-width="3"/>
+                        <line x1="14" y1="76" x2="86" y2="76" stroke="white" stroke-width="3"/>
+                    </svg>
+                </span>
+                <h1>Punto Digital</h1>
+            </a>
+            <p>Trámites digitales, paso a paso</p>
+        </div>
+    </header>
+
+    <!-- ── Contenido principal ───────────────────────────── -->
+    <main class="container" id="contenido-principal" role="main">
+        <!-- Acá inyecta paso-a-paso.js todo el contenido del tutorial -->
+        <article id="contenido-dinamico" class="tutorial-container" aria-live="polite">
+            <div class="cargando-placeholder" style="text-align:center; padding:2rem;">
+                <p style="font-size:1.3rem;">📋 Cargando los pasos...</p>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- ── Botones flotantes ──────────────────────────────── -->
+    <button
+        id="btn-compartir-flotante"
+        class="btn-compartir-flotante"
+        aria-label="Compartir este tutorial">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+    </button>
+
+    <button id="btn-volver-arriba"
+        class="btn-volver-arriba"
+        aria-label="Volver al inicio de la página">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11 18V4M4 11L11 4L18 11"
+                  stroke="white" stroke-width="2.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- ── Footer ────────────────────────────────────────── -->
+    <footer class="footer" id="pie-pagina" role="contentinfo">
+        <div class="container">
+
+            <nav class="footer-nav-paginas" aria-label="Navegación principal del sitio">
+                <a href="../index-punto-digital.html" class="footer-nav-btn">🌐 Punto Digital</a>
+                <span class="footer-nav-sep" aria-hidden="true">›</span>
+                <span class="footer-nav-actual" aria-current="page">📋 Tutorial</span>
+            </nav>
+
+            <p style="margin-top:20px;">Punto Digital 🌐<br>
+               Espacios de Alfabetización y Educación Digital</p>
+
+            <div style="margin-top:15px; border-top:1px solid #444; padding-top:15px; font-size:0.9rem; text-align:center;">
+                <p style="margin:8px 0;">
+                    📚 <strong>Nombre del Autor:</strong><br>
+                    <span id="texto-autor"
+                          style="cursor:pointer; color:#3C9DD9; font-weight:bold; display:block; padding:5px 0;"
+                          title="Tocá para copiar el nombre del autor">
+                        Angel Nicolás Villegas
+                    </span>
+                    <span style="display:block; font-size:0.8rem; color:#888; margin-top:2px;">
+                        CENS 453 · En unión y libertad, junto a nuestros hermanos/as.
+                    </span>
+                </p>
+                <p style="margin-top:15px; font-size:0.8rem; color:#888;">
+                    © <span id="anio-actual"></span> Todos los derechos reservados.
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- ── Scripts — orden estricto ──────────────────────── -->
+    <!-- 1. Base de datos: sin defer para que esté disponible de inmediato -->
+    <script src="../js/tutoriales.js"></script>
+    <!-- 2. Almacenamiento local -->
+    <script src="../js/storage.js"></script>
+    <!-- 3. Notificaciones (necesario antes que paso-a-paso.js) -->
+    <script src="../js/components/toast.js"></script>
+    <!-- 4. Lectura en voz alta -->
+    <script src="../js/voice/speech.js" defer></script>
+    <!-- 5. Controlador de esta vista — se ejecuta después del DOM + tutoriales.js -->
+    <script src="../js/paso-a-paso.js" defer></script>
+    <!-- 6. Accesibilidad flotante -->
+    <script src="../js/accesibilidad.js" defer></script>
+    <!-- 7. Menú hamburguesa + volver arriba + compartir flotante -->
+    <script src="../js/script.js" defer></script>
+    <!-- 8. PWA offline -->
+    <script src="../js/pwa.js" defer></script>
+</body>
+</html>
