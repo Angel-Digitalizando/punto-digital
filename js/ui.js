@@ -143,14 +143,7 @@
 
         panel.innerHTML = `
             <div class="visor-header">
-                <span class="visor-titulo">${catInfo.etiqueta}</span>
-                <button class="visor-btn-cerrar" id="visor-btn-cerrar"
-                        aria-label="Cerrar panel de tutoriales">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                        <path d="M3.5 3.5L14.5 14.5M14.5 3.5L3.5 14.5"
-                              stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                </button>
+                <span class="visor-titulo">${catInfo.etiqueta}</span><button class="visor-btn-cerrar" id="visor-btn-cerrar" aria-label="Cerrar panel de tutoriales">&times;</button>
             </div>
             <p class="visor-desc">${catInfo.descripcion}</p>
             <div class="visor-lista">${botonesHtml}</div>
@@ -376,17 +369,23 @@
 
         menu.parentNode.insertBefore(wrapper, menu);
     };
-
-    // ─── Mostrar tutorial (navega a paso-a-paso.html)
+// Mostrar tutorial (navega a paso-a-paso.html)
     const mostrarTutorial = (idClave) => {
         const db = window.baseDeTutoriales;
         if (!db || !db[idClave]) return;
 
         window.PD_Storage?.guardarTutorialReciente(idClave);
-        window.location.href = `./page/paso-a-paso.html?id=${idClave}`;
+        // Detección dinámica de ruta para evitar "page/page/"
+        const rutaActual = window.location.pathname;
+        if (rutaActual.includes('/page/')) {
+            // Si ya estamos dentro de Brecha Digital o cualquier archivo en /page/
+            window.location.href = `./paso-a-paso.html?id=${idClave}`;
+        } else {
+            // Si estamos en el index.html (Punto Digital)
+            window.location.href = `./page/paso-a-paso.html?id=${idClave}`;
+        }
     };
-
-    // ─── Ocultar tutorial — volver a home 
+    //  Ocultar tutorial — volver a home 
     const ocultarTutorial = () => {
         window.PD_Speech?.detener();
         document.getElementById('acciones-tutorial')?.remove();
@@ -397,7 +396,7 @@
         tutorialActualId = null;
     };
 
-    // ─── Tutorial reciente 
+    // Tutorial reciente 
     const mostrarBotonReciente = () => {
         const store = window.PD_Storage;
         const db    = window.baseDeTutoriales;

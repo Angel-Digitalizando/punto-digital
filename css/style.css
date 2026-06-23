@@ -5703,3 +5703,98 @@ html.modo-alto-contraste [class*="categoria"][class*="activo"] * {
         background-position: 200% center;
     }
 }
+.visor-btn-cerrar svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* --- BOTÓN CERRAR DEL VISOR DE CATEGORÍAS --- */
+
+/* Estilo normal */
+.visor-btn-cerrar {
+    background: transparent;
+    border: none;
+    font-size: 2.5rem; /* Tamaño bien grande para que la X sea visible */
+    color: #0B5AA2; /* El azul principal de tu aplicación */
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modo Alto Contraste */
+.modo-alto-contraste .visor-btn-cerrar {
+    color: #FFFF00 !important; /* Amarillo brillante forzado */
+    background-color: #000000; /* Fondo negro para que el amarillo resalte al máximo (opcional) */
+    border-radius: 5px;
+}
+/* --- BOTÓN DE CERRAR CORREGIDO --- */
+
+.visor-btn-cerrar {
+    /* Reseteo de estilos para asegurar visibilidad */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    
+    /* Estilos del texto (&times;) */
+    font-size: 2.5rem; /* Tamaño grande y claro */
+    font-weight: bold;
+    color: #0B5AA2;    /* Color azul por defecto */
+    line-height: 1;
+    
+    /* Centrado */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Transición suave */
+    transition: all 0.2s ease;
+}
+
+.visor-btn-cerrar:hover {
+    background-color: rgba(11, 90, 162, 0.1);
+    border-radius: 50%;
+}
+
+/* --- MODO ALTO CONTRASTE --- */
+/* Esta regla fuerza el color amarillo y el fondo negro cuando el modo está activo */
+.modo-alto-contraste .visor-btn-cerrar {
+    color: #FFFF00 !important; /* Amarillo brillante */
+    background-color: #000000 !important; /* Fondo negro para que resalte */
+    border: 2px solid #FFFF00 !important; /* Borde amarillo para mayor claridad */
+}
+/* --- CORRECCIÓN PARA EL BOTÓN DE CIERRE --- */
+
+.visor-btn-cerrar {
+    /* Le damos tamaño físico al botón para que sea visible y clickeable */
+    width: 44px !important;
+    height: 44px !important;
+    
+    /* Centramos el contenido (&times;) */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* Estilos del texto */
+    font-size: 32px !important;
+    font-weight: bold !important;
+    color: #0B5AA2 !important; /* El azul de tu app */
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin-left: auto !important; /* Empuja el botón a la derecha en el header */
+}
+
+/* --- MODO ALTO CONTRASTE --- */
+/* Esto fuerza que el amarillo resalte sobre negro */
+.modo-alto-contraste .visor-btn-cerrar {
+    color: #FFFF00 !important;       /* Amarillo brillante */
+    background-color: #000000 !important; 
+    border: 2px solid #FFFF00 !important; /* Borde para que se vea el recuadro */
+    border-radius: 5px !important;
+}
