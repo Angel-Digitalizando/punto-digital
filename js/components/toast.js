@@ -1,7 +1,5 @@
 // components/toast.js - Sistema unificado de notificaciones (Cartelitos)
 // Punto Digital Comunitario Morenense
-// components/toast.js — Sistema unificado de notificaciones (Cartelitos)
-// Punto Digital Comunitario Morenense
 
 (function () {
     'use strict';
@@ -105,7 +103,6 @@
     }
 
     // API pública: Compartimos la herramienta con el resto de la app 
-    // ─── API pública: Compartimos la herramienta con el resto de la app ──────
     window.PD_Toast = { mostrarToast: mostrarToast };
 
     // Por las dudas, dejamos este "alias" para que los archivos más viejos 

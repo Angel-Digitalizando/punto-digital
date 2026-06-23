@@ -18,21 +18,17 @@
     // ─── Mostrar error en el contenedor ───────────────────
     function mostrarError(contenedor, titulo, cuerpo) {
         contenedor.innerHTML =
-            notaHtml;
+            '<div style="text-align:center;padding:2rem;">' +
+            '<h2 style="color:#C62828;margin-bottom:12px;">' + titulo + '</h2>' +
+            '<p style="font-size:1.1rem;line-height:1.7;">' + cuerpo + '</p>' +
+            '<a href="../index-punto-digital.html" ' +
+            'style="display:inline-block;margin-top:1.5rem;background:#0B5AA2;' +
+            'color:white;padding:14px 24px;border-radius:12px;font-weight:bold;' +
+            'text-decoration:none;font-size:1.1rem;">📋 Volver al Inicio</a>' +
+            '</div>';
     }
-    
-    // ── Tostada de orientación al usuario 
-        setTimeout(function () {
-            if (window.PD_Toast) {
-                window.PD_Toast.mostrarToast(
-                    '💡 Tocá el logo "Punto Digital" arriba para volver al inicio.',
-                    'info',
-                    5000
-                );
-            }
-        }, 800);
 
-    // ─── Copiar URL al portapapeles ─
+    // ─── Copiar URL al portapapeles ────────────────────────
     function copiarURL(url) {
         function fallback() {
             var ta = document.createElement('textarea');

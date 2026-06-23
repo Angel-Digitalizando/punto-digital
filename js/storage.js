@@ -1,9 +1,8 @@
+// ==============================
 // storage.js — Persistencia local (localStorage)
 // Punto Digital Comunitario Morenense
 // DEBE CARGARSE PRIMERO. Sin dependencias externas.
-// storage.js — Persistencia local (localStorage)
-// Punto Digital Comunitario Morenense
-// ─── DEBE CARGARSE PRIMERO. Sin dependencias externas. ───
+// ==============================
 
 (function () {
     'use strict';
@@ -28,7 +27,6 @@
     };
 
     // Utilidades seguras 
-    // ─── Utilidades seguras ───────────────────────────────
     function leer(clave) {
         try {
             const raw = localStorage.getItem(clave);
@@ -49,7 +47,6 @@
     }
 
     // Configuración 
-    // ─── Configuración ────────────────────────────────────
     function obtenerConfiguracion() {
         // Merge con defaults para tolerar keys faltantes en versiones viejas
         return Object.assign({}, CONFIG_DEFAULT, leer(CLAVES.CONFIG) || {});
@@ -61,7 +58,6 @@
     }
 
     // Favoritos 
-    // ─── Favoritos ────────────────────────────────────────
     function obtenerFavoritos() {
         return leer(CLAVES.FAVORITOS) || [];
     }
@@ -86,7 +82,6 @@
     }
 
     //  Progreso 
-    // ─── Progreso ─────────────────────────────────────────
     function obtenerProgreso() {
         return leer(CLAVES.PROGRESO) || {};
     }
@@ -108,7 +103,6 @@
     }
 
     //  Tutorial reciente 
-    // ─── Tutorial reciente ────────────────────────────────
     function guardarTutorialReciente(idClave) {
         escribir(CLAVES.RECIENTE, { id: idClave, fecha: Date.now() });
     }
@@ -118,7 +112,6 @@
     }
 
     // API pública 
-    // ─── API pública ──────────────────────────────────────
     window.PD_Storage = {
         obtenerConfiguracion,
         guardarConfiguracion,

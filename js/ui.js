@@ -1,3 +1,4 @@
+// ============================
 // ui.js - Lógica de interfaz principal
 // Punto Digital Comunitario Morenense
 // v3 (Junio 2026) — Navegación guiada + Acordeón
@@ -5,11 +6,12 @@
 // Dependencias en runtime:
 //   - window.baseDeTutoriales (tutoriales.js) — obligatorio
 //   - window.PD_Storage, PD_TutorialCard, PD_Progress, PD_Speech — lazy
+// ==============================
 
 (() => {
     'use strict';
 
-    // ─── Mapa de categorías ───────────────────────────────────────────────────
+    // ─── Mapa de categorías ───────
     const CATEGORIAS = {
         tramites: {
             etiqueta:    '🏛️ Trámites del Capital Humano',
@@ -48,7 +50,7 @@
     let tutorialActualId = null;
     let categoriaActiva  = null;
 
-    // ─── Sistema de vistas (home / tutorial) ─────────────────────────────────
+    // ─── Sistema de vistas (home / tutorial) 
     const SECCIONES_MENU = [
         'menu-tutoriales', 'tabs-categorias', 'introduccion',
         'seccion-buscador', 'seccion-favoritos', 'seccion-progreso',
@@ -73,7 +75,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ─── Acordeón de categorías ───────────────────────────────────────────────
+    // ─── Acordeón de categorías ─
     const acordeonAbierto = new Set();
 
     function toggleAcordeon(catClave, forzarAbrir) {
@@ -97,7 +99,7 @@
         }
     }
 
-    // ─── Visor modal de categoría ─────────────────────────────────────────────
+    // ─── Visor modal de categoría ─
     let visorAbierto = false;
 
     function inyectarVisor() {
@@ -190,7 +192,7 @@
         document.body.style.overflow = '';
     }
 
-    // ─── Renderizar menú (acordeones que abren el visor modal) ───────────────
+    // ─── Renderizar menú (acordeones que abren el visor modal) ─
     const renderizarMenu = () => {
         const db   = window.baseDeTutoriales;
         const menu = document.getElementById('menu-tutoriales');
@@ -333,7 +335,7 @@
         });
     };
 
-    // ─── Renderizar tabs externos (encima del menú) ───────────────────────────
+    // ─── Renderizar tabs externos (encima del menú) 
     const renderizarTabs = () => {
         const menu = document.getElementById('menu-tutoriales');
         if (!menu || document.getElementById('tabs-categorias')) return;
@@ -375,7 +377,7 @@
         menu.parentNode.insertBefore(wrapper, menu);
     };
 
-    // ─── Mostrar tutorial (navega a paso-a-paso.html) ────────────────────────
+    // ─── Mostrar tutorial (navega a paso-a-paso.html)
     const mostrarTutorial = (idClave) => {
         const db = window.baseDeTutoriales;
         if (!db || !db[idClave]) return;
@@ -384,7 +386,7 @@
         window.location.href = `./page/paso-a-paso.html?id=${idClave}`;
     };
 
-    // ─── Ocultar tutorial — volver a home ────────────────────────────────────
+    // ─── Ocultar tutorial — volver a home 
     const ocultarTutorial = () => {
         window.PD_Speech?.detener();
         document.getElementById('acciones-tutorial')?.remove();
@@ -395,7 +397,7 @@
         tutorialActualId = null;
     };
 
-    // ─── Tutorial reciente ────────────────────────────────────────────────────
+    // ─── Tutorial reciente 
     const mostrarBotonReciente = () => {
         const store = window.PD_Storage;
         const db    = window.baseDeTutoriales;
@@ -427,7 +429,7 @@
         intro.appendChild(div);
     };
 
-    // ─── Inicialización ───────────────────────────────────────────────────────
+    // ─── Inicialización 
     const init = () => {
         if (!window.baseDeTutoriales) {
             setTimeout(init, 100);
@@ -447,7 +449,7 @@
         document.getElementById('btn-volver')?.addEventListener('click', ocultarTutorial);
     };
 
-    // ─── API pública ──────────────────────────────────────────────────────────
+    // ─── API pública ─
     window.mostrarTutorial = mostrarTutorial;
     window.ocultarTutorial = ocultarTutorial;
     if (!window.PD_UI) window.PD_UI = {};
@@ -458,5 +460,4 @@
     } else {
         init();
     }
-
 })();

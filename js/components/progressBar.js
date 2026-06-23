@@ -1,8 +1,5 @@
 // components/progressBar.js — Progreso global y badges
 // Punto Digital Comunitario Morenense
-// components/progressBar.js — Progreso global y badges
-// Punto Digital Comunitario Morenense
-//
 // FIX v2 (Junio 2026):
 //   - Corregida la llave de cierre faltante en inyectarProgresoGlobal()
 //   - actualizarProgreso, BADGES, actualizarBadges y actualizarBotonesMenu
@@ -18,7 +15,6 @@
     }
 
 // Inyectar sección de avance global
-    // ─── Inyectar sección de avance global ─────────────
     function inyectarProgresoGlobal() {
         if (document.getElementById('seccion-progreso')) return;
 
@@ -29,18 +25,6 @@
         
         // Dejamos el contenido vacío para que no dibuje la barra de progreso ni las medallas
         seccion.innerHTML = ``;
-        seccion.innerHTML = `
-            <h2 class="progreso-titulo">📊 Tu avance</h2>
-            <div class="progreso-global-wrap">
-                <div class="progreso-global-barra-bg">
-                    <div id="progreso-global-fill" class="progreso-global-fill"
-                         role="progressbar" aria-valuemin="0" aria-valuemax="${totalTutoriales()}"
-                         aria-valuenow="0"></div>
-                </div>
-                <p id="progreso-texto" class="progreso-texto">Ya terminaste 0 de ${totalTutoriales()} tutoriales</p>
-            </div>
-            <div id="badges-contenedor" class="badges-contenedor" aria-label="Tus medallas conseguidas"></div>
-        `;
 
         // Insertar después de la intro o al final del main
         const intro = document.getElementById('introduccion');
@@ -56,8 +40,6 @@
         const intro = document.getElementById('introduccion');
         const main  = document.getElementById('contenido-principal');
     //  Actualizar la barra y texto 
-
-    // ─── Actualizar la barra y texto ─────────────────────
     // NOTA: esta función debe vivir fuera de inyectarProgresoGlobal
     // para ser accesible via window.PD_Progress.actualizarProgreso()
     function actualizarProgreso() {
@@ -82,7 +64,6 @@
     }
 
     // Medallas (Badges) con lenguaje sencillo
-    // ─── Medallas (Badges) con lenguaje sencillo ─────────
     const BADGES = [
         { min: 1,  icono: '⭐', texto: '¡Primer paso!' },
         { min: 3,  icono: '🌟', texto: '¡Venís bárbaro!' },
@@ -108,7 +89,6 @@
     }
 
     // Actualizar estado del botón en el menú 
-    // ─── Actualizar estado del botón en el menú ──────────
     function actualizarBotonesMenu() {
         if (!window.PD_Storage || !window.baseDeTutoriales) return;
 
@@ -131,8 +111,6 @@
 
     // API pública 
     // Se expone acá, al final del IIFE, donde todas las funciones
-    // ─── API pública ──────────────────────────────────────
-    // Se expone aquí, al final del IIFE, donde todas las funciones
     // están en scope y son accesibles correctamente.
     window.PD_Progress = { inyectarProgresoGlobal, actualizarProgreso, actualizarBotonesMenu };
 

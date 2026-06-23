@@ -1,4 +1,6 @@
+/*========style.css======
     DISEÑO PUNTO DIGITAL MORENENSE
+  ======================= */
 :root {
     /* PALETA */
     --azul-arg:      #0056a1; 
@@ -388,7 +390,9 @@ body {
 .drawer-item { font-size: var(--fs-md) !important; }
 
 /* Iconos y FABs — SIEMPRE tamaño fijo, no escalan */
+/* ==========================================================
    RESPLANDOR METÁLICO PARA EL BOTÓN HAMBURGUESA
+   ========================================================== */
 @keyframes latido-metalico {
     0%   { box-shadow: 0 0 5px rgba(55, 181, 229, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3); }
     50%  { box-shadow: 0 0 15px rgba(55, 181, 229, 0.9), inset 0 1px 6px rgba(255, 255, 255, 0.7); }
@@ -634,9 +638,11 @@ html.reduced-motion *::after {
     }
 }
 
+/* =========================================================
    ESTILOS FASE 2 — Categorías, Onboarding, Deeplink, Notas
    Punto Digital Comunitario Morenense
    Agregados sobre el sistema existente — sin romper nada.
+========================================================= */
 
 /* ── Tabs de categoría ─────────────────────────────────── */
 #tabs-categorias {
@@ -904,8 +910,10 @@ html.modo-ultra .onb-opcion { font-size: 1.2rem !important; padding: 20px !impor
     }
 }
 
+/* =========================================================
    BANNER DE SEGURIDAD DIGITAL
    Reemplaza .consejos — más visible, más humano
+========================================================= */
 
 .banner-seguridad {
     background: #FFF1F1;
@@ -1050,7 +1058,9 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
 @media (max-width: 600px) {
     .btn-compartir-flotante { width: 52px; height: 52px; bottom: 20px; right: 14px; }
 }
+/* ========================================================= */
 /* MODO HORIZONTAL (Landscape) PARA CELULARES */
+/* ========================================================= */
 
 @media screen and (orientation: landscape) and (max-height: 600px) {
     /* Ajusta el contenedor de tus tutoriales para que no ocupe el 100% del ancho */
@@ -1072,7 +1082,9 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
         margin: 5px auto;
     }
 }
+/* ========================================================= */
 /* ESTILOS DEL BOTÓN CERRAR (X) */
+/* ========================================================= */
 .btn-cerrar {
     position: absolute;
     top: 15px;
@@ -1092,7 +1104,9 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
     color: #e74c3c; /* Rojo al pasar el dedo o el mouse */
 }
 
+/* ========================================================= */
 /* MODO HORIZONTAL (Landscape) PARA CELULARES */
+/* ========================================================= */
 @media screen and (orientation: landscape) and (max-height: 600px) {
     .modal, .contenedor-principal {
         max-width: 80%;
@@ -1107,11 +1121,13 @@ body:has(#panel-voz[style*="block"]) .btn-compartir-flotante {
             }
 }
 
+/* ============================================================
    REDISEÑO MUNICIPAL — Punto Digital v3
    ─────────────────────────────────────────────────────────
    INSTRUCCIONES: Pegar este bloque AL FINAL de tu style.css
    Sobreescribe estilos anteriores con diseño institucional
    Municipalidad de Moreno: bloques, plano, alto contraste
+   ============================================================ */
 
 /* ─── Variables adicionales ────────────────────────────── */
 :root {
@@ -1303,7 +1319,9 @@ html.modo-ultra .tab-categoria {
     padding: 11px 16px !important;
 }
 
+/* ==========================================================
    NUEVO: FAB de Accesibilidad + Panel compacto
+   ========================================================== */
 
 /* ── FAB (Floating Action Button) ──────────────────────── */
 #btn-acc-flotante {
@@ -1530,7 +1548,9 @@ html.modo-ultra .acc-panel-titulo   { font-size: 1.2rem !important; }
 }
 
 
+/* ==========================================================
    NUEVO: Navegación anterior / siguiente entre tutoriales
+   ========================================================== */
 
 .nav-tutorial {
     margin: 24px 0 20px;
@@ -1625,9 +1645,11 @@ html.modo-alto-contraste .btn-nav-siguiente {
     .btn-nav-siguiente  { text-align: center; }
 }
 
+/* ==========================================================
    v4 — MENÚ HAMBURGUESA + DRAWER + TOOLTIP + VOLVER ARRIBA
    + FIXES DE UX/ACCESIBILIDAD
    Punto Digital Comunitario Morenense
+   ========================================================== */
 
 /* ── Variables nuevas ────────────────────────────────────── */
 :root {
@@ -2064,9 +2086,11 @@ html.modo-alto-contraste .btn-volver-arriba {
     .btn-hamburger { transition-duration: 1ms !important; animation-duration: 1ms !important; }
 }
 
+/* ==========================================================
    v5 — ACORDEÓN + VISOR MODAL DE CATEGORÍA + DRAWER FIXES
    + ESCALADO TIPOGRÁFICO + RESPONSIVE GLOBAL
    Punto Digital Comunitario Morenense
+   ========================================================== */
 
 /* ── Transición de vista (feedback cuando cambia pantalla) ── */
 @keyframes vistaEntrada {
@@ -2665,7 +2689,9 @@ html.modo-ultra .acc-escala-btn { width: 42px !important; height: 42px !importan
 .drawer-nav.drawer-visible { pointer-events: auto; }
 
 
+/* ==========================================================
    CABECERA SIMPLIFICADA — logo + "Punto Digital"
+   ========================================================== */
 
 .header-titulo-btn {
     display: flex;
@@ -2721,9 +2747,11 @@ html.modo-alto-contraste .header-logo-svg line { stroke: #FFD700 !important; }
     .header-titulo-btn { gap: 10px; }
 }
 
+/* ==========================================================
    TUTORIAL — clases para contenido dinámico
    Reemplazan los estilos inline de ui.js.
    Todo usa variables --fs-* para respetar --fs-scale.
+   ========================================================== */
 
 /* Título del tutorial */
 .tutorial-titulo {
@@ -2816,8 +2844,10 @@ html.modo-alto-contraste .btn-finalizar {
 html.modo-alto-contraste .tutorial-separador { background: #FFD700 !important; }
 
 
+/* ==========================================================
    CTA — Humanos e IA Aprendices
    Botón terminal animado en la sección de introducción
+   ========================================================== */
 
 .cta-ia {
     display: flex;
@@ -2946,13 +2976,10 @@ html.modo-alto-contraste .cta-ia-sub    { color: #ccc !important; }
 html.modo-alto-contraste .cta-ia-pre    { color: #FFD700 !important; }
 html.modo-alto-contraste .cta-ia-prompt { color: #fff !important; }
 html.modo-alto-contraste .cta-ia-cursor { color: #FFD700 !important; }
-
-
-
-
-
+/* ==========================================================
    BRECHA DIGITAL — estilos específicos
    brecha-digital/index.html → usa ../style.css como base
+   ========================================================== */
 /* ── Paleta — heredada de Punto Digital + acento propio ── */
   /* variables: ver :root en style.css */
 
@@ -3394,8 +3421,10 @@ body {
 
   :focus-visible { outline: 4px solid #FFD54F; outline-offset: 3px; }
 
+/* ==========================================================
    HUMANOS E IA APRENDICES — estilos específicos
    brecha-digital/humanos-ia-aprendices.html → usa ../style.css
+   ========================================================== */
 /* variables: ver :root en style.css */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -3763,8 +3792,10 @@ footer strong { color: #f0f6fc; }
 footer a { color: var(--t-green); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
+/* ==========================================================
    NAVEGACIÓN ENTRE PÁGINAS — footer-nav-paginas
    Compartido por brecha-digital y humanos-ia-aprendices
+   ========================================================== */
 
 .footer-nav-paginas {
     display: flex;
@@ -3849,9 +3880,13 @@ html.modo-alto-contraste .bd-volver-inicio  { color: #FFD700 !important; border-
 .paso-tutorial h3 { font-size: var(--fs-xl) !important; }
 .btn-compartir-accion { font-size: var(--fs-sm) !important; }
 .nota-tutorial { font-size: var(--fs-sm) !important; }
+/* ==================================================
    FASE UI 1 — INDEX.HTML
+   ================================================== */
 
+/* ==================================================
    FASE UI 1 — GLOBO PUNTO DIGITAL
+   ================================================== */
 
 @keyframes globo-flotar {
     0%,
@@ -4007,8 +4042,10 @@ label,
 strong {
     color: inherit;
 }
+/* ==================================================
 HUMANOS E IA APRENDICES
 TIMELINE TECNOLÓGICA
+================================================== */
 
 .timeline{
 position:relative;
@@ -4149,7 +4186,9 @@ box-shadow:
 
 }
 
+/* ==================================================
 MOBILE
+================================================== */
 
 @media (max-width:768px){
 
@@ -4170,7 +4209,9 @@ MOBILE
 
 }
 
+/* ==================================================
 NOTA DE APRENDIZAJE
+================================================== */
 
 .nota-aprendizaje{
 margin:48px 0 12px;
@@ -4303,7 +4344,9 @@ box-shadow:
     border-left:4px solid var(--celeste-arg);
 }
 
+/* ==================================================
 EVOLUCIÓN DIGITAL
+================================================== */
 
 .evolucion-digital{
 max-width:800px;
@@ -4401,7 +4444,9 @@ transform:translateY(0);
 
 }
 
+/* ==================================================
 EXPLORADOR DE ARCHIVOS EDUCATIVO
+================================================== */
 
 .estructura-archivos{
 position:relative;
@@ -4710,7 +4755,9 @@ to{
   color: #e6edf3;
 }
 
+/* ==========================================================
    SECCIÓN IA (S5) — Tarjetas y Grilla Integradas
+   ========================================================== */
 
 .ia-contenedor .ia-grid {
   display: grid;
@@ -4847,7 +4894,9 @@ input:focus-visible {
     outline-offset: 2px;
     background-color: rgba(255, 255, 0, 0.1);
 }
+/* =========================================================
    1. ANIMACIÓN DEL CORAZÓN (Bienvenida / Tooltip)
+   ========================================================= */
 .corazon-latido {
     display: inline-block;
     color: #e53935; /* Rojo vibrante y accesible */
@@ -4866,7 +4915,9 @@ input:focus-visible {
     100% { transform: scale(1); } /* Cierra el ciclo suavemente */
 }
 
+/* =========================================================
    2. ACCESIBILIDAD Y ALTO CONTRASTE (Onboarding / Primera Visita)
+   ========================================================= */
 
 /* Ajuste de contraste para textos descriptivos */
 #overlay-onboarding .onb-texto {
@@ -4880,7 +4931,9 @@ input:focus-visible {
     color: #000000; 
     margin-bottom: 10px;
 }
+/* =========================================================
    3. NAVEGACIÓN POR TECLADO (Focus Trap y Outline)
+   ========================================================= */
 
 /* Muestra un borde azul claro y definido cuando un usuario navega usando 
    la tecla TAB. Es vital para que las personas que no usan mouse o pantalla
@@ -5164,6 +5217,7 @@ summary::-webkit-details-marker {
     pointer-events: none !important;
 }
 
+/* ========================
    PATCH — Brecha Digital: escala tipográfica + alto contraste
 
 /* 2. Conectar .seccion p al sistema --fs-scale para que el control +/- funcione */
@@ -5281,7 +5335,9 @@ html.modo-alto-contraste .radio-pregunta {
 html.modo-alto-contraste .radio-pregunta p  { color: #fff !important; }
 html.modo-alto-contraste .radio-label       { color: #FFD700 !important; background: #000 !important; }
 html.modo-alto-contraste .cierre-reflexion  { color: #ccc !important; border-color: #444 !important; }
+/* ==========================================================
    FIX: ALTO CONTRASTE PARA HUMANOS E IA APRENDICES
+   ========================================================== */
 /* Línea de tiempo */
 html.modo-alto-contraste .tl-item { background: #000 !important; border-color: #FFD700 !important; box-shadow: none !important; }
 html.modo-alto-contraste .tl-item::before { background: #000 !important; box-shadow: 0 0 0 2px #FFD700 !important; }
@@ -5323,7 +5379,9 @@ html.modo-alto-contraste .recurso-nombre { color: #FFD700 !important; }
 html.modo-alto-contraste .recurso-desc { color: #fff !important; }
 html.modo-alto-contraste .recurso-tag { background: #222 !important; color: #FFD700 !important; }
 
+/* ==========================================================
    FIX GLOBAL: TEXTOS DESCRIPTIVOS BAJO TÍTULOS EN ALTO CONTRASTE
+   ========================================================== */
 /* Forzar a blanco puro todos los párrafos, listas y textos descriptivos 
    para que contrasten perfectamente debajo de los títulos amarillos */
 html.modo-alto-contraste p,
@@ -5334,7 +5392,9 @@ html.modo-alto-contraste .texto-suave {
     color: #ffffff !important;
 }
 
+/* ==========================================================
    FIX: SELECTOR DE TUTORIALES Y CATEGORÍAS (ALTO CONTRASTE)
+   ========================================================== */
 /* Forzar fondo negro, texto claro y bordes amarillos en cualquier elemento de categoría o pestañas */
 html.modo-alto-contraste .tab,
 html.modo-alto-contraste .tab-btn,
@@ -5384,7 +5444,9 @@ html.modo-alto-contraste .tab-btn.active *,
 html.modo-alto-contraste [class*="tab"][class*="activo"] * {
     color: #000000 !important;
 }
+/* ==========================================================
    CORRECCIÓN DEFINITIVA: CATEGORÍAS Y SELECTORES EN ALTO CONTRASTE
+   ========================================================== */
 
 /* 1. Fondo negro y borde amarillo para todas las tarjetas, pestañas y botones de categoría */
 html.modo-alto-contraste .tab,
@@ -5461,7 +5523,9 @@ html.modo-alto-contraste [class*="tab"][class*="activo"] *,
 html.modo-alto-contraste [class*="categoria"][class*="activo"] * {
     color: #000000 !important;
 }
+/* ==========================================================
    SOLUCIÓN DEFINITIVA: RECONFIGURACIÓN DEL ROOT Y ESTILOS DINÁMICOS
+   ========================================================== */
 
 /* 1. Redefinición de las variables del :root para Alto Contraste */
 html.modo-alto-contraste {
