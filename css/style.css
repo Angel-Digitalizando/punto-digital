@@ -5631,3 +5631,13 @@ html.modo-alto-contraste [class*="categoria"][class*="activo"] * {
     font-size: 0.85rem; 
     padding: 8px 12px;
 }
+.texto-punto-digital {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #ffffff; /* Color blanco puro */
+    /* El text-shadow crea el efecto resplandecedor simulando luz */
+    text-shadow: 
+        0 0 4px rgba(255, 255, 255, 0.8),
+        0 0 8px rgba(255, 255, 255, 0.6),
+        0 0 12px rgba(255, 255, 255, 0.4);
+}
