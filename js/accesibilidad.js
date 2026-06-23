@@ -183,12 +183,18 @@
         panel.setAttribute('role', 'region');
         panel.setAttribute('aria-label', 'Herramientas de accesibilidad');
         panel.setAttribute('hidden', '');
-
-        panel.innerHTML =
+panel.innerHTML =
             '<div class="acc-panel-header">' +
-                '<span class="acc-panel-titulo">♿ Accesibilidad</span>' +
-                '<button id="btn-acc-cerrar" class="acc-btn-cerrar"' +
-                    ' aria-label="Cerrar panel de accesibilidad">' +
+                '<span class="acc-panel-titulo">' +
+                    '<svg width="20" height="20" viewBox="0 0 26 26" fill="none" style="vertical-align: text-bottom; margin-right: 6px;" aria-hidden="true">' +
+                        '<circle cx="13" cy="5" r="2.4" fill="currentColor"/>' +
+                        '<path d="M13 7.8V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>' +
+                        '<path d="M7.5 11.5L13 9.8L18.5 11.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+                        '<path d="M13 15.5L10.2 22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>' +
+                        '<path d="M13 15.5L15.8 22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>' +
+                    '</svg>' +
+                'Accesibilidad</span>' +
+                '<button id="btn-acc-cerrar" class="acc-btn-cerrar" aria-label="Cerrar panel de accesibilidad">' +
                     SVG_CERRAR +
                 '</button>' +
             '</div>' +

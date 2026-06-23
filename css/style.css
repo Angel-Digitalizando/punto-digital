@@ -5641,3 +5641,65 @@ html.modo-alto-contraste [class*="categoria"][class*="activo"] * {
         0 0 8px rgba(255, 255, 255, 0.6),
         0 0 12px rgba(255, 255, 255, 0.4);
 }
+/* --- ESTILOS PARA LAS TARJETAS DE IA Y BOTONES --- */
+.ia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.ia-card {
+    background: #2a2a2a; /* Fondo oscuro de la tarjeta */
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ia-card-desc {
+    flex-grow: 1; /* Esto asegura que el botón siempre quede pegado abajo */
+    margin-bottom: 1.5rem;
+}
+
+/* 🔥 Acá arreglamos los botones celestes rotos */
+.ia-card-link {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #0B5AA2; /* El azul de tus botones flotantes */
+    color: #ffffff !important; /* Blanco forzado para que el texto se lea */
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.ia-card-link:hover {
+    background-color: #08427b; /* Azul un poco más oscuro al tocarlo */
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
+}
+/* --- ESTILOS MODO ALTO CONTRASTE --- */
+
+/* Forzamos los colores cuando el usuario activa la accesibilidad */
+.modo-alto-contraste .seccion-num,
+.modo-alto-contraste .subtitulo-ia {
+    color: #FFFF00 !important; /* Amarillo brillante forzado */
+}
+.titulo-brillante {
+    background: linear-gradient(90deg, #ffffff 0%, #a8c0ff 50%, #ffffff 100%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: brillo-texto 3s linear infinite;
+    text-shadow: 0 0 20px rgba(168, 192, 255, 0.4);
+}
+
+@keyframes brillo-texto {
+    to {
+        background-position: 200% center;
+    }
+}
