@@ -1,4 +1,3 @@
-// =========================================================
 // deeplink.js — URLs directas a tutoriales y compartir
 // Punto Digital Comunitario Morenense
 //
@@ -17,7 +16,6 @@
 //   Generar QR apuntando a:
 //   https://angel-digitalizando.github.io/punto-digital/?tutorial=anses
 //   Pegar en carteles del espacio o imprimir para el taller.
-// =========================================================
 
 (function () {
     'use strict';

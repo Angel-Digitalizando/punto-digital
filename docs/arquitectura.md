@@ -14,7 +14,6 @@ Proyecto educativo-comunitario orientado a:
 
 # Estructura de Carpetas
 
-<<<<<<< HEAD
 punto-digital
 ├── _headers
 ├── assets
@@ -62,7 +61,6 @@ punto-digital
 └── service-worker.js
 
 10 directories, 35 files
-=======
 punto-digital/
 
 ├── index.html
@@ -92,13 +90,11 @@ punto-digital/
 ├── manifest.json
 │
 └── README.md
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
 ---
 
 # Flujo de Navegación
 
-<<<<<<< HEAD
 index-punto-digital.html -> paso-a-paso.html
     ↓
 brecha-digital.html
@@ -112,7 +108,6 @@ desde todas se puede volver al punto digital
 ## tutoriales.js -> [migrar a paso-a-paso.html]
 
 Base de datos de los pasos (tutoriales).
-=======
 Punto Digital
     ↓
 Brecha Digital
@@ -178,7 +173,6 @@ Responsable de:
 ## tutoriales.js
 
 Base de datos de tutoriales.
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
 Contiene:
 
@@ -188,9 +182,7 @@ Contiene:
 
 ---
 
-<<<<<<< HEAD
 ## ui.js [...]
-=======
 ## ui.js
 
 Renderizado dinámico.
@@ -303,4 +295,3 @@ Objetivos:
 - recursos descargables
 - mapas interactivos
 - material docente
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7

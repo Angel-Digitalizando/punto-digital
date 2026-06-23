@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-// ==============================
 // storage.js — Persistencia local (localStorage)
 // Punto Digital Comunitario Morenense
 // DEBE CARGARSE PRIMERO. Sin dependencias externas.
-// ==============================
-=======
-// =========================================================
 // storage.js — Persistencia local (localStorage)
 // Punto Digital Comunitario Morenense
 // ─── DEBE CARGARSE PRIMERO. Sin dependencias externas. ───
-// =========================================================
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
 (function () {
     'use strict';
@@ -34,11 +27,8 @@
         velocidadVoz:        0.88,
     };
 
-<<<<<<< HEAD
     // Utilidades seguras 
-=======
     // ─── Utilidades seguras ───────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function leer(clave) {
         try {
             const raw = localStorage.getItem(clave);
@@ -58,11 +48,8 @@
         }
     }
 
-<<<<<<< HEAD
     // Configuración 
-=======
     // ─── Configuración ────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function obtenerConfiguracion() {
         // Merge con defaults para tolerar keys faltantes en versiones viejas
         return Object.assign({}, CONFIG_DEFAULT, leer(CLAVES.CONFIG) || {});
@@ -73,11 +60,8 @@
         return escribir(CLAVES.CONFIG, Object.assign({}, actual, parcial));
     }
 
-<<<<<<< HEAD
     // Favoritos 
-=======
     // ─── Favoritos ────────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function obtenerFavoritos() {
         return leer(CLAVES.FAVORITOS) || [];
     }
@@ -101,11 +85,8 @@
         return obtenerFavoritos().includes(idClave);
     }
 
-<<<<<<< HEAD
     //  Progreso 
-=======
     // ─── Progreso ─────────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function obtenerProgreso() {
         return leer(CLAVES.PROGRESO) || {};
     }
@@ -126,11 +107,8 @@
         return Object.values(obtenerProgreso()).filter(p => p.completado).length;
     }
 
-<<<<<<< HEAD
     //  Tutorial reciente 
-=======
     // ─── Tutorial reciente ────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function guardarTutorialReciente(idClave) {
         escribir(CLAVES.RECIENTE, { id: idClave, fecha: Date.now() });
     }
@@ -139,11 +117,8 @@
         return leer(CLAVES.RECIENTE);
     }
 
-<<<<<<< HEAD
     // API pública 
-=======
     // ─── API pública ──────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     window.PD_Storage = {
         obtenerConfiguracion,
         guardarConfiguracion,

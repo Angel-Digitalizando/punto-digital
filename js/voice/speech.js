@@ -1,4 +1,3 @@
-// =========================================================
 // voice/speech.js — Lectura guiada paso a paso
 // Punto Digital Comunitario Morenense
 //
@@ -14,7 +13,6 @@
 //   - Agrega #panel-voz al DOM (al pie del body)
 //   - Modifica #btn-voz en barra de accesibilidad
 //   - Agrega clase .paso-leyendo a elementos .paso-tutorial
-// =========================================================
 
 (function () {
     'use strict';

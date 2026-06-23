@@ -1,22 +1,14 @@
-<<<<<<< HEAD
 // components/progressBar.js — Progreso global y badges
 // Punto Digital Comunitario Morenense
-=======
-// =========================================================
 // components/progressBar.js — Progreso global y badges
 // Punto Digital Comunitario Morenense
 //
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 // FIX v2 (Junio 2026):
 //   - Corregida la llave de cierre faltante en inyectarProgresoGlobal()
 //   - actualizarProgreso, BADGES, actualizarBadges y actualizarBotonesMenu
 //     ahora están correctamente en el scope del IIFE, no anidadas adentro
 //     de inyectarProgresoGlobal (que los hacía inaccesibles desde afuera).
 //   - window.PD_Progress se asigna al final del IIFE, no dentro de una fn.
-<<<<<<< HEAD
-=======
-// =========================================================
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
 (function () {
     'use strict';
@@ -25,11 +17,8 @@
         return window.baseDeTutoriales ? Object.keys(window.baseDeTutoriales).length : 8;
     }
 
-<<<<<<< HEAD
 // Inyectar sección de avance global
-=======
     // ─── Inyectar sección de avance global ─────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function inyectarProgresoGlobal() {
         if (document.getElementById('seccion-progreso')) return;
 
@@ -37,11 +26,9 @@
         seccion.id = 'seccion-progreso';
         seccion.className = 'seccion-progreso';
         seccion.setAttribute('aria-label', 'Tu avance general');
-<<<<<<< HEAD
         
         // Dejamos el contenido vacío para que no dibuje la barra de progreso ni las medallas
         seccion.innerHTML = ``;
-=======
         seccion.innerHTML = `
             <h2 class="progreso-titulo">📊 Tu avance</h2>
             <div class="progreso-global-wrap">
@@ -54,7 +41,6 @@
             </div>
             <div id="badges-contenedor" class="badges-contenedor" aria-label="Tus medallas conseguidas"></div>
         `;
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
         // Insertar después de la intro o al final del main
         const intro = document.getElementById('introduccion');
@@ -66,15 +52,12 @@
             main.appendChild(seccion);
         }
     }   // ← llave de cierre correcta de inyectarProgresoGlobal
-<<<<<<< HEAD
         // Insertar después de la intro o al final del main
         const intro = document.getElementById('introduccion');
         const main  = document.getElementById('contenido-principal');
     //  Actualizar la barra y texto 
-=======
 
     // ─── Actualizar la barra y texto ─────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     // NOTA: esta función debe vivir fuera de inyectarProgresoGlobal
     // para ser accesible via window.PD_Progress.actualizarProgreso()
     function actualizarProgreso() {
@@ -98,11 +81,8 @@
         actualizarBadges(completados);
     }
 
-<<<<<<< HEAD
     // Medallas (Badges) con lenguaje sencillo
-=======
     // ─── Medallas (Badges) con lenguaje sencillo ─────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     const BADGES = [
         { min: 1,  icono: '⭐', texto: '¡Primer paso!' },
         { min: 3,  icono: '🌟', texto: '¡Venís bárbaro!' },
@@ -127,11 +107,8 @@
         });
     }
 
-<<<<<<< HEAD
     // Actualizar estado del botón en el menú 
-=======
     // ─── Actualizar estado del botón en el menú ──────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function actualizarBotonesMenu() {
         if (!window.PD_Storage || !window.baseDeTutoriales) return;
 
@@ -152,13 +129,10 @@
         });
     }
 
-<<<<<<< HEAD
     // API pública 
     // Se expone acá, al final del IIFE, donde todas las funciones
-=======
     // ─── API pública ──────────────────────────────────────
     // Se expone aquí, al final del IIFE, donde todas las funciones
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     // están en scope y son accesibles correctamente.
     window.PD_Progress = { inyectarProgresoGlobal, actualizarProgreso, actualizarBotonesMenu };
 

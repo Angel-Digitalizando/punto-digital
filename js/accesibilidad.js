@@ -1,4 +1,3 @@
-// =========================================================
 // accesibilidad.js — Sistema de Accesibilidad Flotante v3
 // Punto Digital Comunitario Morenense
 //
@@ -14,7 +13,6 @@
 // Dependencias en carga: ninguna.
 // Dependencias en runtime: PD_Storage (storage.js), PD_Speech (speech.js),
 //   PD_Toast (toast.js) — todas lazy/opcionales.
-// =========================================================
 
 (function () {
     'use strict';

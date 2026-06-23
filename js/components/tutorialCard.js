@@ -1,21 +1,13 @@
-<<<<<<< HEAD
 // components/tutorialCard.js — Favoritos + completado
 // Punto Digital Comunitario Morenense
-=======
-// =========================================================
 // components/tutorialCard.js — Favoritos + completado
 // Punto Digital Comunitario Morenense
-// =========================================================
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
 (function () {
     'use strict';
 
-<<<<<<< HEAD
     // ─── Inyectar barra de acciones en tutorial abierto ──────────────────────
-=======
     // ─── Inyectar barra de acciones en tutorial abierto ──
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function inyectarAccionesTutorial(idClave) {
         if (!window.PD_Storage) return;
         if (document.getElementById('acciones-tutorial')) return;
@@ -26,11 +18,9 @@
         barra.setAttribute('role', 'toolbar');
         barra.setAttribute('aria-label', 'Acciones del tutorial');
 
-<<<<<<< HEAD
         // Botones vaciados — se mantiene la barra por compatibilidad con el layout
         barra.innerHTML = '';
 
-=======
         const esFav  = window.PD_Storage.esFavorito(idClave);
         const esComp = window.PD_Storage.estaCompletado(idClave);
 
@@ -50,13 +40,11 @@
         `;
 
         // Insertar antes del bloque de pasos
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         const listaPasos = document.getElementById('lista-pasos');
         if (listaPasos) {
             listaPasos.parentNode.insertBefore(barra, listaPasos);
         }
 
-<<<<<<< HEAD
         // Los botones no existen en el DOM, los if los saltan silenciosamente
         const btnFav  = document.getElementById('btn-favorito');
         if (btnFav)  btnFav.addEventListener('click',  () => toggleFavorito(idClave));
@@ -66,7 +54,6 @@
 
         const btnVoz  = document.getElementById('btn-voz-tutorial');
         if (btnVoz)  btnVoz.addEventListener('click',  () => {
-=======
         // Eventos
         document.getElementById('btn-favorito').addEventListener('click', () => {
             toggleFavorito(idClave);
@@ -75,7 +62,6 @@
             toggleCompletado(idClave);
         });
         document.getElementById('btn-voz-tutorial').addEventListener('click', () => {
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
             if (window.PD_Speech) window.PD_Speech.iniciar();
         });
     }
@@ -103,10 +89,7 @@
             );
         }
 
-<<<<<<< HEAD
-=======
         // Actualizar la sección dinámicamente
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         renderSeccionFavoritosDinamica();
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
@@ -136,36 +119,27 @@
         if (window.PD_Progress) window.PD_Progress.actualizarBotonesMenu();
     }
 
-<<<<<<< HEAD
     // ─── Renderizar sección de favoritos ─────────────────────────────────────
-=======
     // ── Adaptador para renderizar la lista de favoritos ──
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function renderSeccionFavoritosDinamica() {
         const contenedor = document.getElementById('contenedor-favoritos');
         if (!contenedor) return;
 
-<<<<<<< HEAD
         const store      = window.PD_Storage;
         const fuenteDatos = window.baseDeTutoriales;
-=======
         const store = window.PD_Storage;
         const fuenteDatos = window.baseDeTutoriales; // Conectado directo a tutoriales.js
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         if (!store || !fuenteDatos) return;
 
         contenedor.innerHTML = '';
 
-<<<<<<< HEAD
         const listaTutoriales = Object.keys(fuenteDatos).map(clave => ({
             id: clave,
             ...fuenteDatos[clave],
-=======
         // Normalizar los datos: convertimos el objeto de tutoriales a una lista iterable
         const listaTutoriales = Object.keys(fuenteDatos).map(clave => ({ 
             id: clave, 
             ...fuenteDatos[clave] 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         }));
 
         const favs = listaTutoriales.filter(t => store.esFavorito(t.id));
@@ -176,45 +150,37 @@
         }
 
         favs.forEach(t => {
-<<<<<<< HEAD
             const card = document.createElement('div');
             card.className = 'tarjeta-tutorial';
-=======
             const textoDetalle = t.detalle || '';
             
             const card = document.createElement('div');
             card.className = 'tarjeta-tutorial';
             
             // Estructura HTML de la tarjeta
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
             card.innerHTML = `
                 <div class="tarjeta-icono">${t.icono || '📖'}</div>
                 <div class="tarjeta-info">
                     <h3>${t.titulo}</h3>
-<<<<<<< HEAD
                     <p>${t.detalle || ''}</p>
                 </div>
             `;
 
-=======
                     <p>${textoDetalle}</p>
                 </div>
             `;
 
             // Botón seguro para abrir el tutorial conectado a ui.js
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
             const btnAbrir = document.createElement('button');
             btnAbrir.className = 'btn-primario';
             btnAbrir.textContent = 'Ver tutorial 📖';
             btnAbrir.setAttribute('aria-label', `Ver tutorial sobre ${t.titulo}`);
-<<<<<<< HEAD
             btnAbrir.addEventListener('click', () => {
                 if (typeof window.mostrarTutorial === 'function') {
                     window.mostrarTutorial(t.id);
                 }
             });
 
-=======
             
             btnAbrir.addEventListener('click', () => {
                 if (typeof window.mostrarTutorial === 'function') {
@@ -225,13 +191,11 @@
             });
 
             // Agregamos el botón dentro de la info de la tarjeta
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
             card.querySelector('.tarjeta-info').appendChild(btnAbrir);
             contenedor.appendChild(card);
         });
     }
 
-<<<<<<< HEAD
     // ─── API pública ──────────────────────────────────────────────────────────
     if (typeof window !== 'undefined') {
         window.PD_TutorialCard = {
@@ -241,7 +205,6 @@
     }
 
 })();
-=======
     // Exponer las funciones globalmente
     if (typeof window !== 'undefined') {
         window.PD_TutorialCard = { 
@@ -251,4 +214,3 @@
     }
 
 })();
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7

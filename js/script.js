@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-// ==================================
 // script.js — Saludo dinámico, año actual, footer interactivo
 // Punto Digital Comunitario Morenense
 // AUDITORÍA v7 (Junio 2026):
 //   - Párrafo empático dinámico agregado (variaciones).
-// ==================================
-=======
-// =========================================================
 // script.js — Saludo dinámico, año actual, footer interactivo
 // Punto Digital Comunitario Morenense
 //
@@ -16,17 +11,12 @@
 //     bloque else { init(); ...código suelto... }.
 //     Esos elementos no existen en el HTML y causaban un SyntaxError
 //     que impedía la carga correcta del archivo.
-// =========================================================
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
 (function () {
     'use strict';
 
-<<<<<<< HEAD
 //  Saludo dinámico y subtítulo aleatorio
-=======
     // ─── Saludo dinámico y subtítulo aleatorio ────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     function aplicarSaludo() {
         var h2 = document.querySelector('.intro h2');
         if (!h2) return;
@@ -41,7 +31,6 @@
         var variaciones = [
             '¿Listo para aprender algo nuevo hoy? 😊',
             'Qué bueno verte por acá. ¿Qué descubrimos hoy? ✨',
-<<<<<<< HEAD
             'Paso a paso, puros conocimientos',
             'Un día más para domar la tecnología juntos. 🤝',
             'Tomate tu tiempo, acá nadie te apura. ☕',
@@ -64,7 +53,6 @@
             '// Aprendizaje paso a paso.',
             '> Iniciar confianza en uno mismo.',
             '// Renderizado completo, deslizar para navegar.',
-=======
             'Paso a paso, sin miedo ni apuro. ¡El conocimiento es tuyo!',
             'Un día más para domar la tecnología juntos. 🤝',
             'Tomate tu tiempo, acá nadie te apura. ☕',
@@ -99,7 +87,6 @@
             '// Compilando guías paso a paso para el usuario...',
             '> systemctl start confianza_en_uno_mismo.service',
             '// Renderizando interfaz amigable para el vecino.',
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         ];
 
         var fraseAleatoria = variaciones[Math.floor(Math.random() * variaciones.length)];
@@ -113,7 +100,6 @@
 
         var sub = document.createElement('span');
         sub.textContent = fraseAleatoria;
-<<<<<<< HEAD
         
         // Estilos para que se ajuste al ancho del celular
         sub.style.cssText = 'font-size:0.75em; display:block; margin-top:8px; line-height: 1.3; word-wrap: break-word;';
@@ -128,20 +114,17 @@
             sub.style.borderRadius = '4px';
         } else {
             sub.style.color = '#555';
-=======
         sub.style.cssText = 'font-size:0.8em;color:#555;display:block;margin-top:5px;';
 
         if (fraseAleatoria.indexOf('>') === 0 || fraseAleatoria.indexOf('//') === 0) {
             sub.style.fontFamily = 'monospace, Courier New, serif';
             sub.style.color      = '#00838F';
             sub.style.fontWeight = 'bold';
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         }
 
         h2.appendChild(sub);
     }
 
-<<<<<<< HEAD
     // ─── Párrafo empático dinámico (14 Variaciones) ───────
     function aplicarParrafoEmpatico() {
         var parrafo = document.querySelector('.intro p');
@@ -168,8 +151,6 @@
         parrafo.innerHTML = pAleatorio;
     }
 
-=======
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     // ─── Año actual ───────────────────────────────────────
     function aplicarAnio() {
         var span = document.getElementById('anio-actual');
@@ -308,10 +289,7 @@
     function init() {
         aplicarAnio();
         aplicarSaludo();
-<<<<<<< HEAD
         aplicarParrafoEmpatico(); /* <-- ¡Acá está la magia nueva! */
-=======
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         inicializarFooter();
         inicializarHeaderInicio();
         inicializarCompartirFlotante();
@@ -325,12 +303,9 @@
 
 })();
 
-// =========================================================
 // MENÚ HAMBURGUESA + DRAWER + BUSCADOR INTERNO + TOOLTIP
 // + VOLVER ARRIBA
-<<<<<<< HEAD
 // v6 (Junio 2026) — Adaptación de Bienvenida por Dispositivo
-=======
 // v5 (Junio 2026) — reescritura completa del módulo
 //
 // FIXES aplicados:
@@ -339,21 +314,16 @@
 //   - Removido btn.focus() en cerrarDrawer() (causaba re-scroll en mobile)
 //   - Guard flag procesando para evitar doble disparo
 //   - Buscador interno en el drawer con resultados en tiempo real
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
-// =========================================================
 
 (function () {
     'use strict';
 
     var CLAVE_TOOLTIP = 'pd_tooltip_nav_visto';
-<<<<<<< HEAD
     var _procesando   = false;
 
-=======
     var _procesando   = false; // guard anti-doble-disparo
 
     // ── Refs cacheadas (se resuelven en init, no en cada llamada) ──
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     var $drawer, $overlay, $btnHam, $inputDrawer, $listaResultados;
 
     // ─────────────────────────────────────────────────────
@@ -368,11 +338,8 @@
         $btnHam.classList.add('ham-abierto');
         $btnHam.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
-<<<<<<< HEAD
-=======
         // No uses focus() sobre ningún elemento al abrir el drawer.
         // El usuario decide si toca el buscador o navega manualmente.
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     }
 
     function cerrarDrawer() {
@@ -383,11 +350,8 @@
         $btnHam.classList.remove('ham-abierto');
         $btnHam.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
-<<<<<<< HEAD
-=======
         // NO llamamos focus() aquí — en mobile causa scroll indeseado
         // El foco vuelve naturalmente al elemento anterior
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     }
 
     function toggleDrawer() {
@@ -404,10 +368,7 @@
 
     // ─────────────────────────────────────────────────────
     // BUSCADOR INTERNO DEL DRAWER
-<<<<<<< HEAD
-=======
     // Filtra tutoriales en tiempo real, muestra hasta 6 resultados
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     // ─────────────────────────────────────────────────────
 
     function buscarEnDrawer(texto) {
@@ -536,59 +497,44 @@
 
         if (!$drawer || !$btnHam) return;
 
-<<<<<<< HEAD
-=======
         // ── Hamburger toggle ──────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         $btnHam.addEventListener('click', function (e) {
             e.stopPropagation();
             toggleDrawer();
         });
 
-<<<<<<< HEAD
         var btnCerrar = document.getElementById('btn-cerrar-drawer');
         if (btnCerrar) {
             btnCerrar.addEventListener('click', function (e) {
                 e.stopPropagation();
-=======
         // ── Botón X dentro del drawer ─────────────────────
         var btnCerrar = document.getElementById('btn-cerrar-drawer');
         if (btnCerrar) {
             btnCerrar.addEventListener('click', function (e) {
                 e.stopPropagation(); // ← impide que el click suba al overlay
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
                 cerrarDrawer();
             });
         }
 
-<<<<<<< HEAD
         if ($overlay) {
             $overlay.addEventListener('click', function (e) {
-=======
         // ── Overlay (clic fuera del panel) ────────────────
         if ($overlay) {
             $overlay.addEventListener('click', function (e) {
                 // Solo cerrar si el clic es directamente en el overlay,
                 // no en un hijo (el panel del drawer)
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
                 if (e.target === $overlay) cerrarDrawer();
             });
         }
 
-<<<<<<< HEAD
-=======
         // ── Escape ────────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && $btnHam.classList.contains('ham-abierto')) {
                 cerrarDrawer();
             }
         });
 
-<<<<<<< HEAD
-=======
         // ── Focus trap ────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         $drawer.addEventListener('keydown', function (e) {
             if (e.key !== 'Tab' || !$btnHam.classList.contains('ham-abierto')) return;
             var focusables = Array.from(
@@ -606,10 +552,7 @@
             }
         });
 
-<<<<<<< HEAD
-=======
         // ── Items de navegación ────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         $drawer.querySelectorAll('.drawer-item[data-accion]').forEach(function (item) {
             item.addEventListener('click', function (e) {
                 e.stopPropagation();
@@ -618,10 +561,7 @@
             });
         });
 
-<<<<<<< HEAD
-=======
         // ── Buscador interno ──────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         if ($inputDrawer) {
             $inputDrawer.addEventListener('input', function () {
                 buscarEnDrawer($inputDrawer.value);
@@ -634,10 +574,7 @@
             });
         }
 
-<<<<<<< HEAD
-=======
         // ── Filtros de categoría en el drawer ─────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         $drawer.querySelectorAll('.drawer-cat-btn').forEach(function (catBtn) {
             catBtn.addEventListener('click', function (e) {
                 e.stopPropagation();
@@ -657,7 +594,6 @@
         });
     }
 
-<<<<<<< HEAD
     // HERRAMIENTA DE CONSEJO DE PRIMERA VEZ (AUDITADO)
 
     function cerrarConsejoInicial() {
@@ -671,7 +607,6 @@
         el.setAttribute('aria-hidden', 'true');
         try { localStorage.setItem(CLAVE_TOOLTIP, '1'); } catch (_) {}
     }
-=======
     // ─────────────────────────────────────────────────────
     // HERRAMIENTA DE CONSEJO DE PRIMERA VEZ
     // ─────────────────────────────────────────────────────
@@ -692,16 +627,12 @@
 
     // Alias interno — conserva compatibilidad con llamadas previas
     var cerrarTooltip = cerrarConsejoInicial;
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
     function initConsejoInicial() {
         var el = document.getElementById('tooltip-nav');
         if (!el) return;
 
-<<<<<<< HEAD
-=======
         // Si ya fue visto: ocultar de inmediato sin animar
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         var yaVisto = false;
         try { yaVisto = localStorage.getItem(CLAVE_TOOLTIP) === '1'; } catch (_) {}
         if (yaVisto) {
@@ -710,7 +641,6 @@
             return;
         }
 
-<<<<<<< HEAD
 // AUDITORÍA: Adaptar texto dinámicamente según pantalla móvil o escritorio
         var txtContenedor = el.querySelector('.tooltip-texto') || el;
         var esMovil = window.innerWidth < 768;
@@ -742,7 +672,6 @@
     }
 
 // BOTÓN VOLVER ARRIBA
-=======
         // ── Botón X ───────────────────────────────────────
         // Se busca el elemento en el momento de registrar el listener,
         // NO se depende de variables externas ($btnHam puede no existir aún).
@@ -789,7 +718,6 @@
     // ─────────────────────────────────────────────────────
     // BOTÓN VOLVER ARRIBA
     // ─────────────────────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 
     function initVolverArriba() {
         var btn = document.getElementById('btn-volver-arriba');
@@ -808,12 +736,10 @@
             });
         }, { passive: true });
     }
-<<<<<<< HEAD
 // INIT
     function initNavExtras() {
         initDrawer();
         initConsejoInicial();
-=======
 
     // ─────────────────────────────────────────────────────
     // INIT
@@ -822,7 +748,6 @@
     function initNavExtras() {
         initDrawer();
         initConsejoInicial();   // Herramienta de Consejo de Primera Vez
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         initVolverArriba();
     }
 
@@ -832,8 +757,5 @@
         initNavExtras();
     }
 
-<<<<<<< HEAD
 })();
-=======
 })();
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7

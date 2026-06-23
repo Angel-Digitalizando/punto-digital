@@ -1,4 +1,3 @@
-// =========================================================
 // pwa.js — Service Worker + indicador de conexión
 // Punto Digital Comunitario Morenense
 //
@@ -13,7 +12,6 @@
 //   - Registra event listeners 'online' y 'offline' en window
 //   - Inserta #indicador-conexion en el DOM (dentro de <main>)
 //   - Registra el service worker en window.load
-// =========================================================
 
 (function () {
     'use strict';

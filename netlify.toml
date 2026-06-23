@@ -1,7 +1,5 @@
-# =========================================================
 # netlify.toml — Configuración de despliegue para Netlify
 # No requiere ningún paso de build — es HTML/CSS/JS puro.
-# =========================================================
 
 [build]
   # Sin comando de build — se despliega tal cual.

@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-// ===================================
 // tutoriales.js - Base de datos de tutoriales
 // Punto Digital Comunitario Morenense
-// ===================================
 const baseDeTutoriales = {
     // CATEGORÍA: tramites
-=======
-// =========================================================
 // tutoriales.js — Base de datos de tutoriales
 // Punto Digital Comunitario Morenense
-// =========================================================
 
 const baseDeTutoriales = {
 
@@ -17,7 +11,6 @@ const baseDeTutoriales = {
     // CATEGORÍA: tramites
     // ══════════════════════════════════════════════════════
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     correo: {
         categoria: 'tramites',
         nivel:     'basico',
@@ -42,17 +35,14 @@ const baseDeTutoriales = {
         nivel:     'basico',
         titulo:    "Sacar un Turno en ANSES",
         icono:     "🏛️",
-<<<<<<< HEAD
         detalle:   "Desde tu celular podés pedir un turno. Seguí estos pasos.",
         pasos: [
             "Ahora mismo estás en una página de Internet, al escanear el código <strong>QR</strong> accediste directamente a este Punto Digital.",
             "Podés descargar la aplicación de <strong>ANSES</strong> en la tienda de tu celular, o en el buscador del navegador si estás en una <strong>conexión segura</strong>, o tocá este botón para entrar a la página oficial: <button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar','_blank','noopener,noreferrer')\">👉ANSES</button>",
-=======
         detalle:   "¡Olvidate de madrugar y hacer cola! Desde tu celular podés pedir un turno tranquilo desde casa. Seguí estos pasos despacito.",
         pasos: [
             "Primero agarrá tu celular y abrí Internet. Generalmente el navegador se llama <strong>Google Chrome</strong> y tiene un circulito de colores.",
             "Escribí <strong>ANSES</strong> en el buscador, o tocá este botón para entrar seguro a la página oficial: <button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar','_blank','noopener,noreferrer')\">👉 Ir directo a ANSES</button>",
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
             "Cuando cargue la página bajá un poquito con el dedo hasta encontrar un botón que diga <strong>'Turnos'</strong> o <strong>'Solicitar Turno'</strong>. Tocá ahí.",
             "Elegí el trámite que necesitás. Los más comunes: <div style='display:flex;flex-direction:column;gap:10px;margin-top:15px'><button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar/jubilaciones-y-pensiones','_blank')\">👵 Jubilaciones y Pensiones</button><button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar/asignacion-universal-por-hijo','_blank')\">👶 Asignación Universal por Hijo</button><button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar/prestacion-por-desempleo','_blank')\">💼 Fondo de Desempleo</button><button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar','_blank')\">🔎 Ver todos los turnos</button></div>",
             "Te va a pedir tu número de <strong>CUIL</strong>. Son 11 números. Escribilos sin puntos ni guiones.",
@@ -158,15 +148,12 @@ const baseDeTutoriales = {
         ],
         nota: "💡 Si el proceso falla varias veces, no te preocupes. Podés intentarlo de nuevo más tarde o pedirle a alguien de confianza que te ayude. También podés ir directamente a la oficina del organismo con tu DNI físico."
     },
-<<<<<<< HEAD
     // CATEGORÍA: cuidado
-=======
 
     // ══════════════════════════════════════════════════════
     // CATEGORÍA: cuidado
     // ══════════════════════════════════════════════════════
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     evitar_estafas: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -174,20 +161,17 @@ const baseDeTutoriales = {
         icono:     "🛡️",
         detalle:   "Aprendé a reconocer mensajes falsos, enlaces peligrosos y cómo proteger tus cuentas para que no te roben plata ni datos.",
         pasos: [
-<<<<<<< HEAD
             "<strong>Desconfiá de ofertas desesperadas o premios falsos:</strong> Si te llega un mensaje diciendo que ganaste un sorteo en el que no participaste, o que te van a dar un bono urgente, desconfiá. Jamás te van a apurar por canales oficiales.",
             "<strong>Mirar bien los enlaces (links), o (url):</strong> Antes de tocar, revisá bien las letras de la dirección web. Los estafadores usan nombres parecidos pero con errores (por ejemplo, 'banc0nacion' en vez de 'bancoficial'). Si no es el sitio oficial, salí de ahí.",
             "<strong>Jamás des códigos de verificación por WhatsApp:</strong> Si te llaman por teléfono o te escriben pidiéndote el código de 6 números que te llegó por SMS (diciendo que es para un turno de vacunación o una entrega), NO SE LO DES A NADIE. Es el código para robarte el WhatsApp."
         ]
     },
-=======
             "<strong>Desconfiá de ofertas desesperadas o premios falsos:</strong> Si te llega un mensaje diciendo que ganaste un sorteo en el que no participaste, o que te van a dar un bono urgente, desconfiá. Nunca te van a apurar por canales oficiales.",
             "<strong>Mirar bien los enlaces (Links):</strong> Antes de hacer clic, revisá bien las letras de la dirección web. Los estafadores usan nombres parecidos pero con errores (por ejemplo, 'banc0nacion' en vez de 'bancoficial'). Si no es el sitio oficial, salí de ahí.",
             "<strong>Nunca des códigos de verificación por WhatsApp:</strong> Si te llaman por teléfono o te escriben pidiéndote el código de 6 números que te llegó por SMS (diciendo que es para un turno de vacunación o una entrega), NO SE LO DES A NADIE. Es el código para robarte el WhatsApp."
         ]
     },
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     cuidado_dispositivo: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -204,10 +188,7 @@ const baseDeTutoriales = {
         ],
         nota: "💡 Reiniciar el celular (apagarlo y volverlo a prender) una vez por semana es el mejor mantenimiento gratuito que existe. Acomoda el sistema y soluciona el 90% de las trabadas misteriosas."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     paginas_oficiales: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -223,10 +204,7 @@ const baseDeTutoriales = {
         ],
         nota: "🛡️ Las páginas del gobierno argentino terminan en <strong>.gob.ar</strong> — siempre. Si la dirección termina diferente (.com, .net, .org) no es una página oficial."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     datos_personales: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -242,10 +220,7 @@ const baseDeTutoriales = {
         ],
         nota: "💬 Pedir ayuda no es una debilidad. Si recibís algo raro o no estás seguro/a de algo, consultá con alguien antes de actuar."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     mensajes_raros: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -261,10 +236,7 @@ const baseDeTutoriales = {
         ],
         nota: "🧘 La urgencia es una trampa. Los estafadores quieren que actúes rápido, sin pensar. Respirá, consultá, y recién después decidí."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     contrasenas_seguras: {
         categoria: 'cuidado',
         nivel:     'basico',
@@ -280,16 +252,13 @@ const baseDeTutoriales = {
         ],
         nota: "📒 Un cuadernito con tus contraseñas en casa es perfectamente válido y muy seguro — siempre que no lo dejes a la vista ni lo lleves en la cartera."
     },
-<<<<<<< HEAD
     // CATEGORÍA: inteligencia_artificial
-=======
 
 
     // ══════════════════════════════════════════════════════
     // CATEGORÍA: inteligencia_artificial
     // ══════════════════════════════════════════════════════
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     que_es_ia: {
         categoria: 'inteligencia_artificial',
         nivel:     'basico',
@@ -311,18 +280,15 @@ const baseDeTutoriales = {
              "<strong>La creatividad sigue siendo humana:</strong> La IA puede ayudar a encontrar palabras, ordenar ideas o generar borradores, pero las historias, recuerdos, emociones y experiencias reales siguen naciendo de las personas. La tecnología puede acompañar la escritura, pero no reemplaza la mirada única de cada ser humano.",
              "<strong>Animate a probar:</strong> Podés empezar con preguntas sencillas como: 'explicame qué es una factura', 'ayudame a organizar mis gastos', 'haceme una lista de compras económica' o 'explicame este trámite paso a paso'. La mejor manera de entender una herramienta es usarla.",
              ],
-<<<<<<< HEAD
         nota: "💡 La inteligencia artificial puede ser para aprender, organizar ideas y resolver dudas. Igual, las decisiones más importantes siempre deben pasar por el criterio, la experiencia y la revisión de los humanos."
 
     },
-=======
 
         nota: "💡 La inteligencia artificial puede ser una gran compañera para aprender, organizar ideas y resolver dudas. Sin embargo, las decisiones importantes siempre deben pasar por el criterio, la experiencia y la revisión de las personas."
 
     },
 
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
         primeros_prompts: {
             categoria: 'inteligencia_artificial',
             nivel:     'basico',
@@ -341,11 +307,9 @@ const baseDeTutoriales = {
                 "<strong>La tecnología y las personas.</strong> Las herramientas digitales cambian con el tiempo, pero las grandes preguntas humanas siguen acompañándonos desde hace siglos. La tecnología puede ayudar a explorarlas, pero el significado que encontramos en ellas continúa siendo una construcción personal y colectiva.",
                 "<strong>Un buen comienzo.</strong> Si no sabés qué preguntar, empezá por algo simple: '¿Qué puedo aprender hoy que no sabía ayer?'. Muchas veces una sola pregunta abre la puerta a decenas de descubrimientos."
                   ],
-<<<<<<< HEAD
     nota: "💡 Una inteligencia artificial puede acompañar tu aprendizaje, pero las preguntas más importantes suelen crecer con la experiencia, la observación, la lectura, la conversación y el tiempo."
     },
 // CATEGORÍA: usos_tecnologia
-=======
 
     nota: "💡 Una inteligencia artificial puede acompañar tu aprendizaje, pero las preguntas más importantes suelen crecer con la experiencia, la observación, la lectura, la conversación y el tiempo."
     },
@@ -355,7 +319,6 @@ const baseDeTutoriales = {
     // CATEGORÍA: usos_tecnologia
     // ══════════════════════════════════════════════════════
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     escanear_qr: {
         categoria: 'usos_tecnologia',
         nivel:     'basico',
@@ -371,10 +334,7 @@ const baseDeTutoriales = {
         ],
         nota: "⚠️ <strong>Consejo de seguridad:</strong> Nunca descargues aplicaciones que se llamen 'Lector de QR' desde la Play Store. Suelen venir repletas de publicidades engañosas que te vuelven lento el celular, cuidado con eso."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     lupa_digital: {
         categoria: 'usos_tecnologia',
         nivel:     'basico',
@@ -388,10 +348,7 @@ const baseDeTutoriales = {
             "<strong>Congelar la imagen para leer cómodo:</strong> Si te tiembla el pulso y la letra se mueve, sacale una foto al texto. Después, andá a la galería de fotos, abrí esa imagen y agrandala tranquilo con los dos dedos sin necesidad de estar apuntando al papel."
         ]
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     gestion_archivos: {
         categoria: 'usos_tecnologia',
         nivel:     'intermedio',
@@ -407,10 +364,7 @@ const baseDeTutoriales = {
         ],
         nota: "💡 <strong>Consejo:</strong> Si conectás el celu a la compu por cable USB, la computadora lo verá como una memoria externa. Ahí sí, navegá como si fuera una carpeta más de Windows."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     uso_navegador_seguro: {
         categoria: 'usos_tecnologia',
         nivel:     'intermedio',
@@ -429,10 +383,7 @@ const baseDeTutoriales = {
         ],
         nota: "⚠️ <strong>Dato clave:</strong> Por dentro, Brave está construido con las mismas piezas que otros navegadores conocidos. Esto significa que si ya sabías entrar a internet antes, vas a saber usar este de inmediato, sintiéndote mucho más cuidado."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     copia_seguridad: {
         categoria: 'usos_tecnologia',
         nivel:     'intermedio',
@@ -448,10 +399,7 @@ const baseDeTutoriales = {
         ],
         nota: "💡 Acordate: para que todo esto funcione y puedas recuperar tus cosas en otro teléfono, ¡es vital que sepas tu dirección de correo electrónico y tu contraseña!"
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     organizacion_pantallas: {
         categoria: 'personalizacion',
         nivel:     'intermedio',
@@ -468,10 +416,7 @@ const baseDeTutoriales = {
         ],
         nota: "💡 ¿Sabías qué? Las grandes empresas de tecnología gastan millones investigando cómo hacer que encuentres todo más rápido."
     },
-<<<<<<< HEAD
-=======
 
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     servicios: {
         categoria: 'comunidad',
         nivel:     'intermedio',
@@ -479,23 +424,17 @@ const baseDeTutoriales = {
         icono:     '🚌',
         detalle:   'Accedé directo a las herramientas que necesitás para moverte y gestionar tus papeles sin vueltas.',
         pasos: [
-<<<<<<< HEAD
-=======
             "<button class='btn-paso' onclick=\"window.open('https://www.laperlita.com.ar/','_blank')\">🚌 La Perlita (Horarios y recorridos)</button>",
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
             "<button class='btn-paso' onclick=\"window.open('https://mi.argentina.gob.ar/','_blank')\">🇦🇷 Mi Argentina (DNI, trámites y credenciales)</button>",    
             "<button class='btn-paso' onclick=\"window.open('https://www.anses.gob.ar/','_blank')\">🏛️ ANSES (Jubilaciones y Asignaciones)</button>",
             "<button class='btn-paso' onclick=\"window.open('http://www.moreno.gob.ar/','_blank')\">🏠 Municipio de Moreno (Servicios Locales)</button>",
         ],
-<<<<<<< HEAD
         nota: "💡 Estos enlaces te llevan a las páginas oficiales. Recordá jamás compartir tus claves privadas en lugares públicos."
     }
 };          
-=======
         nota: "💡 Estos enlaces te llevan a las páginas oficiales. Recordá nunca compartir tus claves personales en lugares públicos."
     }
 };                                                                                                       
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 // FUERZA LA EXPOSICIÓN GLOBAL (REQUERIDO POR UI.JS)
  window.baseDeTutoriales = baseDeTutoriales;
  console.log("Tutoriales cargados correctamente en window:", window.baseDeTutoriales);

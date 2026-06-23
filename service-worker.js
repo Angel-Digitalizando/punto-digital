@@ -1,40 +1,29 @@
-<<<<<<< HEAD
 // v20 (Junio 2026): Nueva arquitectura paso-a-paso separada
 const CACHE_VERSION = 'punto-digital-v21'; // 🌟 ¡Subimos la versión!¡nueva actualización!
-=======
-// =========================================================
 // service-worker.js — Punto Digital Comunitario Morenense
 //
 // v19 (Junio 2026): menú hamburguesa + drawer, tooltip primera visita,
 // botón volver arriba con SVG, fixes de contraste y tipografía.
-// =========================================================
 
 // v20 (Junio 2026): menú hamburguesa, drawer, tooltip primera vez,
 // botón volver arriba mejorado, fixes UX/contraste/tipografía.
 const CACHE_VERSION = 'punto-digital-v19';
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 const CACHE_NOMBRE  = CACHE_VERSION + '-assets';
 
 const ASSETS_PRECACHE = [
     './',
     './index.html',
-<<<<<<< HEAD
     './paso-a-paso.html', // 🌟 Nuevo
-=======
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     './offline.html',
     './css/style.css',
     './js/storage.js',
     './js/tutoriales.js',
-<<<<<<< HEAD
     './js/paso-a-paso.js', // 🌟 Nuevo
     './js/components/toast.js',
     './js/components/progressBar.js',
-=======
     './js/components/toast.js',
     './js/components/progressBar.js',
     './js/components/tutorialCard.js',
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     './js/voice/speech.js',
     './js/ui.js',
     './js/accesibilidad.js',
@@ -47,12 +36,9 @@ const ASSETS_PRECACHE = [
     './assets/icons/icon-192.png',
     './assets/icons/icon-512.png',
 ];
-<<<<<<< HEAD
 // Instalación 
-=======
 
 // ── Instalación ──────────────────────────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 self.addEventListener('install', function (event) {
     event.waitUntil(
         caches.open(CACHE_NOMBRE)
@@ -61,11 +47,8 @@ self.addEventListener('install', function (event) {
     );
 });
 
-<<<<<<< HEAD
 // Activación: limpiar caches viejos 
-=======
 // ── Activación: limpiar caches viejos ────────────────────
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches.keys()
@@ -80,11 +63,8 @@ self.addEventListener('activate', function (event) {
     );
 });
 
-<<<<<<< HEAD
 // Fetch: Network-First para JS, Cache-First para el resto 
-=======
 // ── Fetch: Network-First para JS, Cache-First para el resto ─
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
 self.addEventListener('fetch', function (event) {
     if (event.request.method !== 'GET') return;
 

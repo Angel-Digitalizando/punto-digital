@@ -1,8 +1,6 @@
-# =========================================================
 # _headers — Headers HTTP para Cloudflare Pages y Netlify
 # GitHub Pages no soporta este archivo, pero no lo ignora
 # — simplemente no lo usa. No afecta el funcionamiento.
-# =========================================================
 
 /*
   X-Content-Type-Options: nosniff
