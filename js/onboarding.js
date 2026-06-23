@@ -12,13 +12,9 @@
     'use strict';
 
     var CLAVE_STORAGE = 'pd_onboarding_visto';
-<<<<<<< HEAD
     var pasoActual = 1;
     var categoriaElegida = null;
     var elementoPrevioAlFoco = null; // Para devolver el foco al cerrar
-=======
-
->>>>>>> 8230700b7d26817c0737ce86af4f707d9dca87c7
     // ── ¿Ya vio el onboarding? ────────────────────────────
     function yaVio() {
         try {

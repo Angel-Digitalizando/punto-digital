@@ -1,13 +1,11 @@
-// v20 (Junio 2026): Nueva arquitectura paso-a-paso separada
-const CACHE_VERSION = 'punto-digital-v21'; // 🌟 ¡Subimos la versión!¡nueva actualización!
 // service-worker.js — Punto Digital Comunitario Morenense
-//
-// v19 (Junio 2026): menú hamburguesa + drawer, tooltip primera visita,
+// v23 (Junio 2026): Nueva arquitectura paso-a-paso separada
+// 🌟 ¡Subimos la versión!¡nueva actualización!
+// v21 (Junio 2026): menú hamburguesa + drawer, tooltip primera visita,
 // botón volver arriba con SVG, fixes de contraste y tipografía.
-
 // v20 (Junio 2026): menú hamburguesa, drawer, tooltip primera vez,
 // botón volver arriba mejorado, fixes UX/contraste/tipografía.
-const CACHE_VERSION = 'punto-digital-v19';
+const CACHE_VERSION = 'punto-digital-v23';
 const CACHE_NOMBRE  = CACHE_VERSION + '-assets';
 
 const ASSETS_PRECACHE = [
