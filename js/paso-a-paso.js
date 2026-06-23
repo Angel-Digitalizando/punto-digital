@@ -157,7 +157,7 @@
             notaHtml +
 
             // Botón volver al inicio
-            '<a href="../index-punto-digital.html"' +
+            '<a href="../index.html"' +
             ' id="btn-finalizar-tutorial"' +
             ' class="btn-finalizar"' +
             ' aria-label="Terminé de leer este tutorial, volver al inicio">' +
