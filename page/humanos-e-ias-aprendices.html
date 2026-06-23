@@ -734,63 +734,49 @@ y cómo me podés ayudar en mi día a día?"</span></code></pre>
   <div class="container">
 
     <nav class="footer-nav-paginas" aria-label="Navegación entre páginas del proyecto">
-      <a href="../index-punto-digital.html" class="footer-nav-btn">
-        🌐 Punto Digital
-      </a>
+      <a href="../index.html" class="footer-nav-btn">🌐 Inicio</a>
       <span class="footer-nav-sep" aria-hidden="true">›</span>
-      <a href="./brecha-digital.html" class="footer-nav-btn">
-        📋 Brecha Digital
-      </a>
+      <a href="../brecha-digital.html" class="footer-nav-btn">📋 Brecha Digital</a>
       <span class="footer-nav-sep" aria-hidden="true">›</span>
-      <span class="footer-nav-actual" aria-current="page">
-        🤖 Humanos e IA
-      </span>
+      <span class="footer-nav-actual" aria-current="page">🤖 Humanos e IA</span>
     </nav>
 
-    <p style="margin-top: 20px;">Punto Digital 🌐<br>
-       Espacios de Alfabetización y Educación Digital</p>
-
-    <div style="margin-top:15px; border-top:1px solid #444; padding-top:15px; font-size:0.9rem; text-align: center;">
-        
-        <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 10px; font-style: italic;">
-            💡 <strong>Consejo:</strong> Tocá sobre cualquier texto marcado en azul para copiarlo y pegarlo donde necesites (mapas, buscadores o chats).
-        </p>
-
-        <p style="margin:8px 0;">
-            📍 <strong>Dirección de la Escuela:</strong><br>
-            <span id="texto-direccion"
-                  style="cursor:pointer; color:#3C9DD9; font-weight:bold; display:block; padding:5px 0;"
-                  title="Tocá para copiar"
-                  aria-label="Argentina, Buenos Aires, Moreno, Escuela Nº1, Uruguay 53.">
-                Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.
-            </span>
-        </p>
-
-        <p style="margin:8px 0;">
-            📚 <strong>Nombre del Autor:</strong><br>
-            <span id="texto-autor"
-                  style="cursor:pointer; color:#3C9DD9; font-weight:bold; display:block; padding:5px 0;"
-                  title="Tocá para copiar el nombre del autor">
-                Angel Nicolás Villegas
-            </span>
-            <span style="display:block; font-size:0.8rem; color:#888; margin-top:2px;">
-                CENS 453 · En unión y libertad, junto a mis hermanos/as.
-            </span>
-        </p>            
-
-        <p style="margin-top:15px; font-size:0.8rem; color:#888;">
-            © <span id="anio-actual"></span> Todos los derechos reservados.<br>
-            Parte del proyecto del <a href="https://fines.educacion.gob.ar/#" style="color:#3C9DD9; text-decoration: none;">Plan FinEs (Programa de Finalización de Estudios Primarios y Secundarios)</a>
-        </p>
+    <div class="footer-info-proyecto">
+      <p><strong>Punto Digital 🌐</strong><br>
+      Espacios de Alfabetización y Educación Digital</p>
     </div>
 
-    <div style="margin-top:12px; text-align: center;">
-        <button
+    <div class="footer-detalles">
+        
+        <p class="footer-consejo">
+            💡 <strong>Consejo:</strong> Tocá sobre cualquier texto marcado en azul para copiarlo.
+        </p>
+
+        <div class="footer-contacto">
+            <p>📍 <strong>Dirección de la Escuela:</strong></p>
+            <span class="texto-copiable" id="texto-direccion" 
+                  aria-label="Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.">
+                Argentina, Buenos Aires, Moreno, Escuela Pública Nº1, Uruguay 53.
+            </span>
+        </div>
+
+        <div class="footer-autor">
+            <p>📚 <strong>Autor:</strong></p>
+            <span class="texto-copiable" id="texto-autor">Angel Nicolás Villegas</span>
+            <small class="footer-subtexto">CENS 453 · En unión y libertad, junto a mis hermanos/as.</small>
+        </div>            
+
+        <div class="footer-legal">
+            <p>© <span id="anio-actual"></span> Todos los derechos reservados.<br>
+            Proyecto enmarcado en el <a href="https://fines.educacion.gob.ar/" target="_blank" rel="noopener">Plan FinEs</a></p>
+        </div>
+    </div>
+
+    <div class="footer-acciones">
+        <button class="btn-secundario"
             onclick="if(window.PD_Onboarding){window.PD_Onboarding.resetear();window.PD_Onboarding.mostrar();}"
-            style="background:none; border:1px solid #444; border-radius:5px; color:#ccc; cursor:pointer;
-                   font-size:0.85rem; padding:8px 12px; margin-top:10px;"
             aria-label="Ver nuevamente la bienvenida de la aplicación">
-            🔁 Ver la bienvenida
+             Ver bienvenida
         </button>
     </div>
   </div>
