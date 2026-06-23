@@ -1,7 +1,7 @@
 {
   "name": "Punto Digital Comunitario Morenense",
   "short_name": "Punto Digital",
-  "description": "Tutoriales paso a paso para hacer trámites digitales. Accesible, offline, para vecinos de Moreno.",
+  "description": "Paso a paso para tus trámites digitales.",
   "start_url": "/punto-digital/index.html",
   "scope": "/punto-digital/",
   "display": "standalone",
