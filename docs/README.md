@@ -1,6 +1,7 @@
 # 🌐 Punto Digital Comunitario Morenense
 
-> **Una guía práctica para resolver trámites y emergencias en Moreno, sin depender de internet.**
+> **Parte de un proyecto educativo.**
+> **Enlace a la página: https://angel-digitalizando.github.io/punto-digital/**
 
 Este proyecto es una herramienta educativa creada por estudiantes. Su objetivo es cerrar la **brecha digital** en nuestra comunidad, permitiendo que cualquier persona realice trámites del gobierno y llame a emergencias incluso si no tiene datos móviles o WiFi.
 
